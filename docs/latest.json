@@ -1,20 +1,10 @@
 {
-  "status": "success",
-  "generated_at": "2026-07-13T14:07:16+00:00",
-  "market_data_date": "2026-07-13",
-  "row_count": 150,
-  "universe_count": 2660,
-  "usable_ticker_count": 2630,
-  "liquid_ticker_count": 2134,
-  "failed_ticker_count": 0,
-  "failed_tickers_sample": [],
-  "data_coverage": 0.988722,
-  "universe_source": "yahoo_screener",
+  "status": "failed",
+  "attempted_at": "2026-07-13T19:50:48+00:00",
+  "failure_reason": "価格調整後データに異常値があります。 sample=[{'ticker': 'KLAC', 'return_21d': 9.821877847377872, 'max_daily_move_21d': 9.554642970760252, 'max_gap_21d': 8.852216942011237}, {'ticker': 'CRWD', 'return_21d': 3.6437286477977215, 'max_daily_move_21d': 3.0164608676448426, 'max_gap_21d': 2.9600384563983364}, {'ticker': 'SLBT', 'return_21d': -0.5123711224658439, 'max_daily_move_21d': 1.669669833934654, 'max_gap_21d': 2.366366454949054}]",
+  "latest_csv_updated": false,
+  "last_successful_market_date": "2026-07-13",
+  "last_successful_archive_file": "archive/screening_2026-07-13.csv",
   "csv_file": "latest.csv",
-  "archive_file": "archive/screening_2026-07-13.csv",
-  "schema_version": "1.0",
-  "price_return_definition": "split-adjusted price return excluding dividends",
-  "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
-  "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
-  "repository": "Hughey-T/Daily-US-Stock-Screen"
+  "schema_version": "1.1"
 }
