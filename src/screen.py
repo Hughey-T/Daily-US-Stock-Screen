@@ -661,30 +661,83 @@ def download_required_benchmark(
     return fallback
 
 
-def prepare_history(frame: pd.DataFrame) -> pd.DataFrame:
-    work = frame.copy()
-    work.columns = [str(column) for column in work.columns]
-    work.index = pd.to_datetime(work.index, errors="coerce").tz_localize(None)
-    work = work[~work.index.isna()].sort_index()
+def prepare_history(
+    frame: pd.DataFrame,
+) -> pd.DataFrame:
+    """Yahooの日次価格を計算用の統一列へ変換する。"""
 
-    required = ["Open", "High", "Low", "Close", "Volume"]
-    if any(column not in work.columns for column in required):
+    work = frame.copy()
+
+    work.columns = [
+        str(column)
+        for column in work.columns
+    ]
+
+    work.index = (
+        pd.to_datetime(
+            work.index,
+            errors="coerce",
+        )
+        .tz_localize(None)
+    )
+
+    work = (
+        work[
+            ~work.index.isna()
+        ]
+        .sort_index()
+    )
+
+    required = [
+        "Open",
+        "High",
+        "Low",
+        "Close",
+        "Volume",
+    ]
+
+    if any(
+        column not in work.columns
+        for column in required
+    ):
         return pd.DataFrame()
-    work[required] = work[required].apply(pd.to_numeric, errors="coerce")
-    work = work.dropna(subset=["Close"])
+
+    work[required] = (
+        work[required]
+        .apply(
+            pd.to_numeric,
+            errors="coerce",
+        )
+    )
+
+    work = work.dropna(
+        subset=[
+            "Open",
+            "High",
+            "Low",
+            "Close",
+        ]
+    )
+
+    work = work[
+        (work["Open"] > 0)
+        & (work["High"] > 0)
+        & (work["Low"] > 0)
+        & (work["Close"] > 0)
+    ]
+
     if work.empty:
         return work
 
-    if "Stock Splits" in work.columns:
-        splits = pd.to_numeric(work["Stock Splits"], errors="coerce").fillna(0)
-    else:
-        splits = pd.Series(0.0, index=work.index)
-    ratios = splits.where(splits > 0, 1.0)
-    future_factor = ratios.shift(-1, fill_value=1.0).iloc[::-1].cumprod().iloc[::-1]
+    # YahooのCloseは株式分割を反映した価格として使用する。
+    # Adj Closeは配当の影響を含むため、価格リターンには使わない。
+    # Adj_*という列名は後続処理との互換性維持のために使用する。
+    work["Adj_Open"] = work["Open"]
+    work["Adj_High"] = work["High"]
+    work["Adj_Low"] = work["Low"]
+    work["Adj_Close"] = work["Close"]
+    work["Adj_Volume"] = work["Volume"]
 
-    for column in ["Open", "High", "Low", "Close"]:
-        work[f"Adj_{column}"] = work[column] / future_factor
-    work["Adj_Volume"] = work["Volume"] * future_factor
     return work
 
 
