@@ -6,6 +6,7 @@ on:
     # 07:45 JST is safely after the close in both US daylight and standard time.
     - cron: "45 7 * * 2-6"
       timezone: "Asia/Tokyo"
+
   workflow_dispatch:
     inputs:
       force:
@@ -24,11 +25,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  screen-and-publish:
+  screen:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Check out repository
@@ -55,33 +53,46 @@ jobs:
 
       - name: Commit generated data
         if: always()
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add docs data
+
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
           else
             git commit -m "Update screening data"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            git pull --rebase origin "$TARGET_BRANCH"
+            git push origin "HEAD:$TARGET_BRANCH"
           fi
 
       - name: Configure GitHub Pages
-        if: always()
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: always()
-        uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
         with:
           path: docs
-
-      - name: Deploy GitHub Pages
-        if: always()
-        id: deployment
-        uses: actions/deploy-pages@v4
 
       - name: Mark workflow failed when data generation failed
         if: always()
         run: python scripts/check_status.py
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: screen
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
