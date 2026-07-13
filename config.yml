@@ -1,0 +1,41 @@
+# Universe filters
+min_market_cap_usd: 1000000000
+min_price_usd: 1.0
+min_avg_dollar_volume_20d: 20000000
+exchanges: [NMS, NGM, NCM, NYQ, ASE]
+
+# Download / quality controls
+history_period: 1y
+batch_size: 150
+max_retries: 3
+retry_wait_seconds: 8
+min_universe_size: 500
+min_data_coverage: 0.90
+max_candidates: 150
+max_universe_cache_age_days: 14
+
+# Signal thresholds
+relative_return_threshold: 0.08
+volume_ratio_threshold: 1.80
+volatility_ratio_threshold: 1.50
+single_day_move_threshold: 0.07
+gap_threshold: 0.07
+
+# Market-wide coverage: retain strongest and weakest names in every sector
+sector_top_n: 2
+sector_bottom_n: 2
+
+# Benchmarks
+market_benchmark: SPY
+sector_etfs:
+  Technology: XLK
+  Financial Services: XLF
+  Healthcare: XLV
+  Consumer Cyclical: XLY
+  Consumer Defensive: XLP
+  Industrials: XLI
+  Basic Materials: XLB
+  Energy: XLE
+  Utilities: XLU
+  Real Estate: XLRE
+  Communication Services: XLC
