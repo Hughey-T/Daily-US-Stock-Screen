@@ -44,3 +44,4 @@ min_sector_coverage: 0.90
 market_close_buffer_minutes: 15
 max_abs_daily_return_for_validation: 2.00
 benchmark_fallback_timeout_seconds: 60
+max_isolated_price_anomalies: 1
