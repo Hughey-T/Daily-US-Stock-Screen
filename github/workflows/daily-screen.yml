@@ -1,0 +1,86 @@
+name: Daily US stock screen
+
+on:
+  schedule:
+    # US Monday-Friday market close, observed Tuesday-Saturday in Japan.
+    # 07:45 JST is safely after the close in both US daylight and standard time.
+    - cron: "45 7 * * 2-6"
+      timezone: "Asia/Tokyo"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild even if the market date has not changed"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: daily-us-stock-screen
+  cancel-in-progress: false
+
+jobs:
+  screen-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run screening
+        id: screening
+        continue-on-error: true
+        env:
+          FORCE_RUN: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force || 'false' }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python src/screen.py
+
+      - name: Commit generated data
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs data
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+          else
+            git commit -m "Update screening data"
+            git push
+          fi
+
+      - name: Configure GitHub Pages
+        if: always()
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy GitHub Pages
+        if: always()
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Mark workflow failed when data generation failed
+        if: always()
+        run: python scripts/check_status.py
