@@ -813,8 +813,14 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
 def validate_metric_dataframe(
     metrics: pd.DataFrame,
     config: dict[str, Any],
-) -> None:
-    """分割調整後の価格系列に重大な異常がないか確認する。"""
+) -> list[str]:
+    """
+    価格系列の異常値を検査する。
+
+    少数の孤立した異常銘柄は除外対象として返す。
+    複数銘柄で異常が発生した場合は、
+    系統的な価格調整不具合の可能性があるため停止する。
+    """
 
     if metrics.empty:
         raise RuntimeError(
@@ -840,10 +846,17 @@ def validate_metric_dataframe(
         metrics["max_gap_21d"]
         .abs()
         .gt(threshold)
-    ]
+    ].copy()
 
     if suspicious.empty:
-        return
+        return []
+
+    suspicious_tickers = (
+        suspicious["ticker"]
+        .astype(str)
+        .drop_duplicates()
+        .tolist()
+    )
 
     sample = (
         suspicious[
@@ -858,11 +871,29 @@ def validate_metric_dataframe(
         .to_dict(orient="records")
     )
 
-    raise RuntimeError(
-        "価格調整後データに異常値があります。"
-        f" sample={sample}"
+    allowed_count = int(
+        config.get(
+            "max_isolated_price_anomalies",
+            1,
+        )
     )
 
+    if len(suspicious_tickers) > allowed_count:
+        raise RuntimeError(
+            "複数銘柄で価格異常値が検出されました。"
+            "価格調整処理全体に問題がある可能性があります。"
+            f" count={len(suspicious_tickers)},"
+            f" sample={sample}"
+        )
+
+    LOGGER.warning(
+        "孤立した価格異常値を持つ銘柄を除外します。"
+        " tickers=%s sample=%s",
+        suspicious_tickers,
+        sample,
+    )
+
+    return suspicious_tickers
 
 def threshold_hit(value: float, threshold: float, absolute: bool = False) -> bool:
     if value is None or not np.isfinite(value):
@@ -1284,18 +1315,42 @@ def run() -> RunResult:
         metadata = universe_lookup[ticker]
         metric_rows.append({"ticker": ticker, **metadata, **metrics})
 
-    metrics_df = pd.DataFrame(metric_rows)
-
-    validate_metric_dataframe(
-        metrics_df,
-        config,
+    metrics_df = pd.DataFrame(
+        metric_rows
     )
+
+    quality_excluded_tickers = (
+        validate_metric_dataframe(
+            metrics_df,
+            config,
+        )
+    )
+
+    if quality_excluded_tickers:
+        metrics_df = metrics_df[
+            ~metrics_df["ticker"].isin(
+                quality_excluded_tickers
+            )
+        ].copy()
+
+        LOGGER.warning(
+            "品質検査により%d銘柄を"
+            "定量候補母集団から除外しました: %s",
+            len(quality_excluded_tickers),
+            quality_excluded_tickers,
+        )
+
+    if metrics_df.empty:
+        raise RuntimeError(
+            "品質検査後の指標データが0行です"
+        )
 
     coverage = (
         len(metrics_df) / len(universe)
         if len(universe)
         else 0
     )
+    
     if coverage < float(config["min_data_coverage"]):
         raise RuntimeError(
             f"Insufficient data coverage: {coverage:.1%} ({len(metrics_df)}/{len(universe)})"
