@@ -1467,6 +1467,12 @@ def run() -> RunResult:
         "liquid_ticker_count": int(len(metrics_df)),
         "failed_ticker_count": int(len(failed)),
         "failed_tickers_sample": failed[:50],
+        "quality_excluded_count": int(
+            len(quality_excluded_tickers)
+        ),
+        "quality_excluded_tickers": (
+            quality_excluded_tickers
+        ),
         "data_coverage": round(float(coverage), 6),
         "sector_data_coverage": round(
             sector_data_coverage,
