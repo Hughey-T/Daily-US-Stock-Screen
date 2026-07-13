@@ -2,8 +2,8 @@
 
 以下のURLは自分のリポジトリ名に置き換える。
 
-- 管理JSON: `https://raw.githubusercontent.com/<USER>/<REPO>/main/docs/latest.json`
-- 候補CSV: `https://raw.githubusercontent.com/<USER>/<REPO>/main/docs/latest.csv`
+- 管理JSON: `https://raw.githubusercontent.com/hughey-t/Daily-US-Stock-Screen/main/docs/latest.json`
+- 候補CSV: `https://raw.githubusercontent.com/hughey-t/Daily-US-Stock-Screen/main/docs/latest.csv`
 
 スクリーニング開始時は、最初に管理JSONをWebから取得する。
 
