@@ -1178,10 +1178,17 @@ def run() -> RunResult:
         LOGGER.info("No new market date; keeping existing outputs")
         return RunResult(status="no_update", market_data_date=market_date_str)
 
-    universe, universe_source = get_universe(config)
-    LOGGER.info("Universe size: %s (%s)", len(universe), universe_source)
+    universe, universe_source = get_universe(
+        config
+    )
 
-        sector_data_coverage = float(
+    LOGGER.info(
+        "Universe size: %s (%s)",
+        len(universe),
+        universe_source,
+    )
+
+    sector_data_coverage = float(
         universe["sector"]
         .replace("", np.nan)
         .notna()
