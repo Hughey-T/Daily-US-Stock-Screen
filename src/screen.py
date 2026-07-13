@@ -408,12 +408,20 @@ def fetch_universe_from_yahoo(config: dict[str, Any]) -> pd.DataFrame:
 
     return universe.reset_index(drop=True)
 
-def get_universe(config: dict[str, Any]) -> tuple[pd.DataFrame, str]:
+def get_universe(
+    config: dict[str, Any],
+) -> tuple[pd.DataFrame, str]:
     try:
-        universe = fetch_universe_from_yahoo(config)
+        universe = fetch_universe_from_yahoo(
+            config
+        )
+
         if len(universe) < config["min_universe_size"]:
-            raise RuntimeError(f"Universe unexpectedly small: {len(universe)}")
-                    sector_coverage = float(
+            raise RuntimeError(
+                f"Universe unexpectedly small: {len(universe)}"
+            )
+
+        sector_coverage = float(
             universe["sector"]
             .replace("", np.nan)
             .notna()
@@ -432,28 +440,44 @@ def get_universe(config: dict[str, Any]) -> tuple[pd.DataFrame, str]:
             sector_coverage * 100,
         )
 
-        if (
-            sector_coverage
-            < min_sector_coverage
-        ):
+        if sector_coverage < min_sector_coverage:
             raise RuntimeError(
                 "ライブユニバースのセクター取得率が"
                 "基準未満です。"
                 f" coverage={sector_coverage:.2%},"
                 f" required={min_sector_coverage:.2%}"
             )
-        universe["universe_cached_at"] = utc_now_iso()
-        universe.to_csv(UNIVERSE_CACHE_PATH, index=False)
-        return universe, "yahoo_screener"
-    except Exception as exc:
-        LOGGER.exception("Live universe fetch failed")
-        if not UNIVERSE_CACHE_PATH.exists():
-            raise RuntimeError(f"Universe fetch failed and no cache exists: {exc}") from exc
 
-        universe = pd.read_csv(UNIVERSE_CACHE_PATH)
-                if "sector" not in universe.columns:
+        universe["universe_cached_at"] = (
+            utc_now_iso()
+        )
+
+        universe.to_csv(
+            UNIVERSE_CACHE_PATH,
+            index=False,
+        )
+
+        return universe, "yahoo_screener"
+
+    except Exception as exc:
+        LOGGER.exception(
+            "Live universe fetch failed"
+        )
+
+        if not UNIVERSE_CACHE_PATH.exists():
             raise RuntimeError(
-                "ユニバースキャッシュにsector列がありません"
+                "Universe fetch failed and no cache exists: "
+                f"{exc}"
+            ) from exc
+
+        universe = pd.read_csv(
+            UNIVERSE_CACHE_PATH
+        )
+
+        if "sector" not in universe.columns:
+            raise RuntimeError(
+                "ユニバースキャッシュに"
+                "sector列がありません"
             ) from exc
 
         cached_sector_coverage = float(
@@ -475,25 +499,43 @@ def get_universe(config: dict[str, Any]) -> tuple[pd.DataFrame, str]:
             < min_sector_coverage
         ):
             raise RuntimeError(
-                "ユニバースキャッシュのセクター取得率が"
-                "基準未満です。"
-                f" coverage="
-                f"{cached_sector_coverage:.2%},"
-                f" required="
-                f"{min_sector_coverage:.2%}"
+                "ユニバースキャッシュの"
+                "セクター取得率が基準未満です。"
+                f" coverage={cached_sector_coverage:.2%},"
+                f" required={min_sector_coverage:.2%}"
             ) from exc
-        cached_at = pd.to_datetime(universe.get("universe_cached_at"), utc=True, errors="coerce").max()
+
+        cached_at = pd.to_datetime(
+            universe.get(
+                "universe_cached_at"
+            ),
+            utc=True,
+            errors="coerce",
+        ).max()
+
         if pd.isna(cached_at):
             cache_age_days = math.inf
         else:
-            cache_age_days = (pd.Timestamp.now(tz="UTC") - cached_at).total_seconds() / 86400
-        if cache_age_days > config["max_universe_cache_age_days"]:
-            raise RuntimeError(
-                f"Universe fetch failed and cache is {cache_age_days:.1f} days old"
-            ) from exc
-        LOGGER.warning("Using cached universe, age %.1f days", cache_age_days)
-        return universe, "cached_yahoo_screener"
+            cache_age_days = (
+                pd.Timestamp.now(tz="UTC")
+                - cached_at
+            ).total_seconds() / 86400
 
+        if (
+            cache_age_days
+            > config["max_universe_cache_age_days"]
+        ):
+            raise RuntimeError(
+                "Universe fetch failed and cache is "
+                f"{cache_age_days:.1f} days old"
+            ) from exc
+
+        LOGGER.warning(
+            "Using cached universe, age %.1f days",
+            cache_age_days,
+        )
+
+        return universe, "cached_yahoo_screener"
 
 def chunks(values: list[str], size: int) -> Iterable[list[str]]:
     for start in range(0, len(values), size):
