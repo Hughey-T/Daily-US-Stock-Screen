@@ -1232,11 +1232,17 @@ def run() -> RunResult:
         metric_rows.append({"ticker": ticker, **metadata, **metrics})
 
     metrics_df = pd.DataFrame(metric_rows)
-        validate_metric_dataframe(
+
+    validate_metric_dataframe(
         metrics_df,
         config,
     )
-    coverage = len(metrics_df) / len(universe) if len(universe) else 0
+
+    coverage = (
+        len(metrics_df) / len(universe)
+        if len(universe)
+        else 0
+    )
     if coverage < float(config["min_data_coverage"]):
         raise RuntimeError(
             f"Insufficient data coverage: {coverage:.1%} ({len(metrics_df)}/{len(universe)})"
