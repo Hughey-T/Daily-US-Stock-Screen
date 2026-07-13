@@ -13,6 +13,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+import exchange_calendars as xcals
 import numpy as np
 import pandas as pd
 import yaml
@@ -52,6 +53,56 @@ class RunResult:
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
+def get_latest_completed_market_date(config: dict[str, Any]) -> pd.Timestamp:
+    """直近に完全終了したNYSE取引日を返す。"""
+
+    now_utc = pd.Timestamp.now(tz="UTC")
+    calendar = xcals.get_calendar("XNYS")
+
+    start_date = (
+        now_utc - pd.Timedelta(days=14)
+    ).date().isoformat()
+
+    end_date = (
+        now_utc + pd.Timedelta(days=1)
+    ).date().isoformat()
+
+    schedule = calendar.schedule.loc[
+        start_date:end_date
+    ].copy()
+
+    if schedule.empty:
+        raise RuntimeError(
+            "XNYSの取引日カレンダーを取得できませんでした"
+        )
+
+    buffer_minutes = int(
+        config.get("market_close_buffer_minutes", 15)
+    )
+
+    completed_cutoff = (
+        schedule["close"]
+        + pd.Timedelta(minutes=buffer_minutes)
+    )
+
+    completed_schedule = schedule.loc[
+        completed_cutoff <= now_utc
+    ]
+
+    if completed_schedule.empty:
+        raise RuntimeError(
+            "終了済みの米国市場取引日を特定できませんでした"
+        )
+
+    session = pd.Timestamp(
+        completed_schedule.index[-1]
+    )
+
+    if session.tzinfo is not None:
+        session = session.tz_localize(None)
+
+    return session.normalize()
+
 
 def load_config() -> dict[str, Any]:
     with CONFIG_PATH.open("r", encoding="utf-8") as handle:
@@ -78,11 +129,26 @@ def write_failure_status(reason: str, details: dict[str, Any] | None = None) -> 
         "attempted_at": utc_now_iso(),
         "failure_reason": reason,
         "latest_csv_updated": False,
-        "last_successful_market_date": previous.get("market_data_date")
-        or previous.get("last_successful_market_date"),
-        "csv_file": "latest.csv" if LATEST_CSV.exists() else None,
-        "schema_version": "1.0",
-    }
+        "last_successful_market_date": (
+            previous.get("market_data_date")
+            if previous.get("status") == "success"
+            else previous.get(
+                "last_successful_market_date"
+            )
+        ),
+        "last_successful_archive_file": (
+            previous.get("archive_file")
+            if previous.get("status") == "success"
+            else previous.get(
+                "last_successful_archive_file"
+            )
+        ),
+        "csv_file": (
+            "latest.csv"
+            if LATEST_CSV.exists()
+            else None
+        ),
+        "schema_version": "1.1",    }
     if details:
         payload.update(details)
     write_json(STATUS_PATH, payload)
@@ -121,6 +187,117 @@ def extract_number(record: dict[str, Any], *keys: str) -> float | None:
             except (TypeError, ValueError):
                 pass
     return None
+
+
+def fetch_sector_map_from_yahoo(
+    config: dict[str, Any],
+) -> dict[str, str]:
+    """セクター別スクリーナーからticker→sectorを作成する。"""
+
+    sector_map: dict[str, str] = {}
+    page_size = 250
+
+    for sector_name in config["sector_etfs"]:
+        LOGGER.info(
+            "Fetching Yahoo sector universe: %s",
+            sector_name,
+        )
+
+        query = EquityQuery(
+            "and",
+            [
+                EquityQuery(
+                    "is-in",
+                    [
+                        "exchange",
+                        *config["exchanges"],
+                    ],
+                ),
+                EquityQuery(
+                    "eq",
+                    [
+                        "sector",
+                        sector_name,
+                    ],
+                ),
+                EquityQuery(
+                    "gte",
+                    [
+                        "intradaymarketcap",
+                        config["min_market_cap_usd"],
+                    ],
+                ),
+                EquityQuery(
+                    "gte",
+                    [
+                        "intradayprice",
+                        config["min_price_usd"],
+                    ],
+                ),
+            ],
+        )
+
+        offset = 0
+        seen_in_sector: set[str] = set()
+
+        while True:
+            response = yf.screen(
+                query,
+                offset=offset,
+                size=page_size,
+                sortField="intradaymarketcap",
+                sortAsc=False,
+            )
+
+            quotes = response.get("quotes", [])
+
+            if not quotes:
+                break
+
+            new_count = 0
+
+            for quote in quotes:
+                ticker = normalize_symbol(
+                    quote.get("symbol", "")
+                )
+
+                if (
+                    not ticker
+                    or ticker in seen_in_sector
+                ):
+                    continue
+
+                seen_in_sector.add(ticker)
+                sector_map[ticker] = sector_name
+                new_count += 1
+
+            total = int(
+                response.get("total") or 0
+            )
+
+            offset += len(quotes)
+
+            if (
+                len(quotes) < page_size
+                or new_count == 0
+                or (total and offset >= total)
+            ):
+                break
+
+            if offset > 20_000:
+                raise RuntimeError(
+                    "Yahoo sector screener pagination "
+                    f"exceeded safety limit: {sector_name}"
+                )
+
+            time.sleep(0.5)
+
+    if not sector_map:
+        raise RuntimeError(
+            "Yahoo sector screener returned no sector data"
+        )
+
+    return sector_map
 
 
 def fetch_universe_from_yahoo(config: dict[str, Any]) -> pd.DataFrame:
@@ -188,17 +365,83 @@ def fetch_universe_from_yahoo(config: dict[str, Any]) -> pd.DataFrame:
     if universe.empty:
         raise RuntimeError("Yahoo screener returned no eligible equities")
 
-    universe = universe.drop_duplicates("ticker")
-    universe = universe[universe["market_cap"].fillna(0) >= config["min_market_cap_usd"]]
-    universe = universe[universe["screener_price"].fillna(0) >= config["min_price_usd"]]
-    return universe.reset_index(drop=True)
+    universe = universe.drop_duplicates(
+        "ticker"
+    )
 
+    universe = universe[
+        universe["market_cap"].fillna(0)
+        >= config["min_market_cap_usd"]
+    ]
+
+    universe = universe[
+        universe["screener_price"].fillna(0)
+        >= config["min_price_usd"]
+    ]
+
+    # 通常スクリーナーで欠損したセクターを、
+    # セクター別スクリーナーの結果で補完する
+    sector_map = fetch_sector_map_from_yahoo(
+        config
+    )
+
+    existing_sector = (
+        universe["sector"]
+        .replace("", np.nan)
+    )
+
+    mapped_sector = (
+        universe["ticker"]
+        .map(sector_map)
+    )
+
+    universe["sector"] = (
+        mapped_sector.combine_first(
+            existing_sector
+        )
+    )
+
+    universe["industry"] = (
+        universe["industry"]
+        .replace("", np.nan)
+    )
+
+    return universe.reset_index(drop=True)
 
 def get_universe(config: dict[str, Any]) -> tuple[pd.DataFrame, str]:
     try:
         universe = fetch_universe_from_yahoo(config)
         if len(universe) < config["min_universe_size"]:
             raise RuntimeError(f"Universe unexpectedly small: {len(universe)}")
+                    sector_coverage = float(
+            universe["sector"]
+            .replace("", np.nan)
+            .notna()
+            .mean()
+        )
+
+        min_sector_coverage = float(
+            config.get(
+                "min_sector_coverage",
+                0.90,
+            )
+        )
+
+        LOGGER.info(
+            "Live universe sector coverage: %.2f%%",
+            sector_coverage * 100,
+        )
+
+        if (
+            sector_coverage
+            < min_sector_coverage
+        ):
+            raise RuntimeError(
+                "ライブユニバースのセクター取得率が"
+                "基準未満です。"
+                f" coverage={sector_coverage:.2%},"
+                f" required={min_sector_coverage:.2%}"
+            )
         universe["universe_cached_at"] = utc_now_iso()
         universe.to_csv(UNIVERSE_CACHE_PATH, index=False)
         return universe, "yahoo_screener"
@@ -208,6 +451,37 @@ def get_universe(config: dict[str, Any]) -> tuple[pd.DataFrame, str]:
             raise RuntimeError(f"Universe fetch failed and no cache exists: {exc}") from exc
 
         universe = pd.read_csv(UNIVERSE_CACHE_PATH)
+                if "sector" not in universe.columns:
+            raise RuntimeError(
+                "ユニバースキャッシュにsector列がありません"
+            ) from exc
+
+        cached_sector_coverage = float(
+            universe["sector"]
+            .replace("", np.nan)
+            .notna()
+            .mean()
+        )
+
+        min_sector_coverage = float(
+            config.get(
+                "min_sector_coverage",
+                0.90,
+            )
+        )
+
+        if (
+            cached_sector_coverage
+            < min_sector_coverage
+        ):
+            raise RuntimeError(
+                "ユニバースキャッシュのセクター取得率が"
+                "基準未満です。"
+                f" coverage="
+                f"{cached_sector_coverage:.2%},"
+                f" required="
+                f"{min_sector_coverage:.2%}"
+            ) from exc
         cached_at = pd.to_datetime(universe.get("universe_cached_at"), utc=True, errors="coerce").max()
         if pd.isna(cached_at):
             cache_age_days = math.inf
@@ -278,7 +552,7 @@ def download_prices(tickers: list[str], config: dict[str, Any]) -> tuple[dict[st
                     interval="1d",
                     auto_adjust=False,
                     actions=True,
-                    repair=True,
+                    repair=False,
                     group_by="ticker",
                     threads=True,
                     progress=False,
@@ -295,6 +569,54 @@ def download_prices(tickers: list[str], config: dict[str, Any]) -> tuple[dict[st
 
     failed = [ticker for ticker in tickers if ticker not in downloaded]
     return downloaded, failed
+
+
+def download_required_benchmark(
+    ticker: str,
+    config: dict[str, Any],
+) -> pd.DataFrame:
+    """必須ベンチマークを取得し、失敗時は単独で再試行する。"""
+
+    downloaded, _ = download_prices(
+        [ticker],
+        config,
+    )
+
+    if (
+        ticker in downloaded
+        and not downloaded[ticker].empty
+    ):
+        return downloaded[ticker]
+
+    LOGGER.warning(
+        "%sの通常取得に失敗しました。単独取得を再試行します。",
+        ticker,
+    )
+
+    fallback = yf.download(
+        tickers=ticker,
+        period=config["history_period"],
+        interval="1d",
+        auto_adjust=False,
+        actions=True,
+        repair=False,
+        threads=False,
+        progress=False,
+        timeout=int(
+            config.get(
+                "benchmark_fallback_timeout_seconds",
+                60,
+            )
+        ),
+        multi_level_index=False,
+    )
+
+    if fallback is None or fallback.empty:
+        raise RuntimeError(
+            f"Required benchmark {ticker} was not downloaded"
+        )
+
+    return fallback
 
 
 def prepare_history(frame: pd.DataFrame) -> pd.DataFrame:
@@ -332,7 +654,22 @@ def safe_ratio(numerator: float, denominator: float) -> float:
 
 def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -> dict[str, Any] | None:
     data = prepare_history(history)
-    if data.empty or len(data) < 30 or data.index.max().normalize() != market_date.normalize():
+
+    if data.empty:
+        return None
+
+    # 市場時間中に取得された未確定の当日バーを除外する
+    data = data[
+        data.index.normalize()
+        <= market_date.normalize()
+    ]
+
+    if (
+        data.empty
+        or len(data) < 30
+        or data.index.max().normalize()
+        != market_date.normalize()
+    ):
         return None
 
     close = data["Adj_Close"]
@@ -376,6 +713,60 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
         "distance_from_52w_low": float(latest_price / low_52w - 1),
         "history_rows": int(len(data)),
     }
+
+
+def validate_metric_dataframe(
+    metrics: pd.DataFrame,
+    config: dict[str, Any],
+) -> None:
+    """分割調整後の価格系列に重大な異常がないか確認する。"""
+
+    if metrics.empty:
+        raise RuntimeError(
+            "指標データが0行です"
+        )
+
+    threshold = float(
+        config.get(
+            "max_abs_daily_return_for_validation",
+            2.0,
+        )
+    )
+
+    suspicious = metrics[
+        metrics["return_21d"]
+        .abs()
+        .gt(threshold)
+        |
+        metrics["max_daily_move_21d"]
+        .abs()
+        .gt(threshold)
+        |
+        metrics["max_gap_21d"]
+        .abs()
+        .gt(threshold)
+    ]
+
+    if suspicious.empty:
+        return
+
+    sample = (
+        suspicious[
+            [
+                "ticker",
+                "return_21d",
+                "max_daily_move_21d",
+                "max_gap_21d",
+            ]
+        ]
+        .head(20)
+        .to_dict(orient="records")
+    )
+
+    raise RuntimeError(
+        "価格調整後データに異常値があります。"
+        f" sample={sample}"
+    )
 
 
 def threshold_hit(value: float, threshold: float, absolute: bool = False) -> bool:
@@ -496,6 +887,114 @@ def append_history(candidates: pd.DataFrame, history: pd.DataFrame) -> None:
     combined.to_csv(HISTORY_PATH, index=False)
 
 
+REQUIRED_OUTPUT_COLUMNS = [
+    "rank",
+    "ticker",
+    "company_name",
+    "sector",
+    "market_cap",
+    "market_data_date",
+    "price",
+    "return_21d",
+    "spy_relative_21d",
+    "sector_etf",
+    "sector_etf_return_21d",
+    "sector_relative_21d",
+    "volume_ratio_5d_vs_prev20d",
+    "avg_dollar_volume_20d",
+    "volatility_ratio_20d_vs_prev120d",
+    "max_daily_move_21d",
+    "max_gap_21d",
+    "distance_from_52w_high",
+    "distance_from_52w_low",
+    "trigger_conditions",
+    "selection_reason",
+    "signal_score",
+]
+
+
+def validate_output_dataframe(
+    candidates: pd.DataFrame,
+    market_date: pd.Timestamp,
+    config: dict[str, Any],
+) -> None:
+    """保存前の候補CSVを検証する。"""
+
+    missing_columns = [
+        column
+        for column in REQUIRED_OUTPUT_COLUMNS
+        if column not in candidates.columns
+    ]
+
+    if missing_columns:
+        raise RuntimeError(
+            "出力CSVの必須列が不足しています。"
+            f" missing={missing_columns}"
+        )
+
+    if candidates.empty:
+        raise RuntimeError(
+            "候補CSVが0行です"
+        )
+
+    if candidates["ticker"].isna().any():
+        raise RuntimeError(
+            "tickerが空欄の行があります"
+        )
+
+    duplicated = candidates.loc[
+        candidates["ticker"].duplicated(
+            keep=False
+        ),
+        "ticker",
+    ].tolist()
+
+    if duplicated:
+        raise RuntimeError(
+            "tickerが重複しています。"
+            f" tickers={duplicated[:20]}"
+        )
+
+    output_dates = pd.to_datetime(
+        candidates["market_data_date"],
+        errors="coerce",
+    ).dt.normalize()
+
+    expected_date = market_date.normalize()
+
+    if (
+        output_dates.isna().any()
+        or not output_dates.eq(
+            expected_date
+        ).all()
+    ):
+        raise RuntimeError(
+            "CSV内のmarket_data_dateが"
+            "基準市場日と一致しません"
+        )
+
+    sector_coverage = float(
+        candidates["sector"]
+        .replace("", np.nan)
+        .notna()
+        .mean()
+    )
+
+    required_coverage = float(
+        config.get(
+            "min_sector_coverage",
+            0.90,
+        )
+    )
+
+    if sector_coverage < required_coverage:
+        raise RuntimeError(
+            "候補CSVのセクター取得率が基準未満です。"
+            f" coverage={sector_coverage:.2%},"
+            f" required={required_coverage:.2%}"
+        )
+
+
 def format_value(value: Any, kind: str = "number") -> str:
     if value is None or (isinstance(value, float) and not np.isfinite(value)):
         return "—"
@@ -573,16 +1072,60 @@ def run() -> RunResult:
     force_run = os.environ.get("FORCE_RUN", "false").lower() == "true"
     market_symbol = config["market_benchmark"]
 
-    # Cheap market-date check first. This avoids downloading thousands of symbols
-    # on US holidays or repeated manual runs.
-    quick_prices, quick_failed = download_prices([market_symbol], config)
-    if market_symbol not in quick_prices:
-        raise RuntimeError(f"Required benchmark {market_symbol} was not downloaded")
-    market_history = prepare_history(quick_prices[market_symbol])
+    # 必須ベンチマークを取得する
+    market_frame = download_required_benchmark(
+        market_symbol,
+        config,
+    )
+
+    market_history = prepare_history(
+        market_frame
+    )
+
     if market_history.empty:
-        raise RuntimeError(f"Required benchmark {market_symbol} has no usable history")
-    market_date = market_history.index.max().normalize()
-    market_date_str = market_date.date().isoformat()
+        raise RuntimeError(
+            f"Required benchmark {market_symbol} has no usable history"
+        )
+
+    # 取引所カレンダーから直近の終了済み市場日を取得する
+    expected_market_date = (
+        get_latest_completed_market_date(config)
+    )
+
+    # 未終了の当日バーや未来日データを除外する
+    market_history = market_history[
+        market_history.index.normalize()
+        <= expected_market_date
+    ]
+
+    if market_history.empty:
+        raise RuntimeError(
+            "SPYに終了済み市場日のデータがありません。"
+            f" expected={expected_market_date.date()}"
+        )
+
+    downloaded_market_date = (
+        market_history.index.max().normalize()
+    )
+
+    if downloaded_market_date != expected_market_date:
+        raise RuntimeError(
+            "SPYの最終市場日が、直近の終了済み取引日と"
+            "一致しません。"
+            f" expected={expected_market_date.date()},"
+            f" downloaded={downloaded_market_date.date()}"
+        )
+
+    market_date = expected_market_date
+    market_date_str = (
+        market_date.date().isoformat()
+    )
+
+    # 後続処理との互換性を維持する
+    quick_prices = {
+        market_symbol: market_frame,
+    }
+    quick_failed: list[str] = []
 
     previous_status = load_previous_status()
     if (
@@ -595,6 +1138,20 @@ def run() -> RunResult:
 
     universe, universe_source = get_universe(config)
     LOGGER.info("Universe size: %s (%s)", len(universe), universe_source)
+
+        sector_data_coverage = float(
+        universe["sector"]
+        .replace("", np.nan)
+        .notna()
+        .mean()
+    )
+
+    industry_data_coverage = float(
+        universe["industry"]
+        .replace("", np.nan)
+        .notna()
+        .mean()
+    )
 
     benchmarks = [market_symbol, *config["sector_etfs"].values()]
     remaining_tickers = list(
@@ -626,6 +1183,10 @@ def run() -> RunResult:
         metric_rows.append({"ticker": ticker, **metadata, **metrics})
 
     metrics_df = pd.DataFrame(metric_rows)
+        validate_metric_dataframe(
+        metrics_df,
+        config,
+    )
     coverage = len(metrics_df) / len(universe) if len(universe) else 0
     if coverage < float(config["min_data_coverage"]):
         raise RuntimeError(
@@ -713,6 +1274,12 @@ def run() -> RunResult:
     ]
     candidates = candidates[output_columns]
 
+    validate_output_dataframe(
+        candidates=candidates,
+        market_date=market_date,
+        config=config,
+    )
+
     temp_csv = DOCS / "latest.tmp.csv"
     candidates.to_csv(temp_csv, index=False, float_format="%.8f")
     archive_path = ARCHIVE / f"screening_{market_date_str}.csv"
@@ -724,6 +1291,13 @@ def run() -> RunResult:
         "status": "success",
         "generated_at": utc_now_iso(),
         "market_data_date": market_date_str,
+        "expected_market_data_date": (
+            expected_market_date.date().isoformat()
+        ),
+        "is_market_data_complete": True,
+        "last_successful_market_date": (
+            market_date_str
+        ),
         "row_count": int(len(candidates)),
         "universe_count": int(len(universe)),
         "usable_ticker_count": int(len(metric_rows)),
@@ -731,10 +1305,27 @@ def run() -> RunResult:
         "failed_ticker_count": int(len(failed)),
         "failed_tickers_sample": failed[:50],
         "data_coverage": round(float(coverage), 6),
+        "sector_data_coverage": round(
+            sector_data_coverage,
+            6,
+        ),
+        "industry_data_coverage": round(
+            industry_data_coverage,
+            6,
+        ),
         "universe_source": universe_source,
         "csv_file": "latest.csv",
         "archive_file": f"archive/{archive_path.name}",
-        "schema_version": "1.0",
+        "last_successful_archive_file": (
+            f"archive/{archive_path.name}"
+        ),
+        "latest_csv_updated": True,
+        "required_column_check": "success",
+        "numeric_validation_status": "success",
+        "price_adjustment_validation_status": (
+            "success"
+        ),
+        "schema_version": "1.1",
         "price_return_definition": "split-adjusted price return excluding dividends",
         "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
         "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
