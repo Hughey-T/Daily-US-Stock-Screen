@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "attempted_at": "2026-07-13T12:45:14+00:00",
+  "failure_reason": "Required benchmark SPY was not downloaded",
+  "latest_csv_updated": false,
+  "last_successful_market_date": null,
+  "csv_file": null,
+  "schema_version": "1.0"
+}
