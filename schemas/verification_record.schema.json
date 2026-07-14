@@ -27,10 +27,24 @@
     "future_sector_relative_return": { "type": "number" },
     "max_favorable_excursion": { "type": "number" },
     "max_adverse_excursion": { "type": "number" },
-    "absolute_direction_hit": { "type": "boolean" },
-    "sector_relative_direction_hit": { "type": "boolean" },
-    "outcome": { "type": "string", "minLength": 1 },
+    "max_upside_during_period": { "type": "number" },
+    "max_drawdown_during_period": { "type": "number" },
+    "absolute_direction_hit": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "const": "" },
+        { "type": "null" }
+      ]
+    },
+    "sector_relative_direction_hit": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "const": "" },
+        { "type": "null" }
+      ]
+    },
+    "outcome": { "type": "string" },
     "verification_data_source": { "type": "string", "minLength": 1 }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

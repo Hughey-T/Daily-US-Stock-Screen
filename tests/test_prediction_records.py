@@ -11,7 +11,10 @@ from unittest.mock import patch
 
 from scripts.rebuild_prediction_index import build_index, write_index
 from scripts.validate_prediction_record import (
+    FUTURE_FIELD_NAMES,
+    PREDICTION_OPTIONAL_COLUMNS,
     PREDICTION_REQUIRED_COLUMNS,
+    VERIFICATION_OPTIONAL_COLUMNS,
     VERIFICATION_REQUIRED_COLUMNS,
     ValidationError,
     join_prediction_verification_records,
@@ -72,15 +75,17 @@ class PredictionRecordTests(unittest.TestCase):
 
     def valid_prediction(self, **overrides: str) -> dict[str, str]:
         row = {
-            "prediction_schema_version": "1.0",
+            "prediction_schema_version": "1.1",
             "prediction_id": "",
             "candidate_id": "",
+            "run_id": "custom-gpt-2026-07-14-001",
             "run_date": "2026-07-14",
             "market_data_date": "2026-07-13",
             "verification_horizon": "21",
             "ticker": "ACME",
             "company_name": "Acme Corp",
             "record_group": "final_candidate",
+            "prediction_applicability": "forecast",
             "source_dataset": "event_anomaly",
             "source_rank": "1",
             "selection_bucket": "threshold",
@@ -94,7 +99,7 @@ class PredictionRecordTests(unittest.TestCase):
             "benchmark": "SPY",
             "sector_etf": "XLK",
             "confidence": "medium",
-            "action_class": "watch",
+            "action_class": "A",
             "thesis": "A testable prediction thesis.",
             "invalidation_condition": "Close below the stated support.",
             "source_snapshot": self.snapshot,
@@ -114,6 +119,49 @@ class PredictionRecordTests(unittest.TestCase):
             row["prediction_id"] = make_prediction_id(
                 row["candidate_id"], int(row["verification_horizon"])
             )
+        return row
+
+    def comparison_prediction(self, **overrides: str) -> dict[str, str]:
+        values = {
+            "ticker": "COMPARE",
+            "record_group": "nonselected_comparison",
+            "prediction_applicability": "comparison_only",
+            "predicted_absolute_direction": "",
+            "predicted_sector_relative_direction": "",
+            "action_class": "",
+        }
+        values.update(overrides)
+        return self.valid_prediction(**values)
+
+    def monitor_prediction(self, **overrides: str) -> dict[str, str]:
+        values = {
+            "ticker": "MONITOR",
+            "record_group": "unresolved_monitor",
+            "prediction_applicability": "monitor_only",
+            "predicted_absolute_direction": "",
+            "predicted_sector_relative_direction": "",
+            "action_class": "",
+        }
+        values.update(overrides)
+        return self.valid_prediction(**values)
+
+    @staticmethod
+    def valid_verification(prediction: dict[str, str], **overrides: str) -> dict[str, str]:
+        row = {
+            "prediction_id": prediction["prediction_id"],
+            "verification_date": "2026-08-12",
+            "verification_horizon": prediction["verification_horizon"],
+            "future_stock_return": "0.10",
+            "future_spy_relative_return": "0.06",
+            "future_sector_relative_return": "0.04",
+            "max_favorable_excursion": "0.12",
+            "max_adverse_excursion": "-0.03",
+            "absolute_direction_hit": "true",
+            "sector_relative_direction_hit": "true",
+            "outcome": "hit",
+            "verification_data_source": "split-adjusted close; dividends excluded",
+        }
+        row.update(overrides)
         return row
 
     def write_predictions(
@@ -160,10 +208,73 @@ class PredictionRecordTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "verification_horizon"):
             self.load()
 
+    def test_future_field_in_prediction_csv_fails(self) -> None:
+        row = self.valid_prediction(future_stock_return="0.10")
+        self.write_predictions(
+            [row],
+            [*PREDICTION_REQUIRED_COLUMNS, "future_stock_return"],
+        )
+        with self.assertRaisesRegex(ValidationError, "post-prediction fields"):
+            self.load()
+        with self.assertRaisesRegex(ValidationError, "post-prediction fields"):
+            build_index(self.predictions_dir, self.root)
+
+    def test_forecast_missing_direction_fails(self) -> None:
+        self.write_predictions(
+            [self.valid_prediction(predicted_absolute_direction="")]
+        )
+        with self.assertRaisesRegex(ValidationError, "requires predicted_absolute_direction"):
+            self.load()
+
+    def test_comparison_only_with_direction_fails(self) -> None:
+        self.write_predictions(
+            [self.comparison_prediction(predicted_absolute_direction="up")]
+        )
+        with self.assertRaisesRegex(ValidationError, "requires an empty"):
+            self.load()
+
+    def test_comparison_only_with_neutral_fails(self) -> None:
+        self.write_predictions(
+            [
+                self.comparison_prediction(
+                    predicted_sector_relative_direction="neutral"
+                )
+            ]
+        )
+        with self.assertRaisesRegex(ValidationError, "requires an empty"):
+            self.load()
+
+    def test_multiple_action_classes_in_one_value_fail(self) -> None:
+        self.write_predictions([self.valid_prediction(action_class="A・B")])
+        with self.assertRaisesRegex(ValidationError, "action_class"):
+            self.load()
+
+    def test_conflicting_action_classes_for_candidate_and_run_fail(self) -> None:
+        rows = [
+            self.valid_prediction(verification_horizon="21", action_class="A"),
+            self.valid_prediction(verification_horizon="63", action_class="B"),
+        ]
+        self.write_predictions(rows)
+        with self.assertRaisesRegex(ValidationError, "conflicting action_class"):
+            self.load()
+        with self.assertRaisesRegex(ValidationError, "conflicting action_class"):
+            build_index(self.predictions_dir, self.root)
+
+    def test_thesis_fact_date_after_market_date_fails(self) -> None:
+        row = self.valid_prediction(thesis_fact_date="2026-07-14")
+        self.write_predictions(
+            [row],
+            [*PREDICTION_REQUIRED_COLUMNS, *PREDICTION_OPTIONAL_COLUMNS],
+        )
+        with self.assertRaisesRegex(ValidationError, "thesis_fact_date"):
+            self.load()
+
     def test_index_rebuild_is_deterministic(self) -> None:
         rows = [
             self.valid_prediction(verification_horizon="21"),
             self.valid_prediction(verification_horizon="63"),
+            self.comparison_prediction(verification_horizon="126"),
+            self.monitor_prediction(verification_horizon="252"),
         ]
         self.write_predictions(rows)
         first = build_index(self.predictions_dir, self.root)
@@ -174,28 +285,24 @@ class PredictionRecordTests(unittest.TestCase):
         write_index(second, index_path)
         self.assertEqual(first, second)
         self.assertEqual(first_bytes, index_path.read_bytes())
-        self.assertEqual(first["predictions"][0]["verification_horizons"], [21, 63])
+        self.assertEqual(
+            first["predictions"][0]["verification_horizons"],
+            [21, 63, 126, 252],
+        )
         self.assertEqual(
             first["predictions"][0]["created_at"], "2026-07-14T00:00:00Z"
         )
+        self.assertEqual(first["forecast_record_count"], 2)
+        self.assertEqual(first["comparison_only_record_count"], 1)
+        self.assertEqual(first["monitor_only_record_count"], 1)
+        self.assertEqual(first["action_class_missing_count"], 2)
+        self.assertEqual(first["action_class_conflict_count"], 0)
+        self.assertEqual(first["future_field_violation_count"], 0)
 
     def test_prediction_and_verification_join_by_prediction_id(self) -> None:
         prediction = self.valid_prediction()
         self.write_predictions([prediction])
-        verification = {
-            "prediction_id": prediction["prediction_id"],
-            "verification_date": "2026-08-12",
-            "verification_horizon": "21",
-            "future_stock_return": "0.10",
-            "future_spy_relative_return": "0.06",
-            "future_sector_relative_return": "0.04",
-            "max_favorable_excursion": "0.12",
-            "max_adverse_excursion": "-0.03",
-            "absolute_direction_hit": "true",
-            "sector_relative_direction_hit": "true",
-            "outcome": "hit",
-            "verification_data_source": "split-adjusted close; dividends excluded",
-        }
+        verification = self.valid_verification(prediction)
         write_csv(
             self.verifications_dir / "verification_2026-08-12.csv",
             [verification],
@@ -209,6 +316,59 @@ class PredictionRecordTests(unittest.TestCase):
             joined[0]["prediction"]["prediction_id"],
             joined[0]["verification"]["prediction_id"],
         )
+
+    def test_future_fields_are_allowed_in_verification(self) -> None:
+        prediction = self.valid_prediction()
+        self.write_predictions([prediction])
+        verification = self.valid_verification(
+            prediction,
+            max_upside_during_period="0.14",
+            max_drawdown_during_period="-0.05",
+        )
+        write_csv(
+            self.verifications_dir / "verification_2026-08-12.csv",
+            [verification],
+            [*VERIFICATION_REQUIRED_COLUMNS, *VERIFICATION_OPTIONAL_COLUMNS],
+        )
+        predictions = self.load()
+        records = load_verification_records(predictions, self.verifications_dir)
+        self.assertEqual(records[prediction["prediction_id"]]["future_stock_return"], "0.10")
+
+    def test_comparison_only_direction_hits_remain_empty(self) -> None:
+        prediction = self.comparison_prediction()
+        self.write_predictions([prediction])
+        verification = self.valid_verification(
+            prediction,
+            absolute_direction_hit="",
+            sector_relative_direction_hit="",
+            outcome="",
+        )
+        write_csv(
+            self.verifications_dir / "verification_2026-08-12.csv",
+            [verification],
+            list(VERIFICATION_REQUIRED_COLUMNS),
+        )
+        predictions = self.load()
+        records = load_verification_records(predictions, self.verifications_dir)
+        stored = records[prediction["prediction_id"]]
+        self.assertEqual(stored["absolute_direction_hit"], "")
+        self.assertEqual(stored["sector_relative_direction_hit"], "")
+        self.assertEqual(stored["outcome"], "")
+
+
+class PredictionSchemaSeparationTests(unittest.TestCase):
+    def test_future_fields_exist_only_in_verification_schema(self) -> None:
+        prediction_schema = json.loads(
+            Path("schemas/prediction_record.schema.json").read_text(encoding="utf-8")
+        )
+        verification_schema = json.loads(
+            Path("schemas/verification_record.schema.json").read_text(encoding="utf-8")
+        )
+        prediction_properties = set(prediction_schema["properties"])
+        verification_properties = set(verification_schema["properties"])
+        self.assertFalse(prediction_properties & FUTURE_FIELD_NAMES)
+        self.assertTrue(FUTURE_FIELD_NAMES <= verification_properties)
+        self.assertFalse(prediction_schema["additionalProperties"])
 
 
 class PredictionImmutabilityTests(unittest.TestCase):

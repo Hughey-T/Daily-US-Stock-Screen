@@ -6,3 +6,8 @@ with `prediction_id`. Never append future returns to a prediction CSV.
 All stock, SPY-relative, and sector-relative returns use split-adjusted closing
 prices and exclude dividends, matching the screening pipeline. One verification
 row is allowed for each `prediction_id`; its horizon must match the prediction.
+
+Direction-hit fields and directional `outcome` are populated only for
+`prediction_applicability=forecast`. For `comparison_only` and `monitor_only`,
+they remain empty. Comparison records still retain stock, SPY-relative, and
+sector-relative returns together with favorable and adverse excursions.

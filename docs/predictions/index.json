@@ -1,4 +1,10 @@
 {
-  "prediction_schema_version": "1.0",
+  "action_class_conflict_count": 0,
+  "action_class_missing_count": 0,
+  "comparison_only_record_count": 0,
+  "forecast_record_count": 0,
+  "future_field_violation_count": 0,
+  "monitor_only_record_count": 0,
+  "prediction_schema_version": "1.1",
   "predictions": []
 }

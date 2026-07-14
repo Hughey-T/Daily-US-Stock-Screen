@@ -12,15 +12,21 @@ import pandas as pd
 try:
     from scripts.validate_prediction_record import (
         PREDICTIONS_DIR,
+        PREDICTION_SCHEMA_VERSION,
         ROOT,
         ValidationError,
+        action_class_conflicts,
+        count_future_field_violations,
         load_prediction_records,
     )
 except ModuleNotFoundError:  # Direct execution adds scripts/, not the repository root.
     from validate_prediction_record import (
         PREDICTIONS_DIR,
+        PREDICTION_SCHEMA_VERSION,
         ROOT,
         ValidationError,
+        action_class_conflicts,
+        count_future_field_violations,
         load_prediction_records,
     )
 
@@ -48,11 +54,22 @@ def build_index(
     repo_root: Path = ROOT,
     validate_snapshots: bool = True,
 ) -> dict[str, Any]:
+    future_field_violation_count = count_future_field_violations(predictions_dir)
+    if future_field_violation_count:
+        raise ValidationError(
+            "prediction files contain post-prediction fields: "
+            f"{future_field_violation_count}"
+        )
     records = load_prediction_records(
         predictions_dir=predictions_dir,
         repo_root=repo_root,
         validate_snapshots=validate_snapshots,
     )
+    conflicts = action_class_conflicts(records)
+    if conflicts:
+        raise ValidationError(
+            f"prediction files contain {len(conflicts)} action_class conflicts"
+        )
     by_file: dict[Path, list[dict[str, str]]] = {}
     for record in records.values():
         by_file.setdefault(Path(record["_file"]), []).append(record)
@@ -82,10 +99,45 @@ def build_index(
                 "config_version": _single(rows, "config_version", path),
                 "config_hash": _single(rows, "config_hash", path),
                 "file_hash": hashlib.sha256(path.read_bytes()).hexdigest(),
+                "forecast_record_count": sum(
+                    row["prediction_applicability"] == "forecast" for row in rows
+                ),
+                "comparison_only_record_count": sum(
+                    row["prediction_applicability"] == "comparison_only"
+                    for row in rows
+                ),
+                "monitor_only_record_count": sum(
+                    row["prediction_applicability"] == "monitor_only" for row in rows
+                ),
+                "action_class_missing_count": sum(
+                    not row["action_class"] for row in rows
+                ),
+                "action_class_conflict_count": 0,
+                "future_field_violation_count": 0,
             }
         )
     entries.sort(key=lambda item: (item["market_data_date"], item["prediction_file"]))
-    return {"prediction_schema_version": "1.0", "predictions": entries}
+    return {
+        "prediction_schema_version": PREDICTION_SCHEMA_VERSION,
+        "forecast_record_count": sum(
+            record["prediction_applicability"] == "forecast"
+            for record in records.values()
+        ),
+        "comparison_only_record_count": sum(
+            record["prediction_applicability"] == "comparison_only"
+            for record in records.values()
+        ),
+        "monitor_only_record_count": sum(
+            record["prediction_applicability"] == "monitor_only"
+            for record in records.values()
+        ),
+        "action_class_missing_count": sum(
+            not record["action_class"] for record in records.values()
+        ),
+        "action_class_conflict_count": len(conflicts),
+        "future_field_violation_count": future_field_violation_count,
+        "predictions": entries,
+    }
 
 
 def write_index(payload: dict[str, Any], index_path: Path = INDEX_PATH) -> None:
