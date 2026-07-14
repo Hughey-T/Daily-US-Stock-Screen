@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generated_at": "2026-07-14T06:39:36+00:00",
+  "generated_at": "2026-07-14T07:31:30+00:00",
   "market_data_date": "2026-07-13",
   "expected_market_data_date": "2026-07-13",
   "is_market_data_complete": true,
@@ -15,6 +15,154 @@
   "quality_excluded_tickers": [
     "SLBT"
   ],
+  "universe_distribution": {
+    "return_21d": {
+      "p10": -0.09722153047982876,
+      "median": 0.03931508648622373,
+      "p90": 0.19847773367130225
+    },
+    "spy_relative_21d": {
+      "p10": -0.12994693537632188,
+      "median": 0.006589681589730612,
+      "p90": 0.16575232877480914
+    },
+    "sector_relative_21d": {
+      "p10": -0.129351781442168,
+      "median": 0.0012516988915760585,
+      "p90": 0.16180548919269003
+    },
+    "return_63d": {
+      "p10": -0.1669369559037772,
+      "median": 0.06688316312723441,
+      "p90": 0.4214814929908136
+    },
+    "return_21d_gt_20pct_count": 213,
+    "return_21d_lt_minus_20pct_count": 53,
+    "abs_spy_relative_21d_gt_8pct_count": 891
+  },
+  "sector_distribution": {
+    "Basic Materials": {
+      "count": 127,
+      "sector_relative_21d": {
+        "p10": -0.15882874363496122,
+        "median": -0.03838557357918637,
+        "p90": 0.06706914521921854
+      },
+      "return_63d": {
+        "median": -0.12876410538440197
+      }
+    },
+    "Communication Services": {
+      "count": 85,
+      "sector_relative_21d": {
+        "p10": -0.1382942598411726,
+        "median": 0.006597009405990617,
+        "p90": 0.14728932857446964
+      },
+      "return_63d": {
+        "median": 0.035349629153277995
+      }
+    },
+    "Consumer Cyclical": {
+      "count": 237,
+      "sector_relative_21d": {
+        "p10": -0.10599999866693671,
+        "median": 0.003510508860006256,
+        "p90": 0.15004101508525883
+      },
+      "return_63d": {
+        "median": 0.05163460862731273
+      }
+    },
+    "Consumer Defensive": {
+      "count": 94,
+      "sector_relative_21d": {
+        "p10": -0.05396079186303217,
+        "median": 0.04753004473314926,
+        "p90": 0.15524805981253914
+      },
+      "return_63d": {
+        "median": 0.04030337968920372
+      }
+    },
+    "Energy": {
+      "count": 124,
+      "sector_relative_21d": {
+        "p10": -0.08560299510911078,
+        "median": 0.0075008530935418705,
+        "p90": 0.11673072179164393
+      },
+      "return_63d": {
+        "median": -0.019471955384367634
+      }
+    },
+    "Financial Services": {
+      "count": 304,
+      "sector_relative_21d": {
+        "p10": -0.0928472991476427,
+        "median": -0.005761247243706302,
+        "p90": 0.07431095490652824
+      },
+      "return_63d": {
+        "median": 0.09684625017383353
+      }
+    },
+    "Healthcare": {
+      "count": 314,
+      "sector_relative_21d": {
+        "p10": -0.05919566004291597,
+        "median": 0.06817972568194841,
+        "p90": 0.3173894747225535
+      },
+      "return_63d": {
+        "median": 0.176774541595623
+      }
+    },
+    "Industrials": {
+      "count": 311,
+      "sector_relative_21d": {
+        "p10": -0.19027155040547672,
+        "median": -0.03340261683396539,
+        "p90": 0.08532966664662078
+      },
+      "return_63d": {
+        "median": 0.03237693634929817
+      }
+    },
+    "Real Estate": {
+      "count": 118,
+      "sector_relative_21d": {
+        "p10": -0.048955884042772006,
+        "median": 0.01830828851960009,
+        "p90": 0.08601495389235556
+      },
+      "return_63d": {
+        "median": 0.07813554174714166
+      }
+    },
+    "Technology": {
+      "count": 362,
+      "sector_relative_21d": {
+        "p10": -0.1753635975846405,
+        "median": 0.0007036690919831612,
+        "p90": 0.18635685463419258
+      },
+      "return_63d": {
+        "median": 0.19581378735438115
+      }
+    },
+    "Utilities": {
+      "count": 71,
+      "sector_relative_21d": {
+        "p10": -0.12738118023503608,
+        "median": -0.0030122900940290354,
+        "p90": 0.043013721739405986
+      },
+      "return_63d": {
+        "median": -0.014958845671664833
+      }
+    }
+  },
   "data_coverage": 0.989853,
   "sector_data_coverage": 1.0,
   "industry_data_coverage": 0.0,
@@ -26,7 +174,9 @@
   "required_column_check": "success",
   "numeric_validation_status": "success",
   "price_adjustment_validation_status": "success",
-  "schema_version": "1.1",
+  "schema_version": "1.2",
+  "config_version": "2026-07-mispricing-v1",
+  "config_hash": "e83b3d5400ffd959359db6d195f3763f1f45622c0f78ffceeb982086dab6f8d2",
   "price_return_definition": "split-adjusted price return excluding dividends",
   "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
   "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",

@@ -46,6 +46,9 @@ jobs:
       - name: Check Python syntax
         run: python -m py_compile src/screen.py
 
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
       - name: Run screening
         id: screening
         shell: bash

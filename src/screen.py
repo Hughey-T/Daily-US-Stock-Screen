@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 import logging
 import math
@@ -30,6 +31,7 @@ LATEST_CSV = DOCS / "latest.csv"
 HISTORY_PATH = DATA / "signal_history.csv"
 UNIVERSE_CACHE_PATH = DATA / "universe_cache.csv"
 LOG_PATH = DATA / "last_run.log"
+SCHEMA_VERSION = "1.2"
 
 DOCS.mkdir(parents=True, exist_ok=True)
 ARCHIVE.mkdir(parents=True, exist_ok=True)
@@ -109,6 +111,18 @@ def load_config() -> dict[str, Any]:
         return yaml.safe_load(handle)
 
 
+def calculate_config_hash(config: dict[str, Any]) -> str:
+    """Return a stable SHA-256 for the parsed, normalized configuration."""
+
+    normalized = json.dumps(
+        config,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
 def load_previous_status() -> dict[str, Any]:
     if not STATUS_PATH.exists():
         return {}
@@ -118,8 +132,32 @@ def load_previous_status() -> dict[str, Any]:
         return {}
 
 
+def json_safe(value: Any) -> Any:
+    """Convert nested values to strict JSON, replacing non-finite numbers with null."""
+
+    if isinstance(value, dict):
+        return {str(key): json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple, set)):
+        return [json_safe(item) for item in value]
+    if isinstance(value, np.generic):
+        value = value.item()
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, (pd.Timestamp, datetime)):
+        return value.isoformat()
+    return value
+
+
 def write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    path.write_text(
+        json.dumps(
+            json_safe(payload),
+            ensure_ascii=False,
+            indent=2,
+            allow_nan=False,
+        ),
+        encoding="utf-8",
+    )
 
 
 def write_failure_status(reason: str, details: dict[str, Any] | None = None) -> None:
@@ -148,7 +186,8 @@ def write_failure_status(reason: str, details: dict[str, Any] | None = None) -> 
             if LATEST_CSV.exists()
             else None
         ),
-        "schema_version": "1.1",    }
+        "schema_version": SCHEMA_VERSION,
+    }
     if details:
         payload.update(details)
     write_json(STATUS_PATH, payload)
@@ -777,6 +816,8 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
     ret_1d = float(close.iloc[-1] / close.iloc[-2] - 1) if len(close) >= 2 else np.nan
     ret_5d = float(close.iloc[-1] / close.iloc[-6] - 1) if len(close) >= 6 else np.nan
     ret_21d = float(close.iloc[-1] / close.iloc[-22] - 1) if len(close) >= 22 else np.nan
+    ret_63d = float(close.iloc[-1] / close.iloc[-64] - 1) if len(close) >= 64 else np.nan
+    ret_126d = float(close.iloc[-1] / close.iloc[-127] - 1) if len(close) >= 127 else np.nan
 
     recent_volume = float(volume.iloc[-5:].mean()) if len(volume) >= 5 else np.nan
     previous_volume = float(volume.iloc[-25:-5].mean()) if len(volume) >= 25 else np.nan
@@ -788,7 +829,43 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
     vol_120 = float(previous_120.std(ddof=1)) if len(previous_120.dropna()) >= 60 else np.nan
     volatility_ratio = safe_ratio(vol_20, vol_120)
 
-    max_daily_move_21d = float(daily_return.iloc[-21:].abs().max())
+    recent_daily_returns = daily_return.iloc[-21:].dropna()
+    if recent_daily_returns.empty:
+        max_daily_move_21d = np.nan
+        max_daily_move_date_21d: str | None = None
+        max_daily_move_signed_21d = np.nan
+        max_1d_share_of_abs_move_21d = np.nan
+        directional_efficiency_21d = np.nan
+        post_max_move_return_5d = np.nan
+        post_max_move_return_10d = np.nan
+    else:
+        max_move_timestamp = recent_daily_returns.abs().idxmax()
+        max_daily_move_signed_21d = float(recent_daily_returns.loc[max_move_timestamp])
+        max_daily_move_21d = abs(max_daily_move_signed_21d)
+        max_daily_move_date_21d = max_move_timestamp.date().isoformat()
+        total_abs_move_21d = float(recent_daily_returns.abs().sum())
+        max_1d_share_of_abs_move_21d = safe_ratio(
+            max_daily_move_21d,
+            total_abs_move_21d,
+        )
+        directional_efficiency_21d = safe_ratio(
+            abs(ret_21d),
+            total_abs_move_21d,
+        )
+        max_move_positions = np.flatnonzero(close.index == max_move_timestamp)
+        max_move_position = int(max_move_positions[-1])
+
+        def post_move_return(intervals: int) -> float:
+            target_position = max_move_position + intervals
+            if target_position >= len(close):
+                return np.nan
+            return float(
+                close.iloc[target_position] / close.iloc[max_move_position] - 1
+            )
+
+        post_max_move_return_5d = post_move_return(5)
+        post_max_move_return_10d = post_move_return(10)
+
     max_gap_21d = float(gap.iloc[-21:].abs().max())
     high_52w = float(close.iloc[-252:].max())
     low_52w = float(close.iloc[-252:].min())
@@ -799,10 +876,18 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
         "return_1d": ret_1d,
         "return_5d": ret_5d,
         "return_21d": ret_21d,
+        "return_63d": ret_63d,
+        "return_126d": ret_126d,
         "volume_ratio_5d_vs_prev20d": volume_ratio,
         "avg_dollar_volume_20d": dollar_volume_20d,
         "volatility_ratio_20d_vs_prev120d": volatility_ratio,
         "max_daily_move_21d": max_daily_move_21d,
+        "max_daily_move_date_21d": max_daily_move_date_21d,
+        "max_daily_move_signed_21d": max_daily_move_signed_21d,
+        "max_1d_share_of_abs_move_21d": max_1d_share_of_abs_move_21d,
+        "directional_efficiency_21d": directional_efficiency_21d,
+        "post_max_move_return_5d": post_max_move_return_5d,
+        "post_max_move_return_10d": post_max_move_return_10d,
         "max_gap_21d": max_gap_21d,
         "distance_from_52w_high": float(latest_price / high_52w - 1),
         "distance_from_52w_low": float(latest_price / low_52w - 1),
@@ -947,6 +1032,61 @@ def add_coverage_candidates(metrics: pd.DataFrame, config: dict[str, Any]) -> se
     return selected
 
 
+def distribution_percentiles(values: pd.Series) -> dict[str, float | None]:
+    numeric = pd.to_numeric(values, errors="coerce")
+    numeric = numeric[np.isfinite(numeric)]
+    if numeric.empty:
+        return {"p10": None, "median": None, "p90": None}
+    return {
+        "p10": float(numeric.quantile(0.10)),
+        "median": float(numeric.quantile(0.50)),
+        "p90": float(numeric.quantile(0.90)),
+    }
+
+
+def calculate_universe_distributions(
+    metrics: pd.DataFrame,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Summarize the liquid pre-selection universe and each represented sector."""
+
+    return_21d = pd.to_numeric(metrics["return_21d"], errors="coerce")
+    spy_relative_21d = pd.to_numeric(metrics["spy_relative_21d"], errors="coerce")
+    universe_distribution = {
+        "return_21d": distribution_percentiles(return_21d),
+        "spy_relative_21d": distribution_percentiles(spy_relative_21d),
+        "sector_relative_21d": distribution_percentiles(
+            metrics["sector_relative_21d"]
+        ),
+        "return_63d": distribution_percentiles(metrics["return_63d"]),
+        "return_21d_gt_20pct_count": int(return_21d.gt(0.20).sum()),
+        "return_21d_lt_minus_20pct_count": int(return_21d.lt(-0.20).sum()),
+        "abs_spy_relative_21d_gt_8pct_count": int(
+            spy_relative_21d.abs().gt(0.08).sum()
+        ),
+    }
+
+    sector_distribution: dict[str, Any] = {}
+    sector_metrics = metrics.copy()
+    sector_metrics["sector"] = sector_metrics["sector"].replace("", np.nan)
+    for sector, group in sector_metrics.dropna(subset=["sector"]).groupby(
+        "sector",
+        sort=True,
+    ):
+        sector_distribution[str(sector)] = {
+            "count": int(len(group)),
+            "sector_relative_21d": distribution_percentiles(
+                group["sector_relative_21d"]
+            ),
+            "return_63d": {
+                "median": distribution_percentiles(group["return_63d"])[
+                    "median"
+                ]
+            },
+        }
+
+    return universe_distribution, sector_distribution
+
+
 def load_signal_history() -> pd.DataFrame:
     if not HISTORY_PATH.exists():
         return pd.DataFrame(columns=["market_data_date", "ticker", "rank", "signal_score", "trigger_count"])
@@ -1022,14 +1162,30 @@ REQUIRED_OUTPUT_COLUMNS = [
     "market_data_date",
     "price",
     "return_21d",
+    "return_63d",
+    "return_126d",
+    "spy_return_63d",
+    "spy_return_126d",
     "spy_relative_21d",
+    "spy_relative_63d",
+    "spy_relative_126d",
     "sector_etf",
     "sector_etf_return_21d",
+    "sector_etf_return_63d",
+    "sector_etf_return_126d",
     "sector_relative_21d",
+    "sector_relative_63d",
+    "sector_relative_126d",
     "volume_ratio_5d_vs_prev20d",
     "avg_dollar_volume_20d",
     "volatility_ratio_20d_vs_prev120d",
     "max_daily_move_21d",
+    "max_daily_move_date_21d",
+    "max_daily_move_signed_21d",
+    "max_1d_share_of_abs_move_21d",
+    "directional_efficiency_21d",
+    "post_max_move_return_5d",
+    "post_max_move_return_10d",
     "max_gap_21d",
     "distance_from_52w_high",
     "distance_from_52w_low",
@@ -1195,6 +1351,7 @@ th{{position:sticky;top:0;background:#f6f8fa}} td:nth-child(2),td:nth-child(3),t
 
 def run() -> RunResult:
     config = load_config()
+    config_hash = calculate_config_hash(config)
     force_run = os.environ.get("FORCE_RUN", "false").lower() == "true"
     market_symbol = config["market_benchmark"]
 
@@ -1360,17 +1517,29 @@ def run() -> RunResult:
         (metrics_df["price"] >= float(config["min_price_usd"]))
         & (metrics_df["avg_dollar_volume_20d"] >= float(config["min_avg_dollar_volume_20d"]))
     ].copy()
-    spy_return = benchmark_metrics[market_symbol]["return_21d"]
-    metrics_df["spy_relative_21d"] = metrics_df["return_21d"] - spy_return
+    for horizon in ("21d", "63d", "126d"):
+        spy_return = benchmark_metrics[market_symbol][f"return_{horizon}"]
+        metrics_df[f"spy_return_{horizon}"] = spy_return
+        metrics_df[f"spy_relative_{horizon}"] = (
+            metrics_df[f"return_{horizon}"] - spy_return
+        )
 
-    def sector_return(sector: Any) -> float:
+    def sector_return(sector: Any, horizon: str) -> float:
         etf = config["sector_etfs"].get(sector)
-        return benchmark_metrics.get(etf, {}).get("return_21d", np.nan)
+        return benchmark_metrics.get(etf, {}).get(f"return_{horizon}", np.nan)
 
     metrics_df["sector_etf"] = metrics_df["sector"].map(config["sector_etfs"])
-    metrics_df["sector_etf_return_21d"] = metrics_df["sector"].map(sector_return)
-    metrics_df["sector_relative_21d"] = (
-        metrics_df["return_21d"] - metrics_df["sector_etf_return_21d"]
+    for horizon in ("21d", "63d", "126d"):
+        metrics_df[f"sector_etf_return_{horizon}"] = metrics_df["sector"].map(
+            lambda sector, period=horizon: sector_return(sector, period)
+        )
+        metrics_df[f"sector_relative_{horizon}"] = (
+            metrics_df[f"return_{horizon}"]
+            - metrics_df[f"sector_etf_return_{horizon}"]
+        )
+
+    universe_distribution, sector_distribution = calculate_universe_distributions(
+        metrics_df
     )
     metrics_df["trigger_list"] = metrics_df.apply(lambda row: build_triggers(row, config), axis=1)
     metrics_df["trigger_count"] = metrics_df["trigger_list"].map(len)
@@ -1411,14 +1580,30 @@ def run() -> RunResult:
         "return_1d",
         "return_5d",
         "return_21d",
+        "return_63d",
+        "return_126d",
+        "spy_return_63d",
+        "spy_return_126d",
         "spy_relative_21d",
+        "spy_relative_63d",
+        "spy_relative_126d",
         "sector_etf",
         "sector_etf_return_21d",
+        "sector_etf_return_63d",
+        "sector_etf_return_126d",
         "sector_relative_21d",
+        "sector_relative_63d",
+        "sector_relative_126d",
         "volume_ratio_5d_vs_prev20d",
         "avg_dollar_volume_20d",
         "volatility_ratio_20d_vs_prev120d",
         "max_daily_move_21d",
+        "max_daily_move_date_21d",
+        "max_daily_move_signed_21d",
+        "max_1d_share_of_abs_move_21d",
+        "directional_efficiency_21d",
+        "post_max_move_return_5d",
+        "post_max_move_return_10d",
         "max_gap_21d",
         "distance_from_52w_high",
         "distance_from_52w_low",
@@ -1473,6 +1658,8 @@ def run() -> RunResult:
         "quality_excluded_tickers": (
             quality_excluded_tickers
         ),
+        "universe_distribution": universe_distribution,
+        "sector_distribution": sector_distribution,
         "data_coverage": round(float(coverage), 6),
         "sector_data_coverage": round(
             sector_data_coverage,
@@ -1494,7 +1681,9 @@ def run() -> RunResult:
         "price_adjustment_validation_status": (
             "success"
         ),
-        "schema_version": "1.1",
+        "schema_version": SCHEMA_VERSION,
+        "config_version": config.get("config_version"),
+        "config_hash": config_hash,
         "price_return_definition": "split-adjusted price return excluding dividends",
         "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
         "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
