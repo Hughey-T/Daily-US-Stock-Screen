@@ -11,8 +11,10 @@ import pandas as pd
 from src.screen import (
     QUIET_DRIFT_OUTPUT_COLUMNS,
     build_quiet_drift_candidates,
+    calculate_relative_price_metrics,
     calculate_ticker_metrics,
     calculate_universe_distributions,
+    sector_coverage_strength_allowed,
     validate_metric_dataframe,
     validate_quiet_drift_dataframe,
     write_dataframe_csv,
@@ -155,6 +157,30 @@ class TickerMetricTests(unittest.TestCase):
         self.assertGreaterEqual(self.metrics["directional_efficiency_63d"], 0.0)
         self.assertLessEqual(self.metrics["directional_efficiency_63d"], 1.0)
 
+    def test_126d_metrics(self) -> None:
+        recent_returns = self.history["Close"].pct_change().iloc[-126:]
+        recent_gaps = self.history["Open"] / self.history["Close"].shift(1) - 1
+        log_returns = np.log1p(recent_returns)
+        self.assertAlmostEqual(
+            self.metrics["max_daily_move_126d"],
+            float(recent_returns.abs().max()),
+        )
+        self.assertAlmostEqual(
+            self.metrics["max_gap_126d"],
+            float(recent_gaps.iloc[-126:].abs().max()),
+        )
+        self.assertAlmostEqual(
+            self.metrics["max_1d_share_of_abs_move_126d"],
+            float(recent_returns.abs().max()) / float(recent_returns.abs().sum()),
+        )
+        self.assertAlmostEqual(
+            self.metrics["directional_efficiency_126d"],
+            abs(float(log_returns.sum())) / float(log_returns.abs().sum()),
+        )
+        self.assertEqual(self.metrics["positive_days_126d"], 125)
+        self.assertEqual(self.metrics["negative_days_126d"], 1)
+        self.assertAlmostEqual(self.metrics["positive_day_ratio_126d"], 125 / 126)
+
     def test_63d_directional_efficiency_same_direction(self) -> None:
         history = price_history(np.full(90, 0.01))
         metrics = calculate_ticker_metrics(history, history.index[-1])
@@ -185,6 +211,84 @@ class TickerMetricTests(unittest.TestCase):
             "positive_day_ratio_63d",
         ):
             self.assertTrue(math.isnan(metrics[column]))
+
+    def test_126d_metrics_are_nan_when_history_is_short(self) -> None:
+        history = price_history(np.full(100, 0.01))
+        metrics = calculate_ticker_metrics(history, history.index[-1])
+        assert metrics is not None
+        for column in (
+            "max_daily_move_126d",
+            "max_gap_126d",
+            "max_1d_share_of_abs_move_126d",
+            "directional_efficiency_126d",
+            "positive_days_126d",
+            "negative_days_126d",
+            "positive_day_ratio_126d",
+        ):
+            self.assertTrue(math.isnan(metrics[column]))
+
+
+class RelativePriceMetricTests(unittest.TestCase):
+    def test_aligned_relative_log_metrics(self) -> None:
+        stock = price_history(np.full(140, 0.01))
+        sector = price_history(np.full(140, 0.002))
+        metrics = calculate_relative_price_metrics(stock, sector, stock.index[-1])
+        daily_relative = math.log1p(0.01) - math.log1p(0.002)
+        for horizon in (63, 126):
+            self.assertAlmostEqual(
+                metrics[f"relative_max_daily_move_{horizon}d"],
+                abs(daily_relative),
+            )
+            self.assertAlmostEqual(
+                metrics[f"relative_max_1d_share_of_abs_move_{horizon}d"],
+                1 / horizon,
+            )
+            self.assertAlmostEqual(
+                metrics[f"relative_directional_efficiency_{horizon}d"],
+                1.0,
+            )
+
+    def test_offsetting_relative_log_returns_are_near_zero(self) -> None:
+        up = 0.01
+        down = 1.0 / (1.0 + up) - 1.0
+        stock_returns = np.array([up, down] * 70)
+        stock = price_history(stock_returns)
+        sector = price_history(np.zeros(140))
+        metrics = calculate_relative_price_metrics(stock, sector, stock.index[-1])
+        for horizon in (63, 126):
+            efficiency = metrics[f"relative_directional_efficiency_{horizon}d"]
+            self.assertGreaterEqual(efficiency, 0.0)
+            self.assertLessEqual(efficiency, 1.0)
+        self.assertAlmostEqual(
+            metrics["relative_directional_efficiency_126d"], 0.0, places=12
+        )
+
+    def test_zero_relative_denominator_is_nan(self) -> None:
+        stock = price_history(np.full(140, 0.01))
+        metrics = calculate_relative_price_metrics(stock, stock, stock.index[-1])
+        for horizon in (63, 126):
+            self.assertTrue(
+                math.isnan(
+                    metrics[f"relative_max_1d_share_of_abs_move_{horizon}d"]
+                )
+            )
+            self.assertTrue(
+                math.isnan(metrics[f"relative_directional_efficiency_{horizon}d"])
+            )
+
+    def test_history_shortage_and_date_mismatch_are_nan(self) -> None:
+        stock = price_history(np.full(140, 0.01))
+        short_sector = price_history(np.full(60, 0.002))
+        short_metrics = calculate_relative_price_metrics(
+            stock, short_sector, stock.index[-1]
+        )
+        self.assertTrue(math.isnan(short_metrics["relative_max_daily_move_63d"]))
+
+        mismatched_sector = price_history(np.full(140, 0.002), end="2026-07-10")
+        mismatch_metrics = calculate_relative_price_metrics(
+            stock, mismatched_sector, stock.index[-1]
+        )
+        self.assertTrue(math.isnan(mismatch_metrics["relative_max_daily_move_63d"]))
 
 
 class QualityValidationTests(unittest.TestCase):
@@ -261,8 +365,17 @@ def quiet_drift_config() -> dict[str, float | int]:
         "quiet_drift_max_volatility_ratio": 1.50,
         "quiet_drift_max_single_day_share_63d": 0.20,
         "quiet_drift_min_directional_efficiency_63d": 0.25,
+        "quiet_drift_max_daily_move_126d": 0.07,
+        "quiet_drift_max_gap_126d": 0.07,
+        "quiet_drift_max_single_day_share_126d": 0.20,
+        "quiet_drift_min_directional_efficiency_126d": 0.25,
+        "quiet_drift_min_relative_directional_efficiency_63d": 0.25,
+        "quiet_drift_min_relative_directional_efficiency_126d": 0.25,
+        "quiet_drift_max_relative_single_day_share_63d": 0.20,
+        "quiet_drift_max_relative_single_day_share_126d": 0.20,
         "quiet_drift_sector_top_n": 1,
         "quiet_drift_sector_bottom_n": 1,
+        "quiet_drift_sector_coverage_min_tail_distance": 0.50,
     }
 
 
@@ -291,6 +404,19 @@ def quiet_drift_metrics() -> pd.DataFrame:
             "positive_days_63d": [40] * 10,
             "negative_days_63d": [23] * 10,
             "positive_day_ratio_63d": [40 / 63] * 10,
+            "relative_max_daily_move_63d": [0.015] * 10,
+            "relative_max_1d_share_of_abs_move_63d": [0.08] * 10,
+            "relative_directional_efficiency_63d": [0.70] * 10,
+            "max_daily_move_126d": [0.025] * 10,
+            "max_gap_126d": [0.015] * 10,
+            "max_1d_share_of_abs_move_126d": [0.06] * 10,
+            "directional_efficiency_126d": [0.65] * 10,
+            "positive_days_126d": [75] * 10,
+            "negative_days_126d": [51] * 10,
+            "positive_day_ratio_126d": [75 / 126] * 10,
+            "relative_max_daily_move_126d": [0.012] * 10,
+            "relative_max_1d_share_of_abs_move_126d": [0.05] * 10,
+            "relative_directional_efficiency_126d": [0.60] * 10,
             "volume_ratio_5d_vs_prev20d": [1.10] * 10,
             "volatility_ratio_20d_vs_prev120d": [1.10] * 10,
         }
@@ -344,6 +470,42 @@ class QuietDriftSelectionTests(unittest.TestCase):
     def test_low_directional_efficiency_is_filtered(self) -> None:
         self.assert_filtered("directional_efficiency_63d", 0.249)
 
+    def test_low_relative_directional_efficiency_is_filtered(self) -> None:
+        self.assert_filtered("relative_directional_efficiency_63d", 0.249)
+
+    def test_126d_anchor_requires_126d_stock_and_relative_quietness(self) -> None:
+        for column, value in (
+            ("max_daily_move_126d", 0.071),
+            ("max_gap_126d", 0.071),
+            ("max_1d_share_of_abs_move_126d", 0.201),
+            ("directional_efficiency_126d", 0.249),
+            ("relative_max_1d_share_of_abs_move_126d", 0.201),
+            ("relative_directional_efficiency_126d", 0.249),
+        ):
+            with self.subTest(column=column):
+                metrics = quiet_drift_metrics()
+                metrics.loc[metrics["ticker"] == "T6", column] = value
+                self.assertNotIn("T6", set(self.build(metrics)["ticker"]))
+
+    def test_126d_anchor_requires_same_direction(self) -> None:
+        metrics = quiet_drift_metrics()
+        metrics.loc[metrics["ticker"] == "T6", "sector_relative_63d"] = -0.05
+        self.assertNotIn("T6", set(self.build(metrics)["ticker"]))
+
+    def test_same_direction_126d_anchor_is_selected(self) -> None:
+        candidates = self.build().set_index("ticker")
+        self.assertEqual(candidates.loc["T6", "trend_consistency"], "same_direction")
+
+    def test_63d_anchor_allows_recent_regime_change(self) -> None:
+        metrics = quiet_drift_metrics()
+        metrics.loc[metrics["ticker"] == "T9", "sector_relative_126d"] = -0.05
+        candidates = self.build(metrics).set_index("ticker")
+        self.assertEqual(candidates.loc["T9", "anchor_horizon"], "63d")
+        self.assertEqual(
+            candidates.loc["T9", "trend_consistency"],
+            "recent_regime_change",
+        )
+
     def test_missing_required_data_is_filtered(self) -> None:
         metrics = quiet_drift_metrics()
         metrics.loc[metrics["ticker"] == "T9", "max_gap_63d"] = np.nan
@@ -356,6 +518,49 @@ class QuietDriftSelectionTests(unittest.TestCase):
         self.assertIn("quiet_drift_sector_relative_126d_top", row["selection_reason"])
         self.assertIn("quiet_drift_sector_coverage_top", row["selection_reason"])
         self.assertEqual(candidates["ticker"].value_counts().max(), 1)
+
+    def test_single_member_sector_gets_only_directional_coverage(self) -> None:
+        metrics = quiet_drift_metrics()
+        metrics.loc[metrics["ticker"] == "T9", "sector"] = "SoloUp"
+        metrics.loc[metrics["ticker"] == "T0", "sector"] = "SoloDown"
+        candidates = self.build(metrics).set_index("ticker")
+        up_reason = candidates.loc["T9", "selection_reason"]
+        down_reason = candidates.loc["T0", "selection_reason"]
+        self.assertIn("quiet_drift_sector_coverage_top", up_reason)
+        self.assertNotIn("quiet_drift_sector_coverage_bottom", up_reason)
+        self.assertIn("quiet_drift_sector_coverage_bottom", down_reason)
+        self.assertNotIn("quiet_drift_sector_coverage_top", down_reason)
+
+    def test_single_member_sector_with_zero_anchor_is_not_covered(self) -> None:
+        metrics = quiet_drift_metrics()
+        metrics.loc[metrics["ticker"] == "T4", "sector"] = "SoloZero"
+        candidates = self.build(metrics)
+        self.assertNotIn("T4", set(candidates["ticker"]))
+
+    def test_multi_member_sector_coverage_has_no_overlap(self) -> None:
+        candidates = self.build()
+        top = set(
+            candidates.loc[
+                candidates["selection_reason"].str.contains(
+                    "quiet_drift_sector_coverage_top", regex=False
+                ),
+                "ticker",
+            ]
+        )
+        bottom = set(
+            candidates.loc[
+                candidates["selection_reason"].str.contains(
+                    "quiet_drift_sector_coverage_bottom", regex=False
+                ),
+                "ticker",
+            ]
+        )
+        self.assertFalse(top & bottom)
+
+    def test_sector_coverage_minimum_tail_distance_guard(self) -> None:
+        self.assertFalse(sector_coverage_strength_allowed("sector_coverage", 0.49, 0.50))
+        self.assertTrue(sector_coverage_strength_allowed("sector_coverage", 0.50, 0.50))
+        self.assertTrue(sector_coverage_strength_allowed("global_tail", 0.00, 0.50))
 
     def test_maximum_and_ranking_are_deterministic(self) -> None:
         config = quiet_drift_config()
@@ -379,6 +584,36 @@ class QuietDriftSelectionTests(unittest.TestCase):
             loaded = pd.read_csv(path)
         self.assertEqual(len(loaded), len(candidates))
         self.assertEqual(loaded.columns.tolist(), QUIET_DRIFT_OUTPUT_COLUMNS)
+
+
+class RepositoryTextTests(unittest.TestCase):
+    def test_chatgpt_prompt_is_within_custom_gpt_limit(self) -> None:
+        prompt = Path("CHATGPT_PROMPT.md").read_text(encoding="utf-8")
+        self.assertLessEqual(len(prompt), 8_000)
+
+    def test_changed_text_files_have_no_hidden_directional_unicode(self) -> None:
+        forbidden = {
+            *range(0x202A, 0x202F),
+            *range(0x2066, 0x206A),
+            0x200E,
+            0x200F,
+            0xFEFF,
+        }
+        paths = (
+            Path("src/screen.py"),
+            Path("scripts/check_status.py"),
+            Path("tests/test_screen.py"),
+            Path("config.yml"),
+            Path("README.md"),
+            Path("CHATGPT_PROMPT.md"),
+        )
+        violations = [
+            (str(path), index, f"U+{ord(character):04X}")
+            for path in paths
+            for index, character in enumerate(path.read_text(encoding="utf-8"))
+            if ord(character) in forbidden
+        ]
+        self.assertEqual(violations, [])
 
 
 if __name__ == "__main__":

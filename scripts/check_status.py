@@ -117,12 +117,26 @@ if status.get("quiet_drift_enabled"):
         "positive_days_63d",
         "negative_days_63d",
         "positive_day_ratio_63d",
+        "relative_max_daily_move_63d",
+        "relative_max_1d_share_of_abs_move_63d",
+        "relative_directional_efficiency_63d",
+        "max_daily_move_126d",
+        "max_gap_126d",
+        "max_1d_share_of_abs_move_126d",
+        "directional_efficiency_126d",
+        "positive_days_126d",
+        "negative_days_126d",
+        "positive_day_ratio_126d",
+        "relative_max_daily_move_126d",
+        "relative_max_1d_share_of_abs_move_126d",
+        "relative_directional_efficiency_126d",
         "volume_ratio_5d_vs_prev20d",
         "volatility_ratio_20d_vs_prev120d",
         "selection_bucket",
         "selection_reason",
         "anchor_horizon",
         "drift_direction",
+        "trend_consistency",
         "tail_percentile",
         "tail_distance",
     }
@@ -161,6 +175,26 @@ if status.get("quiet_drift_enabled"):
         raise SystemExit("quiet_drift.csv contains an invalid drift_direction")
     if any(row["anchor_horizon"] not in {"63d", "126d"} for row in quiet_rows):
         raise SystemExit("quiet_drift.csv contains an invalid anchor_horizon")
+    if any(
+        row["trend_consistency"]
+        not in {"same_direction", "recent_regime_change", "insufficient_history"}
+        for row in quiet_rows
+    ):
+        raise SystemExit("quiet_drift.csv contains an invalid trend_consistency")
+
+    for row in quiet_rows:
+        reason = row["selection_reason"]
+        if (
+            "quiet_drift_sector_coverage_top" in reason
+            and "quiet_drift_sector_coverage_bottom" in reason
+        ):
+            raise SystemExit(
+                "quiet_drift.csv contains both sector coverage top and bottom reasons"
+            )
+        if row["anchor_horizon"] == "126d" and row["trend_consistency"] != "same_direction":
+            raise SystemExit(
+                "quiet_drift.csv contains a 126d anchor without same-direction trend"
+            )
 
     for column in (
         "tail_percentile",
@@ -186,6 +220,39 @@ if status.get("quiet_drift_enabled"):
         value = status.get(field)
         if not isinstance(value, dict) or not value:
             raise SystemExit(f"{field} must be a non-empty object")
+
+    quiet_thresholds = status["quiet_drift_thresholds"]
+    minimum_tail_distance = quiet_thresholds.get(
+        "quiet_drift_sector_coverage_min_tail_distance"
+    )
+    if not isinstance(minimum_tail_distance, (int, float)) or not math.isfinite(
+        minimum_tail_distance
+    ):
+        raise SystemExit("quiet drift sector coverage minimum tail distance is invalid")
+
+    for row in quiet_rows:
+        if row["selection_bucket"] == "sector_coverage":
+            try:
+                tail_distance = float(row["tail_distance"])
+            except ValueError as exc:
+                raise SystemExit("quiet_drift.csv contains invalid tail_distance") from exc
+            if tail_distance < float(minimum_tail_distance):
+                raise SystemExit(
+                    "quiet_drift.csv sector-coverage-only row is below minimum tail distance"
+                )
+
+        horizon = row["anchor_horizon"]
+        column = f"relative_directional_efficiency_{horizon}"
+        try:
+            efficiency = float(row[column])
+        except ValueError as exc:
+            raise SystemExit(
+                f"quiet_drift.csv contains invalid anchor-relative efficiency: {column}"
+            ) from exc
+        if not math.isfinite(efficiency) or not 0.0 <= efficiency <= 1.0:
+            raise SystemExit(
+                f"quiet_drift.csv anchor-relative efficiency is outside [0, 1]: {column}"
+            )
 
 print(
     f"Screening status: success ({row_count} event rows, "

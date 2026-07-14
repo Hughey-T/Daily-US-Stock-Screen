@@ -36,8 +36,17 @@ quiet_drift_max_volume_ratio: 1.80
 quiet_drift_max_volatility_ratio: 1.50
 quiet_drift_max_single_day_share_63d: 0.20
 quiet_drift_min_directional_efficiency_63d: 0.25
+quiet_drift_max_daily_move_126d: 0.07
+quiet_drift_max_gap_126d: 0.07
+quiet_drift_max_single_day_share_126d: 0.20
+quiet_drift_min_directional_efficiency_126d: 0.25
+quiet_drift_min_relative_directional_efficiency_63d: 0.25
+quiet_drift_min_relative_directional_efficiency_126d: 0.25
+quiet_drift_max_relative_single_day_share_63d: 0.20
+quiet_drift_max_relative_single_day_share_126d: 0.20
 quiet_drift_sector_top_n: 1
 quiet_drift_sector_bottom_n: 1
+quiet_drift_sector_coverage_min_tail_distance: 0.50
 
 # Benchmarks
 market_benchmark: SPY

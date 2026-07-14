@@ -870,39 +870,50 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
 
     max_gap_21d = float(gap.iloc[-21:].abs().max())
 
-    recent_daily_returns_63d = daily_return.iloc[-63:].dropna()
-    recent_gaps_63d = gap.iloc[-63:].dropna()
-    if (
-        len(close) < 64
-        or len(recent_daily_returns_63d) < 63
-        or len(recent_gaps_63d) < 63
-    ):
-        max_daily_move_63d = np.nan
-        max_gap_63d = np.nan
-        max_1d_share_of_abs_move_63d = np.nan
-        directional_efficiency_63d = np.nan
-        positive_days_63d = np.nan
-        negative_days_63d = np.nan
-        positive_day_ratio_63d = np.nan
-    else:
-        max_daily_move_63d = float(recent_daily_returns_63d.abs().max())
-        max_gap_63d = float(recent_gaps_63d.abs().max())
-        total_abs_move_63d = float(recent_daily_returns_63d.abs().sum())
-        max_1d_share_of_abs_move_63d = safe_ratio(
-            max_daily_move_63d,
-            total_abs_move_63d,
-        )
-        log_returns_63d = np.log1p(recent_daily_returns_63d)
-        directional_efficiency_63d = safe_ratio(
-            abs(float(log_returns_63d.sum())),
-            float(log_returns_63d.abs().sum()),
-        )
-        positive_days_63d = int(recent_daily_returns_63d.gt(0).sum())
-        negative_days_63d = int(recent_daily_returns_63d.lt(0).sum())
-        positive_day_ratio_63d = safe_ratio(
-            positive_days_63d,
-            positive_days_63d + negative_days_63d,
-        )
+    def stock_horizon_metrics(intervals: int) -> dict[str, Any]:
+        recent_returns = daily_return.iloc[-intervals:].dropna()
+        recent_gaps = gap.iloc[-intervals:].dropna()
+        if (
+            len(close) < intervals + 1
+            or len(recent_returns) < intervals
+            or len(recent_gaps) < intervals
+        ):
+            return {
+                "max_daily_move": np.nan,
+                "max_gap": np.nan,
+                "max_1d_share_of_abs_move": np.nan,
+                "directional_efficiency": np.nan,
+                "positive_days": np.nan,
+                "negative_days": np.nan,
+                "positive_day_ratio": np.nan,
+            }
+
+        max_daily_move = float(recent_returns.abs().max())
+        total_abs_move = float(recent_returns.abs().sum())
+        log_returns = np.log1p(recent_returns)
+        positive_days = int(recent_returns.gt(0).sum())
+        negative_days = int(recent_returns.lt(0).sum())
+        return {
+            "max_daily_move": max_daily_move,
+            "max_gap": float(recent_gaps.abs().max()),
+            "max_1d_share_of_abs_move": safe_ratio(
+                max_daily_move,
+                total_abs_move,
+            ),
+            "directional_efficiency": safe_ratio(
+                abs(float(log_returns.sum())),
+                float(log_returns.abs().sum()),
+            ),
+            "positive_days": positive_days,
+            "negative_days": negative_days,
+            "positive_day_ratio": safe_ratio(
+                positive_days,
+                positive_days + negative_days,
+            ),
+        }
+
+    stock_metrics_63d = stock_horizon_metrics(63)
+    stock_metrics_126d = stock_horizon_metrics(126)
 
     high_52w = float(close.iloc[-252:].max())
     low_52w = float(close.iloc[-252:].min())
@@ -926,13 +937,14 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
         "post_max_move_return_5d": post_max_move_return_5d,
         "post_max_move_return_10d": post_max_move_return_10d,
         "max_gap_21d": max_gap_21d,
-        "max_daily_move_63d": max_daily_move_63d,
-        "max_gap_63d": max_gap_63d,
-        "max_1d_share_of_abs_move_63d": max_1d_share_of_abs_move_63d,
-        "directional_efficiency_63d": directional_efficiency_63d,
-        "positive_days_63d": positive_days_63d,
-        "negative_days_63d": negative_days_63d,
-        "positive_day_ratio_63d": positive_day_ratio_63d,
+        **{
+            f"{name}_63d": value
+            for name, value in stock_metrics_63d.items()
+        },
+        **{
+            f"{name}_126d": value
+            for name, value in stock_metrics_126d.items()
+        },
         "distance_from_52w_high": float(latest_price / high_52w - 1),
         "distance_from_52w_low": float(latest_price / low_52w - 1),
         "history_rows": int(len(data)),
@@ -1154,12 +1166,26 @@ QUIET_DRIFT_OUTPUT_COLUMNS = [
     "positive_days_63d",
     "negative_days_63d",
     "positive_day_ratio_63d",
+    "relative_max_daily_move_63d",
+    "relative_max_1d_share_of_abs_move_63d",
+    "relative_directional_efficiency_63d",
+    "max_daily_move_126d",
+    "max_gap_126d",
+    "max_1d_share_of_abs_move_126d",
+    "directional_efficiency_126d",
+    "positive_days_126d",
+    "negative_days_126d",
+    "positive_day_ratio_126d",
+    "relative_max_daily_move_126d",
+    "relative_max_1d_share_of_abs_move_126d",
+    "relative_directional_efficiency_126d",
     "volume_ratio_5d_vs_prev20d",
     "volatility_ratio_20d_vs_prev120d",
     "selection_bucket",
     "selection_reason",
     "anchor_horizon",
     "drift_direction",
+    "trend_consistency",
     "tail_percentile",
     "tail_distance",
 ]
@@ -1170,6 +1196,9 @@ QUIET_DRIFT_METRIC_COLUMNS = [
     "max_gap_63d",
     "max_1d_share_of_abs_move_63d",
     "directional_efficiency_63d",
+    "relative_max_daily_move_63d",
+    "relative_max_1d_share_of_abs_move_63d",
+    "relative_directional_efficiency_63d",
     "volume_ratio_5d_vs_prev20d",
     "volatility_ratio_20d_vs_prev120d",
 ]
@@ -1183,8 +1212,17 @@ QUIET_DRIFT_THRESHOLD_KEYS = [
     "quiet_drift_max_volatility_ratio",
     "quiet_drift_max_single_day_share_63d",
     "quiet_drift_min_directional_efficiency_63d",
+    "quiet_drift_max_daily_move_126d",
+    "quiet_drift_max_gap_126d",
+    "quiet_drift_max_single_day_share_126d",
+    "quiet_drift_min_directional_efficiency_126d",
+    "quiet_drift_min_relative_directional_efficiency_63d",
+    "quiet_drift_min_relative_directional_efficiency_126d",
+    "quiet_drift_max_relative_single_day_share_63d",
+    "quiet_drift_max_relative_single_day_share_126d",
     "quiet_drift_sector_top_n",
     "quiet_drift_sector_bottom_n",
+    "quiet_drift_sector_coverage_min_tail_distance",
 ]
 
 QUIET_DRIFT_REASON_ORDER = [
@@ -1238,6 +1276,97 @@ def quiet_drift_distribution(candidates: pd.DataFrame) -> dict[str, Any]:
     }
 
 
+def sector_coverage_strength_allowed(
+    selection_bucket: str,
+    tail_distance: float,
+    minimum_tail_distance: float,
+) -> bool:
+    """Global tails bypass the structural sector-coverage strength guard."""
+
+    return selection_bucket == "global_tail" or (
+        np.isfinite(tail_distance) and tail_distance >= minimum_tail_distance
+    )
+
+
+def trend_consistency_label(relative_63d: Any, relative_126d: Any) -> str:
+    relative_63d = pd.to_numeric(pd.Series([relative_63d]), errors="coerce").iloc[0]
+    relative_126d = pd.to_numeric(pd.Series([relative_126d]), errors="coerce").iloc[0]
+    if not np.isfinite(relative_63d) or not np.isfinite(relative_126d):
+        return "insufficient_history"
+    sign_63d = np.sign(relative_63d)
+    sign_126d = np.sign(relative_126d)
+    if sign_63d != 0 and sign_63d == sign_126d:
+        return "same_direction"
+    return "recent_regime_change"
+
+
+def calculate_relative_price_metrics(
+    stock_history: pd.DataFrame,
+    sector_etf_history: pd.DataFrame,
+    market_date: pd.Timestamp,
+) -> dict[str, float]:
+    """Calculate quietness metrics from aligned stock/sector relative log returns."""
+
+    result = {
+        f"relative_{metric}_{horizon}d": np.nan
+        for horizon in (63, 126)
+        for metric in (
+            "max_daily_move",
+            "max_1d_share_of_abs_move",
+            "directional_efficiency",
+        )
+    }
+    stock = prepare_history(stock_history)
+    sector = prepare_history(sector_etf_history)
+    if stock.empty or sector.empty:
+        return result
+
+    cutoff = market_date.normalize()
+    stock = stock[stock.index.normalize() <= cutoff]
+    sector = sector[sector.index.normalize() <= cutoff]
+    if (
+        stock.empty
+        or sector.empty
+        or stock.index[-1].normalize() != cutoff
+        or sector.index[-1].normalize() != cutoff
+    ):
+        return result
+
+    for horizon in (63, 126):
+        stock_close = stock["Adj_Close"].iloc[-(horizon + 1):]
+        sector_close = sector["Adj_Close"].iloc[-(horizon + 1):]
+        if (
+            len(stock_close) < horizon + 1
+            or len(sector_close) < horizon + 1
+            or not stock_close.index.equals(sector_close.index)
+        ):
+            continue
+
+        relative_log_returns = (
+            np.log(stock_close).diff() - np.log(sector_close).diff()
+        ).dropna()
+        if len(relative_log_returns) != horizon:
+            continue
+        maximum = float(relative_log_returns.abs().max())
+        total_absolute = float(relative_log_returns.abs().sum())
+        result[f"relative_max_daily_move_{horizon}d"] = maximum
+        result[f"relative_max_1d_share_of_abs_move_{horizon}d"] = safe_ratio(
+            maximum,
+            total_absolute,
+        )
+        relative_efficiency = safe_ratio(
+            abs(float(relative_log_returns.sum())),
+            total_absolute,
+        )
+        result[f"relative_directional_efficiency_{horizon}d"] = (
+            float(np.clip(relative_efficiency, 0.0, 1.0))
+            if np.isfinite(relative_efficiency)
+            else np.nan
+        )
+
+    return result
+
+
 def build_quiet_drift_candidates(
     metrics: pd.DataFrame,
     config: dict[str, Any],
@@ -1251,6 +1380,7 @@ def build_quiet_drift_candidates(
             "selection_reason",
             "anchor_horizon",
             "drift_direction",
+            "trend_consistency",
             "tail_percentile",
             "tail_distance",
         }
@@ -1328,6 +1458,64 @@ def build_quiet_drift_candidates(
         "up",
         "down",
     )
+    quiet["trend_consistency"] = quiet.apply(
+        lambda row: trend_consistency_label(
+            row["sector_relative_63d"],
+            row["sector_relative_126d"],
+        ),
+        axis=1,
+    )
+    quiet["_anchor_relative_directional_efficiency"] = np.where(
+        use_126d,
+        quiet["relative_directional_efficiency_126d"],
+        quiet["relative_directional_efficiency_63d"],
+    )
+
+    eligible_63d_anchor = (
+        quiet["relative_max_1d_share_of_abs_move_63d"].le(
+            float(config["quiet_drift_max_relative_single_day_share_63d"])
+        )
+        & quiet["relative_directional_efficiency_63d"].ge(
+            float(config["quiet_drift_min_relative_directional_efficiency_63d"])
+        )
+    )
+    eligible_126d_anchor = (
+        quiet["max_daily_move_126d"].le(
+            float(config["quiet_drift_max_daily_move_126d"])
+        )
+        & quiet["max_gap_126d"].le(float(config["quiet_drift_max_gap_126d"]))
+        & quiet["max_1d_share_of_abs_move_126d"].le(
+            float(config["quiet_drift_max_single_day_share_126d"])
+        )
+        & quiet["directional_efficiency_126d"].ge(
+            float(config["quiet_drift_min_directional_efficiency_126d"])
+        )
+        & quiet["relative_max_daily_move_126d"].notna()
+        & quiet["relative_max_1d_share_of_abs_move_126d"].le(
+            float(config["quiet_drift_max_relative_single_day_share_126d"])
+        )
+        & quiet["relative_directional_efficiency_126d"].ge(
+            float(config["quiet_drift_min_relative_directional_efficiency_126d"])
+        )
+        & quiet["trend_consistency"].eq("same_direction")
+    )
+    anchor_eligibility = np.where(
+        use_126d,
+        eligible_126d_anchor,
+        eligible_63d_anchor,
+    )
+    quiet = quiet.loc[anchor_eligibility].copy()
+
+    if quiet.empty:
+        empty = pd.DataFrame(columns=QUIET_DRIFT_OUTPUT_COLUMNS)
+        distribution = quiet_drift_distribution(empty)
+        distribution.update(
+            {
+                "eligible_63d_count": int(len(usable)),
+                "quietness_pass_count": 0,
+            }
+        )
+        return empty, thresholds, distribution
 
     reasons: dict[Any, set[str]] = {index: set() for index in quiet.index}
     lower_63d = thresholds["sector_relative_63d"]["lower"]
@@ -1347,14 +1535,27 @@ def build_quiet_drift_candidates(
 
     sector_usable = quiet.dropna(subset=["sector"])
     for _, group in sector_usable.groupby("sector", sort=True):
-        top = group.sort_values(
-            ["tail_percentile", "ticker"],
-            ascending=[False, True],
-        ).head(int(config["quiet_drift_sector_top_n"]))
-        bottom = group.sort_values(
-            ["tail_percentile", "ticker"],
-            ascending=[True, True],
-        ).head(int(config["quiet_drift_sector_bottom_n"]))
+        if len(group) == 1:
+            only = group.iloc[0]
+            if only["_anchor_relative_return"] > 0:
+                top = group
+                bottom = group.iloc[0:0]
+            elif only["_anchor_relative_return"] < 0:
+                top = group.iloc[0:0]
+                bottom = group
+            else:
+                top = group.iloc[0:0]
+                bottom = group.iloc[0:0]
+        else:
+            top = group.sort_values(
+                ["tail_percentile", "ticker"],
+                ascending=[False, True],
+            ).head(int(config["quiet_drift_sector_top_n"]))
+            bottom_pool = group.loc[~group.index.isin(top.index)]
+            bottom = bottom_pool.sort_values(
+                ["tail_percentile", "ticker"],
+                ascending=[True, True],
+            ).head(int(config["quiet_drift_sector_bottom_n"]))
         for index in top.index:
             reasons[index].add("quiet_drift_sector_coverage_top")
         for index in bottom.index:
@@ -1371,10 +1572,22 @@ def build_quiet_drift_candidates(
         ";".join(reason for reason in QUIET_DRIFT_REASON_ORDER if reason in reasons[index])
         for index in selected.index
     ]
+    minimum_coverage_tail = float(
+        config["quiet_drift_sector_coverage_min_tail_distance"]
+    )
+    coverage_strength = selected.apply(
+        lambda row: sector_coverage_strength_allowed(
+            str(row["selection_bucket"]),
+            float(row["tail_distance"]),
+            minimum_coverage_tail,
+        ),
+        axis=1,
+    )
+    selected = selected.loc[coverage_strength].copy()
 
     sort_columns = [
         "tail_distance",
-        "directional_efficiency_63d",
+        "_anchor_relative_directional_efficiency",
         "_anchor_abs_relative_return",
         "ticker",
     ]
@@ -1412,6 +1625,7 @@ def build_quiet_drift_candidates(
 def validate_quiet_drift_dataframe(
     candidates: pd.DataFrame,
     market_date: pd.Timestamp,
+    config: dict[str, Any] | None = None,
 ) -> None:
     missing = [
         column for column in QUIET_DRIFT_OUTPUT_COLUMNS if column not in candidates.columns
@@ -1441,6 +1655,48 @@ def validate_quiet_drift_dataframe(
         raise RuntimeError("Quiet drift drift_direction is invalid")
     if not candidates["anchor_horizon"].isin(["63d", "126d"]).all():
         raise RuntimeError("Quiet drift anchor_horizon is invalid")
+    if not candidates["trend_consistency"].isin(
+        ["same_direction", "recent_regime_change", "insufficient_history"]
+    ).all():
+        raise RuntimeError("Quiet drift trend_consistency is invalid")
+
+    coverage_top = candidates["selection_reason"].str.contains(
+        "quiet_drift_sector_coverage_top", regex=False
+    )
+    coverage_bottom = candidates["selection_reason"].str.contains(
+        "quiet_drift_sector_coverage_bottom", regex=False
+    )
+    if (coverage_top & coverage_bottom).any():
+        raise RuntimeError("Quiet drift selection reason contains both coverage tails")
+
+    anchor_126d = candidates["anchor_horizon"].eq("126d")
+    if not candidates.loc[anchor_126d, "trend_consistency"].eq(
+        "same_direction"
+    ).all():
+        raise RuntimeError("Quiet drift 126d anchors must have same-direction trends")
+
+    for horizon in ("63d", "126d"):
+        anchored = candidates["anchor_horizon"].eq(horizon)
+        values = pd.to_numeric(
+            candidates.loc[
+                anchored,
+                f"relative_directional_efficiency_{horizon}",
+            ],
+            errors="coerce",
+        )
+        if values.isna().any() or not values.between(0.0, 1.0).all():
+            raise RuntimeError(
+                f"Quiet drift {horizon} anchor relative efficiency is invalid"
+            )
+
+    if config is not None:
+        coverage_only = candidates["selection_bucket"].eq("sector_coverage")
+        minimum = float(config["quiet_drift_sector_coverage_min_tail_distance"])
+        distances = pd.to_numeric(
+            candidates.loc[coverage_only, "tail_distance"], errors="coerce"
+        )
+        if distances.isna().any() or distances.lt(minimum).any():
+            raise RuntimeError("Quiet drift sector coverage tail distance is too small")
 
 
 def write_dataframe_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -1836,7 +2092,15 @@ def run() -> RunResult:
         if metrics is None:
             continue
         metadata = universe_lookup[ticker]
-        metric_rows.append({"ticker": ticker, **metadata, **metrics})
+        sector_etf = config["sector_etfs"].get(metadata.get("sector"))
+        relative_metrics = calculate_relative_price_metrics(
+            price_data.get(ticker, pd.DataFrame()),
+            price_data.get(sector_etf, pd.DataFrame()),
+            market_date,
+        )
+        metric_rows.append(
+            {"ticker": ticker, **metadata, **metrics, **relative_metrics}
+        )
 
     metrics_df = pd.DataFrame(
         metric_rows
@@ -1916,7 +2180,7 @@ def run() -> RunResult:
             quiet_drift_tail_thresholds,
             quiet_drift_distribution_data,
         ) = build_quiet_drift_candidates(metrics_df, config)
-        validate_quiet_drift_dataframe(quiet_drift_candidates, market_date)
+        validate_quiet_drift_dataframe(quiet_drift_candidates, market_date, config)
     else:
         quiet_drift_candidates = pd.DataFrame(columns=QUIET_DRIFT_OUTPUT_COLUMNS)
         quiet_drift_tail_thresholds = {}
@@ -2061,10 +2325,11 @@ def run() -> RunResult:
         "quiet_drift_selection_definition": {
             "population": "liquid pre-selection universe after quality exclusions",
             "global_tail": "top or bottom configured quantile of sector-relative 63d or 126d return",
-            "sector_coverage": "configured top and bottom counts per sector after quietness filters",
+            "sector_coverage": "non-overlapping top then bottom per sector after quietness filters and the minimum tail-distance guard",
+            "anchor_rules": "63d uses 63d relative quietness; 126d additionally requires 126d stock and relative quietness plus same-direction 63d/126d sector-relative returns",
             "rank_order": [
                 "tail_distance desc",
-                "directional_efficiency_63d desc",
+                "anchor relative directional efficiency desc",
                 "absolute anchor sector-relative return desc",
                 "ticker asc",
             ],

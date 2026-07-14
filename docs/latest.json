@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generated_at": "2026-07-14T08:58:31+00:00",
+  "generated_at": "2026-07-14T09:27:13+00:00",
   "market_data_date": "2026-07-13",
   "expected_market_data_date": "2026-07-13",
   "is_market_data_complete": true,
@@ -19,15 +19,16 @@
   "quiet_drift_status": "success",
   "quiet_drift_csv_file": "quiet_drift.csv",
   "quiet_drift_archive_file": "archive/quiet_drift_2026-07-13.csv",
-  "quiet_drift_row_count": 17,
+  "quiet_drift_row_count": 13,
   "quiet_drift_required_column_check": "success",
   "quiet_drift_selection_definition": {
     "population": "liquid pre-selection universe after quality exclusions",
     "global_tail": "top or bottom configured quantile of sector-relative 63d or 126d return",
-    "sector_coverage": "configured top and bottom counts per sector after quietness filters",
+    "sector_coverage": "non-overlapping top then bottom per sector after quietness filters and the minimum tail-distance guard",
+    "anchor_rules": "63d uses 63d relative quietness; 126d additionally requires 126d stock and relative quietness plus same-direction 63d/126d sector-relative returns",
     "rank_order": [
       "tail_distance desc",
-      "directional_efficiency_63d desc",
+      "anchor relative directional efficiency desc",
       "absolute anchor sector-relative return desc",
       "ticker asc"
     ]
@@ -41,8 +42,17 @@
     "quiet_drift_max_volatility_ratio": 1.5,
     "quiet_drift_max_single_day_share_63d": 0.2,
     "quiet_drift_min_directional_efficiency_63d": 0.25,
+    "quiet_drift_max_daily_move_126d": 0.07,
+    "quiet_drift_max_gap_126d": 0.07,
+    "quiet_drift_max_single_day_share_126d": 0.2,
+    "quiet_drift_min_directional_efficiency_126d": 0.25,
+    "quiet_drift_min_relative_directional_efficiency_63d": 0.25,
+    "quiet_drift_min_relative_directional_efficiency_126d": 0.25,
+    "quiet_drift_max_relative_single_day_share_63d": 0.2,
+    "quiet_drift_max_relative_single_day_share_126d": 0.2,
     "quiet_drift_sector_top_n": 1,
     "quiet_drift_sector_bottom_n": 1,
+    "quiet_drift_sector_coverage_min_tail_distance": 0.5,
     "population_tail_boundaries": {
       "sector_relative_63d": {
         "lower": -0.3308329100088712,
@@ -57,26 +67,25 @@
     }
   },
   "quiet_drift_distribution": {
-    "global_tail_count": 1,
-    "sector_coverage_only_count": 16,
-    "up_count": 11,
-    "down_count": 6,
+    "global_tail_count": 0,
+    "sector_coverage_only_count": 13,
+    "up_count": 8,
+    "down_count": 5,
     "sector_counts": {
-      "Technology": 2,
       "Financial Services": 2,
-      "Healthcare": 2,
       "Real Estate": 2,
-      "Consumer Cyclical": 2,
       "Communication Services": 2,
       "Industrials": 2,
       "Energy": 1,
+      "Consumer Cyclical": 1,
+      "Healthcare": 1,
       "Basic Materials": 1,
       "Consumer Defensive": 1
     },
     "anchor_63d_count": 12,
-    "anchor_126d_count": 5,
+    "anchor_126d_count": 1,
     "eligible_63d_count": 2134,
-    "quietness_pass_count": 52
+    "quietness_pass_count": 22
   },
   "universe_distribution": {
     "return_21d": {
@@ -239,7 +248,7 @@
   "price_adjustment_validation_status": "success",
   "schema_version": "1.3",
   "config_version": "2026-07-mispricing-v2",
-  "config_hash": "549170f04785cc1d18c9df3f809f3daf849740aca39c93f48000a2a90efc5251",
+  "config_hash": "9fd99884f83eeef9a13a77a4763c58874e925d841354811ad5bf6241d3a607d1",
   "price_return_definition": "split-adjusted price return excluding dividends",
   "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
   "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
