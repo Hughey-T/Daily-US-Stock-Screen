@@ -24,6 +24,7 @@ from yfinance import EquityQuery
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 ARCHIVE = DOCS / "archive"
+SNAPSHOTS = DOCS / "snapshots"
 DATA = ROOT / "data"
 CONFIG_PATH = ROOT / "config.yml"
 STATUS_PATH = DOCS / "latest.json"
@@ -36,6 +37,7 @@ SCHEMA_VERSION = "1.3"
 
 DOCS.mkdir(parents=True, exist_ok=True)
 ARCHIVE.mkdir(parents=True, exist_ok=True)
+SNAPSHOTS.mkdir(parents=True, exist_ok=True)
 DATA.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
@@ -159,6 +161,87 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
         ),
         encoding="utf-8",
     )
+
+
+def _sha256_bytes(content: bytes) -> str:
+    return hashlib.sha256(content).hexdigest()
+
+
+def save_daily_snapshot(market_data_date: str) -> Path:
+    """Persist the first successful output set for a market date.
+
+    A completed snapshot is immutable. Re-runs for the same market date validate
+    and retain it instead of replacing prediction source material.
+    """
+
+    snapshot_dir = SNAPSHOTS / market_data_date
+    manifest_path = snapshot_dir / "snapshot.json"
+    sources = {
+        "latest_json": STATUS_PATH,
+        "latest_csv": LATEST_CSV,
+        "quiet_drift_csv": QUIET_DRIFT_CSV,
+    }
+
+    if manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RuntimeError(
+                f"Invalid existing snapshot manifest: {manifest_path}"
+            ) from exc
+        if manifest.get("market_data_date") != market_data_date:
+            raise RuntimeError(f"Snapshot market date mismatch: {manifest_path}")
+        files = manifest.get("files")
+        if not isinstance(files, dict):
+            raise RuntimeError(
+                f"Snapshot manifest has no files object: {manifest_path}"
+            )
+        for key in sources:
+            metadata = files.get(key)
+            if not isinstance(metadata, dict):
+                raise RuntimeError(f"Snapshot manifest is missing files.{key}")
+            resource_path = snapshot_dir / str(metadata.get("path", ""))
+            if not resource_path.is_file():
+                raise RuntimeError(f"Snapshot resource is missing: {resource_path}")
+            actual_hash = _sha256_bytes(resource_path.read_bytes())
+            if actual_hash != metadata.get("sha256"):
+                raise RuntimeError(f"Snapshot resource hash mismatch: {resource_path}")
+        LOGGER.info("Keeping immutable daily snapshot %s", manifest_path)
+        return manifest_path
+
+    missing = [str(path) for path in sources.values() if not path.is_file()]
+    if missing:
+        raise RuntimeError(
+            f"Cannot create daily snapshot; source files are missing: {missing}"
+        )
+
+    snapshot_dir.mkdir(parents=True, exist_ok=True)
+    file_metadata: dict[str, dict[str, str]] = {}
+    for key, source_path in sources.items():
+        content = source_path.read_bytes()
+        target_path = snapshot_dir / source_path.name
+        if target_path.exists() and target_path.read_bytes() != content:
+            raise RuntimeError(
+                f"Refusing to replace partial snapshot resource: {target_path}"
+            )
+        if not target_path.exists():
+            target_path.write_bytes(content)
+        file_metadata[key] = {
+            "path": target_path.name,
+            "sha256": _sha256_bytes(content),
+        }
+
+    status = json.loads(STATUS_PATH.read_text(encoding="utf-8"))
+    manifest = {
+        "snapshot_schema_version": "1.0",
+        "market_data_date": market_data_date,
+        "created_at": status.get("generated_at"),
+        "price_return_definition": "split-adjusted price return excluding dividends",
+        "files": file_metadata,
+    }
+    write_json(manifest_path, manifest)
+    LOGGER.info("Created immutable daily snapshot %s", manifest_path)
+    return manifest_path
 
 
 def write_failure_status(reason: str, details: dict[str, Any] | None = None) -> None:
@@ -2038,6 +2121,7 @@ def run() -> RunResult:
             or QUIET_DRIFT_CSV.exists()
         )
     ):
+        save_daily_snapshot(market_date_str)
         LOGGER.info("No new market date; keeping existing outputs")
         return RunResult(status="no_update", market_data_date=market_date_str)
 
@@ -2368,12 +2452,16 @@ def run() -> RunResult:
         "schema_version": SCHEMA_VERSION,
         "config_version": config.get("config_version"),
         "config_hash": config_hash,
+        "snapshot_manifest": f"snapshots/{market_date_str}/snapshot.json",
         "price_return_definition": "split-adjusted price return excluding dividends",
         "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
-        "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
+        "volume_ratio_definition": (
+            "mean adjusted volume, latest 5 sessions / preceding 20 sessions"
+        ),
         "repository": os.environ.get("GITHUB_REPOSITORY"),
     }
     write_json(STATUS_PATH, status)
+    save_daily_snapshot(market_date_str)
     generate_html(candidates, status)
     LOGGER.info("Created %s candidates for %s", len(candidates), market_date_str)
     return RunResult(status="success", market_data_date=market_date_str)

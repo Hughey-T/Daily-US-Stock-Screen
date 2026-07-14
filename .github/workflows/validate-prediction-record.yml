@@ -1,0 +1,79 @@
+name: Validate prediction records
+
+on:
+  pull_request:
+    paths:
+      - "docs/predictions/**"
+      - "docs/verifications/**"
+      - "docs/snapshots/**"
+      - "schemas/prediction_record.schema.json"
+      - "schemas/verification_record.schema.json"
+      - "scripts/validate_prediction_record.py"
+      - "scripts/rebuild_prediction_index.py"
+      - "tests/test_prediction_records.py"
+      - ".github/workflows/validate-prediction-record.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/predictions/**"
+      - "docs/verifications/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Select immutable comparison revision
+        id: comparison
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            git fetch --no-tags origin "$BASE_REF"
+            echo "base_ref=origin/$BASE_REF" >> "$GITHUB_OUTPUT"
+          elif [[ -n "$BEFORE_SHA" && "$BEFORE_SHA" != "0000000000000000000000000000000000000000" ]]; then
+            echo "base_ref=$BEFORE_SHA" >> "$GITHUB_OUTPUT"
+          else
+            echo "base_ref=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate prediction and verification records
+        shell: bash
+        env:
+          BASE_REF: ${{ steps.comparison.outputs.base_ref }}
+        run: |
+          args=()
+          if [[ -n "$BASE_REF" ]]; then
+            args+=(--base-ref "$BASE_REF")
+          fi
+          python scripts/validate_prediction_record.py "${args[@]}"
+
+      - name: Rebuild deterministic prediction index
+        run: python scripts/rebuild_prediction_index.py
+
+      - name: Require committed index to be current
+        run: git diff --exit-code -- docs/predictions/index.json
+
+      - name: Run prediction unit tests
+        run: python -m unittest tests.test_prediction_records -v

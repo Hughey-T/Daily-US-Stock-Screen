@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hughey-T/Daily-US-Stock-Screen/schemas/verification_record.schema.json",
+  "title": "Daily US Stock Screen verification record",
+  "description": "A future outcome kept separately from the immutable prediction. Returns are split-adjusted price returns excluding dividends.",
+  "type": "object",
+  "required": [
+    "prediction_id",
+    "verification_date",
+    "verification_horizon",
+    "future_stock_return",
+    "future_spy_relative_return",
+    "future_sector_relative_return",
+    "max_favorable_excursion",
+    "max_adverse_excursion",
+    "absolute_direction_hit",
+    "sector_relative_direction_hit",
+    "outcome",
+    "verification_data_source"
+  ],
+  "properties": {
+    "prediction_id": { "type": "string", "pattern": "^pred_[0-9a-f]{64}$" },
+    "verification_date": { "type": "string", "format": "date" },
+    "verification_horizon": { "type": "integer", "enum": [21, 63, 126, 252] },
+    "future_stock_return": { "type": "number" },
+    "future_spy_relative_return": { "type": "number" },
+    "future_sector_relative_return": { "type": "number" },
+    "max_favorable_excursion": { "type": "number" },
+    "max_adverse_excursion": { "type": "number" },
+    "absolute_direction_hit": { "type": "boolean" },
+    "sector_relative_direction_hit": { "type": "boolean" },
+    "outcome": { "type": "string", "minLength": 1 },
+    "verification_data_source": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}
