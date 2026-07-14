@@ -1,5 +1,5 @@
 # Universe filters
-config_version: "2026-07-mispricing-v1"
+config_version: "2026-07-mispricing-v2"
 min_market_cap_usd: 1000000000
 min_price_usd: 1.0
 min_avg_dollar_volume_20d: 20000000
@@ -25,6 +25,19 @@ gap_threshold: 0.07
 # Market-wide coverage: retain strongest and weakest names in every sector
 sector_top_n: 2
 sector_bottom_n: 2
+
+# Quiet long-term drift selection (initial hypotheses; not backtested)
+quiet_drift_enabled: true
+quiet_drift_tail_quantile: 0.05
+quiet_drift_max_candidates: 100
+quiet_drift_max_daily_move_63d: 0.07
+quiet_drift_max_gap_63d: 0.07
+quiet_drift_max_volume_ratio: 1.80
+quiet_drift_max_volatility_ratio: 1.50
+quiet_drift_max_single_day_share_63d: 0.20
+quiet_drift_min_directional_efficiency_63d: 0.25
+quiet_drift_sector_top_n: 1
+quiet_drift_sector_bottom_n: 1
 
 # Benchmarks
 market_benchmark: SPY
