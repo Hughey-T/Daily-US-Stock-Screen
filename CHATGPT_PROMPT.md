@@ -40,4 +40,6 @@ Schema 1.2では、従来列に加えて次の列を分析する。
 - ショック情報: `max_daily_move_date_21d`, `max_daily_move_signed_21d`, `max_1d_share_of_abs_move_21d`, `directional_efficiency_21d`
 - ショック後リターン: `post_max_move_return_5d`, `post_max_move_return_10d`
 
+`directional_efficiency_21d` は、21日間の対数リターン合計の絶対値を絶対対数リターン合計で割った値である。通常は0以上1以下で、1に近いほど一方向へ効率的に動き、0に近いほど上下動が相殺されている。分母が0の場合は `NaN` となる。
+
 `return_126d` とその相対列は履歴不足で `NaN` になり得る。最大変動日からの後続データ不足時は5日後・10日後リターンも `NaN` になり得るため、欠損をゼロと解釈しない。個別候補だけでなく、`universe_distribution` と `sector_distribution` を使って母集団・同セクター内での位置を評価し、`config_version` と `config_hash` を分析結果へ記録する。

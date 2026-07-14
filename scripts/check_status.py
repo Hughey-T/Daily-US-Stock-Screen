@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from pathlib import Path
 
 status_path = Path("docs/latest.json")
@@ -21,6 +22,21 @@ for field, expected in expected_status_fields.items():
     actual = status.get(field)
     if actual != expected:
         raise SystemExit(f"Invalid {field}: expected {expected!r}, got {actual!r}")
+
+if status.get("config_version") != "2026-07-mispricing-v1":
+    raise SystemExit(
+        "Invalid config_version: expected '2026-07-mispricing-v1', "
+        f"got {status.get('config_version')!r}"
+    )
+
+config_hash = status.get("config_hash")
+if not isinstance(config_hash, str) or re.fullmatch(r"[0-9a-f]{64}", config_hash) is None:
+    raise SystemExit("config_hash is not a 64-character lowercase SHA-256 hex digest")
+
+for field in ("universe_distribution", "sector_distribution"):
+    value = status.get(field)
+    if not isinstance(value, dict) or not value:
+        raise SystemExit(f"{field} must be a non-empty object")
 
 if not csv_path.exists():
     raise SystemExit("docs/latest.csv was not created")

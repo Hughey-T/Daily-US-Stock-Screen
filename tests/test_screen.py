@@ -75,16 +75,34 @@ class TickerMetricTests(unittest.TestCase):
 
     def test_shock_concentration_and_directional_efficiency(self) -> None:
         total_abs_move = 0.15 + 20 * 0.001
-        close = self.history["Close"]
-        net_return = close.iloc[-1] / close.iloc[-22] - 1
+        recent_returns = self.history["Close"].pct_change().iloc[-21:]
+        log_returns = np.log1p(recent_returns)
         self.assertAlmostEqual(
             self.metrics["max_1d_share_of_abs_move_21d"],
             0.15 / total_abs_move,
         )
         self.assertAlmostEqual(
             self.metrics["directional_efficiency_21d"],
-            abs(net_return) / total_abs_move,
+            abs(float(log_returns.sum())) / float(log_returns.abs().sum()),
         )
+        self.assertGreaterEqual(self.metrics["directional_efficiency_21d"], 0.0)
+        self.assertLessEqual(self.metrics["directional_efficiency_21d"], 1.0)
+
+    def test_directional_efficiency_is_one_for_same_direction_returns(self) -> None:
+        history = price_history(np.full(60, 0.01))
+        metrics = calculate_ticker_metrics(history, history.index[-1])
+        assert metrics is not None
+        self.assertAlmostEqual(metrics["directional_efficiency_21d"], 1.0)
+
+    def test_directional_efficiency_is_near_zero_for_offsetting_returns(self) -> None:
+        up = 0.01
+        down = 1.0 / (1.0 + up) - 1.0
+        recent_returns = np.array([up, down] * 10 + [0.0])
+        daily_returns = np.concatenate((np.full(39, 0.002), recent_returns))
+        history = price_history(daily_returns)
+        metrics = calculate_ticker_metrics(history, history.index[-1])
+        assert metrics is not None
+        self.assertAlmostEqual(metrics["directional_efficiency_21d"], 0.0, places=12)
 
     def test_missing_followup_and_long_history_are_nan(self) -> None:
         daily_returns = np.full(79, 0.001)

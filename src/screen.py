@@ -848,9 +848,10 @@ def calculate_ticker_metrics(history: pd.DataFrame, market_date: pd.Timestamp) -
             max_daily_move_21d,
             total_abs_move_21d,
         )
+        log_returns = np.log1p(recent_daily_returns)
         directional_efficiency_21d = safe_ratio(
-            abs(ret_21d),
-            total_abs_move_21d,
+            abs(float(log_returns.sum())),
+            float(log_returns.abs().sum()),
         )
         max_move_positions = np.flatnonzero(close.index == max_move_timestamp)
         max_move_position = int(max_move_positions[-1])
