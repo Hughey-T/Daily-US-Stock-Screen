@@ -2,18 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Hughey-T/Daily-US-Stock-Screen/schemas/prediction_record.schema.json",
   "title": "Daily US Stock Screen prediction record",
-  "description": "One immutable prediction CSV row. IDs are deterministic SHA-256 identifiers defined in docs/predictions/README.md.",
+  "description": "One immutable prediction CSV row. Post-prediction outcomes are forbidden and belong only in verification records.",
   "type": "object",
   "required": [
     "prediction_schema_version",
     "prediction_id",
     "candidate_id",
+    "run_id",
     "run_date",
     "market_data_date",
     "verification_horizon",
     "ticker",
     "company_name",
     "record_group",
+    "prediction_applicability",
     "source_dataset",
     "source_rank",
     "selection_bucket",
@@ -36,9 +38,10 @@
     "config_hash"
   ],
   "properties": {
-    "prediction_schema_version": { "const": "1.0" },
+    "prediction_schema_version": { "const": "1.1" },
     "prediction_id": { "type": "string", "pattern": "^pred_[0-9a-f]{64}$" },
     "candidate_id": { "type": "string", "pattern": "^cand_[0-9a-f]{64}$" },
+    "run_id": { "type": "string", "minLength": 1 },
     "run_date": { "type": "string", "format": "date" },
     "market_data_date": { "type": "string", "format": "date" },
     "verification_horizon": { "type": "integer", "enum": [21, 63, 126, 252] },
@@ -47,6 +50,10 @@
     "record_group": {
       "type": "string",
       "enum": ["final_candidate", "nonselected_comparison", "unresolved_monitor"]
+    },
+    "prediction_applicability": {
+      "type": "string",
+      "enum": ["forecast", "comparison_only", "monitor_only"]
     },
     "source_dataset": { "type": "string", "enum": ["event_anomaly", "quiet_drift"] },
     "source_rank": { "type": "integer", "minimum": 1 },
@@ -58,22 +65,82 @@
     "entry_price_definition": { "type": "string", "minLength": 1 },
     "predicted_absolute_direction": {
       "type": "string",
-      "enum": ["up", "down", "neutral"]
+      "enum": ["", "up", "down", "neutral"]
     },
     "predicted_sector_relative_direction": {
       "type": "string",
-      "enum": ["outperform", "underperform", "neutral"]
+      "enum": ["", "outperform", "underperform", "neutral"]
     },
     "benchmark": { "type": "string", "minLength": 1 },
     "sector_etf": { "type": "string", "minLength": 1 },
     "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
-    "action_class": { "type": "string", "minLength": 1 },
+    "action_class": { "type": "string", "enum": ["", "A", "B", "C", "D", "E"] },
+    "secondary_tags": {
+      "type": "string",
+      "pattern": "^$|^[A-Za-z0-9_]+(?:;[A-Za-z0-9_]+)*$"
+    },
     "thesis": { "type": "string", "minLength": 1 },
     "invalidation_condition": { "type": "string", "minLength": 1 },
+    "thesis_fact_date": {
+      "anyOf": [
+        { "const": "" },
+        { "type": "string", "format": "date" }
+      ]
+    },
+    "thesis_source_url": {
+      "anyOf": [
+        { "const": "" },
+        { "type": "string", "format": "uri" }
+      ]
+    },
     "source_snapshot": { "type": "string", "minLength": 1 },
     "prompt_version": { "type": "string", "minLength": 1 },
     "config_version": { "type": "string", "minLength": 1 },
     "config_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
   },
-  "additionalProperties": true
+  "allOf": [
+    {
+      "if": {
+        "properties": { "prediction_applicability": { "const": "forecast" } },
+        "required": ["prediction_applicability"]
+      },
+      "then": {
+        "properties": {
+          "record_group": { "const": "final_candidate" },
+          "predicted_absolute_direction": { "enum": ["up", "down", "neutral"] },
+          "predicted_sector_relative_direction": {
+            "enum": ["outperform", "underperform", "neutral"]
+          },
+          "action_class": { "enum": ["A", "B", "C", "D", "E"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "prediction_applicability": { "const": "comparison_only" } },
+        "required": ["prediction_applicability"]
+      },
+      "then": {
+        "properties": {
+          "record_group": { "const": "nonselected_comparison" },
+          "predicted_absolute_direction": { "const": "" },
+          "predicted_sector_relative_direction": { "const": "" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "prediction_applicability": { "const": "monitor_only" } },
+        "required": ["prediction_applicability"]
+      },
+      "then": {
+        "properties": {
+          "record_group": { "const": "unresolved_monitor" },
+          "predicted_absolute_direction": { "const": "" },
+          "predicted_sector_relative_direction": { "const": "" }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
 }

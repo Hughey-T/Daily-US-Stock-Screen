@@ -18,17 +18,20 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 PREDICTIONS_DIR = ROOT / "docs" / "predictions"
 VERIFICATIONS_DIR = ROOT / "docs" / "verifications"
+PREDICTION_SCHEMA_VERSION = "1.1"
 
 PREDICTION_REQUIRED_COLUMNS = (
     "prediction_schema_version",
     "prediction_id",
     "candidate_id",
+    "run_id",
     "run_date",
     "market_data_date",
     "verification_horizon",
     "ticker",
     "company_name",
     "record_group",
+    "prediction_applicability",
     "source_dataset",
     "source_rank",
     "selection_bucket",
@@ -51,6 +54,27 @@ PREDICTION_REQUIRED_COLUMNS = (
     "config_hash",
 )
 
+PREDICTION_OPTIONAL_COLUMNS = (
+    "secondary_tags",
+    "thesis_fact_date",
+    "thesis_source_url",
+)
+
+FUTURE_FIELD_NAMES = {
+    "future_stock_return",
+    "future_spy_relative_return",
+    "future_sector_relative_return",
+    "max_favorable_excursion",
+    "max_adverse_excursion",
+    "max_upside_during_period",
+    "max_drawdown_during_period",
+    "absolute_direction_hit",
+    "sector_relative_direction_hit",
+    "outcome",
+    "verification_date",
+    "verification_data_source",
+}
+
 VERIFICATION_REQUIRED_COLUMNS = (
     "prediction_id",
     "verification_date",
@@ -66,6 +90,11 @@ VERIFICATION_REQUIRED_COLUMNS = (
     "verification_data_source",
 )
 
+VERIFICATION_OPTIONAL_COLUMNS = (
+    "max_upside_during_period",
+    "max_drawdown_during_period",
+)
+
 HORIZONS = {21, 63, 126, 252}
 ENUMS = {
     "record_group": {
@@ -74,14 +103,18 @@ ENUMS = {
         "unresolved_monitor",
     },
     "source_dataset": {"event_anomaly", "quiet_drift"},
-    "predicted_absolute_direction": {"up", "down", "neutral"},
-    "predicted_sector_relative_direction": {
-        "outperform",
-        "underperform",
-        "neutral",
-    },
     "confidence": {"high", "medium", "low"},
+    "prediction_applicability": {"forecast", "comparison_only", "monitor_only"},
 }
+APPLICABILITY_RECORD_GROUP = {
+    "forecast": "final_candidate",
+    "comparison_only": "nonselected_comparison",
+    "monitor_only": "unresolved_monitor",
+}
+ABSOLUTE_DIRECTIONS = {"up", "down", "neutral"}
+SECTOR_RELATIVE_DIRECTIONS = {"outperform", "underperform", "neutral"}
+ACTION_CLASSES = {"A", "B", "C", "D", "E"}
+SECONDARY_TAGS_PATTERN = re.compile(r"[A-Za-z0-9_]+(?:;[A-Za-z0-9_]+)*")
 HASH_PATTERN = re.compile(r"[0-9a-f]{64}")
 PREDICTION_ID_PATTERN = re.compile(r"pred_[0-9a-f]{64}")
 SNAPSHOT_FILE_KEYS = ("latest_json", "latest_csv", "quiet_drift_csv")
@@ -117,14 +150,28 @@ def make_prediction_id(candidate_id: str, verification_horizon: int) -> str:
     return f"pred_{_digest(canonical)}"
 
 
-def _read_csv(path: Path, required_columns: tuple[str, ...]) -> list[dict[str, str]]:
+def _read_csv(
+    path: Path,
+    required_columns: tuple[str, ...],
+    optional_columns: tuple[str, ...] = (),
+    forbidden_columns: set[str] | None = None,
+) -> list[dict[str, str]]:
     try:
         with path.open("r", encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
             fieldnames = reader.fieldnames or []
+            forbidden = sorted(set(fieldnames) & (forbidden_columns or set()))
+            if forbidden:
+                raise ValidationError(
+                    f"{path}: post-prediction fields are forbidden: {forbidden}"
+                )
             missing = [column for column in required_columns if column not in fieldnames]
             if missing:
                 raise ValidationError(f"{path}: missing required columns: {missing}")
+            allowed = set(required_columns) | set(optional_columns)
+            unknown = sorted(set(fieldnames) - allowed)
+            if unknown:
+                raise ValidationError(f"{path}: unknown columns are not allowed: {unknown}")
             return [dict(row) for row in reader]
     except UnicodeDecodeError as exc:
         raise ValidationError(f"{path}: CSV must be UTF-8") from exc
@@ -258,6 +305,27 @@ def validate_source_snapshot(
             )
 
 
+def count_future_field_violations(predictions_dir: Path = PREDICTIONS_DIR) -> int:
+    violation_count = 0
+    for path in sorted(predictions_dir.glob("*.csv")):
+        with path.open("r", encoding="utf-8-sig", newline="") as handle:
+            fieldnames = csv.DictReader(handle).fieldnames or []
+        violation_count += len(set(fieldnames) & FUTURE_FIELD_NAMES)
+    return violation_count
+
+
+def action_class_conflicts(
+    records: dict[str, dict[str, str]],
+) -> dict[tuple[str, str], set[str]]:
+    grouped: dict[tuple[str, str], set[str]] = {}
+    for record in records.values():
+        if record["record_group"] != "final_candidate":
+            continue
+        key = (record["candidate_id"], record["run_id"])
+        grouped.setdefault(key, set()).add(record["action_class"])
+    return {key: classes for key, classes in grouped.items() if len(classes) > 1}
+
+
 def load_prediction_records(
     predictions_dir: Path = PREDICTIONS_DIR,
     repo_root: Path = ROOT,
@@ -266,15 +334,31 @@ def load_prediction_records(
     records: dict[str, dict[str, str]] = {}
     validated_snapshots: set[tuple[str, str]] = set()
     for path in sorted(predictions_dir.glob("*.csv")):
-        rows = _read_csv(path, PREDICTION_REQUIRED_COLUMNS)
+        rows = _read_csv(
+            path,
+            PREDICTION_REQUIRED_COLUMNS,
+            PREDICTION_OPTIONAL_COLUMNS,
+            FUTURE_FIELD_NAMES,
+        )
         for line_number, row in enumerate(rows, start=2):
             location = f"{path}:{line_number}"
             values = {
-                column: _nonempty(row, column, location)
-                for column in PREDICTION_REQUIRED_COLUMNS
+                column: (row.get(column) or "").strip()
+                for column in (*PREDICTION_REQUIRED_COLUMNS, *PREDICTION_OPTIONAL_COLUMNS)
             }
-            if values["prediction_schema_version"] != "1.0":
-                raise ValidationError(f"{location}: prediction_schema_version must be 1.0")
+            conditionally_empty = {
+                "predicted_absolute_direction",
+                "predicted_sector_relative_direction",
+                "action_class",
+            }
+            for column in PREDICTION_REQUIRED_COLUMNS:
+                if column not in conditionally_empty:
+                    _nonempty(values, column, location)
+            if values["prediction_schema_version"] != PREDICTION_SCHEMA_VERSION:
+                raise ValidationError(
+                    f"{location}: prediction_schema_version must be "
+                    f"{PREDICTION_SCHEMA_VERSION}"
+                )
             _date(values["run_date"], "run_date", location)
             _date(values["market_data_date"], "market_data_date", location)
             horizon = _integer(values["verification_horizon"], "verification_horizon", location)
@@ -292,6 +376,69 @@ def load_prediction_records(
                 if values[column] not in allowed:
                     raise ValidationError(
                         f"{location}: {column} must be one of {sorted(allowed)}"
+                    )
+
+            applicability = values["prediction_applicability"]
+            expected_group = APPLICABILITY_RECORD_GROUP[applicability]
+            if values["record_group"] != expected_group:
+                raise ValidationError(
+                    f"{location}: {applicability} requires record_group={expected_group}"
+                )
+            absolute_direction = values["predicted_absolute_direction"]
+            sector_direction = values["predicted_sector_relative_direction"]
+            action_class = values["action_class"]
+            if applicability == "forecast":
+                if absolute_direction not in ABSOLUTE_DIRECTIONS:
+                    raise ValidationError(
+                        f"{location}: forecast requires predicted_absolute_direction"
+                    )
+                if sector_direction not in SECTOR_RELATIVE_DIRECTIONS:
+                    raise ValidationError(
+                        f"{location}: forecast requires "
+                        "predicted_sector_relative_direction"
+                    )
+                if action_class not in ACTION_CLASSES:
+                    raise ValidationError(
+                        f"{location}: forecast action_class must be one of "
+                        f"{sorted(ACTION_CLASSES)}"
+                    )
+            else:
+                if absolute_direction:
+                    raise ValidationError(
+                        f"{location}: {applicability} requires an empty "
+                        "predicted_absolute_direction"
+                    )
+                if sector_direction:
+                    raise ValidationError(
+                        f"{location}: {applicability} requires an empty "
+                        "predicted_sector_relative_direction"
+                    )
+                if action_class and action_class not in ACTION_CLASSES:
+                    raise ValidationError(
+                        f"{location}: action_class must be empty or one of "
+                        f"{sorted(ACTION_CLASSES)}"
+                    )
+
+            secondary_tags = values["secondary_tags"]
+            if secondary_tags and SECONDARY_TAGS_PATTERN.fullmatch(secondary_tags) is None:
+                raise ValidationError(
+                    f"{location}: secondary_tags must be semicolon-separated tags"
+                )
+            thesis_fact_date = values["thesis_fact_date"]
+            if thesis_fact_date:
+                _date(thesis_fact_date, "thesis_fact_date", location)
+                if date.fromisoformat(thesis_fact_date) > date.fromisoformat(
+                    values["market_data_date"]
+                ):
+                    raise ValidationError(
+                        f"{location}: thesis_fact_date must not be after market_data_date"
+                    )
+            thesis_source_url = values["thesis_source_url"]
+            if thesis_source_url:
+                thesis_url = urlparse(thesis_source_url)
+                if thesis_url.scheme not in {"http", "https"} or not thesis_url.netloc:
+                    raise ValidationError(
+                        f"{location}: thesis_source_url must be an HTTP(S) URL"
                     )
 
             expected_candidate_id = make_candidate_id(
@@ -322,6 +469,15 @@ def load_prediction_records(
                     validate_source_snapshot(*snapshot_key, repo_root=repo_root)
                     validated_snapshots.add(snapshot_key)
             records[values["prediction_id"]] = {**values, "_file": str(path), "_location": location}
+    conflicts = action_class_conflicts(records)
+    if conflicts:
+        rendered = "; ".join(
+            f"candidate_id={candidate_id}, run_id={run_id}, classes={sorted(classes)}"
+            for (candidate_id, run_id), classes in sorted(conflicts.items())
+        )
+        raise ValidationError(
+            "final candidates have conflicting action_class values: " + rendered
+        )
     return records
 
 
@@ -338,13 +494,25 @@ def load_verification_records(
         "max_adverse_excursion",
     )
     for path in sorted(verifications_dir.glob("*.csv")):
-        rows = _read_csv(path, VERIFICATION_REQUIRED_COLUMNS)
+        rows = _read_csv(
+            path,
+            VERIFICATION_REQUIRED_COLUMNS,
+            VERIFICATION_OPTIONAL_COLUMNS,
+        )
         for line_number, row in enumerate(rows, start=2):
             location = f"{path}:{line_number}"
             values = {
-                column: _nonempty(row, column, location)
-                for column in VERIFICATION_REQUIRED_COLUMNS
+                column: (row.get(column) or "").strip()
+                for column in (*VERIFICATION_REQUIRED_COLUMNS, *VERIFICATION_OPTIONAL_COLUMNS)
             }
+            conditionally_empty = {
+                "absolute_direction_hit",
+                "sector_relative_direction_hit",
+                "outcome",
+            }
+            for column in VERIFICATION_REQUIRED_COLUMNS:
+                if column not in conditionally_empty:
+                    _nonempty(values, column, location)
             prediction_id = values["prediction_id"]
             if PREDICTION_ID_PATTERN.fullmatch(prediction_id) is None:
                 raise ValidationError(f"{location}: prediction_id has an invalid format")
@@ -362,9 +530,29 @@ def load_verification_records(
                 raise ValidationError(f"{location}: verification_horizon does not match prediction")
             for column in numeric_columns:
                 _finite_number(values[column], column, location)
-            for column in ("absolute_direction_hit", "sector_relative_direction_hit"):
-                if values[column].lower() not in {"true", "false"}:
-                    raise ValidationError(f"{location}: {column} must be true or false")
+            for column in VERIFICATION_OPTIONAL_COLUMNS:
+                if values[column]:
+                    _finite_number(values[column], column, location)
+
+            applicability = predictions[prediction_id]["prediction_applicability"]
+            hit_columns = (
+                "absolute_direction_hit",
+                "sector_relative_direction_hit",
+            )
+            if applicability == "forecast":
+                for column in hit_columns:
+                    if values[column].lower() not in {"true", "false"}:
+                        raise ValidationError(
+                            f"{location}: forecast {column} must be true or false"
+                        )
+                if not values["outcome"]:
+                    raise ValidationError(f"{location}: forecast outcome must not be empty")
+            else:
+                for column in (*hit_columns, "outcome"):
+                    if values[column]:
+                        raise ValidationError(
+                            f"{location}: {applicability} requires an empty {column}"
+                        )
             records[prediction_id] = {**values, "_file": str(path), "_location": location}
     return records
 
