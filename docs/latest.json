@@ -1,7 +1,7 @@
 {
   "status": "failed",
-  "attempted_at": "2026-07-14T17:24:32+00:00",
-  "failure_reason": "Snapshot resource hash mismatch: /home/runner/work/Daily-US-Stock-Screen/Daily-US-Stock-Screen/docs/snapshots/2026-07-13/latest.json",
+  "attempted_at": "2026-07-15T06:38:13+00:00",
+  "failure_reason": "SPYの最終市場日が、直近の終了済み取引日と一致しません。 expected=2026-07-14, downloaded=2026-07-13",
   "latest_csv_updated": false,
   "last_successful_market_date": "2026-07-13",
   "last_successful_archive_file": "archive/screening_2026-07-13.csv",
