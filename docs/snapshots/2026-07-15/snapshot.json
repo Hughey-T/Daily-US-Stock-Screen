@@ -1,0 +1,20 @@
+{
+  "snapshot_schema_version": "1.0",
+  "market_data_date": "2026-07-15",
+  "created_at": "2026-07-16T07:37:23+00:00",
+  "price_return_definition": "split-adjusted price return excluding dividends",
+  "files": {
+    "latest_json": {
+      "path": "latest.json",
+      "sha256": "8955d9b797f3fd8c4d46add801e4917edb7561f85b7bc2f5f43aaf5c7bbd8dbd"
+    },
+    "latest_csv": {
+      "path": "latest.csv",
+      "sha256": "e95a011db883fb9212d649a776dd2e94dfc81236e11f7377c0246dc84212ed43"
+    },
+    "quiet_drift_csv": {
+      "path": "quiet_drift.csv",
+      "sha256": "4c339e5b75dd2ceb920fda6567596f3fdf159f15bac33944cca1b97c4258b592"
+    }
+  }
+}
