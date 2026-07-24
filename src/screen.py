@@ -21,6 +21,12 @@ import yaml
 import yfinance as yf
 from yfinance import EquityQuery
 
+from src.integrity import (
+    CORPORATE_ACTION_VALIDATION_VERSION,
+    reconcile_corporate_actions,
+    split_adjusted_prices,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 ARCHIVE = DOCS / "archive"
@@ -33,7 +39,7 @@ QUIET_DRIFT_CSV = DOCS / "quiet_drift.csv"
 HISTORY_PATH = DATA / "signal_history.csv"
 UNIVERSE_CACHE_PATH = DATA / "universe_cache.csv"
 LOG_PATH = DATA / "last_run.log"
-SCHEMA_VERSION = "1.3"
+SCHEMA_VERSION = "2.0"
 
 DOCS.mkdir(parents=True, exist_ok=True)
 ARCHIVE.mkdir(parents=True, exist_ok=True)
@@ -216,7 +222,7 @@ def save_daily_snapshot(market_data_date: str) -> Path:
         )
 
     snapshot_dir.mkdir(parents=True, exist_ok=True)
-    file_metadata: dict[str, dict[str, str]] = {}
+    file_metadata: dict[str, dict[str, Any]] = {}
     for key, source_path in sources.items():
         content = source_path.read_bytes()
         target_path = snapshot_dir / source_path.name
@@ -230,16 +236,35 @@ def save_daily_snapshot(market_data_date: str) -> Path:
             "path": target_path.name,
             "sha256": _sha256_bytes(content),
         }
+        if key.endswith("csv"):
+            file_metadata[key]["row_count"] = max(content.count(b"\n") - 1, 0)
 
     status = json.loads(STATUS_PATH.read_text(encoding="utf-8"))
     manifest = {
-        "snapshot_schema_version": "1.0",
+        "snapshot_schema_version": "2.0",
+        "snapshot_id": f"snapshot-{market_data_date}-{status.get('config_hash', '')[:12]}",
         "market_data_date": market_data_date,
-        "created_at": status.get("generated_at"),
-        "price_return_definition": "split-adjusted price return excluding dividends",
+        "generated_at": status.get("generated_at"),
+        "market_data_cutoff_at": status.get("market_data_cutoff_at"),
+        "config_version": status.get("config_version"),
+        "config_hash": status.get("config_hash"),
+        "schema_version": SCHEMA_VERSION,
+        "corporate_action_validation_version": CORPORATE_ACTION_VALIDATION_VERSION,
+        "corporate_action_reconciliation": status.get("corporate_action_reconciliation"),
+        "price_definition": "price-only split-adjusted OHLC; dividends excluded",
+        "benchmark_definition": "SPY market and route-preserving sector ETF",
         "files": file_metadata,
     }
     write_json(manifest_path, manifest)
+    # This is the sole mutable pointer. Consumers fetch it once and then pin the
+    # immutable snapshot path and hashes for every subsequent Phase.
+    write_json(STATUS_PATH.parent / "manifest.json", {
+        "manifest_schema_version": "2.0",
+        "snapshot_id": manifest["snapshot_id"],
+        "snapshot_path": f"snapshots/{market_data_date}/snapshot.json",
+        "snapshot_sha256": _sha256_bytes(manifest_path.read_bytes()),
+        "updated_at": status.get("generated_at"),
+    })
     LOGGER.info("Created immutable daily snapshot %s", manifest_path)
     return manifest_path
 
@@ -852,14 +877,16 @@ def prepare_history(
     if work.empty:
         return work
 
-    # YahooのCloseは株式分割を反映した価格として使用する。
-    # Adj Closeは配当の影響を含むため、価格リターンには使わない。
+    # Reconstruct a price-only split-adjusted series from raw Close and explicit
+    # split actions. Yahoo Adj Close is deliberately not used because it includes
+    # distributions. Corporate-action continuity is validated before selection.
     # Adj_*という列名は後続処理との互換性維持のために使用する。
-    work["Adj_Open"] = work["Open"]
-    work["Adj_High"] = work["High"]
-    work["Adj_Low"] = work["Low"]
-    work["Adj_Close"] = work["Close"]
-    work["Adj_Volume"] = work["Volume"]
+    work["Adj_Close"] = split_adjusted_prices(work)
+    factor = work["Adj_Close"] / work["Close"]
+    work["Adj_Open"] = work["Open"] * factor
+    work["Adj_High"] = work["High"] * factor
+    work["Adj_Low"] = work["Low"] * factor
+    work["Adj_Volume"] = work["Volume"] / factor
 
     return work
 
@@ -2102,6 +2129,9 @@ def run() -> RunResult:
     market_date_str = (
         market_date.date().isoformat()
     )
+    market_data_cutoff_at = pd.Timestamp(
+        f"{market_date_str} 16:00:00", tz="America/New_York"
+    ).isoformat()
 
     # 後続処理との互換性を維持する
     quick_prices = {
@@ -2158,6 +2188,21 @@ def run() -> RunResult:
     price_data[market_symbol] = quick_prices[market_symbol]
     failed = [ticker for ticker in failed if ticker != market_symbol] + quick_failed
 
+    corporate_action_results = {
+        ticker: reconcile_corporate_actions(frame)
+        for ticker, frame in price_data.items()
+    }
+    unreconciled_tickers = sorted(
+        ticker for ticker, result in corporate_action_results.items()
+        if result.status != "reconciled"
+    )
+    # Fail closed at the ticker level before either route is generated. A large
+    # provider-wide failure marks the run degraded below instead of silently
+    # presenting these rows as normal candidates.
+    if unreconciled_tickers:
+        LOGGER.warning("Corporate-action reconciliation excluded %d tickers: %s",
+                       len(unreconciled_tickers), unreconciled_tickers[:50])
+
     benchmark_metrics: dict[str, dict[str, Any]] = {}
     missing_benchmarks = []
     for symbol in benchmarks:
@@ -2172,6 +2217,8 @@ def run() -> RunResult:
     metric_rows = []
     universe_lookup = universe.set_index("ticker").to_dict("index")
     for ticker in universe["ticker"].astype(str):
+        if ticker in unreconciled_tickers:
+            continue
         metrics = calculate_ticker_metrics(price_data.get(ticker, pd.DataFrame()), market_date)
         if metrics is None:
             continue
@@ -2447,13 +2494,36 @@ def run() -> RunResult:
         "required_column_check": "success",
         "numeric_validation_status": "success",
         "price_adjustment_validation_status": (
-            "success"
+            "success" if not unreconciled_tickers else "degraded"
         ),
+        "corporate_action_reconciliation_status": (
+            "reconciled" if not unreconciled_tickers else "degraded"
+        ),
+        "corporate_action_reconciliation": {
+            "version": CORPORATE_ACTION_VALIDATION_VERSION,
+            "status": "reconciled" if not unreconciled_tickers else "degraded",
+            "detected_corporate_action_count": sum(
+                result.detected_count for result in corporate_action_results.values()
+            ),
+            "reconciled_corporate_action_count": sum(
+                result.reconciled_count for result in corporate_action_results.values()
+            ),
+            "unreconciled_corporate_action_count": sum(
+                result.unreconciled_count for result in corporate_action_results.values()
+            ),
+            "unreconciled_tickers": unreconciled_tickers,
+            "adjusted_price_continuity_check": (
+                "passed" if not unreconciled_tickers else "degraded"
+            ),
+        },
         "schema_version": SCHEMA_VERSION,
         "config_version": config.get("config_version"),
         "config_hash": config_hash,
         "snapshot_manifest": f"snapshots/{market_date_str}/snapshot.json",
-        "price_return_definition": "split-adjusted price return excluding dividends",
+        "market_data_cutoff_at": market_data_cutoff_at,
+        "timezone": "America/New_York",
+        "entry_policy": "next_session_open_after_information_cutoff",
+        "price_return_definition": "price-only split-adjusted return excluding dividends",
         "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
         "volume_ratio_definition": (
             "mean adjusted volume, latest 5 sessions / preceding 20 sessions"

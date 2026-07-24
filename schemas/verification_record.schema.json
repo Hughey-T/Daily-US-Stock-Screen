@@ -1,50 +1,181 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Hughey-T/Daily-US-Stock-Screen/schemas/verification_record.schema.json",
-  "title": "Daily US Stock Screen verification record",
-  "description": "A future outcome kept separately from the immutable prediction. Returns are split-adjusted price returns excluding dividends.",
+  "title": "Immutable verification bundle 2.0",
   "type": "object",
+  "additionalProperties": false,
   "required": [
-    "prediction_id",
-    "verification_date",
-    "verification_horizon",
-    "future_stock_return",
-    "future_spy_relative_return",
-    "future_sector_relative_return",
-    "max_favorable_excursion",
-    "max_adverse_excursion",
-    "absolute_direction_hit",
-    "sector_relative_direction_hit",
-    "outcome",
-    "verification_data_source"
+    "verification_schema_version",
+    "source_prediction_file",
+    "source_prediction_sha256",
+    "generated_at",
+    "records"
   ],
   "properties": {
-    "prediction_id": { "type": "string", "pattern": "^pred_[0-9a-f]{64}$" },
-    "verification_date": { "type": "string", "format": "date" },
-    "verification_horizon": { "type": "integer", "enum": [21, 63, 126, 252] },
-    "future_stock_return": { "type": "number" },
-    "future_spy_relative_return": { "type": "number" },
-    "future_sector_relative_return": { "type": "number" },
-    "max_favorable_excursion": { "type": "number" },
-    "max_adverse_excursion": { "type": "number" },
-    "max_upside_during_period": { "type": "number" },
-    "max_drawdown_during_period": { "type": "number" },
+    "verification_schema_version": {
+      "const": "2.0"
+    },
+    "source_prediction_file": {
+      "type": "string"
+    },
+    "source_prediction_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "prediction_id",
+          "verification_horizon",
+          "outcome_status",
+          "price_return",
+          "total_shareholder_return",
+          "spy_relative_return",
+          "sector_relative_return",
+          "mfe",
+          "mae",
+          "evaluation_group"
+        ],
+        "properties": {
+          "outcome_status": {
+            "enum": [
+              "active",
+              "cash_acquisition_completed",
+              "stock_acquisition_completed",
+              "delisted",
+              "bankruptcy",
+              "ticker_changed",
+              "spinoff",
+              "special_dividend",
+              "adr_terminated",
+              "liquidated",
+              "not_yet_due",
+              "data_unavailable"
+            ]
+          },
+          "evaluation_group": {
+            "enum": [
+              "directional_forecast",
+              "selection_comparison",
+              "monitor_resolution"
+            ]
+          }
+        }
+      }
+    },
+    "future_stock_return": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "future_spy_relative_return": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "future_sector_relative_return": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "max_favorable_excursion": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "max_adverse_excursion": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "max_upside_during_period": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "max_drawdown_during_period": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
     "absolute_direction_hit": {
-      "oneOf": [
-        { "type": "boolean" },
-        { "const": "" },
-        { "type": "null" }
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
       ]
     },
     "sector_relative_direction_hit": {
-      "oneOf": [
-        { "type": "boolean" },
-        { "const": "" },
-        { "type": "null" }
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
       ]
     },
-    "outcome": { "type": "string" },
-    "verification_data_source": { "type": "string", "minLength": 1 }
-  },
-  "additionalProperties": false
+    "outcome": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "verification_date": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "verification_data_source": {
+      "description": "Deprecated schema-1.1 field; present only for reader discovery",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    }
+  }
 }

@@ -8,6 +8,9 @@ on:
       - "docs/snapshots/**"
       - "schemas/prediction_record.schema.json"
       - "schemas/verification_record.schema.json"
+      - "schemas/manifest.schema.json"
+      - "schemas/snapshot.schema.json"
+      - "scripts/validate_v2_records.py"
       - "scripts/validate_prediction_record.py"
       - "scripts/rebuild_prediction_index.py"
       - "tests/test_prediction_records.py"
@@ -68,6 +71,9 @@ jobs:
             args+=(--base-ref "$BASE_REF")
           fi
           python scripts/validate_prediction_record.py "${args[@]}"
+
+      - name: Validate schema 2.0 immutable bundles
+        run: python scripts/validate_v2_records.py
 
       - name: Rebuild deterministic prediction index
         run: python scripts/rebuild_prediction_index.py

@@ -1,5 +1,5 @@
 # Universe filters
-config_version: "2026-07-mispricing-v2"
+config_version: "2026-07-schema-2.0"
 min_market_cap_usd: 1000000000
 min_price_usd: 1.0
 min_avg_dollar_volume_20d: 20000000

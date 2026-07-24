@@ -17,21 +17,26 @@ if re.search(r"(?<![A-Za-z])(NaN|Infinity)(?![A-Za-z])", raw_status):
 status = json.loads(raw_status)
 expected_status_fields = {
     "status": "success",
-    "schema_version": "1.3",
+    "schema_version": "2.0",
     "required_column_check": "success",
     "numeric_validation_status": "success",
-    "price_adjustment_validation_status": "success",
 }
 for field, expected in expected_status_fields.items():
     actual = status.get(field)
     if actual != expected:
         raise SystemExit(f"Invalid {field}: expected {expected!r}, got {actual!r}")
 
-if status.get("config_version") != "2026-07-mispricing-v2":
+if status.get("config_version") != "2026-07-schema-2.0":
     raise SystemExit(
-        "Invalid config_version: expected '2026-07-mispricing-v2', "
+        "Invalid config_version: expected '2026-07-schema-2.0', "
         f"got {status.get('config_version')!r}"
     )
+
+reconciliation = status.get("corporate_action_reconciliation")
+if not isinstance(reconciliation, dict) or reconciliation.get("status") not in {"reconciled", "degraded"}:
+    raise SystemExit("corporate-action reconciliation metadata is missing or invalid")
+if reconciliation.get("version") != "ca-reconciliation-2.0":
+    raise SystemExit("corporate-action reconciliation version is invalid")
 
 config_hash = status.get("config_hash")
 if not isinstance(config_hash, str) or re.fullmatch(r"[0-9a-f]{64}", config_hash) is None:
@@ -256,5 +261,6 @@ if status.get("quiet_drift_enabled"):
 
 print(
     f"Screening status: success ({row_count} event rows, "
-    f"{status.get('quiet_drift_row_count', 0)} quiet drift rows, schema 1.3)"
+    f"{status.get('quiet_drift_row_count', 0)} quiet drift rows, schema 2.0, "
+    f"corporate actions {reconciliation.get('status')})"
 )

@@ -111,3 +111,17 @@ ChatGPTには、まずJSONを確認させ、`status=success` の場合だけCSV�
 - yfinance は Yahoo Finance と非提携のオープンソースツールです。
 - Yahoo側の仕様変更やアクセス制限で取得に失敗する場合があります。
 - このCSVは候補抽出用です。投資判断には一次資料を使った個別調査が必要です。
+
+## Schema 2.0: integrity-first analysis
+
+Schema 2.0 changes the system from a mutable-CSV reader into an immutable, auditable pipeline. `docs/manifest.json` is fetched once and points to `docs/snapshots/<date>/snapshot.json`; that snapshot pins event/quiet/status files by SHA-256 and row count. Consumers must never return to mutable `latest.*` URLs during a run. Those URLs remain available for migration, but are not authoritative analysis inputs.
+
+Before either route is generated, explicit split/reverse-split/stock-distribution and special-distribution fields are reconciled against raw prices and a reconstructed price-only split-adjusted series. Missing or inconsistent action data is fail-closed and excluded as `data_artifact`; metadata reports detected/reconciled/unreconciled counts, tickers, continuity status and validator version. Price returns exclude dividends; verification separately records price return and total shareholder return.
+
+The analysis uses a **next-session tradable-open policy**. Market cutoff, information cutoff, prediction creation, first tradable time and entry-price timestamp are timezone-aware. Information available after the prior close but before the next open may be used only with that next open as entry; future information can never be paired with a historical close.
+
+The canonical Custom GPT workflow is seven Phases: (1) snapshot/quality, (2) every event and quiet row, (3) deterministic research set and matched comparisons, (4) common plus industry-specific primary research, (5) value/reaction-gap ranges, (6) immutable prediction persistence/index integrity, and (7) summary without new research. Normal controls remain `更新` and `次`; independent outcome verification is `検証`.
+
+This system detects abnormal movement, investigates causes, forms a testable hypothesis about price reaction versus fundamental-value change, prioritizes individual analysis, separates special situations/data artifacts/unknowns, and creates future-verifiable predictions. Unless valuation is sufficiently complete, it **does not establish that a security is mispriced**.
+
+Schema 1.3 screening snapshots and prediction CSV schema 1.1 remain read-only historical inputs. They are not rewritten. New records use JSON schema 2.0 and readers stop explicitly on unsupported versions. See `docs/schema-2.0.md` and `docs/migration-2.0.md`.

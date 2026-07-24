@@ -90,6 +90,22 @@ jobs:
 
           python scripts/check_status.py
 
+      - name: Write integrity job summary
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib
+          p=pathlib.Path("docs/latest.json")
+          if not p.exists():
+              print("## Screening integrity\n\nNo status artifact was generated.")
+          else:
+              s=json.loads(p.read_text()); c=s.get("corporate_action_reconciliation", {})
+              print("## Screening integrity")
+              for label,value in (("Snapshot",s.get("snapshot_manifest")),("Schema",s.get("schema_version")),("Event rows",s.get("row_count")),("Quiet rows",s.get("quiet_drift_row_count")),("Corporate actions",c.get("status")),("Excluded",s.get("quality_excluded_count")),("Artifact",s.get("archive_file")),("Config hash",s.get("config_hash")),("Validation",s.get("status"))):
+                  print(f"- **{label}:** `{value}`")
+          PY
+
       - name: Configure GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v6
