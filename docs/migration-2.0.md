@@ -1,0 +1,7 @@
+# Migration from screening 1.3 / prediction 1.1 to 2.0
+
+Historical files are immutable and remain readable by `scripts/validate_prediction_record.py` with `schemas/v1.1/prediction_record.schema.json` and `schemas/v1.1/verification_record.schema.json`. Root schema aliases remain 1.1 for existing clients. Do not backfill or overwrite them. New runs use `schemas/v2.0/*`, content-addressed generation snapshots, and JSON prediction/verification bundles validated by `scripts/validate_v2_records.py`.
+
+A legacy `candidate_id(date, route, ticker, config)` maps deterministically to `entity_id(date,ticker,config)` plus `route_candidate_id(entity,route)` at read time; no old file is edited. Legacy index entries remain valid historical entries. New IDs also include run, prompt and entry timestamp, making identical reruns idempotent while any material assessment version produces a new immutable ID.
+
+During migration `latest.json`, `latest.csv`, and `quiet_drift.csv` stay published. New clients fetch the complete raw manifest URL documented in README, then pin `generations/<date>/<generation>/snapshot.json`. Legacy clients may keep reading mutable files, but a single analysis may not combine contracts. Unsupported versions stop explicitly. Predictions persist append-only to `docs/predictions/v2`, use `index-v2.json`, and reach `integrity_verified` only after index re-read and hash verification; verifications persist separately without editing the prediction.

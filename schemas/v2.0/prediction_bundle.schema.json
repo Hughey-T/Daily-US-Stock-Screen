@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prediction_schema_version",
+    "prediction_run_id",
+    "source_snapshot_id",
+    "source_generation_id",
+    "source_snapshot_path",
+    "prompt_version",
+    "prompt_hash",
+    "config_version",
+    "config_hash",
+    "model_name",
+    "model_configuration",
+    "code_version",
+    "generated_at",
+    "information_cutoff_at",
+    "candidate_assessments",
+    "horizon_forecasts"
+  ],
+  "properties": {
+    "prediction_schema_version": {
+      "const": "2.0"
+    },
+    "prediction_run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+$"
+    },
+    "source_snapshot_id": {
+      "type": "string"
+    },
+    "source_generation_id": {
+      "type": "string"
+    },
+    "source_snapshot_path": {
+      "type": "string",
+      "pattern": "^docs/generations/.+/snapshot\\.json$"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "prompt_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "config_version": {
+      "type": "string"
+    },
+    "config_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "model_name": {
+      "type": "string"
+    },
+    "model_configuration": {
+      "type": "object"
+    },
+    "code_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "information_cutoff_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "candidate_assessments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity_id",
+          "route_candidate_id",
+          "ticker",
+          "source_dataset",
+          "record_group",
+          "prediction_applicability",
+          "research_status",
+          "investment_stance",
+          "situation_type",
+          "research_priority",
+          "valuation_status",
+          "estimated_fundamental_value_change_low",
+          "estimated_fundamental_value_change_base",
+          "estimated_fundamental_value_change_high",
+          "display_action_class",
+          "action_class_mapping_version",
+          "primary_thesis",
+          "invalidation_condition",
+          "research_completeness",
+          "thesis_confidence"
+        ],
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "pattern": "^ent_[0-9a-f]{64}$"
+          },
+          "route_candidate_id": {
+            "type": "string",
+            "pattern": "^route_[0-9a-f]{64}$"
+          },
+          "ticker": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_dataset": {
+            "enum": [
+              "event_anomaly",
+              "quiet_drift",
+              "data_artifact"
+            ]
+          },
+          "record_group": {
+            "enum": [
+              "forecast",
+              "comparison_only",
+              "monitor_only"
+            ]
+          },
+          "prediction_applicability": {
+            "enum": [
+              "forecast",
+              "comparison_only",
+              "monitor_only"
+            ]
+          },
+          "research_status": {
+            "enum": [
+              "ready_for_deep_dive",
+              "conditional",
+              "unresolved",
+              "incomplete",
+              "data_artifact",
+              "excluded"
+            ]
+          },
+          "investment_stance": {
+            "enum": [
+              "bullish_candidate",
+              "bearish_candidate",
+              "neutral_candidate",
+              "not_assessed",
+              "avoid_candidate"
+            ]
+          },
+          "situation_type": {
+            "enum": [
+              "fundamental",
+              "technical_supply_demand",
+              "special_situation",
+              "corporate_action",
+              "data_anomaly",
+              "unknown"
+            ]
+          },
+          "research_priority": {
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "none"
+            ]
+          },
+          "valuation_status": {
+            "enum": [
+              "not_started",
+              "partial",
+              "range_estimated",
+              "complete",
+              "not_applicable",
+              "not_estimable"
+            ]
+          },
+          "estimated_fundamental_value_change_low": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "estimated_fundamental_value_change_base": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "estimated_fundamental_value_change_high": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "display_action_class": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
+          },
+          "action_class_mapping_version": {
+            "const": "action-class-2.0"
+          },
+          "primary_thesis": {
+            "type": "string",
+            "minLength": 1
+          },
+          "invalidation_condition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "research_completeness": {
+            "enum": [
+              "complete",
+              "partial",
+              "incomplete"
+            ]
+          },
+          "thesis_confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "comparison_for": {
+            "type": "string",
+            "pattern": "^route_[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "horizon_forecasts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "prediction_id",
+          "entity_id",
+          "route_candidate_id",
+          "horizon",
+          "absolute_direction",
+          "sector_relative_direction",
+          "industry_relative_direction",
+          "absolute_neutral_threshold",
+          "relative_neutral_threshold",
+          "forecast_confidence",
+          "forecast_probability",
+          "first_tradable_at",
+          "entry_price_timestamp",
+          "entry_price_type",
+          "entry_price",
+          "timezone",
+          "benchmark_type",
+          "benchmark_symbol",
+          "benchmark_quality",
+          "prediction_applicability"
+        ],
+        "properties": {
+          "prediction_id": {
+            "type": "string",
+            "pattern": "^pred_[0-9a-f]{64}$"
+          },
+          "entity_id": {
+            "type": "string",
+            "pattern": "^ent_[0-9a-f]{64}$"
+          },
+          "route_candidate_id": {
+            "type": "string",
+            "pattern": "^route_[0-9a-f]{64}$"
+          },
+          "horizon": {
+            "enum": [
+              21,
+              63,
+              126,
+              252
+            ]
+          },
+          "absolute_direction": {
+            "enum": [
+              "up",
+              "down",
+              "neutral"
+            ]
+          },
+          "sector_relative_direction": {
+            "enum": [
+              "outperform",
+              "underperform",
+              "neutral"
+            ]
+          },
+          "industry_relative_direction": {
+            "enum": [
+              "outperform",
+              "underperform",
+              "neutral",
+              "unavailable"
+            ]
+          },
+          "absolute_neutral_threshold": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "relative_neutral_threshold": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "forecast_confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "forecast_probability": {
+            "type": "number",
+            "minimum": 0.5,
+            "exclusiveMaximum": 1
+          },
+          "first_tradable_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "entry_price_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "entry_price_type": {
+            "const": "next_session_open"
+          },
+          "entry_price": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "timezone": {
+            "const": "America/New_York"
+          },
+          "benchmark_type": {
+            "enum": [
+              "industry",
+              "peer_basket",
+              "sector_etf",
+              "SPY",
+              "unavailable"
+            ]
+          },
+          "benchmark_symbol": {
+            "type": "string"
+          },
+          "benchmark_quality": {
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "unavailable"
+            ]
+          },
+          "prediction_applicability": {
+            "const": "forecast"
+          }
+        }
+      }
+    }
+  }
+}

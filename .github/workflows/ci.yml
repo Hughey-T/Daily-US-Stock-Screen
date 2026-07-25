@@ -24,7 +24,16 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check Python syntax
-        run: python -m py_compile src/screen.py scripts/check_status.py
+        run: python -m py_compile src/screen.py src/integrity.py src/analysis_pipeline.py src/records.py scripts/check_status.py scripts/validate_v2_records.py scripts/persist_v2_record.py
+
+      - name: Validate JSON schema syntax
+        run: python -c "import json,pathlib; [json.loads(p.read_text()) for p in pathlib.Path('schemas').rglob('*.json')]"
 
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
+
+      - name: Validate immutable schema 2.0 bundles
+        run: python scripts/validate_v2_records.py
+
+      - name: Run schema 2.0 fixture E2E
+        run: python -m unittest tests.test_v2_e2e -v

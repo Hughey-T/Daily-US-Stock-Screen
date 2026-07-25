@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "verification_schema_version",
+    "verification_run_id",
+    "source_prediction_file",
+    "source_prediction_sha256",
+    "generated_at",
+    "records"
+  ],
+  "properties": {
+    "verification_schema_version": {
+      "const": "2.0"
+    },
+    "verification_run_id": {
+      "type": "string"
+    },
+    "source_prediction_file": {
+      "type": "string",
+      "pattern": "^docs/predictions/v2/.+\\.json$"
+    },
+    "source_prediction_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record_id",
+          "prediction_id",
+          "route_candidate_id",
+          "verification_horizon",
+          "outcome_status",
+          "price_return",
+          "total_shareholder_return",
+          "spy_relative_return",
+          "sector_relative_return",
+          "industry_relative_return",
+          "mfe",
+          "mae",
+          "evaluation_group"
+        ],
+        "properties": {
+          "prediction_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^pred_[0-9a-f]{64}$"
+          },
+          "verification_horizon": {
+            "enum": [
+              21,
+              63,
+              126,
+              252
+            ]
+          },
+          "outcome_status": {
+            "enum": [
+              "active",
+              "cash_acquisition_completed",
+              "stock_acquisition_completed",
+              "delisted",
+              "bankruptcy",
+              "ticker_changed",
+              "spinoff",
+              "special_dividend",
+              "adr_terminated",
+              "liquidated",
+              "not_yet_due",
+              "data_unavailable"
+            ]
+          },
+          "price_return": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "total_shareholder_return": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "spy_relative_return": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "sector_relative_return": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "industry_relative_return": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mfe": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mae": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "evaluation_group": {
+            "enum": [
+              "directional_forecast",
+              "selection_comparison",
+              "monitor_resolution"
+            ]
+          },
+          "record_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "route_candidate_id": {
+            "type": "string",
+            "pattern": "^route_[0-9a-f]{64}$"
+          }
+        }
+      }
+    }
+  }
+}
