@@ -263,6 +263,13 @@
                 "published_at": {
                   "type": "string",
                   "format": "date-time"
+                },
+                "document_date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "information_cutoff_eligible": {
+                  "type": "boolean"
                 }
               },
               "additionalProperties": false
@@ -289,6 +296,13 @@
                 "published_at": {
                   "type": "string",
                   "format": "date-time"
+                },
+                "document_date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "information_cutoff_eligible": {
+                  "type": "boolean"
                 }
               },
               "additionalProperties": false

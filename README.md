@@ -134,3 +134,7 @@ commit, branch, remote bytes and index before reporting `integrity_verified`.
 The repository does **not** contain an authenticated Custom GPT write Action, so
 Phase 6 persistence from ChatGPT remains explicitly blocked and cannot be called
 保存済み without a separately deployed, secured writer.
+
+### Custom GPT secure persistence queue
+
+Phase 6 uses a fixed-repository GitHub Issue as an audited write request. The GPT's GitHub App has only Issues read/write; trusted code on `main` validates the original opened-event payload, derives prediction records server-side, appends them, and reports success only after commit/branch remote-byte verification. One-time setup and the privacy/security boundaries are documented in [`docs/custom-gpt-write-setup.md`](docs/custom-gpt-write-setup.md), [`docs/custom-gpt-write-security.md`](docs/custom-gpt-write-security.md), and [`docs/gpt-action-privacy.md`](docs/gpt-action-privacy.md).

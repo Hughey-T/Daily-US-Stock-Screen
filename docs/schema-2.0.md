@@ -39,3 +39,7 @@ writer in this repository, so its Phase 6 persistence remains blocked rather
 than being described as saved.
 
 Troubleshooting: a hash or row mismatch stops the run; action-provider failure degrades and quarantines affected tickers; comparison shortage is `not_evaluable`; unavailable industry benchmark uses a lower-quality fallback without changing route scores; SEC/IR failure marks research incomplete; a not-yet-due horizon is `not_yet_due`, not an empty outcome.
+
+## Authenticated write requests
+
+`schemas/v2.0/gpt_write_request.schema.json` defines the only GPT-to-writer envelope. The Issue body contains canonical Phase 4/5 research, never a ready-made bundle or output path. `src/write_request.py` recomputes payload/request identities, pins the snapshot/Phase/entry artifacts, derives the Schema 2.0 bundle, and applies append-only ledger/index rules. A receipt is final only after both prediction/index and receipt bytes are verified through commit-addressed and `main`-addressed GitHub URLs.

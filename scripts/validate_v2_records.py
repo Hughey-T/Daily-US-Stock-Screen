@@ -13,6 +13,13 @@ def _load(path:Path):
     try:return json.loads(path.read_text(encoding='utf-8'),parse_constant=lambda x:(_ for _ in ()).throw(ValueError(f'non-finite {x}')))
     except (OSError,json.JSONDecodeError,ValueError) as exc:raise ValidationError(f'{path}: invalid strict JSON: {exc}') from exc
 def _schema(name:str):return _load(SCHEMAS/name)
+def validate_schema_documents():
+    count=0
+    for path in (ROOT/'schemas').rglob('*.json'):
+        schema=_load(path)
+        if schema.get('$schema')=='https://json-schema.org/draft/2020-12/schema':Draft202012Validator.check_schema(schema)
+        count+=1
+    return count
 def _reject_nonfinite(value):
     if isinstance(value,float) and not math.isfinite(value):raise ValidationError('NaN/Infinity is forbidden')
     if isinstance(value,dict):
@@ -125,6 +132,7 @@ def validate_verification_index(root:Path=ROOT):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('paths',nargs='*');args=parser.parse_args();count=0
     try:
+        count+=validate_schema_documents()
         manifest=ROOT/'docs/manifest.json'
         if manifest.exists():validate_manifest(manifest);count+=1
         paths=[Path(p) for p in args.paths] if args.paths else list((ROOT/'docs/predictions/v2').glob('*.json'))+list((ROOT/'docs/verifications/v2').glob('*.json'))
