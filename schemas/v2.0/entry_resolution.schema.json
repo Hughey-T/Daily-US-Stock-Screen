@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entry_resolution_schema_version",
+    "entry_resolution_id",
+    "source_generation_id",
+    "source_snapshot_id",
+    "source_snapshot_path",
+    "generated_at",
+    "records"
+  ],
+  "properties": {
+    "entry_resolution_schema_version": {
+      "const": "2.0"
+    },
+    "entry_resolution_id": {
+      "type": "string",
+      "pattern": "^entry_[0-9a-f]{64}$"
+    },
+    "source_generation_id": {
+      "type": "string"
+    },
+    "source_snapshot_id": {
+      "type": "string"
+    },
+    "source_snapshot_path": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity_id",
+          "route_candidate_id",
+          "ticker",
+          "status",
+          "first_tradable_at",
+          "entry_price_timestamp",
+          "entry_price",
+          "entry_price_type",
+          "timezone",
+          "resolved_at"
+        ],
+        "properties": {
+          "entity_id": {
+            "type": "string"
+          },
+          "route_candidate_id": {
+            "type": "string"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "resolved",
+              "unavailable"
+            ]
+          },
+          "first_tradable_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "entry_price_timestamp": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "entry_price": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "exclusiveMinimum": 0
+          },
+          "entry_price_type": {
+            "const": "next_session_open"
+          },
+          "timezone": {
+            "const": "America/New_York"
+          },
+          "resolved_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

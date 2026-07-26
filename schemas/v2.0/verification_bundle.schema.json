@@ -8,7 +8,9 @@
     "source_prediction_file",
     "source_prediction_sha256",
     "generated_at",
-    "records"
+    "records",
+    "source_data_cutoff_at",
+    "source_data_sha256"
   ],
   "properties": {
     "verification_schema_version": {
@@ -137,9 +139,51 @@
           "route_candidate_id": {
             "type": "string",
             "pattern": "^route_[0-9a-f]{64}$"
+          },
+          "selection_value_return": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "cause_resolved": {
+            "type": "boolean"
+          },
+          "cause_type": {
+            "type": "string"
+          },
+          "days_to_resolution": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "continued": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "reversed": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "data_artifact": {
+            "type": "boolean"
           }
         }
       }
+    },
+    "source_data_cutoff_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_data_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     }
   }
 }

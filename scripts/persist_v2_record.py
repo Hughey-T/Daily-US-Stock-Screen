@@ -2,7 +2,7 @@
 """Validate and append a schema 2.0 prediction or verification bundle locally.
 
 This command intentionally cannot assert GitHub persistence; prediction receipts
-stop at ``indexed`` until a repository-side confirmation process verifies the
+stop at ``indexed_local`` until a repository-side confirmation process verifies the
 committed/pushed index.
 """
 from __future__ import annotations

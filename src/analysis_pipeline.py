@@ -5,6 +5,9 @@ from src.integrity import make_entity_id, make_route_candidate_id, select_compar
 
 ROUTES=("event_anomaly","quiet_drift")
 FINAL_TREATMENTS={"web_research","comparison_only","not_selected","data_artifact","unprocessable"}
+EVENT_MIN_SIGNAL_SCORE=1.0
+QUIET_GLOBAL_MIN_TAIL_DISTANCE=0.50
+QUIET_COVERAGE_MIN_TAIL_DISTANCE=0.75
 
 def _quality(row: dict[str,Any]) -> str:
     return str(row.get("data_quality_status") or "passed")
@@ -36,18 +39,23 @@ def _selection_key(row:dict[str,Any])->tuple:
     theme=str(row.get("sector") or row.get("industry") or "unknown")
     return (bucket_priority,-quality_value,int(row["original_rank"]),theme,row["ticker"],row["route_candidate_id"])
 
-def select_research_set(processed:list[dict[str,Any]], maximum_entities:int=15, minimum_quality:float=0.0)->list[dict[str,Any]]:
+def _eligible(row:dict[str,Any])->bool:
+    if row["treatment"]!="phase3_eligible":return False
+    if row["source_dataset"]=="event_anomaly":return float(row.get("signal_score") or 0)>=EVENT_MIN_SIGNAL_SCORE
+    distance=abs(float(row.get("tail_distance") or 0));bucket=str(row.get("selection_bucket") or "")
+    return distance >= (QUIET_GLOBAL_MIN_TAIL_DISTANCE if bucket=="global_tail" else QUIET_COVERAGE_MIN_TAIL_DISTANCE)
+
+def select_research_set(processed:list[dict[str,Any]], maximum_entities:int=15)->list[dict[str,Any]]:
     """Select at most 15 unique entities with deterministic route diversity."""
-    pools={route:sorted([r for r in processed if r["source_dataset"]==route and r["treatment"]=="phase3_eligible" and abs(float(r.get("tail_distance") or r.get("signal_score") or 0))>=minimum_quality],key=_selection_key) for route in ROUTES}
-    route_caps={route:max(1,len(rows)//2) if rows else 0 for route,rows in pools.items()}
+    pools={route:sorted([r for r in processed if r["source_dataset"]==route and _eligible(r)],key=_selection_key) for route in ROUTES}
+    route_caps={route:(len(rows)-1 if len(rows)>1 else len(rows)) for route,rows in pools.items()}
     route_selected={route:0 for route in ROUTES}
     selected=[]; entities=set(); themes:dict[str,int]={}
     active=[r for r in ROUTES if pools[r]]
     cursor=0
     while active and len(selected)<maximum_entities:
         route=active[cursor%len(active)]; chosen=None
-        if route_selected[route]>=route_caps[route]:
-            active.remove(route);cursor=0;continue
+        if route_selected[route]>=route_caps[route]:active.remove(route);cursor=0;continue
         while pools[route]:
             candidate=pools[route].pop(0)
             if candidate["entity_id"] in entities: continue
@@ -69,7 +77,8 @@ def select_research_set(processed:list[dict[str,Any]], maximum_entities:int=15, 
 def build_phase3(processed:list[dict[str,Any]], maximum_entities:int=15)->dict[str,Any]:
     finals=select_research_set(processed,maximum_entities)
     final_ids={r["route_candidate_id"] for r in finals}
-    pool=[r for r in processed if r["source_dataset"] in ROUTES and r["route_candidate_id"] not in final_ids and r["treatment"]=="phase3_eligible"]
+    final_entities={r["entity_id"] for r in finals}
+    pool=[r for r in processed if r["source_dataset"] in ROUTES and r["route_candidate_id"] not in final_ids and r["entity_id"] not in final_entities and r["treatment"]=="phase3_eligible"]
     comparisons,shortages=select_comparisons(finals,pool,1)
     comparison_ids={r["route_candidate_id"] for r in comparisons}
     rows=[]

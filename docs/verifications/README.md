@@ -18,3 +18,6 @@ Schema 2.0 verification bundles use
 `docs/verifications/v2/`. They retain the immutable prediction path and SHA-256;
 validation re-hashes the prediction and checks forecast/comparison/monitor
 evaluation groups. A verification never edits its source prediction.
+`Generate prediction verifications` runs automatically, records source-data
+cutoff/hash, emits explicit `not_yet_due` or `data_unavailable`, and creates a
+new version for each market-data hash rather than overwriting an earlier result.

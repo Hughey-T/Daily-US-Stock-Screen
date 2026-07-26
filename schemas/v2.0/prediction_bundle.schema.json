@@ -18,7 +18,10 @@
     "generated_at",
     "information_cutoff_at",
     "candidate_assessments",
-    "horizon_forecasts"
+    "horizon_forecasts",
+    "entry_resolution_path",
+    "entry_resolution_sha256",
+    "entry_resolution_id"
   ],
   "properties": {
     "prediction_schema_version": {
@@ -95,7 +98,12 @@
           "primary_thesis",
           "invalidation_condition",
           "research_completeness",
-          "thesis_confidence"
+          "thesis_confidence",
+          "verified_facts",
+          "company_claims",
+          "inferences",
+          "estimation_method",
+          "estimation_limitations"
         ],
         "properties": {
           "entity_id": {
@@ -233,6 +241,91 @@
           "comparison_for": {
             "type": "string",
             "pattern": "^route_[0-9a-f]{64}$"
+          },
+          "verified_facts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "statement",
+                "source_url",
+                "published_at"
+              ],
+              "properties": {
+                "statement": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "published_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "company_claims": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "statement",
+                "source_url",
+                "published_at"
+              ],
+              "properties": {
+                "statement": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source_url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "published_at": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "inferences": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "statement",
+                "basis"
+              ],
+              "properties": {
+                "statement": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "basis": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "estimation_method": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "estimation_limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
@@ -370,6 +463,18 @@
           }
         }
       }
+    },
+    "entry_resolution_path": {
+      "type": "string",
+      "pattern": "^docs/entry-resolutions/.+\\.json$"
+    },
+    "entry_resolution_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "entry_resolution_id": {
+      "type": "string",
+      "pattern": "^entry_[0-9a-f]{64}$"
     }
   }
 }

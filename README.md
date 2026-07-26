@@ -125,3 +125,12 @@ The canonical Custom GPT workflow is seven Phases: (1) snapshot/quality, (2) eve
 This system detects abnormal movement, investigates causes, forms a testable hypothesis about price reaction versus fundamental-value change, prioritizes individual analysis, separates special situations/data artifacts/unknowns, and creates future-verifiable predictions. Unless valuation is sufficiently complete, it **does not establish that a security is mispriced**.
 
 Schema 1.3 screening snapshots and prediction CSV schema 1.1 remain read-only historical inputs. The legacy schemas live under `schemas/v1.1/`; schema 2.0 bundle schemas live under `schemas/v2.0/`. New prediction bundles are append-only under `docs/predictions/v2/`, indexed in `index-v2.json`, and verification bundles are separate under `docs/verifications/v2/`. See `docs/schema-2.0.md` and `docs/migration-2.0.md`.
+
+`Resolve next-session entry prices` runs automatically after the US open and
+publishes immutable generation-specific entry artifacts. `Generate prediction
+verifications` calculates due outcomes without editing predictions. Local record
+registration stops at `indexed_local`; `Verify GitHub persistence` proves the
+commit, branch, remote bytes and index before reporting `integrity_verified`.
+The repository does **not** contain an authenticated Custom GPT write Action, so
+Phase 6 persistence from ChatGPT remains explicitly blocked and cannot be called
+保存済み without a separately deployed, secured writer.

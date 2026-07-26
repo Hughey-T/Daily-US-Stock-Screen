@@ -50,8 +50,9 @@ pinned Phase 3 artifact and resolved entry opens. `persist_prediction_bundle`
 validates and writes a new file under `docs/predictions/v2/`, registers
 `docs/predictions/index-v2.json`, re-reads the entry, and checks its hash and
 metadata. Without an explicit repository persistence confirmation its receipt
-stops at `indexed`; only a confirmed commit/push and re-check reaches
-`integrity_verified` and may be described as 保存済み.
+stops at `indexed_local`. It cannot accept a caller boolean. The
+`Verify GitHub persistence` workflow re-fetches the exact commit, pushed branch,
+file and index before independently reporting `integrity_verified`.
 The manifest identifies the exact `latest.json`, `latest.csv`, and
 `quiet_drift.csv` inputs and records their SHA-256 hashes.
 

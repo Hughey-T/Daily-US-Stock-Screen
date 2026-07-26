@@ -1,0 +1,329 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "artifact_schema_version",
+    "generation_id",
+    "final_research_set",
+    "comparison_records",
+    "shortage_records",
+    "audit",
+    "web_research_entity_count"
+  ],
+  "properties": {
+    "artifact_schema_version": {
+      "const": "2.0"
+    },
+    "generation_id": {
+      "type": "string",
+      "pattern": "^gen_[0-9a-f]{64}$"
+    },
+    "final_research_set": {
+      "type": "array",
+      "maxItems": 15,
+      "items": {
+        "type": "object",
+        "required": [
+          "entity_id",
+          "route_candidate_id",
+          "ticker",
+          "source_dataset",
+          "market_data_date",
+          "quantitative_processing_status",
+          "treatment",
+          "treatment_reason",
+          "data_quality_status",
+          "entry_price_status",
+          "entry_price_type",
+          "timezone"
+        ],
+        "properties": {
+          "entity_id": {
+            "type": "string"
+          },
+          "route_candidate_id": {
+            "type": "string"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "source_dataset": {
+            "enum": [
+              "event_anomaly",
+              "quiet_drift",
+              "data_artifact"
+            ]
+          },
+          "market_data_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "quantitative_processing_status": {
+            "enum": [
+              "processed",
+              "unprocessable"
+            ]
+          },
+          "treatment": {
+            "enum": [
+              "web_research",
+              "comparison_only",
+              "not_selected",
+              "data_artifact",
+              "unprocessable"
+            ]
+          },
+          "treatment_reason": {
+            "type": "string"
+          },
+          "data_quality_status": {
+            "type": "string"
+          },
+          "entry_price_status": {
+            "enum": [
+              "pending",
+              "resolved",
+              "unavailable",
+              "not_applicable"
+            ]
+          },
+          "entry_price_type": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "comparison_records": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "entity_id",
+              "route_candidate_id",
+              "ticker",
+              "source_dataset",
+              "market_data_date",
+              "quantitative_processing_status",
+              "treatment",
+              "treatment_reason",
+              "data_quality_status",
+              "entry_price_status",
+              "entry_price_type",
+              "timezone"
+            ],
+            "properties": {
+              "entity_id": {
+                "type": "string"
+              },
+              "route_candidate_id": {
+                "type": "string"
+              },
+              "ticker": {
+                "type": "string"
+              },
+              "source_dataset": {
+                "enum": [
+                  "event_anomaly",
+                  "quiet_drift",
+                  "data_artifact"
+                ]
+              },
+              "market_data_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "quantitative_processing_status": {
+                "enum": [
+                  "processed",
+                  "unprocessable"
+                ]
+              },
+              "treatment": {
+                "enum": [
+                  "web_research",
+                  "comparison_only",
+                  "not_selected",
+                  "data_artifact",
+                  "unprocessable"
+                ]
+              },
+              "treatment_reason": {
+                "type": "string"
+              },
+              "data_quality_status": {
+                "type": "string"
+              },
+              "entry_price_status": {
+                "enum": [
+                  "pending",
+                  "resolved",
+                  "unavailable",
+                  "not_applicable"
+                ]
+              },
+              "entry_price_type": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          {
+            "type": "object",
+            "required": [
+              "comparison_for",
+              "comparison_reason",
+              "comparison_match"
+            ],
+            "properties": {
+              "comparison_for": {
+                "type": "string"
+              },
+              "comparison_reason": {
+                "type": "string"
+              },
+              "comparison_match": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    },
+    "shortage_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "route_candidate_id",
+          "missing",
+          "selection_evaluation"
+        ],
+        "properties": {
+          "route_candidate_id": {
+            "type": "string"
+          },
+          "missing": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "selection_evaluation": {
+            "const": "not_evaluable"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "event_anomaly",
+        "quiet_drift"
+      ],
+      "properties": {
+        "event_anomaly": {
+          "type": "object",
+          "required": [
+            "total",
+            "web_research",
+            "comparison_only",
+            "not_selected",
+            "data_artifact",
+            "unprocessable",
+            "unprocessed"
+          ],
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "web_research": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "comparison_only": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "not_selected": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "data_artifact": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unprocessable": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unprocessed": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "quiet_drift": {
+          "type": "object",
+          "required": [
+            "total",
+            "web_research",
+            "comparison_only",
+            "not_selected",
+            "data_artifact",
+            "unprocessable",
+            "unprocessed"
+          ],
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "web_research": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "comparison_only": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "not_selected": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "data_artifact": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unprocessable": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unprocessed": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "web_research_entity_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 15
+    }
+  },
+  "additionalProperties": false
+}

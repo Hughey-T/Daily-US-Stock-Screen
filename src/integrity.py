@@ -50,6 +50,42 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def make_generation_id(market_data_date: str, config_hash: str,
+                       authoritative_hashes: dict[str, str], code_version: str) -> str:
+    """Identify every authoritative immutable input, including status JSON."""
+    canonical=json.dumps(authoritative_hashes,sort_keys=True,separators=(",",":"))
+    return "gen_"+digest(market_data_date,config_hash,canonical,code_version)
+
+
+def validate_phase2_artifact(payload: dict[str, Any], generation_id: str) -> None:
+    if payload.get("artifact_schema_version")!="2.0" or payload.get("generation_id")!=generation_id:
+        raise IntegrityError("Phase 2 artifact schema/generation mismatch")
+    rows=payload.get("processed_rows");audit=payload.get("audit")
+    if not isinstance(rows,list) or not isinstance(audit,dict):raise IntegrityError("Phase 2 artifact structure invalid")
+    treatments=("web_research","comparison_only","not_selected","data_artifact","unprocessable")
+    for route in ("event_anomaly","quiet_drift"):
+        route_rows=[r for r in rows if r.get("source_dataset")==route]
+        item=audit.get(route,{})
+        if item.get("total")!=len(route_rows) or item.get("unprocessed")!=0:raise IntegrityError(f"Phase 2 accounting invalid: {route}")
+        actual={name:sum(r.get("treatment")==name for r in route_rows) for name in treatments}
+        if any(item.get(name)!=count for name,count in actual.items()) or sum(actual.values())!=len(route_rows):raise IntegrityError(f"Phase 2 treatment identity invalid: {route}")
+        if any(r.get("quantitative_processing_status") not in {"processed","unprocessable"} for r in route_rows):raise IntegrityError(f"Phase 2 unprocessed row: {route}")
+
+
+def validate_phase3_artifact(payload: dict[str, Any], generation_id: str) -> None:
+    if payload.get("artifact_schema_version")!="2.0" or payload.get("generation_id")!=generation_id:raise IntegrityError("Phase 3 artifact schema/generation mismatch")
+    finals=payload.get("final_research_set",[]);comparisons=payload.get("comparison_records",[]);shortages=payload.get("shortage_records",[])
+    entities=[r.get("entity_id") for r in finals]
+    if len(finals)>15 or len(entities)!=len(set(entities)):raise IntegrityError("Phase 3 research entity constraint invalid")
+    final_ids={r.get("route_candidate_id") for r in finals};matched={r.get("comparison_for") for r in comparisons}
+    shortage_by={r.get("route_candidate_id"):r for r in shortages}
+    for rid in final_ids:
+        if rid not in matched:
+            shortage=shortage_by.get(rid)
+            if not shortage or shortage.get("selection_evaluation")!="not_evaluable" or int(shortage.get("missing",0))<1:raise IntegrityError("Phase 3 comparison/shortage mismatch")
+    if any(r.get("comparison_for") not in final_ids for r in comparisons):raise IntegrityError("Phase 3 comparison_for is unknown")
+
+
 def verify_snapshot(snapshot_path: Path) -> dict[str, Any]:
     """Pin and verify an immutable v2 snapshot (never consult ``latest``)."""
     payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
@@ -58,8 +94,9 @@ def verify_snapshot(snapshot_path: Path) -> dict[str, Any]:
     files = payload.get("files")
     if not isinstance(files, dict):
         raise IntegrityError("snapshot files must be an object")
-    for key in ("latest_json", "latest_csv", "quiet_drift_csv"):
-        metadata = files.get(key)
+    required={"latest_json","latest_csv","quiet_drift_csv","phase2_artifact","phase3_artifact"}
+    if not required.issubset(files):raise IntegrityError("snapshot is missing required files")
+    for key,metadata in files.items():
         if not isinstance(metadata, dict):
             raise IntegrityError(f"snapshot is missing files.{key}")
         candidate = str(metadata.get("path", ""))
@@ -76,6 +113,10 @@ def verify_snapshot(snapshot_path: Path) -> dict[str, Any]:
                 actual_rows = max(sum(1 for _ in handle) - 1, 0)
             if actual_rows != expected_rows:
                 raise IntegrityError(f"snapshot row count mismatch: {key}")
+        if key.endswith("artifact"):
+            payload_value=json.loads(path.read_text(encoding="utf-8"))
+            (validate_phase2_artifact if key=="phase2_artifact" else validate_phase3_artifact)(payload_value,payload.get("generation_id"))
+            if metadata.get("record_count") != len(payload_value.get("processed_rows",payload_value.get("final_research_set",[]))):raise IntegrityError(f"snapshot artifact record count mismatch: {key}")
     return payload
 
 
@@ -302,24 +343,29 @@ def select_comparisons(finals: Iterable[dict[str, Any]], pool: Iterable[dict[str
     available = list(pool)
     selected: list[dict[str, Any]] = []
     shortages: list[dict[str, Any]] = []
-    used: set[str] = set()
     for final in sorted(finals, key=lambda r: r["route_candidate_id"]):
         candidates = [r for r in available if r["source_dataset"] == final["source_dataset"]
-                      and r["route_candidate_id"] not in used
                       and r["entity_id"] != final["entity_id"]]
+        def strength(row:dict[str,Any])->float:
+            return abs(float(row.get("tail_distance") or row.get("signal_score") or 0))
         candidates.sort(key=lambda r: (
+            r.get("industry") != final.get("industry"),
             r.get("sector") != final.get("sector"),
             r.get("market_cap_band") != final.get("market_cap_band"),
             r.get("liquidity_band") != final.get("liquidity_band"),
+            r.get("anchor_horizon") != final.get("anchor_horizon"),
+            r.get("selection_bucket") != final.get("selection_bucket"),
+            abs(strength(r)-strength(final)),
             abs(int(r.get("original_rank", 10**9)) - int(final.get("original_rank", 0))),
             r["route_candidate_id"],
         ))
         chosen = candidates[:minimum_per_final]
         for row in chosen:
-            used.add(row["route_candidate_id"])
+            match={"same_route":True,"industry_match":row.get("industry")==final.get("industry"),"sector_match":row.get("sector")==final.get("sector"),"market_cap_band_match":row.get("market_cap_band")==final.get("market_cap_band"),"liquidity_band_match":row.get("liquidity_band")==final.get("liquidity_band"),"anchor_horizon_match":row.get("anchor_horizon")==final.get("anchor_horizon"),"selection_bucket_match":row.get("selection_bucket")==final.get("selection_bucket"),"anomaly_strength_distance":abs(strength(row)-strength(final)),"rank_distance":abs(int(row.get("original_rank",10**9))-int(final.get("original_rank",0)))}
             selected.append({**row, "record_group": "comparison_only",
+                             "treatment": "comparison_only",
                              "comparison_for": final["route_candidate_id"],
-                             "comparison_reason": "deterministic same-route nearest match"})
+                             "comparison_reason": "deterministic route/industry/sector/size/liquidity/anchor/bucket/strength match","comparison_match":match})
         if len(chosen) < minimum_per_final:
             shortages.append({"route_candidate_id": final["route_candidate_id"],
                               "missing": minimum_per_final - len(chosen),

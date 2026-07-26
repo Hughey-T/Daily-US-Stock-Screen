@@ -29,6 +29,7 @@ from src.integrity import (
     reconcile_corporate_actions,
     split_adjusted_prices,
     digest,
+    make_generation_id,
     market_session_timestamps,
     verify_manifest,
     corporate_action_failure_mode,
@@ -183,7 +184,7 @@ def _sha256_bytes(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
 
 
-def save_daily_snapshot(market_data_date: str) -> Path:
+def save_daily_snapshot(market_data_date: str, code_version: str | None = None) -> Path:
     """Publish an immutable content-addressed generation and Phase artifacts."""
     sources = {
         "latest_json": STATUS_PATH,
@@ -198,8 +199,8 @@ def save_daily_snapshot(market_data_date: str) -> Path:
 
     status=json.loads(STATUS_PATH.read_text(encoding="utf-8"))
     source_hashes={key:_sha256_bytes(path.read_bytes()) for key,path in sources.items()}
-    code_version=os.environ.get("GITHUB_SHA") or os.environ.get("CODE_VERSION") or "working-tree"
-    generation_id="gen_"+digest(market_data_date,status.get("config_hash"),source_hashes["latest_csv"],source_hashes["quiet_drift_csv"],code_version)
+    code_version=code_version or os.environ.get("GITHUB_SHA") or os.environ.get("CODE_VERSION") or "working-tree"
+    generation_id=make_generation_id(market_data_date,status.get("config_hash",""),source_hashes,code_version)
     snapshot_dir = STATUS_PATH.parent / "generations" / market_data_date / generation_id
     manifest_path = snapshot_dir / "snapshot.json"
     if manifest_path.exists():
@@ -242,10 +243,12 @@ def save_daily_snapshot(market_data_date: str) -> Path:
     phase3_payload={key:value for key,value in phase3.items() if key!="processed_rows"}|{"generation_id":generation_id}
     write_json(snapshot_dir/"phase2.json",phase2_payload); write_json(snapshot_dir/"phase3.json",phase3_payload)
     for key,path in (("phase2_artifact",snapshot_dir/"phase2.json"),("phase3_artifact",snapshot_dir/"phase3.json")):
-        content=path.read_bytes(); file_metadata[key]={"path":path.name,"sha256":_sha256_bytes(content)}
+        content=path.read_bytes(); payload=json.loads(content); count=len(payload.get("processed_rows",payload.get("final_research_set",[])))
+        file_metadata[key]={"path":path.name,"sha256":_sha256_bytes(content),"record_count":count}
+    artifact_hashes={key:file_metadata[key]["sha256"] for key in ("phase2_artifact","phase3_artifact")}
     manifest = {
         "snapshot_schema_version": "2.0",
-        "snapshot_id": "snap_"+digest(generation_id,*sorted(source_hashes.values()),code_version),
+        "snapshot_id": "snap_"+digest(generation_id,json.dumps(artifact_hashes,sort_keys=True),code_version),
         "generation_id": generation_id,
         "market_data_date": market_data_date,
         "generated_at": status.get("generated_at"),
@@ -268,6 +271,12 @@ def save_daily_snapshot(market_data_date: str) -> Path:
 
 def _write_latest_manifest(snapshot_path:Path,snapshot:dict[str,Any])->None:
     relative=snapshot_path.relative_to(STATUS_PATH.parent).as_posix()
+    current_path=STATUS_PATH.parent/"manifest.json"
+    if current_path.exists():
+        current=json.loads(current_path.read_text(encoding="utf-8"))
+        current_time=pd.Timestamp(current.get("updated_at")); candidate_time=pd.Timestamp(snapshot.get("generated_at"))
+        if current_time.tzinfo is not None and candidate_time.tzinfo is not None and candidate_time<current_time:
+            raise RuntimeError("refusing to move latest manifest to an older generation")
     write_json(STATUS_PATH.parent / "manifest.json", {
         "manifest_schema_version": "2.0",
         "snapshot_id": snapshot["snapshot_id"],
