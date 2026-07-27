@@ -1,5 +1,5 @@
 from __future__ import annotations
-import copy,hashlib,json,unittest,uuid
+import copy,hashlib,json,os,unittest,uuid
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from unittest.mock import patch
@@ -56,11 +56,11 @@ class WriteRequestTests(PipelineFixture):
   x=self.envelope();x['research_payload']['candidates'][0]['forecasts']=[];self._rehash(x);self.assert_code('FORECAST_RESEARCH_INCOMPLETE',self.issue_event(x))
   x=self.envelope();item=x['research_payload']['candidates'][0];item['forecast_applicable']=False;item['forecasts']=[];item['research_status']='unresolved';item['research_completeness']='incomplete';item['monitor_only_reason']='Cause not resolved.';self._rehash(x);validate_issue_event(self.issue_event(x),self.root,self.now)
  def test_replay_nonce_and_conflict(self):
-  e=self.issue_event();first=prepare_write(e,self.root,self.now);finalize_receipt(self.root,first['receipt']['request_id'],'a'*40,{'state':'integrity_verified','sha256':first['receipt']['prediction_sha256']},self.now.isoformat());again=prepare_write(e,self.root,self.now);self.assertTrue(again['replay']);self.assertEqual(first['receipt']['prediction_path'],again['receipt']['prediction_path'])
+  e=self.issue_event();first=prepare_write(e,self.root,self.now);finalize_receipt(self.root,first['receipt']['request_id'],'a'*40,{'state':'integrity_verified','sha256':first['receipt']['prediction_sha256'],'index_sha256':'b'*64},self.now.isoformat());again=prepare_write(e,self.root,self.now);self.assertTrue(again['replay']);self.assertEqual(first['receipt']['prediction_path'],again['receipt']['prediction_path'])
   x=self.envelope();x['nonce']=json.loads(e['issue']['body'])['nonce'];x['prompt_hash']='c'*64;self._rehash(x);self.assert_code('NONCE_REUSED',self.issue_event(x))
   ledger=load_ledger(self.root/'docs/write-requests/ledger.json');ledger['requests'][0]['payload_sha256']='0'*64;(self.root/'docs/write-requests/ledger.json').write_text(json.dumps(ledger));self.assert_code('REQUEST_ID_PAYLOAD_CONFLICT',e)
  def test_remote_finalization_and_sanitized_failure(self):
-  result=prepare_write(self.issue_event(),self.root,self.now);proof={'state':'integrity_verified','sha256':result['receipt']['prediction_sha256']};receipt=finalize_receipt(self.root,result['receipt']['request_id'],'a'*40,proof,self.now.isoformat());self.assertEqual(receipt['write_request_status'],'integrity_verified')
+  result=prepare_write(self.issue_event(),self.root,self.now);proof={'state':'integrity_verified','sha256':result['receipt']['prediction_sha256'],'index_sha256':'b'*64};receipt=finalize_receipt(self.root,result['receipt']['request_id'],'a'*40,proof,self.now.isoformat());self.assertEqual(receipt['write_request_status'],'integrity_verified')
   with self.assertRaises(WriteRequestError):finalize_receipt(self.root,result['receipt']['request_id'],'a'*40,{'state':'failed'})
   failure=safe_failure('x','BAD\nsecret=value');self.assertNotIn('secret',json.dumps(failure));self.assertEqual(failure['error_code'],'BAD')
  def test_command_metacharacters_are_data(self):
@@ -80,3 +80,83 @@ class WriterWorkflowSecurityTests(unittest.TestCase):
   permissions=workflow['jobs']['process']['permissions'];self.assertEqual(permissions,{'contents':'write','issues':'write'})
   self.assertNotIn('pull_request_target',text);self.assertNotIn('force',text);self.assertIn('ref: main',text)
   self.assertNotIn('${{ github.event.issue.body',text);self.assertNotIn('${{ github.event.issue.title',text)
+
+class WriteRecoveryTests(PipelineFixture):
+ def setUp(self):
+  super().setUp();self.snapshot_path,self.snapshot_data=self.snapshot();self.entry_path,self.entry_data=self.entry(self.snapshot_path);self.phase3=json.loads((self.snapshot_path.parent/'phase3.json').read_text());self.now=datetime(2026,7,24,15,1,tzinfo=timezone.utc)
+  helper=WriteRequestTests.envelope;self.envelope=lambda:helper(self);self.issue_event=lambda envelope=None:WriteRequestTests.issue_event(self,envelope);self.request=self.envelope();self.event_payload=self.issue_event(self.request)
+ def prepared(self):return prepare_write(self.event_payload,self.root,self.now)
+ def test_pending_resume_without_duplicate_bytes(self):
+  first=self.prepared();prediction=self.root/first['receipt']['prediction_path'];before=prediction.read_bytes();ledger=(self.root/'docs/write-requests/ledger.json').read_bytes();second=prepare_write(self.event_payload,self.root,self.now)
+  self.assertEqual(second['status'],'resume_pending');self.assertEqual(prediction.read_bytes(),before);self.assertEqual((self.root/'docs/write-requests/ledger.json').read_bytes(),ledger)
+ def test_pending_hash_index_and_ledger_mismatches_are_terminal(self):
+  first=self.prepared();event=self.event_payload
+  path=self.root/first['receipt']['prediction_path'];path.write_bytes(b'bad')
+  with self.assertRaisesRegex(WriteRequestError,'request rejected') as ctx:prepare_write(event,self.root,self.now)
+  self.assertEqual(ctx.exception.code,'PENDING_PREDICTION_MISMATCH')
+ def test_pending_index_mismatch(self):
+  first=self.prepared();event=self.event_payload;idx=self.root/'docs/predictions/index-v2.json';data=json.loads(idx.read_text());data['predictions']=[];idx.write_text(json.dumps(data))
+  with self.assertRaises(WriteRequestError) as ctx:prepare_write(event,self.root,self.now)
+  self.assertEqual(ctx.exception.code,'PENDING_INDEX_MISMATCH')
+ def test_pending_receipt_ledger_mismatch(self):
+  self.prepared();event=self.event_payload;ledger_path=self.root/'docs/write-requests/ledger.json';ledger=json.loads(ledger_path.read_text());ledger['requests'][0]['issue_number']=99;ledger_path.write_text(json.dumps(ledger))
+  with self.assertRaises(WriteRequestError) as ctx:prepare_write(event,self.root,self.now)
+  self.assertEqual(ctx.exception.code,'RECEIPT_LEDGER_MISMATCH')
+ def test_resume_finalize_and_verified_replay_rechecks_local(self):
+  first=self.prepared();event=self.event_payload;resume=prepare_write(event,self.root,self.now);proof={'state':'integrity_verified','sha256':resume['receipt']['prediction_sha256'],'index_sha256':'c'*64};final=finalize_receipt(self.root,resume['receipt']['request_id'],'a'*40,proof,self.now.isoformat());self.assertEqual(final['write_request_status'],'integrity_verified');self.assertEqual(final['final_receipt_sha256'],__import__('src.write_request',fromlist=['receipt_hash']).receipt_hash(final));replay=prepare_write(event,self.root,self.now);self.assertEqual(replay['status'],'verified_replay')
+ def test_failed_terminal_stops(self):
+  first=self.prepared();event=self.event_payload;from src.write_request import mark_verification_attempt
+  mark_verification_attempt(self.root,first['receipt']['request_id'],terminal_code='HASH_MISMATCH')
+  with self.assertRaises(WriteRequestError) as ctx:prepare_write(event,self.root,self.now)
+  self.assertEqual(ctx.exception.code,'REQUEST_TERMINAL')
+ def test_first_remote_timeout_then_scheduled_recovery_finalizes(self):
+  import scripts.process_gpt_write_request as process
+  first=self.prepared();state_path=self.root/'state.json';state={'status':'prepared_new','issue_number':7,'request_id':first['receipt']['request_id'],'receipt':first['receipt'],'index_entry':first['index_entry']};state_path.write_text(json.dumps(state))
+  old_root,old_state,old_verify=process.ROOT,process.STATE,process.verify_github_prediction;process.ROOT,process.STATE=self.root,state_path
+  process.verify_github_prediction=lambda *args,**kwargs:(_ for _ in ()).throw(process.RemoteTransientError('timeout'))
+  try:
+   with self.assertRaises(SystemExit):process.remote_verify('a'*40)
+   self.assertEqual(json.loads(state_path.read_text())['status'],'pending_remote_verification');self.assertEqual(json.loads((self.root/'docs/write-requests/ledger.json').read_text())['requests'].__len__(),1)
+   process.verify_github_prediction=lambda *args,**kwargs:{'state':'integrity_verified','sha256':first['receipt']['prediction_sha256'],'index_sha256':'d'*64}
+   process.recover('a'*40);recovered=json.loads(state_path.read_text());self.assertEqual(recovered['items'][0]['status'],'finalized');self.assertEqual(json.loads((self.root/'docs/write-requests/ledger.json').read_text())['requests'].__len__(),1)
+  finally:process.ROOT,process.STATE,process.verify_github_prediction=old_root,old_state,old_verify
+
+class RemoteRetryAndWorkflowTests(unittest.TestCase):
+ def test_only_transient_http_retries(self):
+  import scripts.process_gpt_write_request as process
+  for code in (404,429,502,503,504):
+   calls=[]
+   def transient(req,timeout,code=code):calls.append(1);raise __import__('urllib').error.HTTPError(req.full_url,code,'temporary',{},None)
+   with self.assertRaises(process.RemoteTransientError):process.fetch_with_retry('https://example.test',transient,lambda _:None,3)
+   self.assertEqual(len(calls),3)
+  calls.clear()
+  def terminal(req,timeout):calls.append(1);raise __import__('urllib').error.HTTPError(req.full_url,409,'conflict',{},None)
+  with self.assertRaises(__import__('urllib').error.HTTPError):process.fetch_with_retry('https://example.test',terminal,lambda _:None,5)
+  self.assertEqual(len(calls),1)
+ def test_hash_mismatch_is_not_fetch_retry(self):
+  from src.github_persistence import verify_github_prediction
+  calls=[];entry={'path':'docs/predictions/v2/x.json','sha256':'0'*64,'prediction_run_id':'x','schema_version':'2.0','source_snapshot_id':'s','record_count':0,'created_at':'x'}
+  def fetch(url):calls.append(url);return b'{}' if url.endswith('.json') else b'x'
+  with self.assertRaises(ValueError):verify_github_prediction(entry,'o/r','main','a'*40,fetch)
+  self.assertLessEqual(len(calls),4)
+ def test_pending_comment_does_not_claim_not_written_or_close(self):
+  import scripts.process_gpt_write_request as process
+  calls=[];old=process._github
+  process._github=lambda method,path,payload=None:({'state':'open'} if method=='GET' else calls.append((method,path,payload)) or {})
+  try:process._report_item({'status':'pending_remote_verification','issue_number':7,'request_id':'gptw_'+'a'*64})
+  finally:process._github=old
+  self.assertEqual([c[0] for c in calls],['POST']);body=calls[0][2]['body'];self.assertIn('remote integrity verification is pending',body);self.assertNotIn('no saved state',body)
+ def test_second_push_failure_is_reported_pending(self):
+  import scripts.process_gpt_write_request as process
+  calls=[];old_api,old_status=process._github,os.environ.get('WORKFLOW_JOB_STATUS');process._github=lambda method,path,payload=None:({'state':'open'} if method=='GET' else calls.append((method,path,payload)) or {});os.environ['WORKFLOW_JOB_STATUS']='failure'
+  try:process._report_item({'status':'finalized','issue_number':7,'request_id':'gptw_'+'a'*64})
+  finally:
+   process._github=old_api
+   if old_status is None:os.environ.pop('WORKFLOW_JOB_STATUS',None)
+   else:os.environ['WORKFLOW_JOB_STATUS']=old_status
+  self.assertEqual([c[0] for c in calls],['POST']);self.assertIn('pending_remote_verification',calls[0][2]['body'])
+ def test_recovery_workflow_security_and_shared_concurrency(self):
+  root=Path(__file__).resolve().parents[1];writer=(root/'.github/workflows/process-gpt-write-request.yml').read_text();recovery=(root/'.github/workflows/recover-gpt-write-requests.yml').read_text()
+  for text in (writer,recovery):
+   doc=yaml.safe_load(text);job=next(iter(doc['jobs'].values()));self.assertEqual(job['permissions'],{'contents':'write','issues':'write'});self.assertIn('group: gpt-prediction-writer-main',text);self.assertNotIn('--force',text)
+  self.assertIn("cron: '17,47 * * * *'",recovery);self.assertIn('workflow_dispatch',recovery)

@@ -63,13 +63,16 @@ def _safe_relative(path: str, prefix: str) -> Path:
     return candidate
 
 
+LEDGER_KEYS = {"request_id", "nonce", "payload_sha256", "receipt_path", "recorded_at", "issue_number"}
+
+
 def load_ledger(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text()) if path.exists() else {"ledger_schema_version": "1.0", "requests": []}
     if set(data) != {"ledger_schema_version", "requests"} or data["ledger_schema_version"] != "1.0" or not isinstance(data["requests"], list):
         raise WriteRequestError("LEDGER_CORRUPT")
     ids, nonces = set(), set()
     for item in data["requests"]:
-        if set(item) != {"request_id", "nonce", "payload_sha256", "receipt_path", "recorded_at"}:
+        if set(item) != LEDGER_KEYS or not isinstance(item["issue_number"], int):
             raise WriteRequestError("LEDGER_CORRUPT")
         if item["request_id"] in ids or item["nonce"] in nonces:
             raise WriteRequestError("LEDGER_DUPLICATE")
@@ -204,13 +207,84 @@ def _validate_research(payload: dict[str, Any], phase3: dict[str, Any], entry: d
         raise WriteRequestError("RESEARCH_SET_INCOMPLETE")
 
 
+def _existing_write(root: Path, ledger_entry: dict[str, Any], request: dict[str, Any], validator: Callable | None) -> dict[str, Any]:
+    """Validate every local byte before a resume or verified replay."""
+    receipt_path = (root / ledger_entry["receipt_path"]).resolve()
+    if root.resolve() not in receipt_path.parents or not receipt_path.is_file():
+        raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
+    receipt = json.loads(receipt_path.read_text())
+    identity = (receipt.get("request_id"), receipt.get("nonce"), receipt.get("payload_sha256"), receipt.get("issue_number"))
+    expected = (request["request_id"], request["nonce"], request["payload_sha256"], ledger_entry["issue_number"])
+    if identity != expected:
+        raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
+    status = receipt.get("write_request_status")
+    if status == "failed_terminal":
+        raise WriteRequestError("REQUEST_TERMINAL")
+    if status not in {"pending_remote_verification", "integrity_verified"}:
+        raise WriteRequestError("RECEIPT_STATE_INVALID")
+    index_path = root / "docs/predictions/index-v2.json"
+    try:
+        index = json.loads(index_path.read_text())
+        entries = [x for x in index["predictions"] if x["prediction_run_id"] == receipt["prediction_run_id"]]
+    except (OSError, KeyError, json.JSONDecodeError) as exc:
+        raise WriteRequestError("PENDING_INDEX_MISMATCH") from exc
+    if len(entries) != 1:
+        raise WriteRequestError("PENDING_INDEX_MISMATCH")
+    entry = entries[0]
+    prediction_path = (root / receipt["prediction_path"]).resolve()
+    if root.resolve() not in prediction_path.parents or not prediction_path.is_file():
+        raise WriteRequestError("PENDING_PREDICTION_MISMATCH")
+    actual_hash = hashlib.sha256(prediction_path.read_bytes()).hexdigest()
+    expected_fields = (entry.get("path"), entry.get("sha256"), entry.get("source_snapshot_id"), entry.get("record_count"), entry.get("created_at"))
+    receipt_fields = (receipt["prediction_path"], receipt["prediction_sha256"], receipt["source_snapshot_id"], receipt["record_count"], receipt["created_at"])
+    if expected_fields != receipt_fields or actual_hash != receipt["prediction_sha256"]:
+        raise WriteRequestError("PENDING_PREDICTION_MISMATCH")
+    if validator is None:
+        from scripts.validate_v2_records import validate_prediction_data
+        validator = validate_prediction_data
+    bundle = json.loads(prediction_path.read_text())
+    try:
+        validator(bundle, root)
+    except Exception as exc:
+        raise WriteRequestError("PENDING_SCHEMA_MISMATCH") from exc
+    if (bundle.get("source_snapshot_id"), bundle.get("entry_resolution_id"),
+        len(bundle.get("candidate_assessments", [])) + len(bundle.get("horizon_forecasts", [])), bundle.get("generated_at")) != (
+            receipt["source_snapshot_id"], receipt["entry_resolution_id"], receipt["record_count"], receipt["created_at"]):
+        raise WriteRequestError("PENDING_IDENTITY_MISMATCH")
+    mode = "resume_pending" if status == "pending_remote_verification" else "verified_replay"
+    return {"status": mode, "replay": True, "receipt": receipt, "index_entry": entry, "receipt_path": ledger_entry["receipt_path"]}
+
+
+def recoverable_writes(root: Path, validator: Callable | None = None) -> list[dict[str, Any]]:
+    """Return locally verified pending records without regenerating predictions."""
+    ledger = load_ledger(root / "docs/write-requests/ledger.json")
+    results = []
+    for item in ledger["requests"]:
+        receipt_path = root / item["receipt_path"]
+        if not receipt_path.is_file():
+            raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
+        receipt = json.loads(receipt_path.read_text())
+        if receipt.get("write_request_status") != "pending_remote_verification":
+            continue
+        request = {key: receipt[key] for key in ("request_id", "nonce", "payload_sha256")}
+        results.append(_existing_write(root, item, request, validator))
+    return results
+
+
+def audit_ledger_write(root: Path, ledger_entry: dict[str, Any], validator: Callable | None = None) -> dict[str, Any]:
+    """Audit one ledger entry for recovery, retaining its issue identity."""
+    receipt_path = root / ledger_entry["receipt_path"]
+    if not receipt_path.is_file():
+        raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
+    receipt = json.loads(receipt_path.read_text())
+    request = {key: receipt.get(key) for key in ("request_id", "nonce", "payload_sha256")}
+    return _existing_write(root, ledger_entry, request, validator)
+
+
 def prepare_write(event: dict[str, Any], root: Path, now: datetime | None = None, validator: Callable | None = None) -> dict[str, Any]:
     request, snapshot, phase3, entry, replay = validate_issue_event(event, root, now)
     if replay:
-        receipt = json.loads((root / replay["receipt_path"]).read_text())
-        if receipt.get("write_request_status") != "integrity_verified":
-            raise WriteRequestError("REPLAY_NOT_VERIFIED")
-        return {"replay": True, "receipt": receipt}
+        return _existing_write(root, replay, request, validator)
     research = {item["route_candidate_id"]: item for item in request["research_payload"]["candidates"]}
     # records producer expects entity lookup; identities are always derived from Phase 3.
     research_by_entity = {row["entity_id"]: _producer_research(research[row["route_candidate_id"]]) for row in phase3["final_research_set"]}
@@ -225,20 +299,24 @@ def prepare_write(event: dict[str, Any], root: Path, now: datetime | None = None
     index = json.loads((root / "docs/predictions/index-v2.json").read_text())
     index_entry = next(x for x in index["predictions"] if x["prediction_run_id"] == run_id)
     receipt_rel = f"docs/write-requests/receipts/{request['request_id']}.json"
-    receipt = {"receipt_schema_version": "1.0", "write_request_status": "pending_remote_verification", "request_id": request["request_id"],
+    issue_number = event["issue"]["number"]
+    receipt = {"receipt_schema_version": "1.1", "write_request_status": "pending_remote_verification", "request_id": request["request_id"],
+               "issue_number": issue_number,
                "nonce": request["nonce"], "payload_sha256": request["payload_sha256"], "prediction_run_id": run_id,
                "prediction_path": prediction_path.relative_to(root).as_posix(), "prediction_sha256": index_entry["sha256"],
                "index_path": "docs/predictions/index-v2.json", "entry_resolution_id": entry["payload"]["entry_resolution_id"],
-               "source_snapshot_id": snapshot["snapshot_id"], "record_count": index_entry["record_count"], "created_at": bundle["generated_at"]}
+               "source_snapshot_id": snapshot["snapshot_id"], "record_count": index_entry["record_count"], "created_at": bundle["generated_at"],
+               "first_written_commit_sha": None, "verified_commit_sha": None, "index_sha256": None, "final_receipt_sha256": None,
+               "retry_count": 0, "last_verification_attempt": None, "completed_at": None}
     receipt_path = root / receipt_rel; receipt_path.parent.mkdir(parents=True, exist_ok=True)
     if receipt_path.exists():
         raise WriteRequestError("RECEIPT_CONFLICT")
     receipt_path.write_text(json.dumps(receipt, indent=2, allow_nan=False) + "\n")
     ledger_path = root / "docs/write-requests/ledger.json"; ledger = load_ledger(ledger_path)
     ledger["requests"].append({"request_id": request["request_id"], "nonce": request["nonce"], "payload_sha256": request["payload_sha256"],
-                               "receipt_path": receipt_rel, "recorded_at": datetime.now(timezone.utc).isoformat()})
+                               "receipt_path": receipt_rel, "recorded_at": datetime.now(timezone.utc).isoformat(), "issue_number": issue_number})
     ledger_path.write_text(json.dumps(ledger, indent=2) + "\n")
-    return {"replay": False, "receipt": receipt, "index_entry": index_entry, "local_receipt_state": local_receipt["state"]}
+    return {"status": "prepared_new", "replay": False, "receipt": receipt, "index_entry": index_entry, "local_receipt_state": local_receipt["state"], "receipt_path": receipt_rel}
 
 
 def _producer_research(item: dict[str, Any]) -> dict[str, Any]:
@@ -255,12 +333,35 @@ def finalize_receipt(root: Path, request_id_value: str, commit_sha: str, proof: 
     receipt = json.loads(path.read_text())
     if receipt["write_request_status"] != "pending_remote_verification" or proof.get("state") != "integrity_verified":
         raise WriteRequestError("REMOTE_VERIFICATION_REQUIRED")
-    receipt.update({"write_request_status": "integrity_verified", "verified_commit_sha": commit_sha,
-                    "remote_prediction_sha256": proof["sha256"], "completed_at": completed_at or datetime.now(timezone.utc).isoformat()})
+    attempted = completed_at or datetime.now(timezone.utc).isoformat()
+    receipt.update({"write_request_status": "integrity_verified", "first_written_commit_sha": receipt.get("first_written_commit_sha") or commit_sha,
+                    "verified_commit_sha": commit_sha, "prediction_sha256": proof["sha256"], "index_sha256": proof["index_sha256"],
+                    "retry_count": int(receipt.get("retry_count", 0)), "last_verification_attempt": attempted, "completed_at": attempted})
+    receipt["final_receipt_sha256"] = receipt_hash(receipt)
+    path.write_text(json.dumps(receipt, indent=2) + "\n")
+    return receipt
+
+
+def receipt_hash(receipt: dict[str, Any]) -> str:
+    """Hash a final receipt with its self-reference normalized to null."""
+    normalized = dict(receipt); normalized["final_receipt_sha256"] = None
+    return hashlib.sha256(canonical_bytes(normalized)).hexdigest()
+
+
+def mark_verification_attempt(root: Path, request_id_value: str, *, terminal_code: str | None = None,
+                              attempted_at: str | None = None) -> dict[str, Any]:
+    path = root / "docs/write-requests/receipts" / f"{request_id_value}.json"
+    receipt = json.loads(path.read_text())
+    receipt["retry_count"] = int(receipt.get("retry_count", 0)) + 1
+    receipt["last_verification_attempt"] = attempted_at or datetime.now(timezone.utc).isoformat()
+    if terminal_code:
+        receipt["write_request_status"] = "failed_terminal"
+        receipt["error_code"] = re.sub(r"[^A-Z0-9_]", "", terminal_code)[:64]
+        receipt["completed_at"] = receipt["last_verification_attempt"]
     path.write_text(json.dumps(receipt, indent=2) + "\n")
     return receipt
 
 
 def safe_failure(request_id_value: str | None, code: str, completed_at: str | None = None) -> dict[str, Any]:
-    return {"write_request_status": "failed", "request_id": request_id_value or "unknown", "error_code": re.sub(r"[^A-Z0-9_]", "", code)[:64] or "INTERNAL_FAILURE",
+    return {"write_request_status": "failed_terminal", "request_id": request_id_value or "unknown", "error_code": re.sub(r"[^A-Z0-9_]", "", code)[:64] or "INTERNAL_FAILURE",
             "retryable": code in {"PUSH_CONFLICT", "REMOTE_UNAVAILABLE"}, "completed_at": completed_at or datetime.now(timezone.utc).isoformat()}

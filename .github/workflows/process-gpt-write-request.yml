@@ -1,13 +1,10 @@
 name: Process GPT prediction write request
-
 on:
   issues:
     types: [opened]
-
 concurrency:
   group: gpt-prediction-writer-main
   cancel-in-progress: false
-
 jobs:
   process:
     runs-on: ubuntu-latest
@@ -17,53 +14,44 @@ jobs:
     steps:
       - name: Check out trusted default branch
         uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
+        with: {ref: main, fetch-depth: 0}
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: pip
+        with: {python-version: '3.12', cache: pip}
       - run: pip install -r requirements.txt
-      - name: Validate event and prepare append-only records
+      - id: prepare
+        name: Validate event and classify request
         run: python scripts/process_gpt_write_request.py prepare --event "$GITHUB_EVENT_PATH"
-      - name: Commit and push pending receipt
-        if: success()
+      - name: Commit and push new pending record
+        if: steps.prepare.outputs.status == 'prepared_new'
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add docs/predictions docs/write-requests
-          git commit -m "Persist validated GPT prediction request" || test -z "$(git status --porcelain)"
+          git commit -m "Persist validated GPT prediction request"
           for attempt in 1 2 3; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
             git rebase --abort 2>/dev/null || true
             sleep $((attempt * 2))
           done
           exit 1
-      - name: Verify prediction and index from commit and branch URLs
+      - name: Verify prediction and index remote bytes
         if: success()
         run: python scripts/process_gpt_write_request.py remote-verify --commit "$(git rev-parse HEAD)"
-      - name: Commit and push integrity-verified receipt
-        if: success()
+      - name: Commit and push final receipt
+        if: success() && steps.prepare.outputs.status != 'verified_replay'
         run: |
           git add docs/write-requests/receipts
-          git commit -m "Finalize GPT prediction persistence receipt" || test -z "$(git status --porcelain)"
+          git commit -m "Finalize GPT prediction persistence receipt"
           for attempt in 1 2 3; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
             git rebase --abort 2>/dev/null || true
             sleep $((attempt * 2))
           done
           exit 1
-      - name: Verify final receipt bytes
+      - name: Verify final receipt remote bytes
         if: success()
         run: python scripts/process_gpt_write_request.py verify-receipt --commit "$(git rev-parse HEAD)"
-      - name: Comment success and close request
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/process_gpt_write_request.py report-success
-      - name: Comment sanitized failure and close request
-        if: failure()
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/process_gpt_write_request.py report-failure
+      - name: Report accurate state
+        if: always()
+        env: {GITHUB_TOKEN: "${{ github.token }}", WORKFLOW_JOB_STATUS: "${{ job.status }}"}
+        run: python scripts/process_gpt_write_request.py report

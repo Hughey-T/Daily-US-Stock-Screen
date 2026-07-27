@@ -1,0 +1,41 @@
+name: Recover pending GPT write requests
+on:
+  schedule:
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+concurrency:
+  group: gpt-prediction-writer-main
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
+      - name: Validate and retry pending remote proofs
+        run: python scripts/process_gpt_write_request.py recover --commit "$(git rev-parse HEAD)"
+      - name: Commit recovered or terminal receipts
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/write-requests/receipts
+          git diff --cached --quiet && exit 0
+          git commit -m "Recover GPT prediction persistence receipts"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep $((attempt * 2))
+          done
+          exit 1
+      - name: Verify recovered final receipt bytes
+        run: python scripts/process_gpt_write_request.py verify-recovery --commit "$(git rev-parse HEAD)"
+      - name: Report recovered states
+        if: always()
+        env: {GITHUB_TOKEN: "${{ github.token }}", WORKFLOW_JOB_STATUS: "${{ job.status }}"}
+        run: python scripts/process_gpt_write_request.py report
