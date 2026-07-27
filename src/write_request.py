@@ -66,8 +66,19 @@ def _safe_relative(path: str, prefix: str) -> Path:
 LEDGER_KEYS = {"request_id", "nonce", "payload_sha256", "receipt_path", "recorded_at", "issue_number"}
 
 
+def _validate_trusted_schema(value: dict[str, Any], name: str, code: str) -> None:
+    schema = json.loads((Path(__file__).resolve().parents[1] / "schemas/v2.0" / name).read_text())
+    errors = sorted(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(value), key=lambda error: list(error.path))
+    if errors:
+        raise WriteRequestError(code)
+
+
 def load_ledger(path: Path) -> dict[str, Any]:
-    data = json.loads(path.read_text()) if path.exists() else {"ledger_schema_version": "1.0", "requests": []}
+    try:
+        data = json.loads(path.read_text()) if path.exists() else {"ledger_schema_version": "1.0", "requests": []}
+    except (OSError, json.JSONDecodeError) as exc:
+        raise WriteRequestError("LEDGER_CORRUPT") from exc
+    _validate_trusted_schema(data, "write_ledger.schema.json", "LEDGER_CORRUPT")
     if set(data) != {"ledger_schema_version", "requests"} or data["ledger_schema_version"] != "1.0" or not isinstance(data["requests"], list):
         raise WriteRequestError("LEDGER_CORRUPT")
     ids, nonces = set(), set()
@@ -78,6 +89,15 @@ def load_ledger(path: Path) -> dict[str, Any]:
             raise WriteRequestError("LEDGER_DUPLICATE")
         ids.add(item["request_id"]); nonces.add(item["nonce"])
     return data
+
+
+def load_receipt(path: Path) -> dict[str, Any]:
+    try:
+        receipt = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError) as exc:
+        raise WriteRequestError("RECEIPT_CORRUPT") from exc
+    _validate_trusted_schema(receipt, "write_receipt.schema.json", "RECEIPT_CORRUPT")
+    return receipt
 
 
 def _validate_replay(request: dict[str, Any], ledger: dict[str, Any]) -> dict[str, Any] | None:
@@ -212,7 +232,7 @@ def _existing_write(root: Path, ledger_entry: dict[str, Any], request: dict[str,
     receipt_path = (root / ledger_entry["receipt_path"]).resolve()
     if root.resolve() not in receipt_path.parents or not receipt_path.is_file():
         raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
-    receipt = json.loads(receipt_path.read_text())
+    receipt = load_receipt(receipt_path)
     identity = (receipt.get("request_id"), receipt.get("nonce"), receipt.get("payload_sha256"), receipt.get("issue_number"))
     expected = (request["request_id"], request["nonce"], request["payload_sha256"], ledger_entry["issue_number"])
     if identity != expected:
@@ -263,7 +283,7 @@ def recoverable_writes(root: Path, validator: Callable | None = None) -> list[di
         receipt_path = root / item["receipt_path"]
         if not receipt_path.is_file():
             raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
-        receipt = json.loads(receipt_path.read_text())
+        receipt = load_receipt(receipt_path)
         if receipt.get("write_request_status") != "pending_remote_verification":
             continue
         request = {key: receipt[key] for key in ("request_id", "nonce", "payload_sha256")}
@@ -276,7 +296,7 @@ def audit_ledger_write(root: Path, ledger_entry: dict[str, Any], validator: Call
     receipt_path = root / ledger_entry["receipt_path"]
     if not receipt_path.is_file():
         raise WriteRequestError("RECEIPT_LEDGER_MISMATCH")
-    receipt = json.loads(receipt_path.read_text())
+    receipt = load_receipt(receipt_path)
     request = {key: receipt.get(key) for key in ("request_id", "nonce", "payload_sha256")}
     return _existing_write(root, ledger_entry, request, validator)
 
@@ -330,7 +350,7 @@ def finalize_receipt(root: Path, request_id_value: str, commit_sha: str, proof: 
     if not re.fullmatch(r"gptw_[0-9a-f]{64}", request_id_value) or not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
         raise WriteRequestError("INVALID_FINALIZATION_ID")
     path = root / "docs/write-requests/receipts" / f"{request_id_value}.json"
-    receipt = json.loads(path.read_text())
+    receipt = load_receipt(path)
     if receipt["write_request_status"] != "pending_remote_verification" or proof.get("state") != "integrity_verified":
         raise WriteRequestError("REMOTE_VERIFICATION_REQUIRED")
     attempted = completed_at or datetime.now(timezone.utc).isoformat()
@@ -351,7 +371,7 @@ def receipt_hash(receipt: dict[str, Any]) -> str:
 def mark_verification_attempt(root: Path, request_id_value: str, *, terminal_code: str | None = None,
                               attempted_at: str | None = None) -> dict[str, Any]:
     path = root / "docs/write-requests/receipts" / f"{request_id_value}.json"
-    receipt = json.loads(path.read_text())
+    receipt = load_receipt(path)
     receipt["retry_count"] = int(receipt.get("retry_count", 0)) + 1
     receipt["last_verification_attempt"] = attempted_at or datetime.now(timezone.utc).isoformat()
     if terminal_code:

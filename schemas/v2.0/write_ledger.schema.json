@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GPT write request ledger 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ledger_schema_version",
+    "requests"
+  ],
+  "properties": {
+    "ledger_schema_version": {
+      "const": "1.0"
+    },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request_id",
+          "nonce",
+          "payload_sha256",
+          "receipt_path",
+          "recorded_at",
+          "issue_number"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^gptw_[0-9a-f]{64}$"
+          },
+          "nonce": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "payload_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "receipt_path": {
+            "type": "string",
+            "pattern": "^docs/write-requests/receipts/gptw_[0-9a-f]{64}\\.json$"
+          },
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issue_number": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    }
+  }
+}

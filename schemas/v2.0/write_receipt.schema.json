@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GPT write receipt 1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_schema_version",
+    "write_request_status",
+    "request_id",
+    "issue_number",
+    "nonce",
+    "payload_sha256",
+    "prediction_run_id",
+    "prediction_path",
+    "prediction_sha256",
+    "index_path",
+    "entry_resolution_id",
+    "source_snapshot_id",
+    "record_count",
+    "created_at",
+    "first_written_commit_sha",
+    "verified_commit_sha",
+    "index_sha256",
+    "final_receipt_sha256",
+    "retry_count",
+    "last_verification_attempt",
+    "completed_at"
+  ],
+  "properties": {
+    "receipt_schema_version": {
+      "const": "1.1"
+    },
+    "write_request_status": {
+      "enum": [
+        "pending_remote_verification",
+        "integrity_verified",
+        "failed_terminal"
+      ]
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^gptw_[0-9a-f]{64}$"
+    },
+    "issue_number": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "nonce": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "prediction_run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+$"
+    },
+    "prediction_path": {
+      "type": "string",
+      "pattern": "^docs/predictions/v2/[A-Za-z0-9_.-]+\\.json$"
+    },
+    "prediction_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "index_path": {
+      "const": "docs/predictions/index-v2.json"
+    },
+    "entry_resolution_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "first_written_commit_sha": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "verified_commit_sha": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "index_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "final_receipt_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "retry_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "last_verification_attempt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "error_code": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_]{1,64}$"
+    }
+  }
+}

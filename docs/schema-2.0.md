@@ -34,12 +34,15 @@ statuses into separately indexed immutable bundles.
 
 Local persistence ends at `indexed_local`. GitHub `integrity_verified` requires
 the repository, branch and commit SHA plus remote file/index re-fetch and exact
-hash/schema/snapshot/count/timestamp checks. The Custom GPT has no authenticated
-writer in this repository, so its Phase 6 persistence remains blocked rather
-than being described as saved.
+hash/schema/snapshot/count/timestamp checks. The Custom GPT can submit only a
+strict research request through the Issues-only GitHub App Action; trusted
+workflows on `main` perform all content writes and recovery. Phase 6 remains
+pending, not saved, until the final remote receipt is integrity-verified.
 
 Troubleshooting: a hash or row mismatch stops the run; action-provider failure degrades and quarantines affected tickers; comparison shortage is `not_evaluable`; unavailable industry benchmark uses a lower-quality fallback without changing route scores; SEC/IR failure marks research incomplete; a not-yet-due horizon is `not_yet_due`, not an empty outcome.
 
 ## Authenticated write requests
 
 `schemas/v2.0/gpt_write_request.schema.json` defines the only GPT-to-writer envelope. The Issue body contains canonical Phase 4/5 research, never a ready-made bundle or output path. `src/write_request.py` recomputes payload/request identities, pins the snapshot/Phase/entry artifacts, derives the Schema 2.0 bundle, and applies append-only ledger/index rules. A receipt is final only after both prediction/index and receipt bytes are verified through commit-addressed and `main`-addressed GitHub URLs.
+
+Write-queue recovery metadata is validated separately by `schemas/v2.0/write_ledger.schema.json` and `schemas/v2.0/write_receipt.schema.json`. Both reject unknown fields and malformed IDs, paths, hashes, timestamps, counters, or states before resume/recovery can use repository bytes.
