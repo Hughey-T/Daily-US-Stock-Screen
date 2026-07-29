@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_schema_version",
+    "snapshot_id",
+    "generation_id",
+    "market_data_date",
+    "generated_at",
+    "market_data_cutoff_at",
+    "config_version",
+    "config_hash",
+    "schema_version",
+    "code_version",
+    "corporate_action_validation_version",
+    "corporate_action_reconciliation",
+    "price_definition",
+    "benchmark_definition",
+    "files"
+  ],
+  "properties": {
+    "snapshot_schema_version": {
+      "const": "2.0"
+    },
+    "snapshot_id": {
+      "type": "string"
+    },
+    "generation_id": {
+      "type": "string"
+    },
+    "market_data_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "market_data_cutoff_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "config_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "config_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schema_version": {
+      "const": "2.0"
+    },
+    "code_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "corporate_action_validation_version": {
+      "type": "string"
+    },
+    "corporate_action_reconciliation": {
+      "type": "object"
+    },
+    "price_definition": {
+      "type": "string"
+    },
+    "benchmark_definition": {
+      "type": "string"
+    },
+    "files": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "latest_json",
+        "latest_csv",
+        "quiet_drift_csv",
+        "phase2_artifact",
+        "phase3_artifact"
+      ],
+      "properties": {
+        "latest_json": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[^/]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "row_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "latest_csv": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[^/]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "row_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "quiet_drift_csv": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[^/]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "row_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "phase2_artifact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "record_count"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[^/]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "row_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "phase3_artifact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "record_count"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[^/]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "row_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

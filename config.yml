@@ -1,5 +1,5 @@
 # Universe filters
-config_version: "2026-07-mispricing-v2"
+config_version: "2026-07-schema-2.0"
 min_market_cap_usd: 1000000000
 min_price_usd: 1.0
 min_avg_dollar_volume_20d: 20000000
@@ -68,3 +68,6 @@ market_close_buffer_minutes: 15
 max_abs_daily_return_for_validation: 2.00
 benchmark_fallback_timeout_seconds: 60
 max_isolated_price_anomalies: 1
+max_corporate_action_unavailable_ratio: 0.05
+max_corporate_action_unreconciled_ratio: 0.02
+max_corporate_action_unreconciled_tickers: 20

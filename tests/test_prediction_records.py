@@ -407,7 +407,7 @@ class PredictionImmutabilityTests(unittest.TestCase):
 
 
 class DailySnapshotTests(unittest.TestCase):
-    def test_existing_daily_snapshot_is_not_replaced(self) -> None:
+    def test_same_day_changed_source_creates_new_generation_without_replacement(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             docs = root / "docs"
@@ -432,7 +432,7 @@ class DailySnapshotTests(unittest.TestCase):
                 original_snapshot = (manifest_path.parent / "latest.csv").read_bytes()
                 latest_csv.write_text("ticker\nCHANGED\n", encoding="utf-8")
                 repeated_path = save_daily_snapshot("2026-07-13")
-            self.assertEqual(manifest_path, repeated_path)
+            self.assertNotEqual(manifest_path, repeated_path)
             self.assertEqual(
                 (manifest_path.parent / "latest.csv").read_bytes(), original_snapshot
             )

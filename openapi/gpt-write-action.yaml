@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: Daily US Stock Screen write queue
+  version: 1.0.0
+  description: Creates and observes tightly scoped prediction write-request Issues. It cannot access repository contents, Actions, refs, workflows, or pull requests.
+servers:
+  - url: https://api.github.com
+paths:
+  /repos/Hughey-T/Daily-US-Stock-Screen/issues:
+    post:
+      operationId: submitPredictionWriteRequest
+      summary: Submit one prediction write request
+      description: Consequential action that creates an Issue. The title must be `[GPT-WRITE-V2] gptw_<64 lowercase hex>`. Body must be the strict JSON object only, without Markdown or code fences.
+      x-openai-isConsequential: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [title, body]
+              properties:
+                title:
+                  type: string
+                  pattern: '^\[GPT-WRITE-V2\] gptw_[0-9a-f]{64}$'
+                body:
+                  type: string
+                  minLength: 2
+                  maxLength: 51200
+                  description: A serialized strict JSON request envelope only; do not add Markdown or code fences.
+      responses:
+        '201':
+          description: Issue created
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Issue'}
+  /repos/Hughey-T/Daily-US-Stock-Screen/issues/{issue_number}:
+    get:
+      operationId: getPredictionWriteRequest
+      summary: Get the fixed-repository write request Issue
+      parameters:
+        - $ref: '#/components/parameters/IssueNumber'
+      responses:
+        '200':
+          description: Issue
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Issue'}
+  /repos/Hughey-T/Daily-US-Stock-Screen/issues/{issue_number}/comments:
+    get:
+      operationId: listPredictionWriteRequestComments
+      summary: List processing receipts for the fixed-repository request
+      parameters:
+        - $ref: '#/components/parameters/IssueNumber'
+      responses:
+        '200':
+          description: Comments
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 100
+                items:
+                  type: object
+                  properties:
+                    id: {type: integer}
+                    body: {type: string}
+                    created_at: {type: string, format: date-time}
+components:
+  parameters:
+    IssueNumber:
+      name: issue_number
+      in: path
+      required: true
+      schema: {type: integer, minimum: 1}
+  schemas:
+    Issue:
+      type: object
+      properties:
+        number: {type: integer}
+        title: {type: string}
+        state: {type: string}
+        body: {type: [string, 'null']}
+        html_url: {type: string, format: uri}
+  securitySchemes:
+    githubAppUserOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://github.com/login/oauth/authorize
+          tokenUrl: https://github.com/login/oauth/access_token
+          scopes: {}
+security:
+  - githubAppUserOAuth: []

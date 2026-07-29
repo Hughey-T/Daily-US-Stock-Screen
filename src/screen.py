@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import csv
 import hashlib
 import json
 import logging
@@ -21,10 +22,25 @@ import yaml
 import yfinance as yf
 from yfinance import EquityQuery
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from src.integrity import (
+    CORPORATE_ACTION_VALIDATION_VERSION,
+    reconcile_corporate_actions,
+    split_adjusted_prices,
+    digest,
+    make_generation_id,
+    market_session_timestamps,
+    verify_manifest,
+    corporate_action_failure_mode,
+)
+from src.analysis_pipeline import process_all_rows, build_phase3
+
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 ARCHIVE = DOCS / "archive"
 SNAPSHOTS = DOCS / "snapshots"
+GENERATIONS = DOCS / "generations"
 DATA = ROOT / "data"
 CONFIG_PATH = ROOT / "config.yml"
 STATUS_PATH = DOCS / "latest.json"
@@ -33,11 +49,12 @@ QUIET_DRIFT_CSV = DOCS / "quiet_drift.csv"
 HISTORY_PATH = DATA / "signal_history.csv"
 UNIVERSE_CACHE_PATH = DATA / "universe_cache.csv"
 LOG_PATH = DATA / "last_run.log"
-SCHEMA_VERSION = "1.3"
+SCHEMA_VERSION = "2.0"
 
 DOCS.mkdir(parents=True, exist_ok=True)
 ARCHIVE.mkdir(parents=True, exist_ok=True)
 SNAPSHOTS.mkdir(parents=True, exist_ok=True)
+GENERATIONS.mkdir(parents=True, exist_ok=True)
 DATA.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
@@ -167,56 +184,38 @@ def _sha256_bytes(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
 
 
-def save_daily_snapshot(market_data_date: str) -> Path:
-    """Persist the first successful output set for a market date.
-
-    A completed snapshot is immutable. Re-runs for the same market date validate
-    and retain it instead of replacing prediction source material.
-    """
-
-    snapshot_dir = SNAPSHOTS / market_data_date
-    manifest_path = snapshot_dir / "snapshot.json"
+def save_daily_snapshot(market_data_date: str, code_version: str | None = None) -> Path:
+    """Publish an immutable content-addressed generation and Phase artifacts."""
     sources = {
         "latest_json": STATUS_PATH,
         "latest_csv": LATEST_CSV,
         "quiet_drift_csv": QUIET_DRIFT_CSV,
     }
-
-    if manifest_path.exists():
-        try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as exc:
-            raise RuntimeError(
-                f"Invalid existing snapshot manifest: {manifest_path}"
-            ) from exc
-        if manifest.get("market_data_date") != market_data_date:
-            raise RuntimeError(f"Snapshot market date mismatch: {manifest_path}")
-        files = manifest.get("files")
-        if not isinstance(files, dict):
-            raise RuntimeError(
-                f"Snapshot manifest has no files object: {manifest_path}"
-            )
-        for key in sources:
-            metadata = files.get(key)
-            if not isinstance(metadata, dict):
-                raise RuntimeError(f"Snapshot manifest is missing files.{key}")
-            resource_path = snapshot_dir / str(metadata.get("path", ""))
-            if not resource_path.is_file():
-                raise RuntimeError(f"Snapshot resource is missing: {resource_path}")
-            actual_hash = _sha256_bytes(resource_path.read_bytes())
-            if actual_hash != metadata.get("sha256"):
-                raise RuntimeError(f"Snapshot resource hash mismatch: {resource_path}")
-        LOGGER.info("Keeping immutable daily snapshot %s", manifest_path)
-        return manifest_path
-
     missing = [str(path) for path in sources.values() if not path.is_file()]
     if missing:
         raise RuntimeError(
             f"Cannot create daily snapshot; source files are missing: {missing}"
         )
 
+    status=json.loads(STATUS_PATH.read_text(encoding="utf-8"))
+    source_hashes={key:_sha256_bytes(path.read_bytes()) for key,path in sources.items()}
+    code_version=code_version or os.environ.get("GITHUB_SHA") or os.environ.get("CODE_VERSION") or "working-tree"
+    generation_id=make_generation_id(market_data_date,status.get("config_hash",""),source_hashes,code_version)
+    snapshot_dir = STATUS_PATH.parent / "generations" / market_data_date / generation_id
+    manifest_path = snapshot_dir / "snapshot.json"
+    if manifest_path.exists():
+        existing=json.loads(manifest_path.read_text(encoding="utf-8"))
+        if existing.get("generation_id") != generation_id:
+            raise RuntimeError("generation identity mismatch")
+        # Verify all immutable bytes, then only advance the mutable pointer.
+        from src.integrity import verify_snapshot
+        verify_snapshot(manifest_path)
+        _write_latest_manifest(manifest_path,existing)
+        return manifest_path
+    if snapshot_dir.exists() and any(snapshot_dir.iterdir()):
+        raise RuntimeError(f"partial generation exists and is not publishable: {snapshot_dir}")
     snapshot_dir.mkdir(parents=True, exist_ok=True)
-    file_metadata: dict[str, dict[str, str]] = {}
+    file_metadata: dict[str, dict[str, Any]] = {}
     for key, source_path in sources.items():
         content = source_path.read_bytes()
         target_path = snapshot_dir / source_path.name
@@ -230,18 +229,63 @@ def save_daily_snapshot(market_data_date: str) -> Path:
             "path": target_path.name,
             "sha256": _sha256_bytes(content),
         }
+        if key.endswith("csv"):
+            file_metadata[key]["row_count"] = max(content.count(b"\n") - 1, 0)
 
-    status = json.loads(STATUS_PATH.read_text(encoding="utf-8"))
+    def csv_rows(path:Path)->list[dict[str,Any]]:
+        with path.open(encoding="utf-8-sig",newline="") as handle: return list(csv.DictReader(handle))
+    reconciliation=status.get("corporate_action_reconciliation",{})
+    detail_lookup={item["ticker"]:item for item in reconciliation.get("unreconciled_details",[])}
+    artifact_rows=[{"ticker":ticker,"data_quality_reason":";".join(detail_lookup.get(ticker,{}).get("reasons",[])) or "corporate_action_unreconciled","corporate_action_details":detail_lookup.get(ticker,{}).get("actions",[])} for ticker in reconciliation.get("unreconciled_tickers",[])]
+    processed=process_all_rows(csv_rows(LATEST_CSV),csv_rows(QUIET_DRIFT_CSV),market_data_date,status.get("config_hash",""),artifact_rows,status.get("first_tradable_at"))
+    phase3=build_phase3(processed,15)
+    phase2_payload={"artifact_schema_version":"2.0","generation_id":generation_id,"processed_rows":phase3["processed_rows"],"audit":phase3["audit"]}
+    phase3_payload={key:value for key,value in phase3.items() if key!="processed_rows"}|{"generation_id":generation_id}
+    write_json(snapshot_dir/"phase2.json",phase2_payload); write_json(snapshot_dir/"phase3.json",phase3_payload)
+    for key,path in (("phase2_artifact",snapshot_dir/"phase2.json"),("phase3_artifact",snapshot_dir/"phase3.json")):
+        content=path.read_bytes(); payload=json.loads(content); count=len(payload.get("processed_rows",payload.get("final_research_set",[])))
+        file_metadata[key]={"path":path.name,"sha256":_sha256_bytes(content),"record_count":count}
+    artifact_hashes={key:file_metadata[key]["sha256"] for key in ("phase2_artifact","phase3_artifact")}
     manifest = {
-        "snapshot_schema_version": "1.0",
+        "snapshot_schema_version": "2.0",
+        "snapshot_id": "snap_"+digest(generation_id,json.dumps(artifact_hashes,sort_keys=True),code_version),
+        "generation_id": generation_id,
         "market_data_date": market_data_date,
-        "created_at": status.get("generated_at"),
-        "price_return_definition": "split-adjusted price return excluding dividends",
+        "generated_at": status.get("generated_at"),
+        "market_data_cutoff_at": status.get("market_data_cutoff_at"),
+        "config_version": status.get("config_version"),
+        "config_hash": status.get("config_hash"),
+        "schema_version": SCHEMA_VERSION,
+        "code_version": code_version,
+        "corporate_action_validation_version": CORPORATE_ACTION_VALIDATION_VERSION,
+        "corporate_action_reconciliation": status.get("corporate_action_reconciliation"),
+        "price_definition": "price-only split-adjusted OHLC; dividends excluded",
+        "benchmark_definition": "SPY market and route-preserving sector ETF",
         "files": file_metadata,
     }
     write_json(manifest_path, manifest)
-    LOGGER.info("Created immutable daily snapshot %s", manifest_path)
+    _write_latest_manifest(manifest_path,manifest)
+    LOGGER.info("Created immutable generation %s", manifest_path)
     return manifest_path
+
+
+def _write_latest_manifest(snapshot_path:Path,snapshot:dict[str,Any])->None:
+    relative=snapshot_path.relative_to(STATUS_PATH.parent).as_posix()
+    current_path=STATUS_PATH.parent/"manifest.json"
+    if current_path.exists():
+        current=json.loads(current_path.read_text(encoding="utf-8"))
+        current_time=pd.Timestamp(current.get("updated_at")); candidate_time=pd.Timestamp(snapshot.get("generated_at"))
+        if current_time.tzinfo is not None and candidate_time.tzinfo is not None and candidate_time<current_time:
+            raise RuntimeError("refusing to move latest manifest to an older generation")
+    write_json(STATUS_PATH.parent / "manifest.json", {
+        "manifest_schema_version": "2.0",
+        "snapshot_id": snapshot["snapshot_id"],
+        "generation_id": snapshot["generation_id"],
+        "snapshot_path": relative,
+        "snapshot_sha256": _sha256_bytes(snapshot_path.read_bytes()),
+        "updated_at": snapshot.get("generated_at"),
+    })
+    verify_manifest(STATUS_PATH.parent/"manifest.json")
 
 
 def write_failure_status(reason: str, details: dict[str, Any] | None = None) -> None:
@@ -852,14 +896,16 @@ def prepare_history(
     if work.empty:
         return work
 
-    # YahooのCloseは株式分割を反映した価格として使用する。
-    # Adj Closeは配当の影響を含むため、価格リターンには使わない。
+    # Reconstruct a price-only split-adjusted series from raw Close and explicit
+    # split actions. Yahoo Adj Close is deliberately not used because it includes
+    # distributions. Corporate-action continuity is validated before selection.
     # Adj_*という列名は後続処理との互換性維持のために使用する。
-    work["Adj_Open"] = work["Open"]
-    work["Adj_High"] = work["High"]
-    work["Adj_Low"] = work["Low"]
-    work["Adj_Close"] = work["Close"]
-    work["Adj_Volume"] = work["Volume"]
+    work["Adj_Close"] = split_adjusted_prices(work)
+    factor = work["Adj_Close"] / work["Close"]
+    work["Adj_Open"] = work["Open"] * factor
+    work["Adj_High"] = work["High"] * factor
+    work["Adj_Low"] = work["Low"] * factor
+    work["Adj_Volume"] = work["Volume"] / factor
 
     return work
 
@@ -2102,6 +2148,7 @@ def run() -> RunResult:
     market_date_str = (
         market_date.date().isoformat()
     )
+    market_data_cutoff_at, first_tradable_at = market_session_timestamps(market_date_str)
 
     # 後続処理との互換性を維持する
     quick_prices = {
@@ -2158,6 +2205,25 @@ def run() -> RunResult:
     price_data[market_symbol] = quick_prices[market_symbol]
     failed = [ticker for ticker in failed if ticker != market_symbol] + quick_failed
 
+    corporate_action_results = {
+        ticker: reconcile_corporate_actions(frame)
+        for ticker, frame in price_data.items()
+    }
+    unreconciled_tickers = sorted(
+        ticker for ticker, result in corporate_action_results.items()
+        if result.status != "reconciled"
+    )
+    unavailable_tickers=sorted(t for t,r in corporate_action_results.items() if r.status=="unavailable")
+    action_mode=corporate_action_failure_mode(corporate_action_results,float(config["max_corporate_action_unavailable_ratio"]),float(config["max_corporate_action_unreconciled_ratio"]),int(config["max_corporate_action_unreconciled_tickers"]))
+    if action_mode=="failed":
+        raise RuntimeError("corporate-action reconciliation failure exceeds configured threshold")
+    # Fail closed at the ticker level before either route is generated. A large
+    # provider-wide failure marks the run degraded below instead of silently
+    # presenting these rows as normal candidates.
+    if unreconciled_tickers:
+        LOGGER.warning("Corporate-action reconciliation excluded %d tickers: %s",
+                       len(unreconciled_tickers), unreconciled_tickers[:50])
+
     benchmark_metrics: dict[str, dict[str, Any]] = {}
     missing_benchmarks = []
     for symbol in benchmarks:
@@ -2172,6 +2238,8 @@ def run() -> RunResult:
     metric_rows = []
     universe_lookup = universe.set_index("ticker").to_dict("index")
     for ticker in universe["ticker"].astype(str):
+        if ticker in unreconciled_tickers:
+            continue
         metrics = calculate_ticker_metrics(price_data.get(ticker, pd.DataFrame()), market_date)
         if metrics is None:
             continue
@@ -2371,8 +2439,9 @@ def run() -> RunResult:
         quiet_drift_temp_csv.replace(QUIET_DRIFT_CSV)
     append_history(candidates, history)
 
+    run_quality_status=action_mode
     status = {
-        "status": "success",
+        "status": run_quality_status,
         "generated_at": utc_now_iso(),
         "market_data_date": market_date_str,
         "expected_market_data_date": (
@@ -2447,13 +2516,46 @@ def run() -> RunResult:
         "required_column_check": "success",
         "numeric_validation_status": "success",
         "price_adjustment_validation_status": (
-            "success"
+            "success" if not unreconciled_tickers else "degraded"
         ),
+        "corporate_action_reconciliation_status": (
+            "reconciled" if not unreconciled_tickers else "degraded"
+        ),
+        "corporate_action_reconciliation": {
+            "version": CORPORATE_ACTION_VALIDATION_VERSION,
+            "status": "reconciled" if not unreconciled_tickers else "degraded",
+            "detected_corporate_action_count": sum(
+                result.detected_count for result in corporate_action_results.values()
+            ),
+            "reconciled_corporate_action_count": sum(
+                result.reconciled_count for result in corporate_action_results.values()
+            ),
+            "unreconciled_corporate_action_count": sum(
+                result.unreconciled_count for result in corporate_action_results.values()
+            ),
+            "unreconciled_ticker_count": len(unreconciled_tickers),
+            "unavailable_ticker_count": len(unavailable_tickers),
+            "unreconciled_tickers": unreconciled_tickers,
+            "unreconciled_details": [
+                {"ticker": ticker, "reasons": list(corporate_action_results[ticker].reasons),
+                 "actions": list(corporate_action_results[ticker].action_details)}
+                for ticker in unreconciled_tickers
+            ],
+            "adjusted_price_continuity_check": (
+                "passed" if not unreconciled_tickers else "degraded"
+            ),
+        },
         "schema_version": SCHEMA_VERSION,
         "config_version": config.get("config_version"),
         "config_hash": config_hash,
-        "snapshot_manifest": f"snapshots/{market_date_str}/snapshot.json",
-        "price_return_definition": "split-adjusted price return excluding dividends",
+        "snapshot_manifest": "manifest.json",
+        "market_data_cutoff_at": market_data_cutoff_at,
+        "timezone": "America/New_York",
+        "first_tradable_at": first_tradable_at,
+        "entry_price_status": "pending",
+        "entry_price_type": "next_session_open",
+        "entry_policy": "next_session_open_after_information_cutoff",
+        "price_return_definition": "price-only split-adjusted return excluding dividends",
         "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
         "volume_ratio_definition": (
             "mean adjusted volume, latest 5 sessions / preceding 20 sessions"
@@ -2464,13 +2566,15 @@ def run() -> RunResult:
     save_daily_snapshot(market_date_str)
     generate_html(candidates, status)
     LOGGER.info("Created %s candidates for %s", len(candidates), market_date_str)
-    return RunResult(status="success", market_data_date=market_date_str)
+    return RunResult(status=run_quality_status, market_data_date=market_date_str)
 
 
 def main() -> None:
     try:
         result = run()
         LOGGER.info("Run result: %s", result)
+        if result.status == "degraded":
+            raise SystemExit(3)
     except Exception as exc:
         LOGGER.exception("Screening failed")
         write_failure_status(str(exc))
