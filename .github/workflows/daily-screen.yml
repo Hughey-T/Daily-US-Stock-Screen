@@ -62,24 +62,6 @@ jobs:
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
           exit 0
           
-      - name: Commit generated data
-        if: always()
-        env:
-          TARGET_BRANCH: ${{ github.ref_name }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add docs data
-
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit."
-          else
-            git commit -m "Update screening data"
-            git pull --rebase origin "$TARGET_BRANCH"
-            git push origin "HEAD:$TARGET_BRANCH"
-          fi
-
       - name: Validate screening result
         shell: bash
         run: |
@@ -89,6 +71,35 @@ jobs:
           fi
 
           python scripts/check_status.py
+          python scripts/validate_v2_records.py
+
+      # Publication is deliberately after both semantic validators. A failed
+      # attempt remains available in the job log/artifact but cannot advance the
+      # mutable manifest or publish an incomplete immutable generation.
+      - name: Commit validated generated data
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs data
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+          else
+            git commit -m "Update screening data"
+            git pull --rebase origin "$TARGET_BRANCH"
+            git push origin "HEAD:$TARGET_BRANCH"
+          fi
+
+      - name: Upload failed screening diagnostics
+        if: always() && steps.screening.outputs.exit_code != '0'
+        uses: actions/upload-artifact@v6
+        with:
+          name: screening-failure-diagnostics
+          path: |
+            docs/latest.json
+            data/last_run.log
+          if-no-files-found: warn
 
       - name: Write integrity job summary
         if: always()

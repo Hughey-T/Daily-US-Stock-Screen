@@ -4,9 +4,11 @@ import math
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
+import src.screen as screen_module
 
 from src.screen import (
     QUIET_DRIFT_OUTPUT_COLUMNS,
@@ -18,7 +20,87 @@ from src.screen import (
     validate_metric_dataframe,
     validate_quiet_drift_dataframe,
     write_dataframe_csv,
+    corporate_action_diagnostics,
+    log_corporate_action_diagnostics,
+    retry_missing_corporate_actions,
+    write_failure_status,
 )
+from src.integrity import CorporateActionResult, reconcile_corporate_actions, split_adjusted_prices
+
+
+class CorporateActionProductionTests(unittest.TestCase):
+    config = {"history_period":"1y", "max_corporate_action_unavailable_ratio":.05,
+              "max_corporate_action_unreconciled_ratio":.02,
+              "max_corporate_action_unreconciled_tickers":20}
+
+    def test_missing_multi_download_columns_are_retried_individually(self):
+        initial={"A":pd.DataFrame({"Close":[100,51]})}
+        single=pd.DataFrame({"Close":[100,51],"Dividends":[0,0],"Stock Splits":[0,2]})
+        with patch("src.screen.yf.download", return_value=single) as download:
+            retry_missing_corporate_actions(initial,self.config)
+        self.assertTrue({"Dividends","Stock Splits"}.issubset(initial["A"].columns))
+        download.assert_called_once_with(tickers="A",period="1y",interval="1d",
+            auto_adjust=False,actions=True,repair=False,threads=False,progress=False,
+            timeout=30,multi_level_index=False)
+        self.assertEqual(screen_module.LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS[
+            "fallback_succeeded_count"],1)
+
+    def test_only_genuinely_missing_single_response_is_unavailable(self):
+        initial={"A":pd.DataFrame({"Close":[1,2]}),
+                 "B":pd.DataFrame({"Close":[1,2],"Dividends":[0,0],"Stock Splits":[0,0]})}
+        with patch("src.screen.yf.download", return_value=pd.DataFrame({"Close":[1,2]})):
+            retry_missing_corporate_actions(initial,self.config)
+        from src.integrity import reconcile_corporate_actions
+        self.assertEqual(reconcile_corporate_actions(initial["A"]).status,"unavailable")
+        self.assertEqual(reconcile_corporate_actions(initial["B"]).status,"reconciled")
+        fallback=screen_module.LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS
+        self.assertEqual(fallback["fallback_attempted_count"],1)
+        self.assertEqual(fallback["fallback_failed_count"],1)
+        self.assertEqual(fallback["provider_error_reason_counts"],{"missing_action_columns":1})
+
+    def test_batch_and_single_price_bases_normalize_identically(self):
+        index=pd.date_range('2026-04-03',periods=3)
+        adjusted=pd.DataFrame({'Close':[50,51,52],'Dividends':[0,0,0],
+                               'Stock Splits':[0,2,0]},index=index)
+        raw=pd.DataFrame({'Close':[100,51,52],'Dividends':[0,0,0],
+                          'Stock Splits':[0,2,0]},index=index)
+        adjusted.attrs.update({'download_mode':'batch','auto_adjust_requested':False})
+        raw.attrs.update({'download_mode':'single_fallback','auto_adjust_requested':False})
+        self.assertEqual(reconcile_corporate_actions(adjusted).status,'reconciled')
+        self.assertEqual(reconcile_corporate_actions(raw).status,'reconciled')
+        pd.testing.assert_series_equal(split_adjusted_prices(adjusted),
+                                       split_adjusted_prices(raw),check_names=False)
+
+    def test_threshold_failure_diagnostics_reach_log_and_latest_json(self):
+        results={"MISS":CorporateActionResult("unavailable",0,0,0,"not_checked",("corporate_action_data_unavailable",)),
+                 "BAD":CorporateActionResult("unreconciled",1,0,1,"failed",("2026-01-02:split_ratio_not_reconciled",),({"status":"unreconciled"},))}
+        diagnostics=corporate_action_diagnostics(results,self.config)
+        with self.assertLogs("screen",level="WARNING") as logs:
+            log_corporate_action_diagnostics(diagnostics)
+        self.assertIn("reason counts", " ".join(logs.output))
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/"latest.json"
+            manifest=Path(directory)/"manifest.json"
+            manifest.write_text('{"generation_id":"last-good"}')
+            before=manifest.read_bytes()
+            with patch("src.screen.STATUS_PATH",path), patch("src.screen.LATEST_CSV",Path(directory)/"latest.csv"):
+                write_failure_status("threshold",{"corporate_action_reconciliation_failure":diagnostics})
+            stored=__import__("json").loads(path.read_text())
+            self.assertEqual(manifest.read_bytes(),before)
+        failure=stored["corporate_action_reconciliation_failure"]
+        self.assertEqual(failure["unavailable_tickers"],["MISS"])
+        self.assertEqual(failure["unreconciled_tickers"],["BAD"])
+        details={item["ticker"]:item for item in failure["ticker_details"]}
+        self.assertEqual(details["BAD"]["unreconciled_count"],1)
+
+    def test_workflow_validates_before_commit_and_does_not_commit_failure(self):
+        workflow=Path(".github/workflows/daily-screen.yml").read_text()
+        self.assertLess(workflow.index("python scripts/check_status.py"),
+                        workflow.index("Commit validated generated data"))
+        self.assertLess(workflow.index("python scripts/validate_v2_records.py"),
+                        workflow.index("Commit validated generated data"))
+        commit_block=workflow[workflow.index("Commit validated generated data"):]
+        self.assertNotIn("if: always()",commit_block.split("- name:",2)[0])
 
 
 def price_history(

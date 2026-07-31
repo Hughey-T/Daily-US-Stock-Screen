@@ -10,6 +10,8 @@ import os
 import re
 import sys
 import time
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -70,6 +72,14 @@ class RunResult:
     status: str
     market_data_date: str | None = None
     message: str | None = None
+
+
+class CorporateActionThresholdError(RuntimeError):
+    """Threshold failure that retains safe, structured provider diagnostics."""
+
+    def __init__(self, diagnostics: dict[str, Any]):
+        super().__init__("corporate-action reconciliation failure exceeds configured threshold")
+        self.diagnostics = diagnostics
 
 
 def utc_now_iso() -> str:
@@ -727,14 +737,104 @@ def split_download_frame(frame: pd.DataFrame, requested: list[str]) -> dict[str,
                     continue
                 sub = sub.dropna(how="all")
                 if not sub.empty:
+                    sub.attrs.update({"source_price_basis":"unknown",
+                                      "auto_adjust_requested":False,
+                                      "download_mode":"batch"})
                     result[ticker] = sub
             except (KeyError, ValueError):
                 continue
     elif len(requested) == 1:
         sub = frame.dropna(how="all")
         if not sub.empty:
+            sub.attrs.update({"source_price_basis":"unknown",
+                              "auto_adjust_requested":False,
+                              "download_mode":"single"})
             result[requested[0]] = sub
     return result
+
+
+CORPORATE_ACTION_COLUMNS = {"Dividends", "Stock Splits"}
+LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS: dict[str, Any] = {}
+
+
+def retry_missing_corporate_actions(
+    downloaded: dict[str, pd.DataFrame], config: dict[str, Any]
+) -> dict[str, pd.DataFrame]:
+    """Retry tickers whose multi-download response omitted action columns.
+
+    yfinance 1.5.1 can return only OHLCV columns for one or more symbols in a
+    multi-ticker response even with ``actions=True``.  A single-ticker response
+    is the authority for whether action history is actually available.
+    """
+    missing = [
+        ticker for ticker, frame in downloaded.items()
+        if not CORPORATE_ACTION_COLUMNS.issubset(map(str, frame.columns))
+    ]
+    global LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS
+    started = time.monotonic()
+    provider_errors: Counter[str] = Counter()
+    if missing:
+        LOGGER.warning(
+            "Corporate-action columns missing from multi-download for %d tickers; "
+            "retrying individually (first 50): %s", len(missing), missing[:50]
+        )
+    else:
+        LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS = {
+            "fallback_attempted_count": 0, "fallback_succeeded_count": 0,
+            "fallback_failed_count": 0, "fallback_elapsed_seconds": 0.0,
+            "provider_error_reason_counts": {},
+        }
+        return downloaded
+    def fetch(ticker: str) -> tuple[str, pd.DataFrame | None]:
+        attempts = int(config.get("max_retries", 1))
+        for attempt in range(1, attempts + 1):
+            try:
+                frame = yf.download(
+                    tickers=ticker, period=config["history_period"], interval="1d",
+                    auto_adjust=False, actions=True, repair=False, threads=False,
+                    progress=False, timeout=30, multi_level_index=False,
+                )
+                if (frame is not None and not frame.empty
+                        and CORPORATE_ACTION_COLUMNS.issubset(map(str, frame.columns))):
+                    return ticker, frame
+                provider_errors["missing_action_columns"] += 1
+            except Exception as exc:
+                provider_errors[type(exc).__name__] += 1
+                LOGGER.warning("Single-ticker corporate-action retry failed for %s", ticker,
+                               exc_info=True)
+            if attempt < attempts:
+                time.sleep(min(float(config.get("retry_wait_seconds", 1)) * attempt, 10.0))
+        return ticker, None
+
+    # Keep provider pressure bounded while avoiding thousands of serial requests.
+    workers = min(int(config.get("corporate_action_fallback_workers", 8)), len(missing))
+    deadline = started + float(config.get("max_corporate_action_fallback_seconds", 600))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        for wave in chunks(missing, workers):
+            if time.monotonic() >= deadline:
+                provider_errors["fallback_time_budget_exhausted"] += len(missing) - missing.index(wave[0])
+                break
+            futures = [executor.submit(fetch, ticker) for ticker in wave]
+            for future in as_completed(futures):
+                ticker, frame = future.result()
+                if frame is not None and not frame.empty:
+                    replacement = frame.dropna(how="all")
+                    replacement.attrs.update({"source_price_basis":"unknown",
+                                              "auto_adjust_requested":False,
+                                              "download_mode":"single_fallback"})
+                    downloaded[ticker] = replacement
+    succeeded = sum(CORPORATE_ACTION_COLUMNS.issubset(map(str, downloaded[t].columns))
+                    for t in missing)
+    LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS = {
+        "fallback_attempted_count": len(missing),
+        "fallback_succeeded_count": succeeded,
+        "fallback_failed_count": len(missing) - succeeded,
+        "fallback_elapsed_seconds": round(time.monotonic() - started, 3),
+        "provider_error_reason_counts": dict(sorted(provider_errors.items())),
+    }
+    LOGGER.warning("Corporate-action fallback summary: %s",
+                   LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS)
+    return downloaded
 
 
 def download_prices(tickers: list[str], config: dict[str, Any]) -> tuple[dict[str, pd.DataFrame], list[str]]:
@@ -776,6 +876,7 @@ def download_prices(tickers: list[str], config: dict[str, Any]) -> tuple[dict[st
             if remaining and attempt < max_retries:
                 time.sleep(int(config["retry_wait_seconds"]) * attempt)
 
+    retry_missing_corporate_actions(downloaded, config)
     failed = [ticker for ticker in tickers if ticker not in downloaded]
     return downloaded, failed
 
@@ -826,6 +927,72 @@ def download_required_benchmark(
         )
 
     return fallback
+
+
+def corporate_action_diagnostics(
+    results: dict[str, Any], config: dict[str, Any]
+) -> dict[str, Any]:
+    """Build the same bounded, secret-free diagnostic used by logs and status."""
+    total = len(results)
+    unavailable = sorted(t for t, result in results.items() if result.status == "unavailable")
+    unreconciled = sorted(t for t, result in results.items() if result.status == "unreconciled")
+    reconciled = sum(result.status == "reconciled" for result in results.values())
+    reason_counts = Counter(
+        reason.rsplit(":", 1)[-1]
+        for result in results.values() for reason in result.reasons
+    )
+    detail_tickers = sorted({*unavailable, *unreconciled,
+                             *(ticker for ticker, result in results.items()
+                               if result.detected_count)})
+    return {
+        "total_tickers": total,
+        "reconciled_count": reconciled,
+        "unavailable_count": len(unavailable),
+        "unreconciled_count": len(unreconciled),
+        "unavailable_ratio": len(unavailable) / total if total else 0.0,
+        "unreconciled_ratio": len(unreconciled) / total if total else 0.0,
+        "configured_thresholds": {
+            "max_unavailable_ratio": float(config["max_corporate_action_unavailable_ratio"]),
+            "max_unreconciled_ratio": float(config["max_corporate_action_unreconciled_ratio"]),
+            "max_unreconciled_tickers": int(config["max_corporate_action_unreconciled_tickers"]),
+        },
+        "unavailable_tickers": unavailable,
+        "unreconciled_tickers": unreconciled,
+        "reason_counts": dict(sorted(reason_counts.items())),
+        "ticker_details": [
+            {
+                "ticker": ticker,
+                "status": results[ticker].status,
+                "reasons": list(results[ticker].reasons),
+                "detected_count": results[ticker].detected_count,
+                "reconciled_count": results[ticker].reconciled_count,
+                "unreconciled_count": results[ticker].unreconciled_count,
+                "action_details": list(results[ticker].action_details),
+                "source_price_basis": sorted({
+                    detail.get("source_price_basis", "unknown")
+                    for detail in results[ticker].action_details
+                }),
+                "auto_adjust_requested": False,
+            }
+            for ticker in detail_tickers
+        ],
+        **LAST_CORPORATE_ACTION_FALLBACK_DIAGNOSTICS,
+    }
+
+
+def log_corporate_action_diagnostics(diagnostics: dict[str, Any]) -> None:
+    LOGGER.warning(
+        "Corporate-action reconciliation: total=%d reconciled=%d unavailable=%d "
+        "unreconciled=%d unavailable_ratio=%.6f unreconciled_ratio=%.6f",
+        diagnostics["total_tickers"], diagnostics["reconciled_count"],
+        diagnostics["unavailable_count"], diagnostics["unreconciled_count"],
+        diagnostics["unavailable_ratio"], diagnostics["unreconciled_ratio"],
+    )
+    LOGGER.warning("Corporate-action unavailable tickers (first 50): %s",
+                   diagnostics["unavailable_tickers"][:50])
+    LOGGER.warning("Corporate-action unreconciled tickers (first 50): %s",
+                   diagnostics["unreconciled_tickers"][:50])
+    LOGGER.warning("Corporate-action reason counts: %s", diagnostics["reason_counts"])
 
 
 def prepare_history(
@@ -2209,20 +2376,23 @@ def run() -> RunResult:
         ticker: reconcile_corporate_actions(frame)
         for ticker, frame in price_data.items()
     }
-    unreconciled_tickers = sorted(
+    excluded_action_tickers = sorted(
         ticker for ticker, result in corporate_action_results.items()
         if result.status != "reconciled"
     )
-    unavailable_tickers=sorted(t for t,r in corporate_action_results.items() if r.status=="unavailable")
+    action_diagnostics = corporate_action_diagnostics(corporate_action_results, config)
+    unavailable_tickers = action_diagnostics["unavailable_tickers"]
+    unreconciled_tickers = action_diagnostics["unreconciled_tickers"]
+    log_corporate_action_diagnostics(action_diagnostics)
     action_mode=corporate_action_failure_mode(corporate_action_results,float(config["max_corporate_action_unavailable_ratio"]),float(config["max_corporate_action_unreconciled_ratio"]),int(config["max_corporate_action_unreconciled_tickers"]))
     if action_mode=="failed":
-        raise RuntimeError("corporate-action reconciliation failure exceeds configured threshold")
+        raise CorporateActionThresholdError(action_diagnostics)
     # Fail closed at the ticker level before either route is generated. A large
     # provider-wide failure marks the run degraded below instead of silently
     # presenting these rows as normal candidates.
-    if unreconciled_tickers:
+    if excluded_action_tickers:
         LOGGER.warning("Corporate-action reconciliation excluded %d tickers: %s",
-                       len(unreconciled_tickers), unreconciled_tickers[:50])
+                       len(excluded_action_tickers), excluded_action_tickers[:50])
 
     benchmark_metrics: dict[str, dict[str, Any]] = {}
     missing_benchmarks = []
@@ -2238,7 +2408,7 @@ def run() -> RunResult:
     metric_rows = []
     universe_lookup = universe.set_index("ticker").to_dict("index")
     for ticker in universe["ticker"].astype(str):
-        if ticker in unreconciled_tickers:
+        if ticker in excluded_action_tickers:
             continue
         metrics = calculate_ticker_metrics(price_data.get(ticker, pd.DataFrame()), market_date)
         if metrics is None:
@@ -2516,14 +2686,14 @@ def run() -> RunResult:
         "required_column_check": "success",
         "numeric_validation_status": "success",
         "price_adjustment_validation_status": (
-            "success" if not unreconciled_tickers else "degraded"
+            "success" if not excluded_action_tickers else "degraded"
         ),
         "corporate_action_reconciliation_status": (
-            "reconciled" if not unreconciled_tickers else "degraded"
+            "reconciled" if not excluded_action_tickers else "degraded"
         ),
         "corporate_action_reconciliation": {
             "version": CORPORATE_ACTION_VALIDATION_VERSION,
-            "status": "reconciled" if not unreconciled_tickers else "degraded",
+            "status": "reconciled" if not excluded_action_tickers else "degraded",
             "detected_corporate_action_count": sum(
                 result.detected_count for result in corporate_action_results.values()
             ),
@@ -2535,14 +2705,28 @@ def run() -> RunResult:
             ),
             "unreconciled_ticker_count": len(unreconciled_tickers),
             "unavailable_ticker_count": len(unavailable_tickers),
+            "total_ticker_count": action_diagnostics["total_tickers"],
+            "reconciled_ticker_count": action_diagnostics["reconciled_count"],
+            "unavailable_ratio": action_diagnostics["unavailable_ratio"],
+            "unreconciled_ratio": action_diagnostics["unreconciled_ratio"],
+            "configured_thresholds": action_diagnostics["configured_thresholds"],
+            "unavailable_tickers": unavailable_tickers,
             "unreconciled_tickers": unreconciled_tickers,
+            "reason_counts": action_diagnostics["reason_counts"],
+            "ticker_details": action_diagnostics["ticker_details"],
+            **{
+                key: action_diagnostics[key]
+                for key in ("fallback_attempted_count", "fallback_succeeded_count",
+                            "fallback_failed_count", "fallback_elapsed_seconds",
+                            "provider_error_reason_counts")
+            },
             "unreconciled_details": [
                 {"ticker": ticker, "reasons": list(corporate_action_results[ticker].reasons),
                  "actions": list(corporate_action_results[ticker].action_details)}
                 for ticker in unreconciled_tickers
             ],
             "adjusted_price_continuity_check": (
-                "passed" if not unreconciled_tickers else "degraded"
+                "passed" if not excluded_action_tickers else "degraded"
             ),
         },
         "schema_version": SCHEMA_VERSION,
@@ -2573,11 +2757,11 @@ def main() -> None:
     try:
         result = run()
         LOGGER.info("Run result: %s", result)
-        if result.status == "degraded":
-            raise SystemExit(3)
     except Exception as exc:
         LOGGER.exception("Screening failed")
-        write_failure_status(str(exc))
+        details = ({"corporate_action_reconciliation_failure": exc.diagnostics}
+                   if isinstance(exc, CorporateActionThresholdError) else None)
+        write_failure_status(str(exc), details)
         raise SystemExit(2) from exc
 
 
