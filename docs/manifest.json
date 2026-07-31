@@ -1,0 +1,8 @@
+{
+  "manifest_schema_version": "2.0",
+  "snapshot_id": "snap_3c0e598e45cac297f444f776b53dcdb22b2dfc635df1666f9590187a32468951",
+  "generation_id": "gen_c81147e87544cc6f5e75a52d94982cb7750347809260b50a0c9d4a4e9d0f768b",
+  "snapshot_path": "generations/2026-07-31/gen_c81147e87544cc6f5e75a52d94982cb7750347809260b50a0c9d4a4e9d0f768b/snapshot.json",
+  "snapshot_sha256": "49d38a17929c7d531150bd14877a47123ae46d1b3e3d4d1cb3f4b3bf0ba1b76b",
+  "updated_at": "2026-07-31T21:10:04+00:00"
+}
