@@ -1,6 +1,6 @@
 {
   "status": "failed",
-  "attempted_at": "2026-07-31T08:27:22+00:00",
+  "attempted_at": "2026-07-31T13:40:42+00:00",
   "failure_reason": "corporate-action reconciliation failure exceeds configured threshold",
   "latest_csv_updated": false,
   "last_successful_market_date": "2026-07-28",
