@@ -7,7 +7,20 @@ import re
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from src.integrity import verify_manifest, IntegrityError
+from src.integrity import (verify_manifest, IntegrityError,
+                           validate_corporate_action_publication_status)
+
+# A narrow fixture mode exercises the publication-state contract without
+# requiring a complete generated bundle. Full production validation remains the
+# default below.
+if len(sys.argv) == 3 and sys.argv[1] == "--status-policy-fixture":
+    fixture = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+    try:
+        validate_corporate_action_publication_status(fixture)
+    except IntegrityError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(f"status policy valid: {fixture['status']}")
+    raise SystemExit(0)
 
 status_path = Path("docs/latest.json")
 csv_path = Path("docs/latest.csv")
@@ -19,7 +32,6 @@ if re.search(r"(?<![A-Za-z])(NaN|Infinity)(?![A-Za-z])", raw_status):
     raise SystemExit("docs/latest.json contains NaN or Infinity")
 status = json.loads(raw_status)
 expected_status_fields = {
-    "status": "success",
     "schema_version": "2.0",
     "required_column_check": "success",
     "numeric_validation_status": "success",
@@ -40,8 +52,10 @@ if not isinstance(reconciliation, dict) or reconciliation.get("status") not in {
     raise SystemExit("corporate-action reconciliation metadata is missing or invalid")
 if reconciliation.get("version") != "ca-reconciliation-2.0":
     raise SystemExit("corporate-action reconciliation version is invalid")
-if reconciliation.get("status") != "reconciled" or reconciliation.get("unreconciled_ticker_count", 0) != 0:
-    raise SystemExit("degraded corporate-action reconciliation is not a successful run")
+try:
+    validate_corporate_action_publication_status(status)
+except IntegrityError as exc:
+    raise SystemExit(str(exc)) from exc
 
 manifest_path=Path("docs/manifest.json")
 try:
@@ -279,7 +293,7 @@ if status.get("quiet_drift_enabled"):
             )
 
 print(
-    f"Screening status: success ({row_count} event rows, "
+    f"Screening status: {status['status']} ({row_count} event rows, "
     f"{status.get('quiet_drift_row_count', 0)} quiet drift rows, schema 2.0, "
     f"corporate actions {reconciliation.get('status')})"
 )

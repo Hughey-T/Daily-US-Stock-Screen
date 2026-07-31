@@ -60,7 +60,11 @@
       "type": "string"
     },
     "corporate_action_reconciliation": {
-      "type": "object"
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {"enum": ["reconciled", "degraded"]}
+      }
     },
     "price_definition": {
       "type": "string"

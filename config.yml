@@ -71,3 +71,5 @@ max_isolated_price_anomalies: 1
 max_corporate_action_unavailable_ratio: 0.05
 max_corporate_action_unreconciled_ratio: 0.02
 max_corporate_action_unreconciled_tickers: 20
+corporate_action_fallback_workers: 8
+max_corporate_action_fallback_seconds: 600

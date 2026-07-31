@@ -154,17 +154,54 @@ class CorporateActionResult:
     action_details: tuple[dict[str, Any], ...] = ()
 
 
-def split_adjusted_prices(frame: pd.DataFrame) -> pd.Series:
-    """Return price-only split-adjusted closes (dividends are not included)."""
+def _trading_prices_around(frame: pd.DataFrame, action_date: Any) -> tuple[Any, Any] | None:
+    """Return the closest valid trading observations around an action date."""
     close = pd.to_numeric(frame["Close"], errors="coerce")
+    before = close.loc[(frame.index < action_date) & close.notna()]
+    after = close.loc[(frame.index >= action_date) & close.notna()]
+    if before.empty or after.empty:
+        return None
+    return before.index[-1], after.index[0]
+
+
+def _classify_split_basis(observed_factor: float, ratio: float,
+                          continuity_limit: float = 0.35) -> tuple[str, str]:
+    """Classify an event from observed continuity, never from column names."""
+    adjusted_error = abs(observed_factor - 1.0)
+    raw_error = abs(observed_factor * ratio - 1.0)
+    if adjusted_error <= continuity_limit and adjusted_error <= raw_error:
+        return "split_adjusted", "close_continuous_across_declared_split"
+    if raw_error <= continuity_limit:
+        return "raw_unadjusted", "observed_jump_matches_inverse_split_ratio"
+    return "unknown", "observed_factor_matches_neither_supported_basis"
+
+
+def split_adjusted_prices(frame: pd.DataFrame) -> pd.Series:
+    """Normalize Close to a price-only split-adjusted basis.
+
+    Yahoo's chart ``Close`` can already be split-adjusted even when yfinance is
+    called with ``auto_adjust=False``. Only events whose observed price jump
+    matches the inverse declared ratio are transformed.
+    """
+    normalized = pd.to_numeric(frame["Close"], errors="coerce").astype(float).copy()
     splits = pd.to_numeric(frame.get("Stock Splits", pd.Series(0.0, index=frame.index)),
                            errors="coerce").fillna(0.0)
-    stock_dividends=pd.to_numeric(frame.get("Stock Dividends",pd.Series(0.0,index=frame.index)),errors="coerce").fillna(0.0)
-    splits=splits.where(splits!=0.0,1.0+stock_dividends).where(lambda value:value!=1.0,0.0)
-    # A ratio recorded on day d adjusts observations strictly before d.
-    future_factor = splits.replace(0.0, 1.0).iloc[::-1].cumprod().iloc[::-1]
-    factor = future_factor / splits.replace(0.0, 1.0)
-    return close / factor
+    stock_dividends = pd.to_numeric(
+        frame.get("Stock Dividends", pd.Series(0.0, index=frame.index)),
+        errors="coerce").fillna(0.0)
+    ratios = splits.where(splits != 0.0, 1.0 + stock_dividends)
+    for action_date, ratio in ratios[ratios != 0.0].items():
+        if math.isclose(float(ratio), 1.0):
+            continue
+        selected = _trading_prices_around(frame, action_date)
+        if selected is None:
+            continue
+        before_date, after_date = selected
+        observed = float(frame.loc[after_date, "Close"]) / float(frame.loc[before_date, "Close"])
+        basis, _ = _classify_split_basis(observed, float(ratio))
+        if basis == "raw_unadjusted":
+            normalized.loc[normalized.index < after_date] /= float(ratio)
+    return normalized
 
 
 def reconcile_corporate_actions(frame: pd.DataFrame, tolerance: float = 0.08) -> CorporateActionResult:
@@ -198,52 +235,61 @@ def reconcile_corporate_actions(frame: pd.DataFrame, tolerance: float = 0.08) ->
         distribution = float(dividends.loc[idx] + capital_gains.loc[idx])
         if distribution > 0 and pd.notna(previous) and distribution / previous >= 0.10:
             events.append((idx, "special_distribution", distribution))
-    adjusted = split_adjusted_prices(work)
+    normalized = split_adjusted_prices(work)
     reasons: list[str] = []; details=[]
     reconciled = 0
     for idx, kind, amount in events:
-        pos = work.index.get_loc(idx)
-        if not isinstance(pos, int) or pos == 0:
+        selected = _trading_prices_around(work, idx)
+        if selected is None:
             reasons.append(f"{idx}:missing_pre_action_price")
+            details.append({"date":str(idx),"action_type":kind,"status":"unreconciled",
+                            "source_price_basis":"unknown",
+                            "reconciliation_method":"adjacent_trading_date_selection",
+                            "classification_reason":"missing_price_around_action_date",
+                            "selected_trading_dates":[]})
             continue
-        raw_return = close.iloc[pos] / close.iloc[pos - 1] - 1
-        adjusted_return = adjusted.iloc[pos] / adjusted.iloc[pos - 1] - 1
-        detail={"date":str(idx),"action_type":kind,"raw_close_before":float(close.iloc[pos-1]),"raw_close_after":float(close.iloc[pos]),"reconstructed_close_before":float(adjusted.iloc[pos-1]),"reconstructed_close_after":float(adjusted.iloc[pos]),"ratio":amount if kind in {"split","stock_dividend"} else None,"distribution_amount":amount if kind=="special_distribution" else None}
+        before_date, after_date = selected
+        close_before, close_after = float(close.loc[before_date]), float(close.loc[after_date])
+        observed_factor = close_after / close_before
+        normalized_factor = float(normalized.loc[after_date]) / float(normalized.loc[before_date])
+        detail={"date":str(idx),"action_type":kind,"close_before":close_before,
+                "close_after":close_after,"observed_factor":observed_factor,
+                "raw_close_before":close_before,"raw_close_after":close_after,
+                "reconstructed_close_before":float(normalized.loc[before_date]),
+                "reconstructed_close_after":float(normalized.loc[after_date]),
+                "selected_trading_dates":[str(before_date),str(after_date)],
+                "auto_adjust_requested":bool(work.attrs.get("auto_adjust_requested",False)),
+                "auto_adjust_observed":False if "Adj Close" in work.columns else "unknown",
+                "adj_close_available":"Adj Close" in work.columns,
+                "declared_split_ratio":amount if kind in {"split","stock_dividend"} else None,
+                "distribution_amount":amount if kind=="special_distribution" else None}
         if kind in {"split","stock_dividend"}:
-            # Compare multiplicatively so reverse splits do not receive a much
-            # looser/tighter absolute-return tolerance than ordinary splits.
-            raw_consistent = (abs((1.0 + raw_return) * amount - 1.0) <= tolerance
-                              or abs(raw_return) <= tolerance)
-            if not raw_consistent or abs(adjusted_return) > max(0.35, tolerance * 3):
+            basis, classification = _classify_split_basis(observed_factor, amount)
+            detail.update({"source_price_basis":basis,"expected_factor":1.0/amount,
+                           "expected_raw_factor":1.0/amount,
+                           "reconciliation_method":"observed_factor_basis_classification",
+                           "classification_reason":classification})
+            if basis == "unknown" or abs(normalized_factor - 1.0) > max(0.35, tolerance * 3):
                 reasons.append(f"{idx}:split_ratio_not_reconciled")
-                detail["status"]="unreconciled"; detail["expected_raw_factor"]=1.0/amount; details.append(detail)
+                detail["status"]="unreconciled"; details.append(detail)
                 continue
-            detail["expected_raw_factor"]=1.0/amount
         else:
-            previous=float(close.iloc[pos-1]); current=float(close.iloc[pos])
+            previous=close_before; current=close_after
             expected_factor=max(previous-amount,0.0)/previous
             actual_factor=current/previous
             # Distribution-adjusted continuity removes the known cash amount.
             continuity=(current+amount)/previous-1.0
-            detail.update({"expected_raw_factor":expected_factor,"actual_raw_factor":actual_factor,"distribution_adjusted_return":continuity})
-            if not np.isfinite(raw_return) or not np.isfinite(continuity) or abs(continuity)>max(.20,tolerance*2):
+            detail.update({"source_price_basis":"unknown",
+                           "expected_factor":expected_factor,"reconciliation_method":"cash_distribution_continuity",
+                           "expected_raw_factor":expected_factor,
+                           "classification_reason":"cash_amount_added_back_to_close",
+                           "actual_factor":actual_factor,"distribution_adjusted_return":continuity})
+            if not np.isfinite(observed_factor) or not np.isfinite(continuity) or abs(continuity)>max(.20,tolerance*2):
                 reasons.append(f"{idx}:distribution_not_reconciled")
                 detail["status"]="unreconciled"; details.append(detail)
                 continue
         reconciled += 1
         detail["status"]="reconciled"; details.append(detail)
-    # A ratio-shaped adjusted-series jump on an action date indicates a raw/adjusted mix.
-    for idx in splits[splits > 0].index:
-        pos = work.index.get_loc(idx)
-        if isinstance(pos, int) and pos > 0:
-            ratio = float(splits.loc[idx])
-            adj_factor = adjusted.iloc[pos] / adjusted.iloc[pos - 1]
-            if min(abs(adj_factor - ratio), abs(adj_factor - 1 / ratio)) <= tolerance:
-                marker = f"{idx}:adjusted_series_contains_split_jump"
-                if marker not in reasons:
-                    reasons.append(marker)
-                for detail in details:
-                    if detail["date"]==str(idx): detail["status"]="unreconciled"
     unreconciled = sum(detail.get("status")=="unreconciled" for detail in details)
     return CorporateActionResult(
         "reconciled" if unreconciled == 0 else "unreconciled",
@@ -284,10 +330,39 @@ def corporate_action_failure_mode(results: dict[str, CorporateActionResult],
                                   unreconciled_limit: int) -> str:
     total=max(len(results),1)
     unavailable=sum(r.status=="unavailable" for r in results.values())
-    bad=sum(r.status!="reconciled" for r in results.values())
+    # Provider-unavailable data and genuinely unreconciled actions have separate
+    # budgets.  Counting unavailable tickers in all three limits made a missing
+    # yfinance action column look like a reconciliation defect.
+    bad=sum(r.status=="unreconciled" for r in results.values())
     if unavailable/total>unavailable_ratio or bad/total>unreconciled_ratio or bad>unreconciled_limit:
         return "failed"
-    return "degraded" if bad else "success"
+    return "degraded" if unavailable or bad else "success"
+
+
+def validate_corporate_action_publication_status(status: dict[str, Any]) -> None:
+    """Validate the success/degraded/failed publication state contract."""
+    top = status.get("status")
+    reconciliation = status.get("corporate_action_reconciliation")
+    if top not in {"success", "degraded"}:
+        raise IntegrityError(f"Invalid status: expected 'success' or 'degraded', got {top!r}")
+    if not isinstance(reconciliation, dict):
+        raise IntegrityError("corporate-action reconciliation metadata is missing")
+    ca_status = reconciliation.get("status")
+    unavailable = int(reconciliation.get("unavailable_ticker_count", 0))
+    unreconciled = int(reconciliation.get("unreconciled_ticker_count", 0))
+    if top == "success" and (ca_status != "reconciled" or unavailable or unreconciled):
+        raise IntegrityError("success requires complete corporate-action reconciliation")
+    if top == "degraded" and (ca_status != "degraded" or not (unavailable or unreconciled)):
+        raise IntegrityError("degraded requires unavailable or unreconciled tickers")
+    thresholds = reconciliation.get("configured_thresholds", {})
+    if top == "degraded":
+        required = {"max_unavailable_ratio", "max_unreconciled_ratio", "max_unreconciled_tickers"}
+        if not required.issubset(thresholds):
+            raise IntegrityError("degraded reconciliation thresholds are missing")
+        if (float(reconciliation.get("unavailable_ratio", 0)) > float(thresholds["max_unavailable_ratio"])
+                or float(reconciliation.get("unreconciled_ratio", 0)) > float(thresholds["max_unreconciled_ratio"])
+                or unreconciled > int(thresholds["max_unreconciled_tickers"])):
+            raise IntegrityError("degraded reconciliation exceeds configured threshold")
 
 
 def validate_information_timeline(information_cutoff_at: str, first_tradable_at: str,

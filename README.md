@@ -84,7 +84,10 @@ Quiet drift CSVの公開URLは `https://raw.githubusercontent.com/hughey-t/Daily
 - Quiet drift CSV: `https://raw.githubusercontent.com/<GitHubユーザー名>/daily-us-stock-screen/main/docs/quiet_drift.csv`
 - JSON: `https://raw.githubusercontent.com/<GitHubユーザー名>/daily-us-stock-screen/main/docs/latest.json`
 
-ChatGPTには、まずJSONを確認させ、`status=success` の場合だけCSVを分析させてください。
+ChatGPTには、まずJSONを確認させ、`status=success` または検証済みの
+`status=degraded` の場合だけCSVを分析させてください。`degraded` では企業行動を
+照合できなかった銘柄がPhase 2候補から除外されています。`status=failed` は分析せず、
+直前の正常manifestを使用してください。
 
 ## 自動実行時刻
 
