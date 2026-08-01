@@ -1,0 +1,2951 @@
+{
+  "status": "success",
+  "generated_at": "2026-07-31T21:10:04+00:00",
+  "market_data_date": "2026-07-31",
+  "expected_market_data_date": "2026-07-31",
+  "is_market_data_complete": true,
+  "last_successful_market_date": "2026-07-31",
+  "row_count": 150,
+  "universe_count": 2644,
+  "usable_ticker_count": 2624,
+  "liquid_ticker_count": 2024,
+  "failed_ticker_count": 0,
+  "failed_tickers_sample": [],
+  "quality_excluded_count": 1,
+  "quality_excluded_tickers": [
+    "FBRX"
+  ],
+  "quiet_drift_enabled": true,
+  "quiet_drift_status": "success",
+  "quiet_drift_csv_file": "quiet_drift.csv",
+  "quiet_drift_archive_file": "archive/quiet_drift_2026-07-31.csv",
+  "quiet_drift_row_count": 6,
+  "quiet_drift_required_column_check": "success",
+  "quiet_drift_selection_definition": {
+    "population": "liquid pre-selection universe after quality exclusions",
+    "global_tail": "top or bottom configured quantile of sector-relative 63d or 126d return",
+    "sector_coverage": "non-overlapping top then bottom per sector after quietness filters and the minimum tail-distance guard",
+    "anchor_rules": "63d uses 63d relative quietness; 126d additionally requires 126d stock and relative quietness plus same-direction 63d/126d sector-relative returns",
+    "rank_order": [
+      "tail_distance desc",
+      "anchor relative directional efficiency desc",
+      "absolute anchor sector-relative return desc",
+      "ticker asc"
+    ]
+  },
+  "quiet_drift_thresholds": {
+    "quiet_drift_tail_quantile": 0.05,
+    "quiet_drift_max_candidates": 100,
+    "quiet_drift_max_daily_move_63d": 0.07,
+    "quiet_drift_max_gap_63d": 0.07,
+    "quiet_drift_max_volume_ratio": 1.8,
+    "quiet_drift_max_volatility_ratio": 1.5,
+    "quiet_drift_max_single_day_share_63d": 0.2,
+    "quiet_drift_min_directional_efficiency_63d": 0.25,
+    "quiet_drift_max_daily_move_126d": 0.07,
+    "quiet_drift_max_gap_126d": 0.07,
+    "quiet_drift_max_single_day_share_126d": 0.2,
+    "quiet_drift_min_directional_efficiency_126d": 0.25,
+    "quiet_drift_min_relative_directional_efficiency_63d": 0.25,
+    "quiet_drift_min_relative_directional_efficiency_126d": 0.25,
+    "quiet_drift_max_relative_single_day_share_63d": 0.2,
+    "quiet_drift_max_relative_single_day_share_126d": 0.2,
+    "quiet_drift_sector_top_n": 1,
+    "quiet_drift_sector_bottom_n": 1,
+    "quiet_drift_sector_coverage_min_tail_distance": 0.5,
+    "population_tail_boundaries": {
+      "sector_relative_63d": {
+        "lower": -0.3044483023256211,
+        "upper": 0.39560959826265457,
+        "valid_count": 2017
+      },
+      "sector_relative_126d": {
+        "lower": -0.4407422335047924,
+        "upper": 0.6273304287080633,
+        "valid_count": 2004
+      }
+    }
+  },
+  "quiet_drift_distribution": {
+    "global_tail_count": 1,
+    "sector_coverage_only_count": 5,
+    "up_count": 5,
+    "down_count": 1,
+    "sector_counts": {
+      "Real Estate": 2,
+      "Consumer Defensive": 1,
+      "Healthcare": 1,
+      "Energy": 1,
+      "Financial Services": 1
+    },
+    "anchor_63d_count": 6,
+    "anchor_126d_count": 0,
+    "eligible_63d_count": 2013,
+    "quietness_pass_count": 12
+  },
+  "universe_distribution": {
+    "return_21d": {
+      "p10": -0.17834948133613437,
+      "median": 0.005825649990164883,
+      "p90": 0.14412274217363452
+    },
+    "spy_relative_21d": {
+      "p10": -0.18005246824159893,
+      "median": 0.004122663084700329,
+      "p90": 0.14241975526816997
+    },
+    "sector_relative_21d": {
+      "p10": -0.1681884865917413,
+      "median": -0.003833788619981071,
+      "p90": 0.1450192721205285
+    },
+    "return_63d": {
+      "p10": -0.19193293215042426,
+      "median": 0.043468525212222886,
+      "p90": 0.3170061902321963
+    },
+    "return_21d_gt_20pct_count": 116,
+    "return_21d_lt_minus_20pct_count": 171,
+    "abs_spy_relative_21d_gt_8pct_count": 902
+  },
+  "sector_distribution": {
+    "Basic Materials": {
+      "count": 113,
+      "sector_relative_21d": {
+        "p10": -0.1225606417381016,
+        "median": -0.013992410510573317,
+        "p90": 0.11468804151029237
+      },
+      "return_63d": {
+        "median": -0.07946211138355985
+      }
+    },
+    "Communication Services": {
+      "count": 80,
+      "sector_relative_21d": {
+        "p10": -0.13698351899251204,
+        "median": 0.017513150662478605,
+        "p90": 0.11231071914206876
+      },
+      "return_63d": {
+        "median": -0.026563585562165315
+      }
+    },
+    "Consumer Cyclical": {
+      "count": 223,
+      "sector_relative_21d": {
+        "p10": -0.09007752099798477,
+        "median": 0.025007564678859118,
+        "p90": 0.14275994287019222
+      },
+      "return_63d": {
+        "median": 0.0353809754828025
+      }
+    },
+    "Consumer Defensive": {
+      "count": 89,
+      "sector_relative_21d": {
+        "p10": -0.09636782415788218,
+        "median": -0.006323085434625009,
+        "p90": 0.09297080161638027
+      },
+      "return_63d": {
+        "median": 0.047428794348271186
+      }
+    },
+    "Energy": {
+      "count": 121,
+      "sector_relative_21d": {
+        "p10": -0.19151619541563203,
+        "median": -0.009580740366474716,
+        "p90": 0.12829950954690683
+      },
+      "return_63d": {
+        "median": -0.04266569706848522
+      }
+    },
+    "Financial Services": {
+      "count": 296,
+      "sector_relative_21d": {
+        "p10": -0.10616711107502924,
+        "median": -0.01916264578564575,
+        "p90": 0.07584967614053673
+      },
+      "return_63d": {
+        "median": 0.08941233799628567
+      }
+    },
+    "Healthcare": {
+      "count": 287,
+      "sector_relative_21d": {
+        "p10": -0.19799303153848985,
+        "median": -0.011264476491358977,
+        "p90": 0.13341251329910797
+      },
+      "return_63d": {
+        "median": 0.14781491829750992
+      }
+    },
+    "Industrials": {
+      "count": 294,
+      "sector_relative_21d": {
+        "p10": -0.2118027123487407,
+        "median": -0.01303303171974407,
+        "p90": 0.13550345793184823
+      },
+      "return_63d": {
+        "median": 0.006854971527036735
+      }
+    },
+    "Real Estate": {
+      "count": 108,
+      "sector_relative_21d": {
+        "p10": -0.06808975942154473,
+        "median": -0.003244513669878546,
+        "p90": 0.049486610450849476
+      },
+      "return_63d": {
+        "median": 0.049852799045771
+      }
+    },
+    "Technology": {
+      "count": 346,
+      "sector_relative_21d": {
+        "p10": -0.23510039986287246,
+        "median": 0.023458830331124836,
+        "p90": 0.23023002911478319
+      },
+      "return_63d": {
+        "median": 0.06516524779103605
+      }
+    },
+    "Utilities": {
+      "count": 67,
+      "sector_relative_21d": {
+        "p10": -0.05987153726896365,
+        "median": -0.009439251564977824,
+        "p90": 0.057648892692923503
+      },
+      "return_63d": {
+        "median": -0.04316306029229977
+      }
+    }
+  },
+  "data_coverage": 0.992057,
+  "sector_data_coverage": 1.0,
+  "industry_data_coverage": 0.0,
+  "universe_source": "yahoo_screener",
+  "csv_file": "latest.csv",
+  "archive_file": "archive/screening_2026-07-31.csv",
+  "last_successful_archive_file": "archive/screening_2026-07-31.csv",
+  "latest_csv_updated": true,
+  "required_column_check": "success",
+  "numeric_validation_status": "success",
+  "price_adjustment_validation_status": "success",
+  "corporate_action_reconciliation_status": "reconciled",
+  "corporate_action_reconciliation": {
+    "version": "ca-reconciliation-2.0",
+    "status": "reconciled",
+    "detected_corporate_action_count": 69,
+    "reconciled_corporate_action_count": 69,
+    "unreconciled_corporate_action_count": 0,
+    "unreconciled_ticker_count": 0,
+    "unavailable_ticker_count": 0,
+    "total_ticker_count": 2656,
+    "reconciled_ticker_count": 2656,
+    "unavailable_ratio": 0.0,
+    "unreconciled_ratio": 0.0,
+    "configured_thresholds": {
+      "max_unavailable_ratio": 0.05,
+      "max_unreconciled_ratio": 0.02,
+      "max_unreconciled_tickers": 20
+    },
+    "unavailable_tickers": [],
+    "unreconciled_tickers": [],
+    "reason_counts": {},
+    "ticker_details": [
+      {
+        "ticker": "AD",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 3,
+        "reconciled_count": 3,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-08-20 00:00:00",
+            "action_type": "special_distribution",
+            "close_before": 76.0,
+            "close_after": 53.65999984741211,
+            "observed_factor": 0.706052629571212,
+            "raw_close_before": 76.0,
+            "raw_close_after": 53.65999984741211,
+            "reconstructed_close_before": 76.0,
+            "reconstructed_close_after": 53.65999984741211,
+            "selected_trading_dates": [
+              "2025-08-19 00:00:00",
+              "2025-08-20 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": null,
+            "distribution_amount": 23.0,
+            "source_price_basis": "unknown",
+            "expected_factor": 0.6973684210526315,
+            "reconciliation_method": "cash_distribution_continuity",
+            "expected_raw_factor": 0.6973684210526315,
+            "classification_reason": "cash_amount_added_back_to_close",
+            "actual_factor": 0.706052629571212,
+            "distribution_adjusted_return": 0.008684208518580316,
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-01-23 00:00:00",
+            "action_type": "special_distribution",
+            "close_before": 60.279998779296875,
+            "close_after": 47.91999816894531,
+            "observed_factor": 0.7949568536720575,
+            "raw_close_before": 60.279998779296875,
+            "raw_close_after": 47.91999816894531,
+            "reconstructed_close_before": 60.279998779296875,
+            "reconstructed_close_after": 47.91999816894531,
+            "selected_trading_dates": [
+              "2026-01-22 00:00:00",
+              "2026-01-23 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": null,
+            "distribution_amount": 10.25,
+            "source_price_basis": "unknown",
+            "expected_factor": 0.8299601823562021,
+            "reconciliation_method": "cash_distribution_continuity",
+            "expected_raw_factor": 0.8299601823562021,
+            "classification_reason": "cash_amount_added_back_to_close",
+            "actual_factor": 0.7949568536720575,
+            "distribution_adjusted_return": -0.035003328684144575,
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-06-11 00:00:00",
+            "action_type": "special_distribution",
+            "close_before": 52.349998474121094,
+            "close_after": 40.11000061035156,
+            "observed_factor": 0.7661891457395114,
+            "raw_close_before": 52.349998474121094,
+            "raw_close_after": 40.11000061035156,
+            "reconstructed_close_before": 52.349998474121094,
+            "reconstructed_close_after": 40.11000061035156,
+            "selected_trading_dates": [
+              "2026-06-10 00:00:00",
+              "2026-06-11 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": null,
+            "distribution_amount": 11.0,
+            "source_price_basis": "unknown",
+            "expected_factor": 0.7898758295964844,
+            "reconciliation_method": "cash_distribution_continuity",
+            "expected_raw_factor": 0.7898758295964844,
+            "classification_reason": "cash_amount_added_back_to_close",
+            "actual_factor": 0.7661891457395114,
+            "distribution_adjusted_return": -0.023686683856973145,
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "unknown"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "AGL",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-03-31 00:00:00",
+            "action_type": "split",
+            "close_before": 8.024999618530273,
+            "close_after": 7.909999847412109,
+            "observed_factor": 0.9856698097713772,
+            "raw_close_before": 8.024999618530273,
+            "raw_close_after": 7.909999847412109,
+            "reconstructed_close_before": 8.024999618530273,
+            "reconstructed_close_after": 7.909999847412109,
+            "selected_trading_dates": [
+              "2026-03-30 00:00:00",
+              "2026-03-31 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.04,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 25.0,
+            "expected_raw_factor": 25.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "AMCR",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-01-15 00:00:00",
+            "action_type": "split",
+            "close_before": 44.099998474121094,
+            "close_after": 44.15999984741211,
+            "observed_factor": 1.0013605754051493,
+            "raw_close_before": 44.099998474121094,
+            "raw_close_after": 44.15999984741211,
+            "reconstructed_close_before": 44.099998474121094,
+            "reconstructed_close_after": 44.15999984741211,
+            "selected_trading_dates": [
+              "2026-01-14 00:00:00",
+              "2026-01-15 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.2,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 5.0,
+            "expected_raw_factor": 5.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "ANAB",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-04-20 00:00:00",
+            "action_type": "split",
+            "close_before": 45.00666809082031,
+            "close_after": 50.95000076293945,
+            "observed_factor": 1.1320544915728024,
+            "raw_close_before": 45.00666809082031,
+            "raw_close_after": 50.95000076293945,
+            "reconstructed_close_before": 45.00666809082031,
+            "reconstructed_close_after": 50.95000076293945,
+            "selected_trading_dates": [
+              "2026-04-17 00:00:00",
+              "2026-04-20 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6666666666666666,
+            "expected_raw_factor": 0.6666666666666666,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "ATRO",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-06-15 00:00:00",
+            "action_type": "split",
+            "close_before": 76.61611938476562,
+            "close_after": 75.69000244140625,
+            "observed_factor": 0.9879122441752965,
+            "raw_close_before": 76.61611938476562,
+            "raw_close_after": 75.69000244140625,
+            "reconstructed_close_before": 76.61611938476562,
+            "reconstructed_close_after": 75.69000244140625,
+            "selected_trading_dates": [
+              "2026-06-12 00:00:00",
+              "2026-06-15 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.253,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.7980845969672786,
+            "expected_raw_factor": 0.7980845969672786,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "AZN",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-02-02 00:00:00",
+            "action_type": "split",
+            "close_before": 185.5399932861328,
+            "close_after": 188.41000366210938,
+            "observed_factor": 1.0154684191000833,
+            "raw_close_before": 185.5399932861328,
+            "raw_close_after": 188.41000366210938,
+            "reconstructed_close_before": 185.5399932861328,
+            "reconstructed_close_after": 188.41000366210938,
+            "selected_trading_dates": [
+              "2026-01-30 00:00:00",
+              "2026-02-02 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 2.0,
+            "expected_raw_factor": 2.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "BDX",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-02-10 00:00:00",
+            "action_type": "split",
+            "close_before": 163.04244995117188,
+            "close_after": 171.67999267578125,
+            "observed_factor": 1.0529772628367406,
+            "raw_close_before": 163.04244995117188,
+            "raw_close_after": 171.67999267578125,
+            "reconstructed_close_before": 163.04244995117188,
+            "reconstructed_close_after": 171.67999267578125,
+            "selected_trading_dates": [
+              "2026-02-09 00:00:00",
+              "2026-02-10 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.272,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.7861635220125786,
+            "expected_raw_factor": 0.7861635220125786,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "BKNG",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-04-06 00:00:00",
+            "action_type": "split",
+            "close_before": 167.77239990234375,
+            "close_after": 176.19000244140625,
+            "observed_factor": 1.0501727491766357,
+            "raw_close_before": 167.77239990234375,
+            "raw_close_after": 176.19000244140625,
+            "reconstructed_close_before": 167.77239990234375,
+            "reconstructed_close_after": 176.19000244140625,
+            "selected_trading_dates": [
+              "2026-04-02 00:00:00",
+              "2026-04-06 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 25.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.04,
+            "expected_raw_factor": 0.04,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "BN",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-10-10 00:00:00",
+            "action_type": "split",
+            "close_before": 44.99333190917969,
+            "close_after": 43.029998779296875,
+            "observed_factor": 0.956363908904416,
+            "raw_close_before": 44.99333190917969,
+            "raw_close_after": 43.029998779296875,
+            "reconstructed_close_before": 44.99333190917969,
+            "reconstructed_close_after": 43.029998779296875,
+            "selected_trading_dates": [
+              "2025-10-09 00:00:00",
+              "2025-10-10 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6666666666666666,
+            "expected_raw_factor": 0.6666666666666666,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "BNT",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-10-10 00:00:00",
+            "action_type": "split",
+            "close_before": 45.026668548583984,
+            "close_after": 43.119998931884766,
+            "observed_factor": 0.9576546593794317,
+            "raw_close_before": 45.026668548583984,
+            "raw_close_after": 43.119998931884766,
+            "reconstructed_close_before": 45.026668548583984,
+            "reconstructed_close_after": 43.119998931884766,
+            "selected_trading_dates": [
+              "2025-10-09 00:00:00",
+              "2025-10-10 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6666666666666666,
+            "expected_raw_factor": 0.6666666666666666,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "BRAI",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-04-29 00:00:00",
+            "action_type": "split",
+            "close_before": 7.823332786560059,
+            "close_after": 7.119999885559082,
+            "observed_factor": 0.9100980464222034,
+            "raw_close_before": 7.823332786560059,
+            "raw_close_after": 7.119999885559082,
+            "reconstructed_close_before": 7.823332786560059,
+            "reconstructed_close_after": 7.119999885559082,
+            "selected_trading_dates": [
+              "2026-04-28 00:00:00",
+              "2026-04-29 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 3.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.3333333333333333,
+            "expected_raw_factor": 0.3333333333333333,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "CBSH",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-02 00:00:00",
+            "action_type": "split",
+            "close_before": 51.904762268066406,
+            "close_after": 50.59000015258789,
+            "observed_factor": 0.9746697208882623,
+            "raw_close_before": 51.904762268066406,
+            "raw_close_after": 50.59000015258789,
+            "reconstructed_close_before": 49.433106921968005,
+            "reconstructed_close_after": 50.59000015258789,
+            "selected_trading_dates": [
+              "2025-12-01 00:00:00",
+              "2025-12-02 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.05,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9523809523809523,
+            "expected_raw_factor": 0.9523809523809523,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "raw_unadjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "CLBK",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-21 00:00:00",
+            "action_type": "split",
+            "close_before": 11.136363983154297,
+            "close_after": 11.079999923706055,
+            "observed_factor": 0.9949387376765431,
+            "raw_close_before": 11.136363983154297,
+            "raw_close_after": 11.079999923706055,
+            "reconstructed_close_before": 11.136363983154297,
+            "reconstructed_close_after": 11.079999923706055,
+            "selected_trading_dates": [
+              "2026-07-20 00:00:00",
+              "2026-07-21 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.2,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.45454545454545453,
+            "expected_raw_factor": 0.45454545454545453,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "CMCSA",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-01-05 00:00:00",
+            "action_type": "split",
+            "close_before": 27.68509864807129,
+            "close_after": 28.1299991607666,
+            "observed_factor": 1.016070035304942,
+            "raw_close_before": 27.68509864807129,
+            "raw_close_after": 28.1299991607666,
+            "reconstructed_close_before": 27.68509864807129,
+            "reconstructed_close_after": 28.1299991607666,
+            "selected_trading_dates": [
+              "2026-01-02 00:00:00",
+              "2026-01-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.067,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.9372071227741331,
+            "expected_raw_factor": 0.9372071227741331,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "CRWD",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-02 00:00:00",
+            "action_type": "split",
+            "close_before": 193.18499755859375,
+            "close_after": 193.97999572753906,
+            "observed_factor": 1.0041152169112106,
+            "raw_close_before": 193.18499755859375,
+            "raw_close_after": 193.97999572753906,
+            "reconstructed_close_before": 193.18499755859375,
+            "reconstructed_close_after": 193.97999572753906,
+            "selected_trading_dates": [
+              "2026-07-01 00:00:00",
+              "2026-07-02 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 4.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.25,
+            "expected_raw_factor": 0.25,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "CVNA",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-05-08 00:00:00",
+            "action_type": "split",
+            "close_before": 80.00399780273438,
+            "close_after": 77.94000244140625,
+            "observed_factor": 0.9742013472074569,
+            "raw_close_before": 80.00399780273438,
+            "raw_close_after": 77.94000244140625,
+            "reconstructed_close_before": 80.00399780273438,
+            "reconstructed_close_after": 77.94000244140625,
+            "selected_trading_dates": [
+              "2026-05-07 00:00:00",
+              "2026-05-08 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 5.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.2,
+            "expected_raw_factor": 0.2,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "DD",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 2,
+        "reconciled_count": 2,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-11-03 00:00:00",
+            "action_type": "split",
+            "close_before": 102.48954010009766,
+            "close_after": 104.06999969482422,
+            "observed_factor": 1.0154206916450497,
+            "raw_close_before": 102.48954010009766,
+            "raw_close_after": 104.06999969482422,
+            "reconstructed_close_before": 102.48954010009766,
+            "reconstructed_close_after": 104.06999969482422,
+            "selected_trading_dates": [
+              "2025-10-31 00:00:00",
+              "2025-11-03 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.39,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.41841004184100417,
+            "expected_raw_factor": 0.41841004184100417,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-06-24 00:00:00",
+            "action_type": "split",
+            "close_before": 140.00999450683594,
+            "close_after": 137.82000732421875,
+            "observed_factor": 0.9843583510567865,
+            "raw_close_before": 140.00999450683594,
+            "raw_close_after": 137.82000732421875,
+            "reconstructed_close_before": 140.00999450683594,
+            "reconstructed_close_after": 137.82000732421875,
+            "selected_trading_dates": [
+              "2026-06-23 00:00:00",
+              "2026-06-24 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.3333333333333333,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 3.0,
+            "expected_raw_factor": 3.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "ELE",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-09-16 00:00:00",
+            "action_type": "split",
+            "close_before": 16.5,
+            "close_after": 15.699999809265137,
+            "observed_factor": 0.9515151399554629,
+            "raw_close_before": 16.5,
+            "raw_close_after": 15.699999809265137,
+            "reconstructed_close_before": 16.5,
+            "reconstructed_close_after": 15.699999809265137,
+            "selected_trading_dates": [
+              "2025-09-15 00:00:00",
+              "2025-09-16 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.1,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 10.0,
+            "expected_raw_factor": 10.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "FDX",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-06-01 00:00:00",
+            "action_type": "split",
+            "close_before": 331.78887939453125,
+            "close_after": 338.489990234375,
+            "observed_factor": 1.0201969121209618,
+            "raw_close_before": 331.78887939453125,
+            "raw_close_after": 338.489990234375,
+            "reconstructed_close_before": 331.78887939453125,
+            "reconstructed_close_after": 338.489990234375,
+            "selected_trading_dates": [
+              "2026-05-29 00:00:00",
+              "2026-06-01 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.241,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.8058017727639,
+            "expected_raw_factor": 0.8058017727639,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "FNF",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-17 00:00:00",
+            "action_type": "split",
+            "close_before": 55.40019226074219,
+            "close_after": 55.900001525878906,
+            "observed_factor": 1.009021796581217,
+            "raw_close_before": 55.40019226074219,
+            "raw_close_after": 55.900001525878906,
+            "reconstructed_close_before": 55.40019226074219,
+            "reconstructed_close_after": 55.900001525878906,
+            "selected_trading_dates": [
+              "2025-12-16 00:00:00",
+              "2025-12-17 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.037,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.9643201542912248,
+            "expected_raw_factor": 0.9643201542912248,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "GAB",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-03-02 00:00:00",
+            "action_type": "split",
+            "close_before": 6.118812084197998,
+            "close_after": 6.039999961853027,
+            "observed_factor": 0.9871197021153002,
+            "raw_close_before": 6.118812084197998,
+            "raw_close_after": 6.039999961853027,
+            "reconstructed_close_before": 6.0582297863346515,
+            "reconstructed_close_after": 6.039999961853027,
+            "selected_trading_dates": [
+              "2026-02-27 00:00:00",
+              "2026-03-02 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.01,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9900990099009901,
+            "expected_raw_factor": 0.9900990099009901,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "raw_unadjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "GAM",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-11-17 00:00:00",
+            "action_type": "special_distribution",
+            "close_before": 63.61000061035156,
+            "close_after": 56.88999938964844,
+            "observed_factor": 0.8943562151198982,
+            "raw_close_before": 63.61000061035156,
+            "raw_close_after": 56.88999938964844,
+            "reconstructed_close_before": 63.61000061035156,
+            "reconstructed_close_after": 56.88999938964844,
+            "selected_trading_dates": [
+              "2025-11-14 00:00:00",
+              "2025-11-17 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": null,
+            "distribution_amount": 6.4,
+            "source_price_basis": "unknown",
+            "expected_factor": 0.8993868898193581,
+            "reconciliation_method": "cash_distribution_continuity",
+            "expected_raw_factor": 0.8993868898193581,
+            "classification_reason": "cash_amount_added_back_to_close",
+            "actual_factor": 0.8943562151198982,
+            "distribution_adjusted_return": -0.005030674699459947,
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "unknown"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "HDB",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-09-08 00:00:00",
+            "action_type": "split",
+            "close_before": 35.29999923706055,
+            "close_after": 35.380001068115234,
+            "observed_factor": 1.0022663408720613,
+            "raw_close_before": 35.29999923706055,
+            "raw_close_after": 35.380001068115234,
+            "reconstructed_close_before": 35.29999923706055,
+            "reconstructed_close_after": 35.380001068115234,
+            "selected_trading_dates": [
+              "2025-09-05 00:00:00",
+              "2025-09-08 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "HON",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 2,
+        "reconciled_count": 2,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-10-30 00:00:00",
+            "action_type": "split",
+            "close_before": 210.43557739257812,
+            "close_after": 209.868896484375,
+            "observed_factor": 0.9973071050284147,
+            "raw_close_before": 210.43557739257812,
+            "raw_close_after": 209.868896484375,
+            "reconstructed_close_before": 210.43557739257812,
+            "reconstructed_close_after": 209.868896484375,
+            "selected_trading_dates": [
+              "2025-10-29 00:00:00",
+              "2025-10-30 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.061,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.942507068803016,
+            "expected_raw_factor": 0.942507068803016,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-06-29 00:00:00",
+            "action_type": "split",
+            "close_before": 243.5343475341797,
+            "close_after": 227.8000030517578,
+            "observed_factor": 0.9353916823571936,
+            "raw_close_before": 243.5343475341797,
+            "raw_close_after": 227.8000030517578,
+            "reconstructed_close_before": 243.5343475341797,
+            "reconstructed_close_after": 227.8000030517578,
+            "selected_trading_dates": [
+              "2026-06-26 00:00:00",
+              "2026-06-29 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.9535,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 1.048767697954903,
+            "expected_raw_factor": 1.048767697954903,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "ITUB",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-29 00:00:00",
+            "action_type": "split",
+            "close_before": 7.0970869064331055,
+            "close_after": 7.019999980926514,
+            "observed_factor": 0.9891382300198809,
+            "raw_close_before": 7.0970869064331055,
+            "raw_close_after": 7.019999980926514,
+            "reconstructed_close_before": 7.0970869064331055,
+            "reconstructed_close_after": 7.019999980926514,
+            "selected_trading_dates": [
+              "2025-12-26 00:00:00",
+              "2025-12-29 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.03,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.970873786407767,
+            "expected_raw_factor": 0.970873786407767,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "KLAC",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-06-12 00:00:00",
+            "action_type": "split",
+            "close_before": 241.16400146484375,
+            "close_after": 254.5399932861328,
+            "observed_factor": 1.055464297076025,
+            "raw_close_before": 241.16400146484375,
+            "raw_close_after": 254.5399932861328,
+            "reconstructed_close_before": 241.16400146484375,
+            "reconstructed_close_after": 254.5399932861328,
+            "selected_trading_dates": [
+              "2026-06-11 00:00:00",
+              "2026-06-12 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 10.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.1,
+            "expected_raw_factor": 0.1,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "LCID",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-09-02 00:00:00",
+            "action_type": "split",
+            "close_before": 19.799999237060547,
+            "close_after": 17.65999984741211,
+            "observed_factor": 0.8919192185804278,
+            "raw_close_before": 19.799999237060547,
+            "raw_close_after": 17.65999984741211,
+            "reconstructed_close_before": 19.799999237060547,
+            "reconstructed_close_after": 17.65999984741211,
+            "selected_trading_dates": [
+              "2025-08-29 00:00:00",
+              "2025-09-02 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.1,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 10.0,
+            "expected_raw_factor": 10.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "LILA",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-06-17 00:00:00",
+            "action_type": "split",
+            "close_before": 5.292119979858398,
+            "close_after": 5.300000190734863,
+            "observed_factor": 1.0014890461490775,
+            "raw_close_before": 5.292119979858398,
+            "raw_close_after": 5.300000190734863,
+            "reconstructed_close_before": 5.292119979858398,
+            "reconstructed_close_after": 5.300000190734863,
+            "selected_trading_dates": [
+              "2026-06-16 00:00:00",
+              "2026-06-17 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.472,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6793478260869565,
+            "expected_raw_factor": 0.6793478260869565,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "LILAK",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-06-17 00:00:00",
+            "action_type": "split",
+            "close_before": 5.292119979858398,
+            "close_after": 5.25,
+            "observed_factor": 0.9920410005784628,
+            "raw_close_before": 5.292119979858398,
+            "raw_close_after": 5.25,
+            "reconstructed_close_before": 5.292119979858398,
+            "reconstructed_close_after": 5.25,
+            "selected_trading_dates": [
+              "2026-06-16 00:00:00",
+              "2026-06-17 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.472,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6793478260869565,
+            "expected_raw_factor": 0.6793478260869565,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "LXP",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-11-11 00:00:00",
+            "action_type": "split",
+            "close_before": 47.45000076293945,
+            "close_after": 47.88999938964844,
+            "observed_factor": 1.009272889771008,
+            "raw_close_before": 47.45000076293945,
+            "raw_close_after": 47.88999938964844,
+            "reconstructed_close_before": 47.45000076293945,
+            "reconstructed_close_after": 47.88999938964844,
+            "selected_trading_dates": [
+              "2025-11-10 00:00:00",
+              "2025-11-11 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.2,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 5.0,
+            "expected_raw_factor": 5.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "MIDD",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-07 00:00:00",
+            "action_type": "split",
+            "close_before": 144.16734313964844,
+            "close_after": 139.25999450683594,
+            "observed_factor": 0.9659607472403859,
+            "raw_close_before": 144.16734313964844,
+            "raw_close_after": 139.25999450683594,
+            "reconstructed_close_before": 144.16734313964844,
+            "reconstructed_close_after": 139.25999450683594,
+            "selected_trading_dates": [
+              "2026-07-06 00:00:00",
+              "2026-07-07 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.243,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.8045052292839903,
+            "expected_raw_factor": 0.8045052292839903,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "MLI",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-01 00:00:00",
+            "action_type": "split",
+            "close_before": 61.46500015258789,
+            "close_after": 57.41999816894531,
+            "observed_factor": 0.9341901574294185,
+            "raw_close_before": 61.46500015258789,
+            "raw_close_after": 57.41999816894531,
+            "reconstructed_close_before": 61.46500015258789,
+            "reconstructed_close_after": 57.41999816894531,
+            "selected_trading_dates": [
+              "2026-06-30 00:00:00",
+              "2026-07-01 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "MQ",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-01 00:00:00",
+            "action_type": "split",
+            "close_before": 16.239999771118164,
+            "close_after": 16.6200008392334,
+            "observed_factor": 1.0233990808787474,
+            "raw_close_before": 16.239999771118164,
+            "raw_close_after": 16.6200008392334,
+            "reconstructed_close_before": 16.239999771118164,
+            "reconstructed_close_after": 16.6200008392334,
+            "selected_trading_dates": [
+              "2026-06-30 00:00:00",
+              "2026-07-01 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.25,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 4.0,
+            "expected_raw_factor": 4.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "NFLX",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-11-17 00:00:00",
+            "action_type": "split",
+            "close_before": 111.21700286865234,
+            "close_after": 110.29000091552734,
+            "observed_factor": 0.9916649259626265,
+            "raw_close_before": 111.21700286865234,
+            "raw_close_after": 110.29000091552734,
+            "reconstructed_close_before": 111.21700286865234,
+            "reconstructed_close_after": 110.29000091552734,
+            "selected_trading_dates": [
+              "2025-11-14 00:00:00",
+              "2025-11-17 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 10.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.1,
+            "expected_raw_factor": 0.1,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "NOW",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-18 00:00:00",
+            "action_type": "split",
+            "close_before": 156.47799682617188,
+            "close_after": 153.3800048828125,
+            "observed_factor": 0.9802017407802014,
+            "raw_close_before": 156.47799682617188,
+            "raw_close_after": 153.3800048828125,
+            "reconstructed_close_before": 156.47799682617188,
+            "reconstructed_close_after": 153.3800048828125,
+            "selected_trading_dates": [
+              "2025-12-17 00:00:00",
+              "2025-12-18 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 5.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.2,
+            "expected_raw_factor": 0.2,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "PIPR",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-03-24 00:00:00",
+            "action_type": "split",
+            "close_before": 74.74749755859375,
+            "close_after": 73.80999755859375,
+            "observed_factor": 0.9874577740978538,
+            "raw_close_before": 74.74749755859375,
+            "raw_close_after": 73.80999755859375,
+            "reconstructed_close_before": 74.74749755859375,
+            "reconstructed_close_after": 73.80999755859375,
+            "selected_trading_dates": [
+              "2026-03-23 00:00:00",
+              "2026-03-24 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 4.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.25,
+            "expected_raw_factor": 0.25,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "POWL",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-04-06 00:00:00",
+            "action_type": "split",
+            "close_before": 182.60333251953125,
+            "close_after": 186.72000122070312,
+            "observed_factor": 1.0225443240513234,
+            "raw_close_before": 182.60333251953125,
+            "raw_close_after": 186.72000122070312,
+            "reconstructed_close_before": 182.60333251953125,
+            "reconstructed_close_after": 186.72000122070312,
+            "selected_trading_dates": [
+              "2026-04-02 00:00:00",
+              "2026-04-06 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 3.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.3333333333333333,
+            "expected_raw_factor": 0.3333333333333333,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "PSNY",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-09 00:00:00",
+            "action_type": "split",
+            "close_before": 16.709999084472656,
+            "close_after": 18.290000915527344,
+            "observed_factor": 1.0945542739450456,
+            "raw_close_before": 16.709999084472656,
+            "raw_close_after": 18.290000915527344,
+            "reconstructed_close_before": 16.709999084472656,
+            "reconstructed_close_after": 18.290000915527344,
+            "selected_trading_dates": [
+              "2025-12-08 00:00:00",
+              "2025-12-09 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.03333333333333333,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 30.0,
+            "expected_raw_factor": 30.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "QH",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-08-25 00:00:00",
+            "action_type": "split",
+            "close_before": 5.400000095367432,
+            "close_after": 5.440000057220459,
+            "observed_factor": 1.0074074002123339,
+            "raw_close_before": 5.400000095367432,
+            "raw_close_after": 5.440000057220459,
+            "reconstructed_close_before": 5.400000095367432,
+            "reconstructed_close_after": 5.440000057220459,
+            "selected_trading_dates": [
+              "2025-08-22 00:00:00",
+              "2025-08-25 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.011111111111111112,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 90.0,
+            "expected_raw_factor": 90.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "REX",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-09-16 00:00:00",
+            "action_type": "split",
+            "close_before": 30.549999237060547,
+            "close_after": 30.459999084472656,
+            "observed_factor": 0.9970540047517019,
+            "raw_close_before": 30.549999237060547,
+            "raw_close_after": 30.459999084472656,
+            "reconstructed_close_before": 30.549999237060547,
+            "reconstructed_close_after": 30.459999084472656,
+            "selected_trading_dates": [
+              "2025-09-15 00:00:00",
+              "2025-09-16 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "SBS",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-05-07 00:00:00",
+            "action_type": "split",
+            "close_before": 6.631999969482422,
+            "close_after": 6.369999885559082,
+            "observed_factor": 0.9604945589371305,
+            "raw_close_before": 6.631999969482422,
+            "raw_close_after": 6.369999885559082,
+            "reconstructed_close_before": 6.631999969482422,
+            "reconstructed_close_after": 6.369999885559082,
+            "selected_trading_dates": [
+              "2026-05-06 00:00:00",
+              "2026-05-07 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 5.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.2,
+            "expected_raw_factor": 0.2,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "SCCO",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 4,
+        "reconciled_count": 4,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-08-15 00:00:00",
+            "action_type": "split",
+            "close_before": 94.18353271484375,
+            "close_after": 93.42008972167969,
+            "observed_factor": 0.9918940926172783,
+            "raw_close_before": 94.18353271484375,
+            "raw_close_after": 93.42008972167969,
+            "reconstructed_close_before": 91.77672123994581,
+            "reconstructed_close_after": 91.9431155140618,
+            "selected_trading_dates": [
+              "2025-08-14 00:00:00",
+              "2025-08-15 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.01,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9900990099009901,
+            "expected_raw_factor": 0.9900990099009901,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          },
+          {
+            "date": "2025-11-12 00:00:00",
+            "action_type": "split",
+            "close_before": 134.98019409179688,
+            "close_after": 134.35093688964844,
+            "observed_factor": 0.9953381515978522,
+            "raw_close_before": 134.98019409179688,
+            "raw_close_after": 134.35093688964844,
+            "reconstructed_close_before": 132.84615348225788,
+            "reconstructed_close_after": 133.28465961274645,
+            "selected_trading_dates": [
+              "2025-11-11 00:00:00",
+              "2025-11-12 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.008,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9920634920634921,
+            "expected_raw_factor": 0.9920634920634921,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-02-10 00:00:00",
+            "action_type": "split",
+            "close_before": 204.5811767578125,
+            "close_after": 196.93069458007812,
+            "observed_factor": 0.9626041735658253,
+            "raw_close_before": 204.5811767578125,
+            "raw_close_after": 196.93069458007812,
+            "reconstructed_close_before": 202.957516624814,
+            "reconstructed_close_after": 196.93069458007812,
+            "selected_trading_dates": [
+              "2026-02-09 00:00:00",
+              "2026-02-10 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.008,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9920634920634921,
+            "expected_raw_factor": 0.9920634920634921,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-05-13 00:00:00",
+            "action_type": "split",
+            "close_before": 189.8514862060547,
+            "close_after": 191.88999938964844,
+            "observed_factor": 1.0107374096686357,
+            "raw_close_before": 189.8514862060547,
+            "raw_close_after": 191.88999938964844,
+            "reconstructed_close_before": 189.8514862060547,
+            "reconstructed_close_after": 191.88999938964844,
+            "selected_trading_dates": [
+              "2026-05-12 00:00:00",
+              "2026-05-13 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.01,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.9900990099009901,
+            "expected_raw_factor": 0.9900990099009901,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "raw_unadjusted",
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "SF",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-02-27 00:00:00",
+            "action_type": "split",
+            "close_before": 78.4800033569336,
+            "close_after": 74.05000305175781,
+            "observed_factor": 0.9435524959775069,
+            "raw_close_before": 78.4800033569336,
+            "raw_close_after": 74.05000305175781,
+            "reconstructed_close_before": 78.4800033569336,
+            "reconstructed_close_after": 74.05000305175781,
+            "selected_trading_dates": [
+              "2026-02-26 00:00:00",
+              "2026-02-27 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6666666666666666,
+            "expected_raw_factor": 0.6666666666666666,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "SNEX",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 2,
+        "reconciled_count": 2,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-03-23 00:00:00",
+            "action_type": "split",
+            "close_before": 46.462223052978516,
+            "close_after": 47.28666687011719,
+            "observed_factor": 1.017744390237174,
+            "raw_close_before": 46.462223052978516,
+            "raw_close_after": 47.28666687011719,
+            "reconstructed_close_before": 46.462223052978516,
+            "reconstructed_close_after": 47.28666687011719,
+            "selected_trading_dates": [
+              "2026-03-20 00:00:00",
+              "2026-03-23 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6666666666666666,
+            "expected_raw_factor": 0.6666666666666666,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          },
+          {
+            "date": "2026-07-20 00:00:00",
+            "action_type": "split",
+            "close_before": 68.66000366210938,
+            "close_after": 70.70999908447266,
+            "observed_factor": 1.029857199432318,
+            "raw_close_before": 68.66000366210938,
+            "raw_close_after": 70.70999908447266,
+            "reconstructed_close_before": 68.66000366210938,
+            "reconstructed_close_after": 70.70999908447266,
+            "selected_trading_dates": [
+              "2026-07-17 00:00:00",
+              "2026-07-20 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.5,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.6666666666666666,
+            "expected_raw_factor": 0.6666666666666666,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "SPGI",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-01 00:00:00",
+            "action_type": "split",
+            "close_before": 385.2980041503906,
+            "close_after": 414.9700012207031,
+            "observed_factor": 1.0770105132927987,
+            "raw_close_before": 385.2980041503906,
+            "raw_close_after": 414.9700012207031,
+            "reconstructed_close_before": 385.2980041503906,
+            "reconstructed_close_after": 414.9700012207031,
+            "selected_trading_dates": [
+              "2026-06-30 00:00:00",
+              "2026-07-01 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.057,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.946073793755913,
+            "expected_raw_factor": 0.946073793755913,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "STNE",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-04-24 00:00:00",
+            "action_type": "special_distribution",
+            "close_before": 14.550000190734863,
+            "close_after": 12.220000267028809,
+            "observed_factor": 0.8398625502981264,
+            "raw_close_before": 14.550000190734863,
+            "raw_close_after": 12.220000267028809,
+            "reconstructed_close_before": 14.550000190734863,
+            "reconstructed_close_after": 12.220000267028809,
+            "selected_trading_dates": [
+              "2026-04-23 00:00:00",
+              "2026-04-24 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": null,
+            "distribution_amount": 2.53,
+            "source_price_basis": "unknown",
+            "expected_factor": 0.8261168407673939,
+            "reconciliation_method": "cash_distribution_continuity",
+            "expected_raw_factor": 0.8261168407673939,
+            "classification_reason": "cash_amount_added_back_to_close",
+            "actual_factor": 0.8398625502981264,
+            "distribution_adjusted_return": 0.013745709530732508,
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "unknown"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "SVC",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-07 00:00:00",
+            "action_type": "split",
+            "close_before": 8.699999809265137,
+            "close_after": 8.710000038146973,
+            "observed_factor": 1.0011494516208135,
+            "raw_close_before": 8.699999809265137,
+            "raw_close_after": 8.710000038146973,
+            "reconstructed_close_before": 8.699999809265137,
+            "reconstructed_close_after": 8.710000038146973,
+            "selected_trading_dates": [
+              "2026-07-06 00:00:00",
+              "2026-07-07 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.2,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 5.0,
+            "expected_raw_factor": 5.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "TPL",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-23 00:00:00",
+            "action_type": "split",
+            "close_before": 302.79998779296875,
+            "close_after": 297.3299865722656,
+            "observed_factor": 0.9819352660461694,
+            "raw_close_before": 302.79998779296875,
+            "raw_close_after": 297.3299865722656,
+            "reconstructed_close_before": 302.79998779296875,
+            "reconstructed_close_after": 297.3299865722656,
+            "selected_trading_dates": [
+              "2025-12-22 00:00:00",
+              "2025-12-23 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 3.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.3333333333333333,
+            "expected_raw_factor": 0.3333333333333333,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "TR",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-03-05 00:00:00",
+            "action_type": "split",
+            "close_before": 41.941749572753906,
+            "close_after": 41.38999938964844,
+            "observed_factor": 0.9868448457986145,
+            "raw_close_before": 41.941749572753906,
+            "raw_close_after": 41.38999938964844,
+            "reconstructed_close_before": 41.941749572753906,
+            "reconstructed_close_after": 41.38999938964844,
+            "selected_trading_dates": [
+              "2026-03-04 00:00:00",
+              "2026-03-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.03,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.970873786407767,
+            "expected_raw_factor": 0.970873786407767,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "UL",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-09 00:00:00",
+            "action_type": "split",
+            "close_before": 62.274776458740234,
+            "close_after": 64.04000091552734,
+            "observed_factor": 1.0283457373461091,
+            "raw_close_before": 62.274776458740234,
+            "raw_close_after": 64.04000091552734,
+            "reconstructed_close_before": 62.274776458740234,
+            "reconstructed_close_after": 64.04000091552734,
+            "selected_trading_dates": [
+              "2025-12-08 00:00:00",
+              "2025-12-09 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.888,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 1.1261261261261262,
+            "expected_raw_factor": 1.1261261261261262,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "UNIT",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-08-04 00:00:00",
+            "action_type": "split",
+            "close_before": 8.156146049499512,
+            "close_after": 8.09000015258789,
+            "observed_factor": 0.9918900548727079,
+            "raw_close_before": 8.156146049499512,
+            "raw_close_after": 8.09000015258789,
+            "reconstructed_close_before": 8.156146049499512,
+            "reconstructed_close_after": 8.09000015258789,
+            "selected_trading_dates": [
+              "2025-08-01 00:00:00",
+              "2025-08-04 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.602,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 1.6611295681063123,
+            "expected_raw_factor": 1.6611295681063123,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "USAS",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-08-26 00:00:00",
+            "action_type": "split",
+            "close_before": 2.450000047683716,
+            "close_after": 2.430000066757202,
+            "observed_factor": 0.9918367426378534,
+            "raw_close_before": 2.450000047683716,
+            "raw_close_after": 2.430000066757202,
+            "reconstructed_close_before": 2.450000047683716,
+            "reconstructed_close_after": 2.430000066757202,
+            "selected_trading_dates": [
+              "2025-08-25 00:00:00",
+              "2025-08-26 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.4,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 2.5,
+            "expected_raw_factor": 2.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "UTF",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-09-22 00:00:00",
+            "action_type": "split",
+            "close_before": 24.68000030517578,
+            "close_after": 24.0,
+            "observed_factor": 0.9724473137452444,
+            "raw_close_before": 24.68000030517578,
+            "raw_close_after": 24.0,
+            "reconstructed_close_before": 24.267453594076482,
+            "reconstructed_close_after": 24.0,
+            "selected_trading_dates": [
+              "2025-09-19 00:00:00",
+              "2025-09-22 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.017,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9832841691248771,
+            "expected_raw_factor": 0.9832841691248771,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "raw_unadjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "VISN",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-04-28 00:00:00",
+            "action_type": "special_distribution",
+            "close_before": 19.530000686645508,
+            "close_after": 9.899999618530273,
+            "observed_factor": 0.5069124050415335,
+            "raw_close_before": 19.530000686645508,
+            "raw_close_after": 9.899999618530273,
+            "reconstructed_close_before": 19.530000686645508,
+            "reconstructed_close_after": 9.899999618530273,
+            "selected_trading_dates": [
+              "2026-04-27 00:00:00",
+              "2026-04-28 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": null,
+            "distribution_amount": 10.0,
+            "source_price_basis": "unknown",
+            "expected_factor": 0.4879672479050174,
+            "reconciliation_method": "cash_distribution_continuity",
+            "expected_raw_factor": 0.4879672479050174,
+            "classification_reason": "cash_amount_added_back_to_close",
+            "actual_factor": 0.5069124050415335,
+            "distribution_adjusted_return": 0.01894515713651601,
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "unknown"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "VOR",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-09-19 00:00:00",
+            "action_type": "split",
+            "close_before": 30.399999618530273,
+            "close_after": 27.239999771118164,
+            "observed_factor": 0.8960526352939183,
+            "raw_close_before": 30.399999618530273,
+            "raw_close_after": 27.239999771118164,
+            "reconstructed_close_before": 30.399999618530273,
+            "reconstructed_close_after": 27.239999771118164,
+            "selected_trading_dates": [
+              "2025-09-18 00:00:00",
+              "2025-09-19 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 0.05,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 20.0,
+            "expected_raw_factor": 20.0,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "WLFC",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-07-21 00:00:00",
+            "action_type": "split",
+            "close_before": 63.119998931884766,
+            "close_after": 66.31999969482422,
+            "observed_factor": 1.0506970978626393,
+            "raw_close_before": 63.119998931884766,
+            "raw_close_after": 66.31999969482422,
+            "reconstructed_close_before": 63.119998931884766,
+            "reconstructed_close_after": 66.31999969482422,
+            "selected_trading_dates": [
+              "2026-07-20 00:00:00",
+              "2026-07-22 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 3.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.3333333333333333,
+            "expected_raw_factor": 0.3333333333333333,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "XLB",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-05 00:00:00",
+            "action_type": "split",
+            "close_before": 44.23500061035156,
+            "close_after": 44.09000015258789,
+            "observed_factor": 0.996722042370002,
+            "raw_close_before": 44.23500061035156,
+            "raw_close_after": 44.09000015258789,
+            "reconstructed_close_before": 44.23500061035156,
+            "reconstructed_close_after": 44.09000015258789,
+            "selected_trading_dates": [
+              "2025-12-04 00:00:00",
+              "2025-12-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "XLE",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-05 00:00:00",
+            "action_type": "split",
+            "close_before": 46.11000061035156,
+            "close_after": 45.91999816894531,
+            "observed_factor": 0.9958793658882842,
+            "raw_close_before": 46.11000061035156,
+            "raw_close_after": 45.91999816894531,
+            "reconstructed_close_before": 46.11000061035156,
+            "reconstructed_close_after": 45.91999816894531,
+            "selected_trading_dates": [
+              "2025-12-04 00:00:00",
+              "2025-12-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "XLK",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-05 00:00:00",
+            "action_type": "split",
+            "close_before": 145.53500366210938,
+            "close_after": 146.60000610351562,
+            "observed_factor": 1.0073178439180095,
+            "raw_close_before": 145.53500366210938,
+            "raw_close_after": 146.60000610351562,
+            "reconstructed_close_before": 145.53500366210938,
+            "reconstructed_close_after": 146.60000610351562,
+            "selected_trading_dates": [
+              "2025-12-04 00:00:00",
+              "2025-12-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "XLU",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-05 00:00:00",
+            "action_type": "split",
+            "close_before": 43.709999084472656,
+            "close_after": 43.29999923706055,
+            "observed_factor": 0.9906199987188342,
+            "raw_close_before": 43.709999084472656,
+            "raw_close_after": 43.29999923706055,
+            "reconstructed_close_before": 43.709999084472656,
+            "reconstructed_close_after": 43.29999923706055,
+            "selected_trading_dates": [
+              "2025-12-04 00:00:00",
+              "2025-12-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "XLY",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2025-12-05 00:00:00",
+            "action_type": "split",
+            "close_before": 119.06999969482422,
+            "close_after": 119.7300033569336,
+            "observed_factor": 1.0055429886940537,
+            "raw_close_before": 119.06999969482422,
+            "raw_close_after": 119.7300033569336,
+            "reconstructed_close_before": 119.06999969482422,
+            "reconstructed_close_after": 119.7300033569336,
+            "selected_trading_dates": [
+              "2025-12-04 00:00:00",
+              "2025-12-05 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 2.0,
+            "distribution_amount": null,
+            "source_price_basis": "split_adjusted",
+            "expected_factor": 0.5,
+            "expected_raw_factor": 0.5,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "close_continuous_across_declared_split",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      }
+    ],
+    "fallback_attempted_count": 0,
+    "fallback_succeeded_count": 0,
+    "fallback_failed_count": 0,
+    "fallback_elapsed_seconds": 0.0,
+    "provider_error_reason_counts": {},
+    "unreconciled_details": [],
+    "adjusted_price_continuity_check": "passed"
+  },
+  "schema_version": "2.0",
+  "config_version": "2026-07-schema-2.0",
+  "config_hash": "ea3f00434f192ce01e61be1dac7dca7e60985abdd04492bfd48674f8f8efcfda",
+  "snapshot_manifest": "manifest.json",
+  "market_data_cutoff_at": "2026-07-31T20:00:00+00:00",
+  "timezone": "America/New_York",
+  "first_tradable_at": "2026-08-03T13:30:00+00:00",
+  "entry_price_status": "pending",
+  "entry_price_type": "next_session_open",
+  "entry_policy": "next_session_open_after_information_cutoff",
+  "price_return_definition": "price-only split-adjusted return excluding dividends",
+  "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
+  "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
+  "repository": "Hughey-T/Daily-US-Stock-Screen"
+}
