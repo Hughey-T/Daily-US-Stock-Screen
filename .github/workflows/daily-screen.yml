@@ -73,6 +73,12 @@ jobs:
           python scripts/check_status.py
           python scripts/validate_v2_records.py
 
+      - name: Publish rank-blind analysis projection
+        run: |
+          snapshot=$(python -c "import json; print('docs/'+json.load(open('docs/manifest.json'))['snapshot_path'])")
+          python scripts/process_analysis_request.py publish-blind --snapshot "$snapshot"
+          python scripts/validate_analysis_contracts.py
+
       # Publication is deliberately after both semantic validators. A failed
       # attempt remains available in the job log/artifact but cannot advance the
       # mutable manifest or publish an incomplete immutable generation.

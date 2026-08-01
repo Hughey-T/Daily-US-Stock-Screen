@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hughey-T/Daily-US-Stock-Screen/schemas/v3.0/ai-assessment.schema.json",
+  "title": "Independent AI assessment artifact 3.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["analysis_contract_version", "generation_id", "candidate_set_id", "evidence_cutoff", "assessments"],
+  "properties": {
+    "analysis_contract_version": {"const": "3.0"},
+    "generation_id": {"type": "string", "pattern": "^gen_[0-9a-f]{64}$"},
+    "candidate_set_id": {"type": "string", "pattern": "^cset_[0-9a-f]{64}$"},
+    "evidence_cutoff": {"type": "string", "format": "date-time"},
+    "assessments": {"type": "array", "items": {"$ref": "#/$defs/assessment"}}
+  },
+  "$defs": {
+    "likelihood": {"type": "object", "additionalProperties": false, "required": ["value", "basis", "status"], "properties": {"value": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "basis": {"type": "string"}, "status": {"enum": ["estimated", "not_evaluable"]}}},
+    "assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_id", "generation_id", "analysis_as_of", "evidence_cutoff", "ai_assessment_status", "observed_move_summary", "primary_hypothesis", "causal_chain", "alternative_hypotheses", "counterevidence", "data_anomaly_likelihood", "event_explained_likelihood", "residual_mispricing_likelihood", "residual_mispricing_direction", "expected_resolution_horizon", "catalysts", "invalidation_conditions", "uncertainties", "additional_research", "downstream_suitability", "mechanical_agreement", "confidence", "evidence_refs"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1}, "generation_id": {"type": "string"}, "analysis_as_of": {"type": "string", "format": "date-time"}, "evidence_cutoff": {"type": "string", "format": "date-time"},
+        "ai_assessment_status": {"enum": ["assessed", "partially_assessed", "not_assessed", "insufficient_evidence", "not_applicable"]},
+        "observed_move_summary": {"type": "string"}, "primary_hypothesis": {"type": "string"}, "causal_chain": {"type": "array", "items": {"type": "string"}}, "alternative_hypotheses": {"type": "array", "items": {"type": "string"}}, "counterevidence": {"type": "array", "items": {"type": "string"}},
+        "data_anomaly_likelihood": {"$ref": "#/$defs/likelihood"}, "event_explained_likelihood": {"$ref": "#/$defs/likelihood"}, "residual_mispricing_likelihood": {"$ref": "#/$defs/likelihood"},
+        "residual_mispricing_direction": {"enum": ["upside", "downside", "two_sided", "none_identified", "not_evaluable"]}, "expected_resolution_horizon": {"enum": ["days", "weeks", "months", "longer_term", "unknown"]},
+        "catalysts": {"type": "array", "items": {"type": "string"}}, "invalidation_conditions": {"type": "array", "items": {"type": "string"}}, "uncertainties": {"type": "array", "items": {"type": "string"}}, "additional_research": {"type": "array", "items": {"type": "string"}}, "downstream_suitability": {"type": "string"},
+        "mechanical_agreement": {"enum": ["AGREE", "PARTIALLY_AGREE", "DISAGREE", "INSUFFICIENT_EVIDENCE"]}, "confidence": {"$ref": "#/$defs/likelihood"}, "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

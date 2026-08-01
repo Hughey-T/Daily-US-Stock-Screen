@@ -123,7 +123,7 @@ Before either route is generated, explicit split/reverse-split/stock-distributio
 
 The analysis uses a **next-session tradable-open policy**. Market cutoff, information cutoff, prediction creation, first tradable time and entry-price timestamp are timezone-aware. Information available after the prior close but before the next open may be used only with that next open as entry; future information can never be paired with a historical close.
 
-The canonical Custom GPT workflow is seven Phases: (1) snapshot/quality, (2) every event and quiet row, (3) deterministic research set and matched comparisons, (4) common plus industry-specific primary research, (5) value/reaction-gap ranges, (6) immutable prediction persistence/index integrity, and (7) summary without new research. Normal controls remain `更新` and `次`; independent outcome verification is `検証`.
+The former schema 2.0 seven-Phase workflow is retained only as historical context. Contract 3.0 below supersedes it with eight initial Phases and three update Phases. The only controls are exact `更新` and `次`; outcome verification is a deterministic runtime concern rather than a user command.
 
 This system detects abnormal movement, investigates causes, forms a testable hypothesis about price reaction versus fundamental-value change, prioritizes individual analysis, separates special situations/data artifacts/unknowns, and creates future-verifiable predictions. Unless valuation is sufficiently complete, it **does not establish that a security is mispriced**.
 
@@ -135,9 +135,17 @@ verifications` calculates due outcomes without editing predictions. Local record
 registration stops at `indexed_local`; `Verify GitHub persistence` proves the
 commit, branch, remote bytes and index before reporting `integrity_verified`.
 The repository does **not** contain an authenticated Custom GPT write Action, so
-Phase 6 persistence from ChatGPT remains explicitly blocked and cannot be called
+AI-artifact persistence from ChatGPT remains explicitly blocked and cannot be called
 保存済み without a separately deployed, secured writer.
 
 ### Custom GPT secure persistence queue
 
-Phase 6 uses a fixed-repository GitHub Issue as an audited write request. The GPT's GitHub App has only Issues read/write; trusted code on `main` validates the original opened-event payload, derives prediction records server-side, appends them, and reports success only after commit/branch remote-byte verification. One-time setup and the privacy/security boundaries are documented in [`docs/custom-gpt-write-setup.md`](docs/custom-gpt-write-setup.md), [`docs/custom-gpt-write-security.md`](docs/custom-gpt-write-security.md), and [`docs/gpt-action-privacy.md`](docs/gpt-action-privacy.md).
+The legacy prediction writer uses a fixed-repository GitHub Issue as an audited write request. The GPT's GitHub App has only Issues read/write; trusted code on `main` validates the original opened-event payload, derives prediction records server-side, appends them, and reports success only after commit/branch remote-byte verification. One-time setup and the privacy/security boundaries are documented in [`docs/custom-gpt-write-setup.md`](docs/custom-gpt-write-setup.md), [`docs/custom-gpt-write-security.md`](docs/custom-gpt-write-security.md), and [`docs/gpt-action-privacy.md`](docs/gpt-action-privacy.md).
+
+## Contract 3.0: mechanical screening + independent AI reasoning
+
+The screening producer remains deterministic and owns immutable `FACTS` and `MECHANICAL_SIGNALS`; Custom GPT may only add a separately validated and locked `AI_JUDGMENTS` artifact. Deterministic runtime then derives a separate research-priority `INTEGRATED_DECISION`. AI never changes a number, rank, missing state, candidate set or hard exclusion. This is not an automated trading system and includes no LLM API, brokerage integration, order placement or position sizing.
+
+Initial analysis now uses eight one-response Phases and updates use three. Blind AI input excludes mechanical rank and prior conclusions; reconciliation exposes them only after the AI artifact is hashed and locked. Exploratory proposals are isolated and are **not formal candidates** until a later mechanical admission. Individual Stock Analysis must receive blind intake before reconciliation handoff. An append-only ledger preserves machine-only, AI-only and integrated decisions so later outcomes can measure whether AI added value without leaking future data.
+
+Contract shapes and cross-object validation are in `schemas/v3.0/` and `src/ai_analysis.py`. Architecture, state/update behavior, publication failure policy, migration, security boundary, compliance and test matrix are documented in [`docs/architecture-3.0.md`](docs/architecture-3.0.md). [`CHATGPT_PROMPT.md`](CHATGPT_PROMPT.md) is the sole normative prose instruction for the Custom GPT and can be pasted directly into its setup.
