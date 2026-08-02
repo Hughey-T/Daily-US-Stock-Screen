@@ -5,6 +5,7 @@ import subprocess
 import tempfile
 import unittest
 import uuid
+from copy import deepcopy
 from pathlib import Path
 
 from src.ai_analysis import canonical_hash
@@ -74,7 +75,7 @@ class ProductionRuntimeE2E(unittest.TestCase):
                         "uncertainties": ["demand"],
                         "additional_research": ["filing review"],
                         "downstream_suitability": "advance",
-                        "mechanical_agreement": "AGREE",
+                        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
                         "confidence": likelihood(0.6),
                         "evidence_refs": [f"ev_{index}"],
                     }
@@ -111,13 +112,52 @@ class ProductionRuntimeE2E(unittest.TestCase):
             self.assertEqual(len(bundle["reconciliation_projection"]), len(candidates))
             self.assertEqual(len(bundle["decision_ledger"]), len(candidates))
             self.assertEqual(len(bundle["blind_handoffs"]), len(candidates))
+            self.assertTrue(all(item["comparison_status"] == "AGREE" for item in bundle["reconciliation_projection"]))
+            self.assertTrue(
+                all(
+                    item["integration_basis"]["reason_code"] == "RESIDUAL_MISPRICING_HIGH"
+                    for item in bundle["integrated_decisions"]
+                )
+            )
+            self.assertTrue(
+                all(item["decision"] == "ADVANCE_TO_INDIVIDUAL_ANALYSIS" for item in bundle["integrated_decisions"])
+            )
+            self.assertNotIn(
+                "INSUFFICIENT_EVIDENCE",
+                {item["comparison_status"] for item in bundle["reconciliation_projection"]},
+            )
 
-            subprocess.run(
+            legacy_bundle = deepcopy(bundle)
+            legacy_bundle.pop("reconciliation_contract_revision")
+            for item in legacy_bundle["reconciliation_projection"]:
+                item.pop("integrated_decision")
+                item.pop("comparison_status")
+                item.pop("integration_basis")
+            for item in legacy_bundle["integrated_decisions"]:
+                item.pop("comparison_status")
+                item.pop("integration_basis")
+            for item in legacy_bundle["reconciliation_handoffs"]:
+                item.pop("comparison_status")
+                item.pop("integration_basis")
+                item["disagreement"] = "INSUFFICIENT_EVIDENCE"
+            legacy_bundle_id = "analysis_" + canonical_hash(legacy_bundle)
+            legacy_path = bundle_path.parent / f"{legacy_bundle_id}.json"
+            legacy_path.write_text(json.dumps(legacy_bundle, sort_keys=True, indent=2) + "\n")
+            ledger["requests"][0]["bundle_id"] = legacy_bundle_id
+            ledger["requests"][0]["path"] = legacy_path.relative_to(root).as_posix()
+            (root / "docs/analysis/v3/write-ledger.json").write_text(
+                json.dumps(ledger, sort_keys=True, indent=2) + "\n"
+            )
+
+            replay = subprocess.run(
                 cli + ["persist-assessment", "--snapshot", relative_snapshot, "--request", str(request_path)],
                 check=True,
                 env=env,
                 capture_output=True,
+                text=True,
             )
+            replay_result = json.loads(replay.stdout)
+            self.assertEqual(replay_result["path"], bundle_path.relative_to(root).as_posix())
             self.assertEqual(len(json.loads((root / "docs/analysis/v3/write-ledger.json").read_text())["requests"]), 1)
             modified = json.loads(request_path.read_text())
             modified["artifact"]["assessments"][0]["primary_hypothesis"] = "rewritten"

@@ -1,6 +1,6 @@
 """Production persistence boundary for contract 3.0 analysis artifacts.
 
-The GitHub Issue workflow is the only writer.  This module derives candidates
+The GitHub Issue workflow is the only writer. This module derives candidates
 from the pinned machine generation, calls :mod:`src.ai_analysis` validators,
 and writes content-addressed, append-only artifacts for public read-back.
 """
@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 from typing import Any, cast
@@ -18,12 +19,16 @@ from src.ai_analysis import (
     candidate_set_id,
     canonical_hash,
     integrate,
+    integration_basis,
     reconcile,
+    reconciliation_status,
     strict_json_loads,
     validate_assessments,
     validate_ledger,
 )
 from src.integrity import verify_snapshot
+
+RECONCILIATION_REVISION = "phase5-runtime-v1"
 
 
 class RuntimeRequestError(ValueError):
@@ -39,6 +44,92 @@ def _write_new(path: Path, value: Any) -> str:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(data)
     return hashlib.sha256(data).hexdigest()
+
+
+def _candidate_index(items: Any, section: str) -> dict[str, dict[str, Any]]:
+    if not isinstance(items, list):
+        raise RuntimeRequestError(f"RECONCILIATION_SECTION_NOT_ARRAY:{section}")
+    indexed: dict[str, dict[str, Any]] = {}
+    for item in items:
+        if not isinstance(item, dict) or not isinstance(item.get("candidate_id"), str):
+            raise RuntimeRequestError(f"RECONCILIATION_CANDIDATE_INVALID:{section}")
+        candidate_id = item["candidate_id"]
+        if candidate_id in indexed:
+            raise RuntimeRequestError(f"RECONCILIATION_CANDIDATE_DUPLICATE:{section}")
+        indexed[candidate_id] = item
+    return indexed
+
+
+def upgrade_reconciliation_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
+    """Derive runtime-owned Phase 5 fields for both current and legacy bundles."""
+    updated = deepcopy(bundle)
+    projection = _candidate_index(updated.get("reconciliation_projection"), "reconciliation_projection")
+    decisions = _candidate_index(updated.get("integrated_decisions"), "integrated_decisions")
+    handoffs = _candidate_index(updated.get("reconciliation_handoffs"), "reconciliation_handoffs")
+    ledger = _candidate_index(updated.get("decision_ledger"), "decision_ledger")
+    candidate_ids = list(projection)
+    expected = set(candidate_ids)
+    if not candidate_ids or any(set(indexed) != expected for indexed in (decisions, handoffs, ledger)):
+        raise RuntimeRequestError("RECONCILIATION_CANDIDATE_COVERAGE_MISMATCH")
+
+    for candidate_id in candidate_ids:
+        joined = projection[candidate_id]
+        signals = joined.get("mechanical_signals")
+        assessment = joined.get("ai_judgment")
+        if not isinstance(signals, dict) or not isinstance(assessment, dict):
+            raise RuntimeRequestError("RECONCILIATION_INPUTS_INCOMPLETE")
+        candidate = {"mechanical_signals": signals}
+        decision = integrate(candidate, assessment)
+        basis = integration_basis(candidate, assessment, decision)
+        comparison_status = reconciliation_status(candidate, assessment, decision)
+
+        joined["integrated_decision"] = decision
+        joined["comparison_status"] = comparison_status
+        joined["integration_basis"] = basis
+
+        decision_item = decisions[candidate_id]
+        decision_item["decision"] = decision
+        decision_item["comparison_status"] = comparison_status
+        decision_item["integration_basis"] = basis
+
+        handoff = handoffs[candidate_id]
+        handoff["integrated_decision"] = decision
+        handoff["comparison_status"] = comparison_status
+        handoff["integration_basis"] = basis
+        handoff["disagreement"] = comparison_status
+
+        decision_layers = ledger[candidate_id].get("decisions")
+        if not isinstance(decision_layers, dict):
+            raise RuntimeRequestError("RECONCILIATION_LEDGER_INVALID")
+        decision_layers["integrated"] = decision
+
+    updated["reconciliation_contract_revision"] = RECONCILIATION_REVISION
+    validate_ledger(updated["decision_ledger"])
+    return updated
+
+
+def _write_bundle_result(root: Path, bundle: dict[str, Any], status: str) -> dict[str, Any]:
+    generation_id = bundle.get("generation_id")
+    if not isinstance(generation_id, str):
+        raise RuntimeRequestError("BUNDLE_GENERATION_INVALID")
+    base = root / "docs/analysis/v3" / generation_id
+    bundle_id = "analysis_" + canonical_hash(bundle)
+    bundle_path = base / "sessions" / f"{bundle_id}.json"
+    bundle_sha = _write_new(bundle_path, bundle)
+    index = {
+        "analysis_contract_version": "3.0",
+        "generation_id": generation_id,
+        "active_bundle_path": bundle_path.relative_to(root).as_posix(),
+        "active_bundle_sha256": bundle_sha,
+    }
+    _write_new(base / "index" / f"{bundle_id}.json", index)
+    return {
+        "status": status,
+        "bundle_id": bundle_id,
+        "path": bundle_path.relative_to(root).as_posix(),
+        "sha256": bundle_sha,
+        "bundle": bundle,
+    }
 
 
 def candidates_from_snapshot(snapshot_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -123,12 +214,18 @@ def persist_assessment(root: Path, snapshot_path: Path, request: dict[str, Any])
         if by_id["artifact_hash"] != request_payload_hash:
             raise RuntimeRequestError("REQUEST_ID_PAYLOAD_CONFLICT")
         stored = root / by_id["path"]
+        stored_bundle = strict_json_loads(stored.read_bytes())
+        if not isinstance(stored_bundle, dict):
+            raise RuntimeRequestError("STORED_BUNDLE_INVALID")
+        upgraded = upgrade_reconciliation_bundle(stored_bundle)
+        if upgraded != stored_bundle:
+            return _write_bundle_result(root, upgraded, "idempotent_replay_migrated")
         return {
             "status": "idempotent_replay",
             "bundle_id": by_id["bundle_id"],
             "path": by_id["path"],
             "sha256": hashlib.sha256(stored.read_bytes()).hexdigest(),
-            "bundle": strict_json_loads(stored.read_bytes()),
+            "bundle": stored_bundle,
         }
     if any(entry["nonce"] == request["nonce"] for entry in ledger_state["requests"]):
         raise RuntimeRequestError("NONCE_REUSED")
@@ -232,36 +329,22 @@ def persist_assessment(root: Path, snapshot_path: Path, request: dict[str, Any])
         _write_new(superseded_path, superseded)
         bundle["superseded_handoff_artifact_path"] = superseded_path.relative_to(root).as_posix()
         bundle["previous_generation_id"] = previous["generation_id"]
-    bundle_id = "analysis_" + canonical_hash(bundle)
-    bundle_path = base / "sessions" / f"{bundle_id}.json"
-    bundle_sha = _write_new(bundle_path, bundle)
-    index = {
-        "analysis_contract_version": "3.0",
-        "generation_id": snapshot["generation_id"],
-        "active_bundle_path": bundle_path.relative_to(root).as_posix(),
-        "active_bundle_sha256": bundle_sha,
-    }
-    _write_new(base / "index" / f"{bundle_id}.json", index)
+    bundle = upgrade_reconciliation_bundle(bundle)
+    result = _write_bundle_result(root, bundle, "persisted")
     ledger_state["requests"].append(
         {
             "request_id": request["request_id"],
             "nonce": request["nonce"],
             "artifact_hash": request_payload_hash,
-            "bundle_id": bundle_id,
-            "path": bundle_path.relative_to(root).as_posix(),
+            "bundle_id": result["bundle_id"],
+            "path": result["path"],
             "recorded_at": request["submitted_at"],
         }
     )
     # The ledger is an append-only index: existing entries are never modified.
     ledger_path.parent.mkdir(parents=True, exist_ok=True)
     ledger_path.write_text(json.dumps(ledger_state, sort_keys=True, indent=2) + "\n")
-    return {
-        "status": "persisted",
-        "bundle_id": bundle_id,
-        "path": bundle_path.relative_to(root).as_posix(),
-        "sha256": bundle_sha,
-        "bundle": bundle,
-    }
+    return result
 
 
 def verify_readback(root: Path, result: dict[str, Any]) -> dict[str, Any]:

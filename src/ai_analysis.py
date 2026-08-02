@@ -1,6 +1,6 @@
 """Fail-closed contracts for independent AI analysis (contract 3.0).
 
-This module never fetches prices or invokes an LLM.  It validates and advances
+This module never fetches prices or invokes an LLM. It validates and advances
 artifacts supplied by a Custom GPT while preserving producer-owned objects.
 """
 
@@ -93,6 +93,8 @@ def validate_assessments(artifact: dict[str, Any], candidates: list[dict[str, An
         candidate = expected[assessment["candidate_id"]]
         if assessment["generation_id"] != candidate["generation_id"]:
             raise AnalysisIntegrityError("mixed generation")
+        if assessment["mechanical_agreement"] != "INSUFFICIENT_EVIDENCE":
+            raise AnalysisIntegrityError("blind assessment cannot claim mechanical agreement")
         refs = assessment["evidence_refs"]
         if len(refs) != len(set(refs)) or not set(refs).issubset(known_evidence):
             raise AnalysisIntegrityError("unknown or duplicate evidence")
@@ -141,23 +143,109 @@ def reconcile(candidates: list[dict[str, Any]], artifact: dict[str, Any], ai_has
     ]
 
 
+def _likelihood_value(assessment: dict[str, Any], field: str) -> float | None:
+    likelihood = assessment.get(field, {})
+    value = likelihood.get("value")
+    if likelihood.get("status") != "estimated" or isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    return float(value)
+
+
 def integrate(candidate: dict[str, Any], assessment: dict[str, Any]) -> str:
     """Apply non-overridable quality gates and conservative research policy."""
     signals = candidate["mechanical_signals"]
     if signals.get("hard_exclusions") or signals.get("quality_gate") != "passed":
         return "REJECT_DATA_ANOMALY"
-    if assessment["ai_assessment_status"] in {"not_assessed", "insufficient_evidence", "partially_assessed"}:
+    if assessment["ai_assessment_status"] in {
+        "not_assessed",
+        "insufficient_evidence",
+        "partially_assessed",
+        "not_applicable",
+    }:
         return "INSUFFICIENT_EVIDENCE"
-    if assessment["data_anomaly_likelihood"]["value"] >= 0.7:
+
+    data_anomaly = _likelihood_value(assessment, "data_anomaly_likelihood")
+    event_explained = _likelihood_value(assessment, "event_explained_likelihood")
+    residual_mispricing = _likelihood_value(assessment, "residual_mispricing_likelihood")
+    if data_anomaly is None or event_explained is None or residual_mispricing is None:
+        return "INSUFFICIENT_EVIDENCE"
+    if data_anomaly >= 0.7:
         return "REJECT_DATA_ANOMALY"
-    if (
-        assessment["event_explained_likelihood"]["value"] >= 0.8
-        and assessment["residual_mispricing_likelihood"]["value"] < 0.4
-    ):
+    if event_explained >= 0.8 and residual_mispricing < 0.4:
         return "REJECT_EXPLAINED_MOVE"
-    if assessment["residual_mispricing_likelihood"]["value"] >= 0.7:
+    if residual_mispricing >= 0.7:
         return "ADVANCE_TO_INDIVIDUAL_ANALYSIS"
     return "MONITOR"
+
+
+def integration_basis(
+    candidate: dict[str, Any],
+    assessment: dict[str, Any],
+    decision: str | None = None,
+) -> dict[str, Any]:
+    """Return the runtime-owned reason and inputs for an integrated decision."""
+    signals = candidate["mechanical_signals"]
+    hard_exclusions = deepcopy(signals.get("hard_exclusions", []))
+    inputs = {
+        "quality_gate": signals.get("quality_gate"),
+        "hard_exclusions": hard_exclusions,
+        "ai_assessment_status": assessment["ai_assessment_status"],
+        "data_anomaly_likelihood": _likelihood_value(assessment, "data_anomaly_likelihood"),
+        "event_explained_likelihood": _likelihood_value(assessment, "event_explained_likelihood"),
+        "residual_mispricing_likelihood": _likelihood_value(assessment, "residual_mispricing_likelihood"),
+    }
+    resolved = decision or integrate(candidate, assessment)
+
+    if hard_exclusions:
+        reason_code = "MECHANICAL_HARD_EXCLUSION"
+    elif signals.get("quality_gate") != "passed":
+        reason_code = "MECHANICAL_QUALITY_GATE_FAILED"
+    elif assessment["ai_assessment_status"] in {
+        "not_assessed",
+        "insufficient_evidence",
+        "partially_assessed",
+        "not_applicable",
+    }:
+        reason_code = "AI_ASSESSMENT_INCOMPLETE"
+    elif any(
+        inputs[field] is None
+        for field in (
+            "data_anomaly_likelihood",
+            "event_explained_likelihood",
+            "residual_mispricing_likelihood",
+        )
+    ):
+        reason_code = "LIKELIHOODS_NOT_EVALUABLE"
+    elif resolved == "REJECT_DATA_ANOMALY":
+        reason_code = "AI_DATA_ANOMALY_HIGH"
+    elif resolved == "REJECT_EXPLAINED_MOVE":
+        reason_code = "MOVE_LARGELY_EXPLAINED"
+    elif resolved == "ADVANCE_TO_INDIVIDUAL_ANALYSIS":
+        reason_code = "RESIDUAL_MISPRICING_HIGH"
+    else:
+        reason_code = "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+
+    return {"reason_code": reason_code, "decision_inputs": inputs}
+
+
+def reconciliation_status(
+    candidate: dict[str, Any],
+    assessment: dict[str, Any],
+    decision: str | None = None,
+) -> str:
+    """Compare whether independent analysis confirms escalation of a screened candidate."""
+    signals = candidate["mechanical_signals"]
+    if signals.get("hard_exclusions") or signals.get("quality_gate") != "passed":
+        return "NOT_COMPARABLE_HARD_GATE"
+
+    resolved = decision or integrate(candidate, assessment)
+    if resolved == "INSUFFICIENT_EVIDENCE":
+        return "INSUFFICIENT_EVIDENCE"
+    if resolved == "ADVANCE_TO_INDIVIDUAL_ANALYSIS":
+        return "AGREE"
+    if resolved == "MONITOR":
+        return "PARTIALLY_AGREE"
+    return "DISAGREE"
 
 
 def validate_ledger(records: list[dict[str, Any]]) -> None:

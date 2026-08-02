@@ -23,7 +23,7 @@
         "data_anomaly_likelihood": {"$ref": "#/$defs/likelihood"}, "event_explained_likelihood": {"$ref": "#/$defs/likelihood"}, "residual_mispricing_likelihood": {"$ref": "#/$defs/likelihood"},
         "residual_mispricing_direction": {"enum": ["upside", "downside", "two_sided", "none_identified", "not_evaluable"]}, "expected_resolution_horizon": {"enum": ["days", "weeks", "months", "longer_term", "unknown"]},
         "catalysts": {"type": "array", "items": {"type": "string"}}, "invalidation_conditions": {"type": "array", "items": {"type": "string"}}, "uncertainties": {"type": "array", "items": {"type": "string"}}, "additional_research": {"type": "array", "items": {"type": "string"}}, "downstream_suitability": {"type": "string"},
-        "mechanical_agreement": {"enum": ["AGREE", "PARTIALLY_AGREE", "DISAGREE", "INSUFFICIENT_EVIDENCE"]}, "confidence": {"$ref": "#/$defs/likelihood"}, "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        "mechanical_agreement": {"const": "INSUFFICIENT_EVIDENCE", "description": "Blind-phase placeholder only; runtime derives comparison_status after persistence."}, "confidence": {"$ref": "#/$defs/likelihood"}, "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
       }
     }
   }

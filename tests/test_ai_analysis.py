@@ -9,7 +9,9 @@ from src.ai_analysis import (
     blind_projection,
     candidate_set_id,
     integrate,
+    integration_basis,
     reconcile,
+    reconciliation_status,
     strict_json_loads,
     validate_assessments,
     validate_ledger,
@@ -62,7 +64,7 @@ def assessment():
         "uncertainties": ["demand"],
         "additional_research": ["10-Q"],
         "downstream_suitability": "suitable",
-        "mechanical_agreement": "AGREE",
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
         "confidence": likelihood(0.7),
         "evidence_refs": ["ev1"],
     }
@@ -132,6 +134,12 @@ class AnalysisContractTests(unittest.TestCase):
         payload["locked_at"] = "2026-07-31T21:01:00Z"
         self.assertEqual(reconcile([CANDIDATE], payload, digest)[0]["mechanical_signals"]["mechanical_rank"], 1)
 
+    def test_blind_assessment_cannot_claim_mechanical_agreement(self):
+        payload = artifact()
+        payload["assessments"][0]["mechanical_agreement"] = "AGREE"
+        with self.assertRaises(AnalysisIntegrityError):
+            validate_assessments(payload, [CANDIDATE], self.schema)
+
     def test_reconciliation_before_lock_rejected(self):
         with self.assertRaises(AnalysisIntegrityError):
             reconcile([CANDIDATE], artifact(), "wrong")
@@ -151,12 +159,11 @@ class AnalysisContractTests(unittest.TestCase):
             with self.assertRaises(AnalysisIntegrityError):
                 validate_assessments(value, [CANDIDATE], self.schema)
 
-    def test_probability_and_enum_schema_rejected(self):
-        for field, value in (("confidence", likelihood(1.1)), ("mechanical_agreement", "MAYBE")):
-            payload = artifact()
-            payload["assessments"][0][field] = value
-            with self.assertRaises(AnalysisIntegrityError):
-                validate_assessments(payload, [CANDIDATE], self.schema)
+    def test_probability_schema_rejected(self):
+        payload = artifact()
+        payload["assessments"][0]["confidence"] = likelihood(1.1)
+        with self.assertRaises(AnalysisIntegrityError):
+            validate_assessments(payload, [CANDIDATE], self.schema)
 
     def test_future_timing_rejected(self):
         payload = artifact()
@@ -168,22 +175,50 @@ class AnalysisContractTests(unittest.TestCase):
         candidate = deepcopy(CANDIDATE)
         candidate["mechanical_signals"]["hard_exclusions"] = ["DATA_ANOMALY"]
         self.assertEqual(integrate(candidate, assessment()), "REJECT_DATA_ANOMALY")
+        self.assertEqual(reconciliation_status(candidate, assessment()), "NOT_COMPARABLE_HARD_GATE")
+        self.assertEqual(integration_basis(candidate, assessment())["reason_code"], "MECHANICAL_HARD_EXCLUSION")
 
-    def test_integration_outcomes(self):
-        self.assertEqual(integrate(CANDIDATE, assessment()), "ADVANCE_TO_INDIVIDUAL_ANALYSIS")
+    def test_integration_outcomes_and_runtime_reconciliation(self):
+        cases = []
+
+        ai = assessment()
+        cases.append((ai, "ADVANCE_TO_INDIVIDUAL_ANALYSIS", "AGREE", "RESIDUAL_MISPRICING_HIGH"))
+
         ai = assessment()
         ai["ai_assessment_status"] = "insufficient_evidence"
-        self.assertEqual(integrate(CANDIDATE, ai), "INSUFFICIENT_EVIDENCE")
+        cases.append((ai, "INSUFFICIENT_EVIDENCE", "INSUFFICIENT_EVIDENCE", "AI_ASSESSMENT_INCOMPLETE"))
+
         ai = assessment()
         ai["data_anomaly_likelihood"] = likelihood(0.8)
-        self.assertEqual(integrate(CANDIDATE, ai), "REJECT_DATA_ANOMALY")
+        cases.append((ai, "REJECT_DATA_ANOMALY", "DISAGREE", "AI_DATA_ANOMALY_HIGH"))
+
         ai = assessment()
         ai["event_explained_likelihood"] = likelihood(0.9)
         ai["residual_mispricing_likelihood"] = likelihood(0.2)
-        self.assertEqual(integrate(CANDIDATE, ai), "REJECT_EXPLAINED_MOVE")
+        cases.append((ai, "REJECT_EXPLAINED_MOVE", "DISAGREE", "MOVE_LARGELY_EXPLAINED"))
+
         ai = assessment()
         ai["residual_mispricing_likelihood"] = likelihood(0.5)
-        self.assertEqual(integrate(CANDIDATE, ai), "MONITOR")
+        cases.append((ai, "MONITOR", "PARTIALLY_AGREE", "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"))
+
+        ai = assessment()
+        ai["residual_mispricing_likelihood"] = {
+            "value": None,
+            "basis": "not enough evidence",
+            "status": "not_evaluable",
+        }
+        cases.append((ai, "INSUFFICIENT_EVIDENCE", "INSUFFICIENT_EVIDENCE", "LIKELIHOODS_NOT_EVALUABLE"))
+
+        for ai, decision, comparison, reason in cases:
+            with self.subTest(decision=decision):
+                self.assertEqual(integrate(CANDIDATE, ai), decision)
+                self.assertEqual(reconciliation_status(CANDIDATE, ai), comparison)
+                self.assertEqual(integration_basis(CANDIDATE, ai)["reason_code"], reason)
+
+    def test_runtime_ignores_blind_placeholder_for_reconciliation(self):
+        ai = assessment()
+        self.assertEqual(ai["mechanical_agreement"], "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(reconciliation_status(CANDIDATE, ai), "AGREE")
 
     def test_strict_json(self):
         self.assertEqual(strict_json_loads(b'{"a":1}'), {"a": 1})
