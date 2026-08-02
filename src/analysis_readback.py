@@ -62,6 +62,9 @@ def _safe_path(root: Path, relative: str) -> Path:
 
 
 def _read_descriptor(root: Path, descriptor: dict[str, Any]) -> dict[str, Any]:
+    required = {"path", "raw_sha256", "canonical_sha256", "byte_length"}
+    if not required.issubset(descriptor):
+        raise AnalysisReadbackError("READBACK_DESCRIPTOR_INCOMPLETE")
     path = _safe_path(root, descriptor["path"])
     data = path.read_bytes()
     if len(data) != descriptor["byte_length"]:
@@ -191,13 +194,19 @@ def verify_split_readback(root: Path, result: dict[str, Any]) -> dict[str, Any]:
         raise AnalysisReadbackError("READBACK_MANIFEST_BUNDLE_MISMATCH")
     if manifest["bundle_canonical_sha256"] != canonical_hash(bundle):
         raise AnalysisReadbackError("READBACK_BUNDLE_CANONICAL_HASH_MISMATCH")
-    if manifest["readback_part_count"] if "readback_part_count" in manifest else len(manifest["candidate_parts"]):
-        pass
+    if manifest["candidate_section_keys"] != list(CANDIDATE_SECTIONS):
+        raise AnalysisReadbackError("READBACK_SECTION_INVENTORY_MISMATCH")
+    if manifest["chunk_size"] != READBACK_CHUNK_SIZE:
+        raise AnalysisReadbackError("READBACK_CHUNK_SIZE_MISMATCH")
     if len(manifest["candidate_parts"]) != result["readback_part_count"]:
         raise AnalysisReadbackError("READBACK_PART_COUNT_MISMATCH")
 
     global_part = _read_descriptor(root, manifest["global_part"])
-    if global_part["bundle_id"] != manifest["bundle_id"]:
+    if (
+        global_part["bundle_id"] != manifest["bundle_id"]
+        or global_part["generation_id"] != manifest["generation_id"]
+        or global_part["candidate_set_id"] != manifest["candidate_set_id"]
+    ):
         raise AnalysisReadbackError("READBACK_GLOBAL_IDENTITY_MISMATCH")
     reconstructed = dict(global_part["global_fields"])
     for section in CANDIDATE_SECTIONS:
@@ -219,8 +228,8 @@ def verify_split_readback(root: Path, result: dict[str, Any]) -> dict[str, Any]:
             raise AnalysisReadbackError("READBACK_PART_IDENTITY_MISMATCH")
         observed_ids.extend(part["candidate_ids"])
         for section in CANDIDATE_SECTIONS:
-            values = part[section]
-            if [item["candidate_id"] for item in values] != part["candidate_ids"]:
+            values = part.get(section)
+            if not isinstance(values, list) or [item.get("candidate_id") for item in values] != part["candidate_ids"]:
                 raise AnalysisReadbackError(f"READBACK_PART_COVERAGE_MISMATCH:{section}")
             reconstructed[section].extend(values)
 
