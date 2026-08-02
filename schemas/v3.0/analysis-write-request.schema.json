@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hughey-T/Daily-US-Stock-Screen/schemas/v3.0/analysis-write-request.schema.json",
+  "title": "Analysis Contract 3.0 Issue write request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "operation",
+    "request_id",
+    "nonce",
+    "repository",
+    "source_snapshot_path",
+    "submitted_at",
+    "artifact",
+    "evidence_registry"
+  ],
+  "properties": {
+    "operation": {"const": "persist_ai_assessment_v3"},
+    "request_id": {"type": "string", "pattern": "^analysis_[0-9a-f]{64}$"},
+    "nonce": {"type": "string", "format": "uuid"},
+    "repository": {"const": "Hughey-T/Daily-US-Stock-Screen"},
+    "source_snapshot_path": {
+      "type": "string",
+      "pattern": "^docs/generations/[0-9]{4}-[0-9]{2}-[0-9]{2}/gen_[0-9a-f]{64}/snapshot\\.json$"
+    },
+    "submitted_at": {"type": "string", "format": "date-time"},
+    "artifact": {
+      "type": "object",
+      "description": "Must independently validate against schemas/v3.0/ai-assessment.schema.json."
+    },
+    "evidence_registry": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "candidate_id", "published_at", "url"],
+        "properties": {
+          "evidence_id": {"type": "string", "minLength": 1},
+          "candidate_id": {"type": "string", "minLength": 1},
+          "published_at": {"type": "string", "format": "date-time"},
+          "url": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "exploratory_proposals": {"type": "array"},
+    "previous_bundle_path": {
+      "type": "string",
+      "pattern": "^docs/analysis/v3/gen_[0-9a-f]{64}/sessions/analysis_[0-9a-f]{64}\\.json$"
+    }
+  },
+  "x-title-rule": "[GPT-ANALYSIS-V3] {request_id}",
+  "x-request-id-rule": "analysis_ + sha256(canonical_json([artifact, evidence_registry]))",
+  "x-canonical-json": {
+    "encoding": "UTF-8",
+    "ensure_ascii": false,
+    "sort_keys": true,
+    "separators": [",", ":"],
+    "allow_nan": false
+  },
+  "x-forbidden-aliases": [
+    "request_contract_version",
+    "request_type",
+    "analysis_id",
+    "artifact_sha256",
+    "hash_scope",
+    "AI_JUDGMENTS"
+  ]
+}
