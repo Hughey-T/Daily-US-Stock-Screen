@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Daily US Stock Screen write queue
-  version: 1.1.0
+  version: 1.1.1
   description: Creates and observes tightly scoped Issue write requests. It cannot access repository contents, Actions, refs, workflows, or pull requests.
 servers:
   - url: https://api.github.com
@@ -11,13 +11,10 @@ paths:
       operationId: submitAnalysisWriteRequest
       summary: Submit one Contract 3.0 analysis write request
       description: >-
-        Consequential action that creates one Issue. Before calling, retrieve
-        getAnalysisWriteRequestSchema and getAIAssessmentSchema. Contract 3.0
-        requires title `[GPT-ANALYSIS-V3] {request_id}` and a body containing only
-        serialized JSON conforming to analysis-write-request.schema.json. The
-        nested artifact must use the exact top-level key `assessments`. Do not use
-        request_contract_version, request_type, analysis_id, artifact_sha256,
-        hash_scope, or AI_JUDGMENTS. Do not add Markdown or code fences.
+        Creates one Issue. Retrieve both schemas first. The title must be
+        `[GPT-ANALYSIS-V3] {request_id}` and the body must be strict JSON matching
+        analysis-write-request.schema.json with artifact.assessments. Do not use
+        aliases, Markdown, or code fences.
       x-openai-isConsequential: true
       requestBody:
         required: true
