@@ -1,6 +1,6 @@
 """Production persistence boundary for contract 3.0 analysis artifacts.
 
-The GitHub Issue workflow is the only writer.  This module derives candidates
+The GitHub Issue workflow is the only writer. This module derives candidates
 from the pinned machine generation, calls :mod:`src.ai_analysis` validators,
 and writes content-addressed, append-only artifacts for public read-back.
 """
@@ -18,7 +18,9 @@ from src.ai_analysis import (
     candidate_set_id,
     canonical_hash,
     integrate,
+    integration_basis,
     reconcile,
+    reconciliation_status,
     strict_json_loads,
     validate_assessments,
     validate_ledger,
@@ -159,6 +161,12 @@ def persist_assessment(root: Path, snapshot_path: Path, request: dict[str, Any])
     for candidate, joined in zip(candidates, reconciled, strict=True):
         ai = joined["ai_judgment"]
         decision = integrate(candidate, ai)
+        basis = integration_basis(candidate, ai, decision)
+        comparison_status = reconciliation_status(candidate, ai, decision)
+        joined["integrated_decision"] = decision
+        joined["comparison_status"] = comparison_status
+        joined["integration_basis"] = basis
+
         cid = candidate["candidate_id"]
         hid = "hand_" + canonical_hash([snapshot["generation_id"], cid])
         blind_handoffs.append(
@@ -184,13 +192,22 @@ def persist_assessment(root: Path, snapshot_path: Path, request: dict[str, Any])
                 "mechanical_signals": candidate["mechanical_signals"],
                 "ai_judgment": ai,
                 "integrated_decision": decision,
+                "comparison_status": comparison_status,
+                "integration_basis": basis,
                 "upstream_hypotheses": [ai["primary_hypothesis"]],
-                "disagreement": ai["mechanical_agreement"],
+                "disagreement": comparison_status,
                 "unresolved_issues": ai["uncertainties"],
                 "status": "active",
             }
         )
-        decisions.append({"candidate_id": cid, "decision": decision})
+        decisions.append(
+            {
+                "candidate_id": cid,
+                "decision": decision,
+                "comparison_status": comparison_status,
+                "integration_basis": basis,
+            }
+        )
         ledger.append(
             {
                 "generation_id": snapshot["generation_id"],
