@@ -1,7 +1,8 @@
 yfinance==1.5.1
 pandas==2.3.3
 numpy==2.3.5
-scipy==1.18.0
+scipy==1.17.1; python_version < "3.12"
+scipy==1.18.0; python_version >= "3.12"
 PyYAML==6.0.3
 exchange-calendars>=4.11,<5
 
