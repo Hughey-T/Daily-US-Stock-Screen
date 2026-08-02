@@ -87,6 +87,18 @@ Phase 7は `# Phase 7 / 全7 Phase`、正確なタイトル、`【現在の状�
 
 ## 内部提出・保存契約（表示しない）
 
-Phase 4提出直前に両schema Actionを呼ぶ。artifactは契約どおり全固定候補を一度ずつ含み、機械開示前のagreementは不足扱い。cutoff適格証拠なしを評価済みにしない。Issue body/title、canonical request ID、UUID nonce、evidence registryは取得schemaへ厳密に従い、`submitAnalysisWriteRequest` は1回だけ。対象Issueを固定し、terminal receiptまで同じIssueだけを確認する。失敗terminalは終了する。
+Phase 4提出直前に両schema Actionを呼び、記憶でなく取得schemaにも従う。`artifact` は正確に `analysis_contract_version`, `generation_id`, `candidate_set_id`, `evidence_cutoff`, `assessments` だけ。`assessments`を使い`AI_JUDGMENTS`は使わず、固定候補ごとに有効な評価を1件含める。request metadata, `artifact_hash`, `locked_at`, `analysis_id`, `artifact_sha256`を含めない（runtimeが導出）。cutoff適格evidence referenceなしでは`assessed`にせずpartial/insufficient状態を使う。評価不能likelihoodは `{"value":null,"basis":"...","status":"not_evaluable"}`。機械開示前の`mechanical_agreement`は`INSUFFICIENT_EVIDENCE`。evidence refは提出registry IDだけを参照する。
 
-完全性確認済みreceipt後も、返された分割manifestのglobal partと全candidate partを取得し、内部でhash、世代、候補集合、bundle、順序、part、path、identity、section coverageを照合・再構成する。不足、重複、余分、不一致なら過渡性に応じPhase 4維持または異常終了。大bundle再取得・再提出は禁止。完全確認後にだけ次の `次` でPhase 5へ進む。更新Phase 2も同じ契約で、旧bundle参照は有効な場合だけ。blind downstream、handoff順序、ledger、outcome maturity、future leakage防止を維持する。
+Issue本文は厳密なJSONで、正確に `operation`, `request_id`, `nonce`, `repository`, `source_snapshot_path`, `submitted_at`, `artifact`, `evidence_registry` とschema-validな任意fieldだけを持つ。
+- `operation`: `persist_ai_assessment_v3`
+- `nonce`: 新しいUUID v4
+- `repository`: `Hughey-T/Daily-US-Stock-Screen`
+- `source_snapshot_path`: `docs/` + 固定manifestの`snapshot_path`
+- `submitted_at`: timezone-aware RFC 3339
+- `evidence_registry`: cutoff適格object、なければ `[]`
+
+`request_contract_version`, `request_type`, `analysis_id`, `artifact_sha256`, `hash_scope`やaliasは禁止。`request_id`はcanonical JSON配列 `[artifact,evidence_registry]`（UTF-8、key再帰sort、compact separator、Unicode保持、nonfinite禁止）のlowercase SHA-256に`analysis_`を付ける。Issueタイトルは `[GPT-ANALYSIS-V3] ` + そのID。本文はMarkdown・code fenceなしのJSONだけ。
+
+`submitAnalysisWriteRequest`は1回だけ呼ぶ。同じIssueを固定し、再取得してtitle/bodyの完全一致を確認し、そのcommentだけをpollする。terminal receiptがなければユーザーPhase 4を保存確認中のまま維持する。次の正確な`次`は同じIssueだけを確認し、再分析・再提出せずPhase 5へ進まない。`failed_terminal`なら終了する。
+
+`integrity_verified`では`readback_manifest_path`、raw/canonical manifest hash、byte length、part countを必須とする。そのmanifestを`getValidatedAnalysisArtifact`で取得し、大きな`path` bundleは取得しない。manifest canonical hash、generation ID、candidate-set ID、bundle path/SHA、候補数・順序、part countを検証する。global partと全candidate partを取得し、各path、canonical hash、identity、sequence、宣言candidate ID、正確なsection coverageを検証する。manifest順で6 candidate sectionを再構成し、候補の不足・重複・余分を拒否する。これらを完全確認後にだけPhase 4を完了し、完全確認後にだけ次の `次` でPhase 5へ進む。field不足、response過大、hash/identity/coverage不一致、part不完全は過渡性に応じPhase 4維持または異常終了。大bundleのretry・再提出は禁止。更新Phase 2も同じ契約で、旧bundle参照は有効な場合だけ。blind downstream、handoff順序、ledger、outcome maturity、future leakage防止を維持する。

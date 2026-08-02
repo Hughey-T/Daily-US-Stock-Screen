@@ -108,6 +108,8 @@ class UserOutputContractTest(unittest.TestCase):
 
     def test_pending_stays_in_phase_four_and_only_rechecks(self) -> None:
         text = self.fixtures["persistence_pending.md"]
+        self.assertIn("# Phase 4 / 全7 Phase\n## 市場が説明しきれていない部分の評価", text)
+        self.assertNotIn("## 分析結果の保存確認", text)
         for phrase in (
             "分析は完了",
             "保存結果を確認中",
@@ -119,6 +121,44 @@ class UserOutputContractTest(unittest.TestCase):
         self.assertNotIn("Phase 5完了", text)
         self.assertNotIn("新規保存要求", text)
         self.assertNotIn("すべての分析と保存確認が完了", text)
+
+    def test_internal_persistence_contract_remains_complete(self) -> None:
+        contract = self.prompt.split("## 内部提出・保存契約（表示しない）", 1)[1]
+        artifact_fields = (
+            "analysis_contract_version",
+            "generation_id",
+            "candidate_set_id",
+            "evidence_cutoff",
+            "assessments",
+        )
+        issue_fields = (
+            "operation",
+            "request_id",
+            "nonce",
+            "repository",
+            "source_snapshot_path",
+            "submitted_at",
+            "artifact",
+            "evidence_registry",
+        )
+        self.assertRegex(contract, rf"`artifact` は正確に .*{'.*'.join(artifact_fields)}.*だけ")
+        self.assertRegex(contract, rf"Issue本文は厳密なJSONで、正確に .*{'.*'.join(issue_fields)}")
+        for rule in (
+            "`operation`: `persist_ai_assessment_v3`",
+            "`repository`: `Hughey-T/Daily-US-Stock-Screen`",
+            "`source_snapshot_path`: `docs/` + 固定manifestの`snapshot_path`",
+            "canonical JSON配列 `[artifact,evidence_registry]`",
+            "lowercase SHA-256に`analysis_`を付ける",
+            "Issueタイトルは `[GPT-ANALYSIS-V3] ` + そのID",
+            "本文はMarkdown・code fenceなしのJSONだけ",
+            "`submitAnalysisWriteRequest`は1回だけ呼ぶ",
+            "同じIssueを固定",
+            "再分析・再提出せずPhase 5へ進まない",
+            "global partと全candidate partを取得",
+            "候補の不足・重複・余分を拒否",
+            "完全確認後にだけPhase 4を完了",
+        ):
+            self.assertIn(rule, contract)
 
     def test_terminal_error_cannot_be_mistaken_for_no_selection(self) -> None:
         text = self.fixtures["terminal_error.md"]
