@@ -1,0 +1,401 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "RLJ Lodging Trust",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Real Estate",
+        "ticker": "RLJ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_1aae3f4323b9ee178d29a0cd58644d13fbd7ba45e4a4746c46d4c5824bcc9474",
+      "source_refs": [],
+      "ticker": "RLJ",
+      "unresolved_factual_questions": [
+        "verify filings, identity, prices, actions"
+      ]
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Interparfums, Inc.",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Consumer Defensive",
+        "ticker": "IPAR"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_4312adf55d7e9d9b9bfe3d435a9f7cac7e5ab1935f8cbee1a0b10d76f4dd6d82",
+      "source_refs": [],
+      "ticker": "IPAR",
+      "unresolved_factual_questions": [
+        "verify filings, identity, prices, actions"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_99142190b3829625f19c7707a954d6515401d396db4e7ce9908e47b81ad0595f",
+  "candidate_ids": [
+    "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+    "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_b40e5cefa083dbaf2017ecb43476bfeea36d8b12f1395c998d840ab3530c75e3",
+      "as_of": "2026-08-03T01:31:00+09:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decisions": {
+        "ai_independent": "evidence review only",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_b40e5cefa083dbaf2017ecb43476bfeea36d8b12f1395c998d840ab3530c75e3",
+      "as_of": "2026-08-03T01:31:00+09:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decisions": {
+        "ai_independent": "evidence review only",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 7,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "verify filings, identity, prices, actions"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "action/factor/flow"
+        ],
+        "analysis_as_of": "2026-08-03T01:31:00+09:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "filing/notice"
+        ],
+        "causal_chain": [
+          "event→expectations→KPI/value→price"
+        ],
+        "confidence": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.27
+        },
+        "counterevidence": [
+          "no eligible evidence"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "evidence review only",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.48
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "action/correction explains move"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +63.3%; 21d +4.8%; spread.",
+        "primary_hypothesis": "Hotel/asset expectations improved.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "no evidence",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "cause/residual unverified"
+        ]
+      },
+      "blind_handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "cause/residual unverified"
+      ],
+      "upstream_hypotheses": [
+        "Hotel/asset expectations improved."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "verify filings, identity, prices, actions"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "action/factor/flow"
+        ],
+        "analysis_as_of": "2026-08-03T01:31:00+09:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "filing/notice"
+        ],
+        "causal_chain": [
+          "event→expectations→KPI/value→price"
+        ],
+        "confidence": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.24
+        },
+        "counterevidence": [
+          "no eligible evidence"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "evidence review only",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.45
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "action/correction explains move"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +30.4%; 63d +36.5%; spread.",
+        "primary_hypothesis": "Sales/mix/margin improved.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "no evidence",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "cause/residual unverified"
+        ]
+      },
+      "blind_handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "cause/residual unverified"
+      ],
+      "upstream_hypotheses": [
+        "Sales/mix/margin improved."
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "verify filings, identity, prices, actions"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "action/factor/flow"
+        ],
+        "analysis_as_of": "2026-08-03T01:31:00+09:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "filing/notice"
+        ],
+        "causal_chain": [
+          "event→expectations→KPI/value→price"
+        ],
+        "confidence": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.27
+        },
+        "counterevidence": [
+          "no eligible evidence"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "evidence review only",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.48
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "action/correction explains move"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +63.3%; 21d +4.8%; spread.",
+        "primary_hypothesis": "Hotel/asset expectations improved.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "no evidence",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "cause/residual unverified"
+        ]
+      },
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "verify filings, identity, prices, actions"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "action/factor/flow"
+        ],
+        "analysis_as_of": "2026-08-03T01:31:00+09:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "filing/notice"
+        ],
+        "causal_chain": [
+          "event→expectations→KPI/value→price"
+        ],
+        "confidence": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.24
+        },
+        "counterevidence": [
+          "no eligible evidence"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "evidence review only",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "estimated",
+          "value": 0.45
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "action/correction explains move"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +30.4%; 63d +36.5%; spread.",
+        "primary_hypothesis": "Sales/mix/margin improved.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "no evidence",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "cause/residual unverified"
+        ]
+      },
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

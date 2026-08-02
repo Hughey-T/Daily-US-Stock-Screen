@@ -1,0 +1,15 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_GLOBAL",
+  "bundle_id": "analysis_99142190b3829625f19c7707a954d6515401d396db4e7ce9908e47b81ad0595f",
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "global_fields": {
+    "ai_artifact_path": "docs/analysis/v3/gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef/ai-judgments/ai_b40e5cefa083dbaf2017ecb43476bfeea36d8b12f1395c998d840ab3530c75e3.json",
+    "ai_artifact_sha256": "b6189ad3d7b0df54bcdbee6211089bcec028bce2294469ffd6341b4d49464cf4",
+    "analysis_contract_version": "3.0",
+    "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+    "exploratory_proposals": [],
+    "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef"
+  }
+}
