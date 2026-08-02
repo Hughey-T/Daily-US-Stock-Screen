@@ -1,0 +1,2990 @@
+{
+  "ai_artifact_path": "docs/analysis/v3/gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef/ai-judgments/ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082.json",
+  "ai_artifact_sha256": "2e564d5825fb7b0f916198326834cc960a526ac4e189620c82f59f2d8215bd88",
+  "analysis_contract_version": "3.0",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Crinetics Pharmaceuticals, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "CRNX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_876c95ea436f581a570eb7e539ec7a730a93c2bb2c46d18a2908e36a33d4dbeb",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_866350959d60ae30938fb946a974db13759e9f902f9e733375f932366d93825c",
+      "source_refs": [],
+      "ticker": "CRNX",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Utz Brands Inc",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Consumer Defensive",
+        "ticker": "UTZ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a781ca29a09d0b8f4aa907205316db8a4ea8a7769b4c9384b10176b159a723f6",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_fda3412307846ac6afcec5e7caade7ec132f21874dac7484d5c2d9f89a7e3b6b",
+      "source_refs": [],
+      "ticker": "UTZ",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "First Tracks Biotherapeutics, I",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "TRAX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_718f8c747a32f3f16d313b24ebcbec559c12a41f31cd5c875600541bc143a76b",
+      "source_refs": [],
+      "ticker": "TRAX",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Willis Lease Finance Corporatio",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "WLFC"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_3329b50439931734b581123baf0af7bd7c038a15927d78f7066c478df361d870",
+      "source_refs": [],
+      "ticker": "WLFC",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Safety Insurance Group, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Financial Services",
+        "ticker": "SAFT"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_b5a9743cdd51b4155f9081144d4f4714f2bb32f05f68472517ad5cf5f576ea2a",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_1868d9a8cd7bcfd017ef184f44c9af846221da42f0f292e7afd705ae337e8333",
+      "source_refs": [],
+      "ticker": "SAFT",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Huron Consulting Group Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "HURN"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_f6606e1be55a35350beacec0820900364401e0e70ee63d7a27f819532546d1e3",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_9bf3f8dc81666f3278728d73eba3c355a0fcd333a270dd008e5c5d80cbb8dfb2",
+      "source_refs": [],
+      "ticker": "HURN",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "CBIZ, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "CBZ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6870f70047601c32c30cff1af4d11f1bdb0246db16a5bb53f8c8d12a57836ea2",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_d09150e8051b646b80d1b2f47ab4865b16ef63f7943b6916921db023b5d27925",
+      "source_refs": [],
+      "ticker": "CBZ",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "MarketAxess Holdings, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Financial Services",
+        "ticker": "MKTX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6641099ce76401508d3ea896ede2975167e6de776ef3b018289a9efb39a79378",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_2c93bd8d88cb64800a856d2842c3599e9775f9b252c900a1b6b528dfdf6d065a",
+      "source_refs": [],
+      "ticker": "MKTX",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "AtaiBeckley Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "ATAI"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_2db99f80f3eab64eea3fcea723ad4625a9d7fd4d33117ceb958fa6d53826ce08",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_9a1a39f92bfb69072aa687ec06d1332d3fd338624a7e6068b9a65ead8410bb80",
+      "source_refs": [],
+      "ticker": "ATAI",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Everforth, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Technology",
+        "ticker": "EFOR"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_5b8523485acc1ff3d55034a69e2869d621be3d312f00981a228a1de31b5cbe3e",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_038256c7354024d9630f7b9995d6c7143ce9aa1c4989c4b216dadd841db3ba43",
+      "source_refs": [],
+      "ticker": "EFOR",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "ManpowerGroup",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "MAN"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_d8cd2fd820b07e4d9902cfb31142a7dd72fe9902573a2c960fb33d65bc8a17e9",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_8e158a68b6afa64413a042826c0ddcb6cca8b3b68aa64e5c31ecc42ac4443392",
+      "source_refs": [],
+      "ticker": "MAN",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Roblox Corporation",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Communication Services",
+        "ticker": "RBLX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_990786b1f2273519fe20580217d285345b6fc0e9fc7098df5717cf7a2dfc2764",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_537561fb560e4a77537b32896dd22e9cc7f7cc31815690087a5983e0accd9d7a",
+      "source_refs": [],
+      "ticker": "RBLX",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "RLJ Lodging Trust",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Real Estate",
+        "ticker": "RLJ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_1aae3f4323b9ee178d29a0cd58644d13fbd7ba45e4a4746c46d4c5824bcc9474",
+      "source_refs": [],
+      "ticker": "RLJ",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Interparfums, Inc.",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Consumer Defensive",
+        "ticker": "IPAR"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_4312adf55d7e9d9b9bfe3d435a9f7cac7e5ab1935f8cbee1a0b10d76f4dd6d82",
+      "source_refs": [],
+      "ticker": "IPAR",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+      ]
+    },
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Concentra Group Holdings Parent",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "CON"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_82df27d8955cfd025b172cf9d1897d39b392c0965502e9765794affe6d2ae38d",
+      "source_refs": [],
+      "ticker": "CON",
+      "unresolved_factual_questions": [
+        "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+      ]
+    }
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_1908e3780aeff5dd9097c06146930b7f2c326564c92a3a3d8a6184fa045bf082",
+      "as_of": "2026-08-03T01:06:00+09:00",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "decisions": {
+        "ai_independent": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "exploratory_proposals": [],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "status": "not_matured"
+    }
+  ],
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Low current volume; a corporate-action adjustment could mimic the pattern."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +115.9%; 7/7 +98.7% gap; 89.6% one-day concentration; post-move flat.",
+        "primary_hypothesis": "Single issuer-specific event caused a step repricing.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_876c95ea436f581a570eb7e539ec7a730a93c2bb2c46d18a2908e36a33d4dbeb",
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_876c95ea436f581a570eb7e539ec7a730a93c2bb2c46d18a2908e36a33d4dbeb_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "Single issuer-specific event caused a step repricing."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "The event-day rise exceeds the 21d return; current volume is below baseline."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +72.4%; 7/21 +88.7% gap; 78.2% one-day concentration; post-move flat.",
+        "primary_hypothesis": "A discrete condition-changing issuer event fixed a higher price level.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_a781ca29a09d0b8f4aa907205316db8a4ea8a7769b4c9384b10176b159a723f6",
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a781ca29a09d0b8f4aa907205316db8a4ea8a7769b4c9384b10176b159a723f6_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "A discrete condition-changing issuer event fixed a higher price level."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Small gap versus day move, last-day reversal, and missing 126d history."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +136.9%; 7/9 +56.0%; gains continued across days; last day -7.8%; 126d unavailable.",
+        "primary_hypothesis": "An initial event was followed by staged expectation updates.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "An initial event was followed by staged expectation updates."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "One day does not explain the full decline; corporate action could invalidate impairment inference."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d -68.8%; 7/20 -67.1% gap; 63d/126d near -60%; recent small rebound.",
+        "primary_hypothesis": "Major issuer-specific impairment or a mechanical corporate-action adjustment.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "Major issuer-specific impairment or a mechanical corporate-action adjustment."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Event-day rise exceeds 21d return; exact information is unavailable."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +35.6%; 7/24 +41.5% gap; volume ratio 3.84; volatility ratio 7.50; then flat.",
+        "primary_hypothesis": "A recognized issuer event caused high-volume immediate repricing.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_b5a9743cdd51b4155f9081144d4f4714f2bb32f05f68472517ad5cf5f576ea2a",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_b5a9743cdd51b4155f9081144d4f4714f2bb32f05f68472517ad5cf5f576ea2a_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 5,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "A recognized issuer event caused high-volume immediate repricing."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Longer horizon remains negative and the final-day reversal weakens persistence."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +57.5%; 5d +35.1%; 7/29 +40.4% with 10.5% gap; last day -7.3%; 126d -9.0%.",
+        "primary_hypothesis": "New information prompted multi-day price discovery and partial reversal.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_f6606e1be55a35350beacec0820900364401e0e70ee63d7a27f819532546d1e3",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_f6606e1be55a35350beacec0820900364401e0e70ee63d7a27f819532546d1e3_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 6,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "New information prompted multi-day price discovery and partial reversal."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Volatility stayed near normal and the move is not concentrated in one day."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +60.7%; 63d +80.6%; 126d +42.8%; one-day share 26.0%; volume ratio 6.54.",
+        "primary_hypothesis": "Medium-term expectation improvement was reinforced by a recent information or flow shock.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_6870f70047601c32c30cff1af4d11f1bdb0246db16a5bb53f8c8d12a57836ea2",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6870f70047601c32c30cff1af4d11f1bdb0246db16a5bb53f8c8d12a57836ea2_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 7,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "Medium-term expectation improvement was reinforced by a recent information or flow shock."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Post-event history is very short and KPI linkage is unknown."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +41.8%; 5d +39.1%; 7/30 +29.5% gap; volume ratio 5.71; weak 63d/126d base.",
+        "primary_hypothesis": "A new near-cutoff issuer event caused a fresh repricing.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_6641099ce76401508d3ea896ede2975167e6de776ef3b018289a9efb39a79378",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6641099ce76401508d3ea896ede2975167e6de776ef3b018289a9efb39a79378_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 8,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "A new near-cutoff issuer event caused a fresh repricing."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Low current volume and five unchanged days require trading-state verification."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +87.0%; 63d +72.6%; 21d +47.1%; 7/16 +33.4%; last 5d unchanged.",
+        "primary_hypothesis": "An additional event occurred within an existing medium-term expectation uptrend.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_2db99f80f3eab64eea3fcea723ad4625a9d7fd4d33117ceb958fa6d53826ce08",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_2db99f80f3eab64eea3fcea723ad4625a9d7fd4d33117ceb958fa6d53826ce08_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 9,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "An additional event occurred within an existing medium-term expectation uptrend."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "The 126d trend remains deeply negative and no discrete cause is visible."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +62.0%; 5d +38.1%; 63d +34.8%; 126d -42.7%; one-day share 18.2%.",
+        "primary_hypothesis": "A distributed expectation recovery or rebound followed a longer decline.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_5b8523485acc1ff3d55034a69e2869d621be3d312f00981a228a1de31b5cbe3e",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_5b8523485acc1ff3d55034a69e2869d621be3d312f00981a228a1de31b5cbe3e_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 11,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "A distributed expectation recovery or rebound followed a longer decline."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Path efficiency is modest and one event cannot explain the longer trend."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +57.5%; 63d +73.2%; 21d +41.2%; 7/16 +32.4%; current volume below baseline.",
+        "primary_hypothesis": "A medium-term expectation uptrend received an event-like additional boost.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_d8cd2fd820b07e4d9902cfb31142a7dd72fe9902573a2c960fb33d65bc8a17e9",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_d8cd2fd820b07e4d9902cfb31142a7dd72fe9902573a2c960fb33d65bc8a17e9_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 12,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "A medium-term expectation uptrend received an event-like additional boost."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Sector weakness explains part, and one day does not explain the full decline."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d -53.0%; 63d -35.6%; 21d -38.6%; 7/31 -26.9%; volume ratio 2.76.",
+        "primary_hypothesis": "A new negative update reinforced an existing medium-term deterioration.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_990786b1f2273519fe20580217d285345b6fc0e9fc7098df5717cf7a2dfc2764",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_990786b1f2273519fe20580217d285345b6fc0e9fc7098df5717cf7a2dfc2764_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 16,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "A new negative update reinforced an existing medium-term deterioration."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "Low path efficiency and macro sensitivity remain alternative explanations."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +48.7%; 126d +63.3%; one-day share below 6%; volume and volatility ratios below 1.",
+        "primary_hypothesis": "Repeated small expectation improvements or stable demand accumulated over time.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "Repeated small expectation improvements or stable demand accumulated over time."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "Low efficiency and low volume weaken a clean fundamental-drift interpretation."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +36.5%; 126d +30.4%; one-day share below 5%; low volume; low path efficiency.",
+        "primary_hypothesis": "Small repeated expectation or flow changes accumulated with reversals.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "Small repeated expectation or flow changes accumulated with reversals."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "Recent momentum slowed and fundamental versus flow attribution is unresolved."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +40.9%; 126d +46.5%; one-day share below 5%; low volume/volatility; 21d +2.9%.",
+        "primary_hypothesis": "Operating-expectation improvement or stable demand was incorporated gradually.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "blind_handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+      ],
+      "upstream_hypotheses": [
+        "Operating-expectation improvement or stable demand was incorporated gradually."
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Low current volume; a corporate-action adjustment could mimic the pattern."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +115.9%; 7/7 +98.7% gap; 89.6% one-day concentration; post-move flat.",
+        "primary_hypothesis": "Single issuer-specific event caused a step repricing.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "The event-day rise exceeds the 21d return; current volume is below baseline."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +72.4%; 7/21 +88.7% gap; 78.2% one-day concentration; post-move flat.",
+        "primary_hypothesis": "A discrete condition-changing issuer event fixed a higher price level.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Small gap versus day move, last-day reversal, and missing 126d history."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +136.9%; 7/9 +56.0%; gains continued across days; last day -7.8%; 126d unavailable.",
+        "primary_hypothesis": "An initial event was followed by staged expectation updates.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "One day does not explain the full decline; corporate action could invalidate impairment inference."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d -68.8%; 7/20 -67.1% gap; 63d/126d near -60%; recent small rebound.",
+        "primary_hypothesis": "Major issuer-specific impairment or a mechanical corporate-action adjustment.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Event-day rise exceeds 21d return; exact information is unavailable."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +35.6%; 7/24 +41.5% gap; volume ratio 3.84; volatility ratio 7.50; then flat.",
+        "primary_hypothesis": "A recognized issuer event caused high-volume immediate repricing.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 5,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Longer horizon remains negative and the final-day reversal weakens persistence."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +57.5%; 5d +35.1%; 7/29 +40.4% with 10.5% gap; last day -7.3%; 126d -9.0%.",
+        "primary_hypothesis": "New information prompted multi-day price discovery and partial reversal.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 6,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Volatility stayed near normal and the move is not concentrated in one day."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +60.7%; 63d +80.6%; 126d +42.8%; one-day share 26.0%; volume ratio 6.54.",
+        "primary_hypothesis": "Medium-term expectation improvement was reinforced by a recent information or flow shock.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 7,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Post-event history is very short and KPI linkage is unknown."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +41.8%; 5d +39.1%; 7/30 +29.5% gap; volume ratio 5.71; weak 63d/126d base.",
+        "primary_hypothesis": "A new near-cutoff issuer event caused a fresh repricing.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 8,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Low current volume and five unchanged days require trading-state verification."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +87.0%; 63d +72.6%; 21d +47.1%; 7/16 +33.4%; last 5d unchanged.",
+        "primary_hypothesis": "An additional event occurred within an existing medium-term expectation uptrend.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 9,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "The 126d trend remains deeply negative and no discrete cause is visible."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21d +62.0%; 5d +38.1%; 63d +34.8%; 126d -42.7%; one-day share 18.2%.",
+        "primary_hypothesis": "A distributed expectation recovery or rebound followed a longer decline.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 11,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Path efficiency is modest and one event cannot explain the longer trend."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d +57.5%; 63d +73.2%; 21d +41.2%; 7/16 +32.4%; current volume below baseline.",
+        "primary_hypothesis": "A medium-term expectation uptrend received an event-like additional boost.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 12,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, releases, exchange notices, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "Sector weakness explains part, and one day does not explain the full decline."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "126d -53.0%; 63d -35.6%; 21d -38.6%; 7/31 -26.9%; volume ratio 2.76.",
+        "primary_hypothesis": "A new negative update reinforced an existing medium-term deterioration.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 16,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "Low path efficiency and macro sensitivity remain alternative explanations."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +48.7%; 126d +63.3%; one-day share below 6%; volume and volatility ratios below 1.",
+        "primary_hypothesis": "Repeated small expectation improvements or stable demand accumulated over time.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "Low efficiency and low volume weaken a clean fundamental-drift interpretation."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +36.5%; 126d +30.4%; one-day share below 5%; low volume; low path efficiency.",
+        "primary_hypothesis": "Small repeated expectation or flow changes accumulated with reversals.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "Check pre-cutoff filings, repeated KPIs, sector/macro sensitivity, corporate actions, and adjusted price data."
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "corporate action or data adjustment",
+          "liquidity, positioning, sector, or regime effect"
+        ],
+        "analysis_as_of": "2026-08-03T01:06:00+09:00",
+        "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+        "catalysts": [
+          "Identify cutoff-eligible public evidence and verify corporate actions."
+        ],
+        "causal_chain": [
+          "unknown event/variable",
+          "expectations changed",
+          "KPI/financial value implication",
+          "price reacted",
+          "remaining gap unknown"
+        ],
+        "confidence": {
+          "basis": "Low pattern-only confidence; not confidence in cause or residual.",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "Recent momentum slowed and fundamental versus flow attribution is unresolved."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Corporate-action and quality states are unavailable.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "Not suitable for individual analysis until cause, data integrity, and residual are verified.",
+        "event_explained_likelihood": {
+          "basis": "No cutoff-eligible evidence reference is available.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "A verified corporate action or DATA_ANOMALY fully explains the move."
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +40.9%; 126d +46.5%; one-day share below 5%; low volume/volatility; 21d +2.9%.",
+        "primary_hypothesis": "Operating-expectation improvement or stable demand was incorporated gradually.",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "Explanation and KPI impact are unverified.",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "No evidence refs; corporate-action state unavailable; explained and residual portions cannot be separated."
+        ]
+      },
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

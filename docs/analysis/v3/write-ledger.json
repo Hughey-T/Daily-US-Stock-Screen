@@ -1,0 +1,13 @@
+{
+  "requests": [
+    {
+      "artifact_hash": "6f67556419617841b0d7125155cd543dd4f830f5ca73e2d535cd753976bd371a",
+      "bundle_id": "analysis_061f1a9206de8818f97bc4e72888b2c947cf9eb47df75e274dda7e7f9afe2f5d",
+      "nonce": "2dbb65c0-c718-4e64-85b5-59a23dde5147",
+      "path": "docs/analysis/v3/gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef/sessions/analysis_061f1a9206de8818f97bc4e72888b2c947cf9eb47df75e274dda7e7f9afe2f5d.json",
+      "recorded_at": "2026-08-03T01:06:00+09:00",
+      "request_id": "analysis_6f67556419617841b0d7125155cd543dd4f830f5ca73e2d535cd753976bd371a"
+    }
+  ],
+  "version": "3.0"
+}
