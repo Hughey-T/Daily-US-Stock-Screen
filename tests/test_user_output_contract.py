@@ -32,7 +32,7 @@ class UserOutputContractTest(unittest.TestCase):
 
     def test_canonical_prompt_stays_pasteable_and_defines_phase_map(self) -> None:
         self.assertLessEqual(len(self.prompt), 8_000)
-        self.assertIn("analysis-contract-3.0-seven-user-phase-v1", self.prompt)
+        self.assertIn("analysis-contract-3.0-seven-user-phase-v2", self.prompt)
         titles = (
             "本日のデータ確認と調査対象の確定",
             "候補銘柄の値動きの特徴確認",
@@ -47,6 +47,18 @@ class UserOutputContractTest(unittest.TestCase):
         self.assertIn("内部処理は8段階のまま", self.prompt)
         self.assertIn("更新は3 Phase", self.prompt)
         self.assertIn("完全確認後にだけ次の `次` でPhase 5へ進む", self.prompt)
+
+    def test_new_conversation_requires_initial_flow_before_update_flow(self) -> None:
+        boundary = self.prompt.split("## 操作と境界", 1)[1].split("GitHubが `FACTS`", 1)[0]
+        for rule in (
+            "新しい会話で最初に完全一致する `更新` を受けた場合は、常に初回Phase 1 / 全7 Phaseを開始する",
+            "更新3 Phaseを開始できるのは、同じ会話内で初回Phase 7が正常完了",
+            "前回結果を参照・固定・完全性確認できない",
+            "新規の初回分析としてPhase 1 / 全7 Phaseを開始する",
+            "`前回結果を参照できないため比較不能`のまま更新Phaseを続行・完了してはならない",
+        ):
+            self.assertIn(rule, boundary)
+        self.assertIn("同じ会話内の正常完了済み初回結果を固定", self.prompt)
 
     def test_all_required_fixtures_exist_and_hide_internal_details(self) -> None:
         expected = {
