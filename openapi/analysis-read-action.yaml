@@ -1,15 +1,16 @@
 openapi: 3.1.0
 info:
   title: Daily US Stock Screen public analysis reader
-  version: 3.0.0
-  description: Read-only access to immutable public artifacts. This Action has no write authentication.
+  version: 3.1.0
+  description: Read-only access to immutable public artifacts and normative Contract 3.0 schemas. This Action has no write authentication.
 servers:
   - url: https://raw.githubusercontent.com/Hughey-T/Daily-US-Stock-Screen/main
 paths:
   /docs/manifest.json:
     get:
       operationId: getMachineManifest
-      responses: {'200': {description: Immutable machine publication pointer}}
+      responses:
+        '200': {description: Immutable machine publication pointer}
   /docs/analysis/v3/{generation_id}/blind-projection.json:
     get:
       operationId: getBlindCandidateProjection
@@ -18,7 +19,18 @@ paths:
           in: path
           required: true
           schema: {type: string, pattern: '^gen_[0-9a-f]{64}$'}
-      responses: {'200': {description: Rank-free candidate projection}}
+      responses:
+        '200': {description: Rank-free candidate projection}
+  /schemas/v3.0/analysis-write-request.schema.json:
+    get:
+      operationId: getAnalysisWriteRequestSchema
+      responses:
+        '200': {description: Normative closed Issue write-request envelope schema}
+  /schemas/v3.0/ai-assessment.schema.json:
+    get:
+      operationId: getAIAssessmentSchema
+      responses:
+        '200': {description: Normative closed independent AI assessment schema}
   /{artifact_path}:
     get:
       operationId: getValidatedAnalysisArtifact
@@ -26,6 +38,9 @@ paths:
         - name: artifact_path
           in: path
           required: true
-          schema: {type: string, pattern: '^docs/analysis/v3/gen_[0-9a-f]{64}/(sessions|index|ai-judgments)/[A-Za-z0-9_.-]+\\.json$'}
-      responses: {'200': {description: Immutable analysis bundle, index, or AI judgment}}
+          schema:
+            type: string
+            pattern: '^docs/analysis/v3/gen_[0-9a-f]{64}/(sessions|index|ai-judgments)/[A-Za-z0-9_.-]+\\.json$'
+      responses:
+        '200': {description: Immutable analysis bundle, index, or AI judgment}
 security: []

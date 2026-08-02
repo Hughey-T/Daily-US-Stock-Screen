@@ -26,6 +26,10 @@ class ProductionRuntimeE2E(unittest.TestCase):
             shutil.copytree(SOURCE, destination)
             (root / "schemas/v3.0").mkdir(parents=True)
             shutil.copy("schemas/v3.0/ai-assessment.schema.json", root / "schemas/v3.0/ai-assessment.schema.json")
+            shutil.copy(
+                "schemas/v3.0/analysis-write-request.schema.json",
+                root / "schemas/v3.0/analysis-write-request.schema.json",
+            )
             env = {**os.environ, "ANALYSIS_REPOSITORY_ROOT": str(root)}
             cli = ["python", "scripts/process_analysis_request.py"]
             relative_snapshot = (SOURCE / "snapshot.json").as_posix()

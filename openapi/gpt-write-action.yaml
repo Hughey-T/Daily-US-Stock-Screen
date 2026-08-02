@@ -1,16 +1,23 @@
 openapi: 3.1.0
 info:
   title: Daily US Stock Screen write queue
-  version: 1.0.3
-  description: Creates and observes tightly scoped prediction write-request Issues. It cannot access repository contents, Actions, refs, workflows, or pull requests.
+  version: 1.1.0
+  description: Creates and observes tightly scoped Issue write requests. It cannot access repository contents, Actions, refs, workflows, or pull requests.
 servers:
   - url: https://api.github.com
 paths:
   /repos/Hughey-T/Daily-US-Stock-Screen/issues:
     post:
       operationId: submitAnalysisWriteRequest
-      summary: Submit one prediction or analysis write request
-      description: Consequential action that creates an Issue. Contract 3.0 uses `[GPT-ANALYSIS-V3] analysis_<64 lowercase hex>`; legacy prediction writes use `[GPT-WRITE-V2] gptw_<64 lowercase hex>`. Body is strict JSON only.
+      summary: Submit one Contract 3.0 analysis write request
+      description: >-
+        Consequential action that creates one Issue. Before calling, retrieve
+        getAnalysisWriteRequestSchema and getAIAssessmentSchema. Contract 3.0
+        requires title `[GPT-ANALYSIS-V3] {request_id}` and a body containing only
+        serialized JSON conforming to analysis-write-request.schema.json. The
+        nested artifact must use the exact top-level key `assessments`. Do not use
+        request_contract_version, request_type, analysis_id, artifact_sha256,
+        hash_scope, or AI_JUDGMENTS. Do not add Markdown or code fences.
       x-openai-isConsequential: true
       requestBody:
         required: true
@@ -23,12 +30,18 @@ paths:
               properties:
                 title:
                   type: string
-                  pattern: '^(\[GPT-WRITE-V2\] gptw_|\[GPT-ANALYSIS-V3\] analysis_)[0-9a-f]{64}$'
+                  pattern: '^\[GPT-ANALYSIS-V3\] analysis_[0-9a-f]{64}$'
+                  description: Must equal `[GPT-ANALYSIS-V3] ` followed by the request_id found in the serialized body.
                 body:
                   type: string
                   minLength: 2
                   maxLength: 51200
-                  description: A serialized strict JSON request envelope only; do not add Markdown or code fences.
+                  description: >-
+                    Serialized strict JSON conforming exactly to
+                    schemas/v3.0/analysis-write-request.schema.json. The request_id
+                    is `analysis_` plus SHA-256 of canonical JSON array
+                    `[artifact,evidence_registry]` using UTF-8, sorted keys,
+                    compact separators, ensure_ascii=false and no nonfinite values.
       responses:
         '201':
           description: Issue created

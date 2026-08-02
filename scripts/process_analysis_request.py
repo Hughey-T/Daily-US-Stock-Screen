@@ -13,6 +13,8 @@ CODE_ROOT = Path(__file__).resolve().parents[1]
 ROOT = Path(os.environ.get("ANALYSIS_REPOSITORY_ROOT", CODE_ROOT)).resolve()
 sys.path.insert(0, str(CODE_ROOT))
 
+from src.ai_analysis import strict_json_loads  # noqa: E402
+from src.analysis_request import validate_analysis_write_request  # noqa: E402
 from src.analysis_runtime import persist_assessment, publish_blind_projection, verify_readback  # noqa: E402
 
 
@@ -30,7 +32,9 @@ def main() -> None:
     else:
         if not args.request:
             raise SystemExit("--request is required")
-        result = persist_assessment(ROOT, snapshot, json.loads(args.request.read_text()))
+        request = strict_json_loads(args.request.read_bytes())
+        validate_analysis_write_request(ROOT, snapshot, request)
+        result = persist_assessment(ROOT, snapshot, request)
     verify_readback(ROOT, result)
     print(json.dumps({key: result[key] for key in ("path", "sha256") if key in result}))
 
