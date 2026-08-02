@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Daily US Stock Screen write queue
-  version: 1.0.2
+  version: 1.0.3
   description: Creates and observes tightly scoped prediction write-request Issues. It cannot access repository contents, Actions, refs, workflows, or pull requests.
 servers:
   - url: https://api.github.com
@@ -100,6 +100,8 @@ components:
         authorizationCode:
           authorizationUrl: https://github.com/login/oauth/authorize
           tokenUrl: https://github.com/login/oauth/access_token
-          scopes: {}
+          scopes:
+            public_repo: Create and read Issues in the fixed public repository.
 security:
-  - githubAppUserOAuth: []
+  - githubAppUserOAuth:
+      - public_repo
