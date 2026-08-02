@@ -1,0 +1,60 @@
+name: Process GPT analysis artifact request
+on:
+  issues:
+    types: [opened]
+concurrency:
+  group: gpt-analysis-writer-main
+  cancel-in-progress: false
+jobs:
+  process:
+    if: startsWith(github.event.issue.title, '[GPT-ANALYSIS-V3] ')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12', cache: pip}
+      - run: pip install -r requirements.txt
+      - name: Authorize immutable opened event and extract request
+        env:
+          ACTOR: ${{ github.event.issue.user.login }}
+          ASSOCIATION: ${{ github.event.issue.author_association }}
+          OWNER: ${{ github.repository_owner }}
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          test "$ACTOR" = "$OWNER"
+          test "$ASSOCIATION" = "OWNER"
+          printf '%s' "$BODY" > "$RUNNER_TEMP/request.json"
+          python -c "import json,os,pathlib; r=json.loads(pathlib.Path(os.environ['RUNNER_TEMP']+'/request.json').read_text()); assert r['operation']=='persist_ai_assessment_v3'; assert r['repository']=='Hughey-T/Daily-US-Stock-Screen'; assert os.environ['TITLE']=='[GPT-ANALYSIS-V3] '+r['request_id']"
+      - name: Validate and persist immutable analysis bundle
+        run: |
+          snapshot=$(python -c "import json,os,pathlib; print(json.loads(pathlib.Path(os.environ['RUNNER_TEMP']+'/request.json').read_text())['source_snapshot_path'])")
+          python scripts/process_analysis_request.py persist-assessment --snapshot "$snapshot" --request "$RUNNER_TEMP/request.json" | tee "$RUNNER_TEMP/result.json"
+      - name: Commit trusted artifacts
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/analysis/v3
+          git commit -m "Persist validated GPT analysis artifact"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Verify branch bytes
+        run: |
+          git pull --ff-only origin main
+          git diff --exit-code HEAD origin/main -- docs/analysis/v3
+      - name: Publish integrity-verified receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          python - <<'PY' > "$RUNNER_TEMP/receipt.json"
+          import json, os, subprocess
+          result=json.load(open(os.environ['RUNNER_TEMP']+'/result.json'))
+          result.update(write_request_status='integrity_verified', verified_commit_sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
+          print(json.dumps(result,sort_keys=True))
+          PY
+          gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" -f body="$(cat "$RUNNER_TEMP/receipt.json")"
