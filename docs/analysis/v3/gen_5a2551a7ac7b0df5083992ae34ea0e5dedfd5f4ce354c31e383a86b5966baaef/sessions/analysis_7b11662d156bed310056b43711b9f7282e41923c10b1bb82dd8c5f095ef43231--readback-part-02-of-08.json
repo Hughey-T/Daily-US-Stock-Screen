@@ -1,0 +1,510 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "First Tracks Biotherapeutics, I",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "TRAX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_718f8c747a32f3f16d313b24ebcbec559c12a41f31cd5c875600541bc143a76b",
+      "source_refs": [
+        "ev_trax_ir_index_20260521"
+      ],
+      "ticker": "TRAX",
+      "unresolved_factual_questions": [
+        "SEC提出書類、臨床試験登録、出来高内訳の追加確認"
+      ]
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Willis Lease Finance Corporatio",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "WLFC"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e",
+      "investment_horizon": "days",
+      "security_identity": "ent_3329b50439931734b581123baf0af7bd7c038a15927d78f7066c478df361d870",
+      "source_refs": [
+        "ev_wlfc_split_20260623"
+      ],
+      "ticker": "WLFC",
+      "unresolved_factual_questions": [
+        "分割調整済み価格で再取得すること"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_7b11662d156bed310056b43711b9f7282e41923c10b1bb82dd8c5f095ef43231",
+  "candidate_ids": [
+    "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+    "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_39a598e7e9d2795596878f82f603398c07bfecbcc3bfd1563575238687598ff5",
+      "as_of": "2026-08-03T08:03:00+09:00",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "decisions": {
+        "ai_independent": "INSUFFICIENT_EVIDENCE",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_39a598e7e9d2795596878f82f603398c07bfecbcc3bfd1563575238687598ff5",
+      "as_of": "2026-08-03T08:03:00+09:00",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "decisions": {
+        "ai_independent": "REJECT_DATA_ANOMALY",
+        "integrated": "REJECT_DATA_ANOMALY",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "insufficient_evidence",
+          "data_anomaly_likelihood": 0.15,
+          "event_explained_likelihood": null,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": null
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      }
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "comparison_status": "DISAGREE",
+      "decision": "REJECT_DATA_ANOMALY",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.995,
+          "event_explained_likelihood": 0.99,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.01
+        },
+        "reason_code": "AI_DATA_ANOMALY_HIGH"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 2,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "SEC提出書類、臨床試験登録、出来高内訳の追加確認"
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "未確認の提携・臨床情報",
+          "ショートカバー",
+          "低浮動株による需給偏り"
+        ],
+        "analysis_as_of": "2026-08-02T23:03:00+00:00",
+        "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+        "catalysts": [
+          "次回臨床更新",
+          "提携または資金調達の公表"
+        ],
+        "causal_chain": [
+          "新規上場後の流動性制約",
+          "臨床開発期待または投資家関心",
+          "複数日にわたる価格上昇"
+        ],
+        "confidence": {
+          "basis": "値動きは明確だが原因資料が不足。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "企業IRの確認範囲では急騰日に対応する発表がない",
+          "長期リターンが欠損し比較が不完全"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "欠損はあるが、株式分割型の機械的異常は確認できない。",
+          "status": "estimated",
+          "value": 0.15
+        },
+        "downstream_suitability": "INSUFFICIENT_EVIDENCE",
+        "event_explained_likelihood": {
+          "basis": "対応する公表イベントを特定できない。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_trax_ir_index_20260521"
+        ],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "急騰日に対応する公表資料の発見",
+          "流動性要因のみで説明可能との確認"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21営業日で約137%上昇。最大日上昇は約56%だが、値動きは単日に限定されず、126営業日比較は欠損。",
+        "primary_hypothesis": "公開済みの事業・臨床期待と新規上場後の需給が候補だが、7月9日の急騰に対応する一次資料を確認できない。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因を特定できず残余誤評価を評価できない。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "浮動株、空売り、上場後需給",
+          "7月9日前後の完全な一次資料"
+        ]
+      },
+      "blind_handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "insufficient_evidence",
+          "data_anomaly_likelihood": 0.15,
+          "event_explained_likelihood": null,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": null
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "浮動株、空売り、上場後需給",
+        "7月9日前後の完全な一次資料"
+      ],
+      "upstream_hypotheses": [
+        "公開済みの事業・臨床期待と新規上場後の需給が候補だが、7月9日の急騰に対応する一次資料を確認できない。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "分割調整済み価格で再取得すること"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "同時期の通常の業績変動"
+        ],
+        "analysis_as_of": "2026-08-02T23:03:00+00:00",
+        "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+        "catalysts": [
+          "データベンダーの遡及調整"
+        ],
+        "causal_chain": [
+          "3対1分割の承認・実施",
+          "7月20日から分割調整後価格で取引",
+          "未調整系列上で約3分の1への低下"
+        ],
+        "confidence": {
+          "basis": "SEC資料と下落率・日付が一致。",
+          "status": "estimated",
+          "value": 0.99
+        },
+        "counterevidence": [
+          "下落率が3対1分割の理論値に近い",
+          "企業資料が分割調整取引開始日を明示"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による価格系列の非連続。",
+          "status": "estimated",
+          "value": 0.995
+        },
+        "downstream_suitability": "REJECT_DATA_ANOMALY",
+        "event_explained_likelihood": {
+          "basis": "名目下落は株式分割で説明可能。",
+          "status": "estimated",
+          "value": 0.99
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_wlfc_split_20260623"
+        ],
+        "expected_resolution_horizon": "days",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "分割調整済み系列でも同等の下落が残る場合"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "2026年7月20日に約67%の名目下落が発生し、21営業日では約69%下落。",
+        "primary_hypothesis": "3対1の株式分割後の未調整価格比較が見かけ上の急落を生じさせた。",
+        "residual_mispricing_direction": "none_identified",
+        "residual_mispricing_likelihood": {
+          "basis": "分割調整後の独立した残余は本データから識別不能。",
+          "status": "estimated",
+          "value": 0.01
+        },
+        "uncertainties": [
+          "配当・出来高系列の調整状態"
+        ]
+      },
+      "blind_handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "comparison_status": "DISAGREE",
+      "disagreement": "DISAGREE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e_reconciliation",
+      "integrated_decision": "REJECT_DATA_ANOMALY",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.995,
+          "event_explained_likelihood": 0.99,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.01
+        },
+        "reason_code": "AI_DATA_ANOMALY_HIGH"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "配当・出来高系列の調整状態"
+      ],
+      "upstream_hypotheses": [
+        "3対1の株式分割後の未調整価格比較が見かけ上の急落を生じさせた。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "SEC提出書類、臨床試験登録、出来高内訳の追加確認"
+        ],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [
+          "未確認の提携・臨床情報",
+          "ショートカバー",
+          "低浮動株による需給偏り"
+        ],
+        "analysis_as_of": "2026-08-02T23:03:00+00:00",
+        "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+        "catalysts": [
+          "次回臨床更新",
+          "提携または資金調達の公表"
+        ],
+        "causal_chain": [
+          "新規上場後の流動性制約",
+          "臨床開発期待または投資家関心",
+          "複数日にわたる価格上昇"
+        ],
+        "confidence": {
+          "basis": "値動きは明確だが原因資料が不足。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "企業IRの確認範囲では急騰日に対応する発表がない",
+          "長期リターンが欠損し比較が不完全"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "欠損はあるが、株式分割型の機械的異常は確認できない。",
+          "status": "estimated",
+          "value": 0.15
+        },
+        "downstream_suitability": "INSUFFICIENT_EVIDENCE",
+        "event_explained_likelihood": {
+          "basis": "対応する公表イベントを特定できない。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_trax_ir_index_20260521"
+        ],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "急騰日に対応する公表資料の発見",
+          "流動性要因のみで説明可能との確認"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21営業日で約137%上昇。最大日上昇は約56%だが、値動きは単日に限定されず、126営業日比較は欠損。",
+        "primary_hypothesis": "公開済みの事業・臨床期待と新規上場後の需給が候補だが、7月9日の急騰に対応する一次資料を確認できない。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因を特定できず残余誤評価を評価できない。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "浮動株、空売り、上場後需給",
+          "7月9日前後の完全な一次資料"
+        ]
+      },
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "insufficient_evidence",
+          "data_anomaly_likelihood": 0.15,
+          "event_explained_likelihood": null,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": null
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "分割調整済み価格で再取得すること"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "同時期の通常の業績変動"
+        ],
+        "analysis_as_of": "2026-08-02T23:03:00+00:00",
+        "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+        "catalysts": [
+          "データベンダーの遡及調整"
+        ],
+        "causal_chain": [
+          "3対1分割の承認・実施",
+          "7月20日から分割調整後価格で取引",
+          "未調整系列上で約3分の1への低下"
+        ],
+        "confidence": {
+          "basis": "SEC資料と下落率・日付が一致。",
+          "status": "estimated",
+          "value": 0.99
+        },
+        "counterevidence": [
+          "下落率が3対1分割の理論値に近い",
+          "企業資料が分割調整取引開始日を明示"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による価格系列の非連続。",
+          "status": "estimated",
+          "value": 0.995
+        },
+        "downstream_suitability": "REJECT_DATA_ANOMALY",
+        "event_explained_likelihood": {
+          "basis": "名目下落は株式分割で説明可能。",
+          "status": "estimated",
+          "value": 0.99
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_wlfc_split_20260623"
+        ],
+        "expected_resolution_horizon": "days",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "分割調整済み系列でも同等の下落が残る場合"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "2026年7月20日に約67%の名目下落が発生し、21営業日では約69%下落。",
+        "primary_hypothesis": "3対1の株式分割後の未調整価格比較が見かけ上の急落を生じさせた。",
+        "residual_mispricing_direction": "none_identified",
+        "residual_mispricing_likelihood": {
+          "basis": "分割調整後の独立した残余は本データから識別不能。",
+          "status": "estimated",
+          "value": 0.01
+        },
+        "uncertainties": [
+          "配当・出来高系列の調整状態"
+        ]
+      },
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "comparison_status": "DISAGREE",
+      "integrated_decision": "REJECT_DATA_ANOMALY",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.995,
+          "event_explained_likelihood": 0.99,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.01
+        },
+        "reason_code": "AI_DATA_ANOMALY_HIGH"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

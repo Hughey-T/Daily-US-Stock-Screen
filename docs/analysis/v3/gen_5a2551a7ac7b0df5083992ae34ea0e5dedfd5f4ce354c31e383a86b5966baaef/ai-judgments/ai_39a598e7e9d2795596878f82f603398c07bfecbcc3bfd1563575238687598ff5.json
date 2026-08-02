@@ -1,0 +1,987 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_hash": "ai_39a598e7e9d2795596878f82f603398c07bfecbcc3bfd1563575238687598ff5",
+  "assessments": [
+    {
+      "additional_research": [
+        "合併契約条件と解除条項の確認"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "規制承認や取引完了確率の変化",
+        "買収前の製品期待の一部織り込み"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "catalysts": [
+        "規制承認",
+        "株主承認",
+        "取引完了"
+      ],
+      "causal_chain": [
+        "買収契約公表",
+        "提示価格への裁定的な価格収束",
+        "公表翌取引日の急騰"
+      ],
+      "confidence": {
+        "basis": "一次資料と値動きの日付対応が明確。",
+        "status": "estimated",
+        "value": 0.97
+      },
+      "counterevidence": [
+        "上昇幅と公表されたプレミアムが近い",
+        "公表後の値動きが小さく価格が固定化"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格系列上の異常を示す企業行動は確認されない。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+      "event_explained_likelihood": {
+        "basis": "買収価格と公表時期が単日急騰に直接対応。",
+        "status": "estimated",
+        "value": 0.98
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_crnx_vertex_20260706"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "買収契約の解除",
+        "重大な規制障害",
+        "提示条件の変更"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約116%上昇し、最大上昇日は2026年7月7日で値動きの大半が単日に集中。",
+      "primary_hypothesis": "Vertexによる1株85ドルの現金買収契約が価格の段差をほぼ説明する。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "取引成立確率以外の独立した残余を特定しにくい。",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "uncertainties": [
+        "完了確率とクロージング時期"
+      ]
+    },
+    {
+      "additional_research": [
+        "合併契約の解除条件確認"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "取引完了確率の変化",
+        "創業家の継続保有条件への評価"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "catalysts": [
+        "規制承認",
+        "取引完了"
+      ],
+      "causal_chain": [
+        "非公開化契約公表",
+        "提示価格への価格収束",
+        "単日での大幅上昇"
+      ],
+      "confidence": {
+        "basis": "一次資料が値動きを直接説明。",
+        "status": "estimated",
+        "value": 0.97
+      },
+      "counterevidence": [
+        "公表後の価格変動が限定的",
+        "上昇率が提示プレミアムと整合"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "株式分割等のデータ異常は確認されない。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+      "event_explained_likelihood": {
+        "basis": "買収発表と急騰日が一致。",
+        "status": "estimated",
+        "value": 0.98
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_utz_intersnack_20260721"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "契約解除",
+        "資金調達または規制上の障害"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約72%上昇し、2026年7月21日の上昇が値動きの大部分を占める。",
+      "primary_hypothesis": "Intersnackによる1株14.25ドルの現金買収契約が急騰を説明する。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "成立確率以外の残余誤評価は限定的。",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "uncertainties": [
+        "取引条件と完了時期"
+      ]
+    },
+    {
+      "additional_research": [
+        "SEC提出書類、臨床試験登録、出来高内訳の追加確認"
+      ],
+      "ai_assessment_status": "insufficient_evidence",
+      "alternative_hypotheses": [
+        "未確認の提携・臨床情報",
+        "ショートカバー",
+        "低浮動株による需給偏り"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "catalysts": [
+        "次回臨床更新",
+        "提携または資金調達の公表"
+      ],
+      "causal_chain": [
+        "新規上場後の流動性制約",
+        "臨床開発期待または投資家関心",
+        "複数日にわたる価格上昇"
+      ],
+      "confidence": {
+        "basis": "値動きは明確だが原因資料が不足。",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "counterevidence": [
+        "企業IRの確認範囲では急騰日に対応する発表がない",
+        "長期リターンが欠損し比較が不完全"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "欠損はあるが、株式分割型の機械的異常は確認できない。",
+        "status": "estimated",
+        "value": 0.15
+      },
+      "downstream_suitability": "INSUFFICIENT_EVIDENCE",
+      "event_explained_likelihood": {
+        "basis": "対応する公表イベントを特定できない。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_trax_ir_index_20260521"
+      ],
+      "expected_resolution_horizon": "unknown",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "急騰日に対応する公表資料の発見",
+        "流動性要因のみで説明可能との確認"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約137%上昇。最大日上昇は約56%だが、値動きは単日に限定されず、126営業日比較は欠損。",
+      "primary_hypothesis": "公開済みの事業・臨床期待と新規上場後の需給が候補だが、7月9日の急騰に対応する一次資料を確認できない。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因を特定できず残余誤評価を評価できない。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "浮動株、空売り、上場後需給",
+        "7月9日前後の完全な一次資料"
+      ]
+    },
+    {
+      "additional_research": [
+        "分割調整済み価格で再取得すること"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "同時期の通常の業績変動"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "catalysts": [
+        "データベンダーの遡及調整"
+      ],
+      "causal_chain": [
+        "3対1分割の承認・実施",
+        "7月20日から分割調整後価格で取引",
+        "未調整系列上で約3分の1への低下"
+      ],
+      "confidence": {
+        "basis": "SEC資料と下落率・日付が一致。",
+        "status": "estimated",
+        "value": 0.99
+      },
+      "counterevidence": [
+        "下落率が3対1分割の理論値に近い",
+        "企業資料が分割調整取引開始日を明示"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "企業行動による価格系列の非連続。",
+        "status": "estimated",
+        "value": 0.995
+      },
+      "downstream_suitability": "REJECT_DATA_ANOMALY",
+      "event_explained_likelihood": {
+        "basis": "名目下落は株式分割で説明可能。",
+        "status": "estimated",
+        "value": 0.99
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_wlfc_split_20260623"
+      ],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "分割調整済み系列でも同等の下落が残る場合"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "2026年7月20日に約67%の名目下落が発生し、21営業日では約69%下落。",
+      "primary_hypothesis": "3対1の株式分割後の未調整価格比較が見かけ上の急落を生じさせた。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "分割調整後の独立した残余は本データから識別不能。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "uncertainties": [
+        "配当・出来高系列の調整状態"
+      ]
+    },
+    {
+      "additional_research": [
+        "合併契約の解除条項"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "取引成立確率の変化"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "catalysts": [
+        "規制承認",
+        "株主承認",
+        "取引完了"
+      ],
+      "causal_chain": [
+        "合併契約公表",
+        "提示価格への価格収束",
+        "単日急騰"
+      ],
+      "confidence": {
+        "basis": "SEC資料と値動きが一致。",
+        "status": "estimated",
+        "value": 0.97
+      },
+      "counterevidence": [
+        "公表時期と最大上昇日が一致",
+        "買収価格が上昇後価格の基準になる"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+      "event_explained_likelihood": {
+        "basis": "買収契約が主要値動きを直接説明。",
+        "status": "estimated",
+        "value": 0.98
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_saft_mapfre_20260723"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "契約解除",
+        "規制上の重大障害"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約36%上昇し、2026年7月24日の約41%上昇が中心。",
+      "primary_hypothesis": "MAPFREによる1株105ドルの現金買収契約が急騰を説明する。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "成立確率以外の残余は小さい。",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "uncertainties": [
+        "クロージング時期"
+      ]
+    },
+    {
+      "additional_research": [
+        "決算前後のコンセンサス差とセグメント別成長確認"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "低い事前期待",
+        "ショートカバー",
+        "買収寄与と有機成長の混在"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "catalysts": [
+        "受注・パイプライン更新",
+        "次四半期の有機成長と利益率"
+      ],
+      "causal_chain": [
+        "強い売上・利益成長",
+        "通期見通し引き上げ",
+        "期待利益率と成長率の再評価",
+        "大幅上昇後の一部反落"
+      ],
+      "confidence": {
+        "basis": "材料は確認済みだが適正反応幅は不確実。",
+        "status": "estimated",
+        "value": 0.78
+      },
+      "counterevidence": [
+        "上昇後に反落があり初期反応の一部行き過ぎを示唆",
+        "成長には買収寄与も含まれる"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "企業行動によるデータ異常は確認されない。",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "RESEARCH_PRIORITY",
+      "event_explained_likelihood": {
+        "basis": "決算と見通し上方修正が時期・方向とも整合。",
+        "status": "estimated",
+        "value": 0.82
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_hurn_q2_20260728"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "上方修正が一過性または買収寄与のみと判明",
+        "利益率改善が反転"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約57%上昇し、7月29日に約40%上昇。翌日は約7%反落。",
+      "primary_hypothesis": "過去最高の第2四半期業績と通期見通し引き上げが再評価を促した。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "初期反応の大きさと翌日の反落から残余評価の余地。",
+        "status": "estimated",
+        "value": 0.22
+      },
+      "uncertainties": [
+        "買収寄与の持続性",
+        "上昇後の妥当な評価倍率"
+      ]
+    },
+    {
+      "additional_research": [
+        "合併契約条件と取引スプレッド確認"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "発表前の思惑や情報漏えい",
+        "取引成立確率の変化"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "catalysts": [
+        "規制承認",
+        "取引完了"
+      ],
+      "causal_chain": [
+        "買収契約公表",
+        "提示価格への価格収束",
+        "出来高を伴う上昇"
+      ],
+      "confidence": {
+        "basis": "SEC資料と時期対応が強い。",
+        "status": "estimated",
+        "value": 0.94
+      },
+      "counterevidence": [
+        "公表資料が現金対価を明示",
+        "上昇後は提示価格が価格上限の基準"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+      "event_explained_likelihood": {
+        "basis": "買収契約で主要部分を説明。",
+        "status": "estimated",
+        "value": 0.95
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_cbz_grantthornton_20260729"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "契約解除",
+        "資金調達の不成立"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約61%上昇し、7月29日の上昇を含む。出来高も大幅増。",
+      "primary_hypothesis": "Grant Thornton Advisorsによる1株55ドルの現金買収契約が主要部分を説明する。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "発表前上昇や成立確率の変化を除けば残余は限定。",
+        "status": "estimated",
+        "value": 0.05
+      },
+      "uncertainties": [
+        "発表前上昇の要因",
+        "完了時期"
+      ]
+    },
+    {
+      "additional_research": [
+        "反トラスト条件と解除条項"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "取引成立確率",
+        "発表前のポジショニング"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "catalysts": [
+        "規制承認",
+        "取引完了"
+      ],
+      "causal_chain": [
+        "買収契約公表",
+        "33%プレミアムへの価格収束",
+        "単日上昇"
+      ],
+      "confidence": {
+        "basis": "一次資料と価格反応が一致。",
+        "status": "estimated",
+        "value": 0.97
+      },
+      "counterevidence": [
+        "公表価格と急騰率が近い",
+        "公表前の63日・126日相対成績は弱い"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+      "event_explained_likelihood": {
+        "basis": "現金買収条件が急騰を直接説明。",
+        "status": "estimated",
+        "value": 0.98
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_mktx_ice_20260730"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "競争当局の重大懸念",
+        "契約解除"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約42%上昇し、7月30日に約29%上昇。直前の中期成績は弱い。",
+      "primary_hypothesis": "ICEによる1株167ドルの現金買収契約が急騰を説明する。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "成立確率以外の残余は限定的。",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "uncertainties": [
+        "規制審査期間"
+      ]
+    },
+    {
+      "additional_research": [
+        "買収条件と発表前臨床材料の時系列確認"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "臨床データ期待の先行織り込み",
+        "セクター全体のリスク選好"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "catalysts": [
+        "取引完了",
+        "臨床開発の引継ぎ"
+      ],
+      "causal_chain": [
+        "臨床資産への期待",
+        "Lillyの買収契約公表",
+        "買収条件への価格収束"
+      ],
+      "confidence": {
+        "basis": "直近イベントは明確だが発表前上昇は複合的。",
+        "status": "estimated",
+        "value": 0.9
+      },
+      "counterevidence": [
+        "公表日と最大上昇日が一致",
+        "買収前から大幅な相対上昇が存在"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+      "event_explained_likelihood": {
+        "basis": "直近の単日急騰は買収で説明。",
+        "status": "estimated",
+        "value": 0.9
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_atai_lilly_20260716"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "契約解除",
+        "重大な規制障害"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約47%、126営業日で約87%上昇し、7月16日に約33%上昇。",
+      "primary_hypothesis": "Lillyによる買収発表が直近急騰を説明するが、発表前の中期上昇には臨床期待も含まれる。",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "買収条件で価格が固定化し残余は限定。ただし発表前上昇の原因は複合的。",
+        "status": "estimated",
+        "value": 0.08
+      },
+      "uncertainties": [
+        "発表前上昇の情報要因"
+      ]
+    },
+    {
+      "additional_research": [
+        "受注残、契約期間、セグメント利益率の確認"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "低位からのテクニカル反発",
+        "ショートカバー",
+        "契約価値の過大解釈"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "catalysts": [
+        "契約の売上寄与",
+        "次四半期の利益率",
+        "キャッシュフロー改善"
+      ],
+      "causal_chain": [
+        "複数の事業材料公表",
+        "業績と財務柔軟性への期待改善",
+        "数日にわたる上昇"
+      ],
+      "confidence": {
+        "basis": "材料はあるが寄与と持続性が不確実。",
+        "status": "estimated",
+        "value": 0.64
+      },
+      "counterevidence": [
+        "調整後EBITDAは前年同期を下回る",
+        "126営業日では依然大幅安"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "企業行動型の価格異常は確認されない。",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "downstream_suitability": "RESEARCH_PRIORITY",
+      "event_explained_likelihood": {
+        "basis": "複数の公表材料は方向を説明するが上昇全体の寄与分解は不能。",
+        "status": "estimated",
+        "value": 0.58
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_efor_q2_20260729"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "契約が低採算または売上寄与が限定",
+        "利益率悪化継続"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約62%上昇し、最大単日上昇は約18%。値動きは複数日に分散し、126営業日ではなお約43%下落。",
+      "primary_hypothesis": "第2四半期業績とAI関連契約・資金調達改善など複数材料が短期の再評価を促した。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "長期下落後の急回復で評価余地はあるが方向は両面。",
+        "status": "estimated",
+        "value": 0.38
+      },
+      "uncertainties": [
+        "AI契約の経済価値",
+        "一時要因と継続要因の分離"
+      ]
+    },
+    {
+      "additional_research": [
+        "恒常為替ベースの地域別売上と一時項目の分解"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "為替効果",
+        "売却益や一時項目",
+        "ショートカバー"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "catalysts": [
+        "有機成長率",
+        "粗利率",
+        "次四半期ガイダンス"
+      ],
+      "causal_chain": [
+        "業績公表",
+        "収益トレンド改善の認識",
+        "景気敏感株への再評価",
+        "単日急騰と中期上昇"
+      ],
+      "confidence": {
+        "basis": "決算対応は明確だが中期評価は不確実。",
+        "status": "estimated",
+        "value": 0.7
+      },
+      "counterevidence": [
+        "人材需要は景気変動に敏感",
+        "報告増収には為替影響が含まれ得る"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "RESEARCH_PRIORITY",
+      "event_explained_likelihood": {
+        "basis": "決算公表が最大上昇日と一致。",
+        "status": "estimated",
+        "value": 0.72
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_man_q2_20260716"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "定常利益の改善が確認できない",
+        "人材需要の再悪化"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21営業日で約41%、63営業日で約73%上昇し、7月16日に約32%上昇。",
+      "primary_hypothesis": "第2四半期の増収・利益改善と事業構成変更が期待修正を促した。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "中期上昇全体と適正倍率には未解明部分。",
+        "status": "estimated",
+        "value": 0.28
+      },
+      "uncertainties": [
+        "為替と事業売却の影響",
+        "景気循環の持続性"
+      ]
+    },
+    {
+      "additional_research": [
+        "コンセンサス差、予約額、DAU、収益化指標の精査"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "高い事前評価倍率",
+        "安全施策や年齢構成変化への懸念",
+        "市場全体のグロース株調整"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "catalysts": [
+        "予約額の再加速",
+        "利用時間と支払者数",
+        "ガイダンス更新"
+      ],
+      "causal_chain": [
+        "四半期業績・見通し公表",
+        "予約額や収益化への期待低下",
+        "高成長前提の再評価",
+        "大幅下落"
+      ],
+      "confidence": {
+        "basis": "イベント対応は明確だが適正下落幅は不確実。",
+        "status": "estimated",
+        "value": 0.72
+      },
+      "counterevidence": [
+        "中長期でも下落が続いており単一決算だけでは全期間を説明しない",
+        "自社株買い枠は下支え要因"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "企業行動によるデータ異常は確認されない。",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "MONITOR",
+      "event_explained_likelihood": {
+        "basis": "決算発表直後の下落は方向・時期とも整合。",
+        "status": "estimated",
+        "value": 0.76
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_rblx_q2_20260730"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "成長鈍化が継続",
+        "収益化指標がさらに悪化"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "7月31日に約27%下落し、21営業日で約39%、126営業日で約53%下落。出来高増加を伴う。",
+      "primary_hypothesis": "第2四半期発表後に成長期待と短期見通しが下方修正され、評価倍率が圧縮した。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "初期下落の過剰反応または構造的下方修正の双方が残る。",
+        "status": "estimated",
+        "value": 0.27
+      },
+      "uncertainties": [
+        "年齢別収益化",
+        "見通しと市場期待の差"
+      ]
+    },
+    {
+      "additional_research": [
+        "NAV、FFO倍率、同業比較、負債コストの確認"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "金利低下期待",
+        "REITセクターの資金流入",
+        "低い出発評価からの倍率修正"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "catalysts": [
+        "RevPAR継続改善",
+        "資産売却・買戻し",
+        "金利低下"
+      ],
+      "causal_chain": [
+        "業績改善",
+        "見通し引き上げ",
+        "負債期限対応",
+        "複数月の評価改善"
+      ],
+      "confidence": {
+        "basis": "継続形状は明確だが原因寄与は複合的。",
+        "status": "estimated",
+        "value": 0.62
+      },
+      "counterevidence": [
+        "地政学・旅行需要の不確実性を会社が明示",
+        "単一イベントでは上昇全体を説明できない"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "RESEARCH_PRIORITY",
+      "event_explained_likelihood": {
+        "basis": "業績と見通し改善は方向を説明するが全期間を説明しきれない。",
+        "status": "estimated",
+        "value": 0.55
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_rlj_q1_20260504"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "RevPAR失速",
+        "金利上昇",
+        "ホテル需要悪化"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63営業日で約49%、126営業日で約63%上昇。最大単日変動の寄与は小さく、継続的な上昇。",
+      "primary_hypothesis": "第1四半期の予想超過、RevPAR改善、通期見通し引き上げが段階的な再評価を支えた。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "継続上昇の一部に独立した再評価余地がある可能性。",
+        "status": "estimated",
+        "value": 0.36
+      },
+      "uncertainties": [
+        "評価倍率の出発点",
+        "金利要因と業績要因の分離"
+      ]
+    },
+    {
+      "additional_research": [
+        "利益率、ブランド別成長、在庫、為替感応度の確認"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "為替変動",
+        "消費関連株への資金流入",
+        "評価倍率の回復"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "catalysts": [
+        "第2四半期利益",
+        "ブランド別売上",
+        "通期ガイダンス"
+      ],
+      "causal_chain": [
+        "ブランド・ライセンス進展",
+        "売上更新",
+        "複数月の利益期待改善",
+        "緩やかな上昇"
+      ],
+      "confidence": {
+        "basis": "業績方向は確認できるが残余の確度は中程度。",
+        "status": "estimated",
+        "value": 0.6
+      },
+      "counterevidence": [
+        "単一の公表材料では全上昇を説明できない",
+        "短期出来高は高くない"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "MONITOR",
+      "event_explained_likelihood": {
+        "basis": "複数の企業材料は方向を説明するが寄与分解は困難。",
+        "status": "estimated",
+        "value": 0.52
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_ipar_q2sales_20260722"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "売上成長鈍化",
+        "ライセンス投資による利益率低下",
+        "為替逆風"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63営業日で約37%、126営業日で約30%上昇。単日集中度は低い。",
+      "primary_hypothesis": "売上成長、新規・延長ライセンス、2026年業績期待が段階的な再評価を支えた。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "持続的再評価の余地はあるが上昇後評価も確認が必要。",
+        "status": "estimated",
+        "value": 0.33
+      },
+      "uncertainties": [
+        "第2四半期は売上のみで利益確認前",
+        "評価倍率"
+      ]
+    },
+    {
+      "additional_research": [
+        "同業倍率、負債返済、来院数と単価の分析"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "独立上場後の価格発見",
+        "ヘルスケア需要の防御性",
+        "同業比較での倍率修正"
+      ],
+      "analysis_as_of": "2026-08-02T23:03:00+00:00",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "catalysts": [
+        "有機来院数",
+        "利益率",
+        "負債削減",
+        "追加拠点"
+      ],
+      "causal_chain": [
+        "売上・利益成長",
+        "通期見通し引き上げ",
+        "事業拡張と株主還元",
+        "数か月の評価改善"
+      ],
+      "confidence": {
+        "basis": "業績材料は確認済みだが持続性評価が必要。",
+        "status": "estimated",
+        "value": 0.66
+      },
+      "counterevidence": [
+        "レバレッジは依然高め",
+        "買収寄与を除いた成長率は報告値より低い"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "データ異常の兆候なし。",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "RESEARCH_PRIORITY",
+      "event_explained_likelihood": {
+        "basis": "業績・見通し改善は方向を説明する。",
+        "status": "estimated",
+        "value": 0.6
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_con_q1_20260507"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "有機成長鈍化",
+        "レバレッジ上昇",
+        "労務費圧力"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63営業日で約41%、126営業日で約47%上昇。単日集中度は低い。",
+      "primary_hypothesis": "第1四半期の増収増益と通期見通し引き上げが継続的な再評価を支えた。",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "有機成長と倍率修正の持続性に未解明部分。",
+        "status": "estimated",
+        "value": 0.32
+      },
+      "uncertainties": [
+        "買収寄与と有機成長の分離",
+        "適正レバレッジ"
+      ]
+    }
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "locked_at": "2026-08-03T08:03:00+09:00"
+}
