@@ -1,10 +1,13 @@
 name: Process GPT analysis artifact request
+
 on:
   issues:
     types: [opened]
+
 concurrency:
   group: gpt-analysis-writer-main
   cancel-in-progress: false
+
 jobs:
   process:
     if: startsWith(github.event.issue.title, '[GPT-ANALYSIS-V3] ')
@@ -13,48 +16,129 @@ jobs:
       contents: write
       issues: write
     steps:
-      - uses: actions/checkout@v4
-        with: {ref: main, fetch-depth: 0}
-      - uses: actions/setup-python@v5
-        with: {python-version: '3.12', cache: pip}
-      - run: pip install -r requirements.txt
+      - name: Check out trusted default branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Authorize immutable opened event and extract request
         env:
-          ACTOR: ${{ github.event.issue.user.login }}
-          ASSOCIATION: ${{ github.event.issue.author_association }}
-          OWNER: ${{ github.repository_owner }}
-          TITLE: ${{ github.event.issue.title }}
-          BODY: ${{ github.event.issue.body }}
+          EXPECTED_REPOSITORY: Hughey-T/Daily-US-Stock-Screen
         run: |
-          test "$ACTOR" = "$OWNER"
-          test "$ASSOCIATION" = "OWNER"
-          printf '%s' "$BODY" > "$RUNNER_TEMP/request.json"
-          python -c "import json,os,pathlib; r=json.loads(pathlib.Path(os.environ['RUNNER_TEMP']+'/request.json').read_text()); assert r['operation']=='persist_ai_assessment_v3'; assert r['repository']=='Hughey-T/Daily-US-Stock-Screen'; assert os.environ['TITLE']=='[GPT-ANALYSIS-V3] '+r['request_id']"
+          python - <<'PY'
+          import json
+          import os
+          import pathlib
+          import re
+
+          event = json.loads(pathlib.Path(os.environ['GITHUB_EVENT_PATH']).read_text(encoding='utf-8'))
+          issue = event['issue']
+          repository = event['repository']['full_name']
+          owner = event['repository']['owner']['login']
+          if repository != os.environ['EXPECTED_REPOSITORY']:
+              raise SystemExit('REPOSITORY_MISMATCH')
+          if issue['user']['login'] != owner or issue['author_association'] != 'OWNER':
+              raise SystemExit('UNAUTHORIZED_ACTOR')
+          match = re.fullmatch(r'\[GPT-ANALYSIS-V3\] (analysis_[0-9a-f]{64})', issue['title'])
+          if not match:
+              raise SystemExit('INVALID_ANALYSIS_TITLE')
+          body = issue.get('body')
+          if not isinstance(body, str):
+              raise SystemExit('MISSING_REQUEST_BODY')
+          request = json.loads(body)
+          if request.get('request_id') != match.group(1):
+              raise SystemExit('TITLE_REQUEST_ID_MISMATCH')
+          if request.get('operation') != 'persist_ai_assessment_v3':
+              raise SystemExit('INVALID_OPERATION')
+          if request.get('repository') != os.environ['EXPECTED_REPOSITORY']:
+              raise SystemExit('REQUEST_REPOSITORY_MISMATCH')
+          destination = pathlib.Path(os.environ['RUNNER_TEMP']) / 'request.json'
+          destination.write_text(json.dumps(request, ensure_ascii=False), encoding='utf-8')
+          PY
+
       - name: Validate and persist immutable analysis bundle
         run: |
           snapshot=$(python -c "import json,os,pathlib; print(json.loads(pathlib.Path(os.environ['RUNNER_TEMP']+'/request.json').read_text())['source_snapshot_path'])")
           python scripts/process_analysis_request.py persist-assessment --snapshot "$snapshot" --request "$RUNNER_TEMP/request.json" | tee "$RUNNER_TEMP/result.json"
+
       - name: Commit trusted artifacts
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add docs/analysis/v3
-          git commit -m "Persist validated GPT analysis artifact"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          if git diff --cached --quiet; then
+            echo "Idempotent replay: no new repository bytes."
+          else
+            git commit -m "Persist validated GPT analysis artifact"
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push origin HEAD:main && break
+              git rebase --abort 2>/dev/null || true
+              if [ "$attempt" = 3 ]; then exit 1; fi
+              sleep $((attempt * 2))
+            done
+          fi
+
       - name: Verify branch bytes
         run: |
           git pull --ff-only origin main
           git diff --exit-code HEAD origin/main -- docs/analysis/v3
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import pathlib
+
+          result = json.loads(pathlib.Path(os.environ['RUNNER_TEMP'] + '/result.json').read_text())
+          path = pathlib.Path(result['path'])
+          actual = hashlib.sha256(path.read_bytes()).hexdigest()
+          if actual != result['sha256']:
+              raise SystemExit('REMOTE_HASH_MISMATCH')
+          PY
+
       - name: Publish integrity-verified receipt
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number }}
         run: |
           python - <<'PY' > "$RUNNER_TEMP/receipt.json"
-          import json, os, subprocess
-          result=json.load(open(os.environ['RUNNER_TEMP']+'/result.json'))
-          result.update(write_request_status='integrity_verified', verified_commit_sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
-          print(json.dumps(result,sort_keys=True))
+          import json
+          import os
+          import subprocess
+
+          result = json.load(open(os.environ['RUNNER_TEMP'] + '/result.json', encoding='utf-8'))
+          result.update(
+              write_request_status='integrity_verified',
+              verified_commit_sha=subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+          )
+          print(json.dumps(result, sort_keys=True))
           PY
           gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" -f body="$(cat "$RUNNER_TEMP/receipt.json")"
+
+      - name: Publish sanitized terminal failure receipt
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          python - <<'PY' > "$RUNNER_TEMP/failure-receipt.json"
+          import datetime
+          import json
+
+          print(json.dumps({
+              'write_request_status': 'failed_terminal',
+              'error_code': 'ANALYSIS_REQUEST_REJECTED',
+              'retryable': False,
+              'completed_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+          }, sort_keys=True))
+          PY
+          gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" -f body="$(cat "$RUNNER_TEMP/failure-receipt.json")"
