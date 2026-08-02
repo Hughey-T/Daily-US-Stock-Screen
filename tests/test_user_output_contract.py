@@ -32,7 +32,7 @@ class UserOutputContractTest(unittest.TestCase):
 
     def test_canonical_prompt_stays_pasteable_and_defines_phase_map(self) -> None:
         self.assertLessEqual(len(self.prompt), 8_000)
-        self.assertIn("analysis-contract-3.0-seven-user-phase-v2", self.prompt)
+        self.assertIn("analysis-contract-3.0-seven-user-phase-v3", self.prompt)
         titles = (
             "本日のデータ確認と調査対象の確定",
             "候補銘柄の値動きの特徴確認",
@@ -59,6 +59,26 @@ class UserOutputContractTest(unittest.TestCase):
         ):
             self.assertIn(rule, boundary)
         self.assertIn("同じ会話内の正常完了済み初回結果を固定", self.prompt)
+
+    def test_phase_three_requires_active_public_evidence_research(self) -> None:
+        phase_three = self.prompt.split(
+            "Phase 3では候補内の `evidence_refs` が空でも",
+            1,
+        )[1].split("Phase 4は", 1)[0]
+        for rule in (
+            "証拠不存在とみなさず",
+            "cutoff以前の公開情報を全候補について能動調査",
+            "一次資料を優先",
+            "信頼できる報道を補助使用",
+            "`evidence_registry` へ登録",
+            "評価はそのregistry IDだけを参照",
+            "実際に検索して関連資料が見つからない",
+            "`evidence_refs=[]`だけを理由に検索を省略",
+            "全候補を一括して判断材料不足にしてはならない",
+            "検索機能が一時的に使えない場合はPhase 3を完了せず",
+        ):
+            self.assertIn(rule, phase_three)
+        self.assertIn("公開証拠のWeb検索・閲覧は禁止しない", self.prompt)
 
     def test_all_required_fixtures_exist_and_hide_internal_details(self) -> None:
         expected = {
