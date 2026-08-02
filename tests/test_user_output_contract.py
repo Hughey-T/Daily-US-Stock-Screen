@@ -32,7 +32,7 @@ class UserOutputContractTest(unittest.TestCase):
 
     def test_canonical_prompt_stays_pasteable_and_defines_phase_map(self) -> None:
         self.assertLessEqual(len(self.prompt), 8_000)
-        self.assertIn("analysis-contract-3.0-seven-user-phase-v3", self.prompt)
+        self.assertIn("analysis-contract-3.0-seven-user-phase-v4", self.prompt)
         titles = (
             "本日のデータ確認と調査対象の確定",
             "候補銘柄の値動きの特徴確認",
@@ -79,6 +79,21 @@ class UserOutputContractTest(unittest.TestCase):
         ):
             self.assertIn(rule, phase_three)
         self.assertIn("公開証拠のWeb検索・閲覧は禁止しない", self.prompt)
+
+    def test_phase_five_uses_runtime_owned_reconciliation(self) -> None:
+        phase_five = self.prompt.split("Phase 5は保存後の", 1)[1].split("Phase 6は", 1)[0]
+        for rule in (
+            "`reconciliation_projection`",
+            "`integrated_decisions`",
+            "`comparison_status`",
+            "`decision`",
+            "`integration_basis`",
+            "変更・再計算・再分類しない",
+            "一致/部分一致/不一致/判断材料不足/強制除外で比較対象外",
+            "`mechanical_agreement` は照合に使わず",
+            "「機械側に最終候補を支持するラベルがない」ことを格下げ理由にしない",
+        ):
+            self.assertIn(rule, phase_five)
 
     def test_all_required_fixtures_exist_and_hide_internal_details(self) -> None:
         expected = {
@@ -189,6 +204,8 @@ class UserOutputContractTest(unittest.TestCase):
             "global partと全candidate partを取得",
             "候補の不足・重複・余分を拒否",
             "完全確認後にだけPhase 4を完了",
+            "機械開示前の`mechanical_agreement`は必ず`INSUFFICIENT_EVIDENCE`",
+            "Phase 5では使用しない",
         ):
             self.assertIn(rule, contract)
 
