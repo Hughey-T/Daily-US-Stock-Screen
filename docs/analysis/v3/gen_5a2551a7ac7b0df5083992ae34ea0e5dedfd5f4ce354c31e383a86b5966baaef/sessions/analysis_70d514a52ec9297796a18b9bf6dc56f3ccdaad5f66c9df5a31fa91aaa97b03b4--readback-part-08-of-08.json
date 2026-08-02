@@ -1,0 +1,240 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Concentra Group Holdings Parent",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "CON"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed",
+      "investment_horizon": "months",
+      "security_identity": "ent_82df27d8955cfd025b172cf9d1897d39b392c0965502e9765794affe6d2ae38d",
+      "source_refs": [],
+      "ticker": "CON",
+      "unresolved_factual_questions": [
+        "上場・企業分離履歴と価格発見過程の確認",
+        "需要・契約・利益率に関する一次資料確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_70d514a52ec9297796a18b9bf6dc56f3ccdaad5f66c9df5a31fa91aaa97b03b4",
+  "candidate_ids": [
+    "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "decisions": {
+        "ai_independent": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 8,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "上場・企業分離履歴と価格発見過程の確認",
+          "需要・契約・利益率に関する一次資料確認",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "Healthcareサービス業界への資金流入",
+          "上場後または企業分離後の価格発見",
+          "指数組入れ・株主構成変化・自社株買い"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+        "catalysts": [
+          "上場・企業分離履歴と価格発見過程の確認",
+          "需要・契約・利益率に関する一次資料確認"
+        ],
+        "causal_chain": [
+          "未確認の需要・契約・利益率または企業構造上の改善",
+          "収益安定性と成長持続性期待の改善",
+          "将来利益・評価倍率の段階的上方修正",
+          "低集中の中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "直近出来高・ボラティリティが低下",
+          "単一イベント仮説とは不整合"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "上場後価格発見・指数要因・企業分離の機械的影響だけで中期上昇が説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63日で約40.9%、126日で約46.5%上昇。最大1日比率は約4.6%・2.4%で低く、出来高比率は約0.56、ボラティリティ比率は約0.88。21日上昇は約2.9%へ減速。",
+        "primary_hypothesis": "安定した業績進展または独立企業としての評価形成が中期的に価格へ織り込まれた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "安定した業績進展または独立企業としての評価形成が中期的に価格へ織り込まれた可能性。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "上場・企業分離履歴と価格発見過程の確認",
+          "需要・契約・利益率に関する一次資料確認",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "Healthcareサービス業界への資金流入",
+          "上場後または企業分離後の価格発見",
+          "指数組入れ・株主構成変化・自社株買い"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+        "catalysts": [
+          "上場・企業分離履歴と価格発見過程の確認",
+          "需要・契約・利益率に関する一次資料確認"
+        ],
+        "causal_chain": [
+          "未確認の需要・契約・利益率または企業構造上の改善",
+          "収益安定性と成長持続性期待の改善",
+          "将来利益・評価倍率の段階的上方修正",
+          "低集中の中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "直近出来高・ボラティリティが低下",
+          "単一イベント仮説とは不整合"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "上場後価格発見・指数要因・企業分離の機械的影響だけで中期上昇が説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63日で約40.9%、126日で約46.5%上昇。最大1日比率は約4.6%・2.4%で低く、出来高比率は約0.56、ボラティリティ比率は約0.88。21日上昇は約2.9%へ減速。",
+        "primary_hypothesis": "安定した業績進展または独立企業としての評価形成が中期的に価格へ織り込まれた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

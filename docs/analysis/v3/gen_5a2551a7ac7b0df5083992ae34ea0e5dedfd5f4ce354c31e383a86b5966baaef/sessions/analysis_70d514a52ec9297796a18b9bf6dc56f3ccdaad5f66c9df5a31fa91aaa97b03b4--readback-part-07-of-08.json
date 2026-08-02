@@ -1,0 +1,457 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "RLJ Lodging Trust",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Real Estate",
+        "ticker": "RLJ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "investment_horizon": "months",
+      "security_identity": "ent_1aae3f4323b9ee178d29a0cd58644d13fbd7ba45e4a4746c46d4c5824bcc9474",
+      "source_refs": [],
+      "ticker": "RLJ",
+      "unresolved_factual_questions": [
+        "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+        "金利・REIT・宿泊業界要因との比較",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Interparfums, Inc.",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Consumer Defensive",
+        "ticker": "IPAR"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "investment_horizon": "months",
+      "security_identity": "ent_4312adf55d7e9d9b9bfe3d435a9f7cac7e5ab1935f8cbee1a0b10d76f4dd6d82",
+      "source_refs": [],
+      "ticker": "IPAR",
+      "unresolved_factual_questions": [
+        "売上・ブランド別動向・利益率の一次資料確認",
+        "為替・原材料・流通環境との比較",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_70d514a52ec9297796a18b9bf6dc56f3ccdaad5f66c9df5a31fa91aaa97b03b4",
+  "candidate_ids": [
+    "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+    "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decisions": {
+        "ai_independent": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decisions": {
+        "ai_independent": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 7,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+          "金利・REIT・宿泊業界要因との比較",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "金利低下期待によるREIT評価倍率上昇",
+          "宿泊需要・旅行関連の業界改善",
+          "自社株買いまたは機関投資家流入"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+          "金利・REIT・宿泊業界要因との比較"
+        ],
+        "causal_chain": [
+          "未確認の運営改善・需要改善・資産価値または資本配分進展",
+          "稼働・料金・キャッシュフロー・資産価値期待の改善",
+          "利益・純資産価値評価の段階的上方修正",
+          "低集中の中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "直近21日で上昇速度が鈍化",
+          "出来高・ボラティリティが低下"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.1
+        },
+        "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "企業固有KPI改善が確認できず、REIT・宿泊業界の倍率変化だけで説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63日で約48.7%、126日で約63.3%上昇。最大1日比率はそれぞれ約5.8%・3.6%で、出来高・ボラティリティ比率は1未満。21日上昇は約4.8%へ減速。",
+        "primary_hypothesis": "企業固有の収益・資産価値期待が数カ月かけて継続的に改善した可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "企業固有の収益・資産価値期待が数カ月かけて継続的に改善した可能性。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "売上・ブランド別動向・利益率の一次資料確認",
+          "為替・原材料・流通環境との比較",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "Consumer Defensiveまたは高品質消費銘柄への資金ローテーション",
+          "為替・原材料・流通環境の業界改善",
+          "自社株買いまたは機関投資家蓄積"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "売上・ブランド別動向・利益率の一次資料確認",
+          "為替・原材料・流通環境との比較"
+        ],
+        "causal_chain": [
+          "未確認の需要・ブランド・流通改善",
+          "売上成長率と利益率期待の改善",
+          "利益予想または品質評価の段階的上方修正",
+          "低集中の中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "方向効率が低く滑らかな一方向再評価ではない",
+          "出来高増加がない"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.1
+        },
+        "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "企業固有業績改善が確認できず、セクターローテーションまたは平均回帰だけで説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63日で約36.5%、126日で約30.4%上昇。最大1日比率は約4.6%・2.7%で低く、出来高比率は約0.66、ボラティリティ比率は約0.96。",
+        "primary_hypothesis": "売上成長・ブランド構成・利益率への期待が複数回の情報更新を通じて徐々に改善した可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "売上成長・ブランド構成・利益率への期待が複数回の情報更新を通じて徐々に改善した可能性。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+          "金利・REIT・宿泊業界要因との比較",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "金利低下期待によるREIT評価倍率上昇",
+          "宿泊需要・旅行関連の業界改善",
+          "自社株買いまたは機関投資家流入"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+          "金利・REIT・宿泊業界要因との比較"
+        ],
+        "causal_chain": [
+          "未確認の運営改善・需要改善・資産価値または資本配分進展",
+          "稼働・料金・キャッシュフロー・資産価値期待の改善",
+          "利益・純資産価値評価の段階的上方修正",
+          "低集中の中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "直近21日で上昇速度が鈍化",
+          "出来高・ボラティリティが低下"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.1
+        },
+        "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "企業固有KPI改善が確認できず、REIT・宿泊業界の倍率変化だけで説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63日で約48.7%、126日で約63.3%上昇。最大1日比率はそれぞれ約5.8%・3.6%で、出来高・ボラティリティ比率は1未満。21日上昇は約4.8%へ減速。",
+        "primary_hypothesis": "企業固有の収益・資産価値期待が数カ月かけて継続的に改善した可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "売上・ブランド別動向・利益率の一次資料確認",
+          "為替・原材料・流通環境との比較",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "Consumer Defensiveまたは高品質消費銘柄への資金ローテーション",
+          "為替・原材料・流通環境の業界改善",
+          "自社株買いまたは機関投資家蓄積"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "売上・ブランド別動向・利益率の一次資料確認",
+          "為替・原材料・流通環境との比較"
+        ],
+        "causal_chain": [
+          "未確認の需要・ブランド・流通改善",
+          "売上成長率と利益率期待の改善",
+          "利益予想または品質評価の段階的上方修正",
+          "低集中の中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "方向効率が低く滑らかな一方向再評価ではない",
+          "出来高増加がない"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.1
+        },
+        "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "企業固有業績改善が確認できず、セクターローテーションまたは平均回帰だけで説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63日で約36.5%、126日で約30.4%上昇。最大1日比率は約4.6%・2.7%で低く、出来高比率は約0.66、ボラティリティ比率は約0.96。",
+        "primary_hypothesis": "売上成長・ブランド構成・利益率への期待が複数回の情報更新を通じて徐々に改善した可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

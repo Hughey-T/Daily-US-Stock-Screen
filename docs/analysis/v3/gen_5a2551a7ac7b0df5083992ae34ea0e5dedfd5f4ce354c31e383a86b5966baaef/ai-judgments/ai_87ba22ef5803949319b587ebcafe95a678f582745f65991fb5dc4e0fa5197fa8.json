@@ -1,0 +1,1015 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+  "assessments": [
+    {
+      "additional_research": [
+        "2026-07-07前後の公式開示・規制提出書類の特定",
+        "開発資産・提携・資本取引に関する一次資料の確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "買収・提携・ライセンスなどの資本または戦略取引",
+        "低流動性・空売り解消による需給増幅",
+        "企業行動調整または価格系列異常"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "catalysts": [
+        "2026-07-07前後の公式開示・規制提出書類の特定",
+        "開発資産・提携・資本取引に関する一次資料の確認"
+      ],
+      "causal_chain": [
+        "未確認の企業固有イベント",
+        "成功確率・対象市場・収益化時期などの期待改善",
+        "将来売上・キャッシュフロー期待の上方修正",
+        "単一日の極端な上方ギャップ"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "counterevidence": [
+        "変動の大半が単一日に集中し、継続的な情報蓄積とは整合しにくい",
+        "急変後の出来高増加が継続していない"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.3
+      },
+      "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "企業固有価値を変えるカットオフ以前の情報が確認できず、需給要因だけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日・63日で約116%上昇し、2026-07-07の約98.7%上昇が21日絶対変動の約89.6%を占める。最大ギャップは約98.9%、直近出来高比率は約0.30。",
+      "primary_hypothesis": "単一の企業固有情報または離散的取引が企業価値期待を大幅に引き上げた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "2026-07-21前後の公式開示・取引発表の特定",
+        "買収・非公開化・資本配分に関する一次資料の確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "買収・非公開化・大型資産取引",
+        "株式数や価格調整に関係する企業行動",
+        "流動性不足またはショートカバー"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "catalysts": [
+        "2026-07-21前後の公式開示・取引発表の特定",
+        "買収・非公開化・資本配分に関する一次資料の確認"
+      ],
+      "causal_chain": [
+        "未確認の企業固有イベント",
+        "成長率・利益率・資本配分または支配権価値の期待改善",
+        "予想利益または取引価値の上方修正",
+        "単一日の大幅ギャップ"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "counterevidence": [
+        "最大1日への集中が極端で通常の累積的改善とは異なる",
+        "急変後の価格・出来高の継続性が弱い"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.35
+      },
+      "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "取引・業績・資本配分の企業固有説明が確認できず、機械的価格調整で説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約72.4%上昇し、2026-07-21の約88.7%上昇が絶対変動の約78.2%を占める。最大ギャップは約89.0%、急変後は小幅変動。",
+      "primary_hypothesis": "企業価値を離散的に引き上げる取引、戦略変更または業績情報が発生した可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "会社同一性・上場履歴・ティッカー履歴の確認",
+        "2026-07-09前後を含む公式開示の特定",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "複数ニュースまたは情報漏出",
+        "低流動性下の投機的モメンタム",
+        "上場履歴・企業再編・価格系列の非連続"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "catalysts": [
+        "会社同一性・上場履歴・ティッカー履歴の確認",
+        "2026-07-09前後を含む公式開示の特定"
+      ],
+      "causal_chain": [
+        "未確認の開発・事業・資本関連情報",
+        "成功確率または企業存続価値の期待改善",
+        "資金調達条件または事業価値の再評価",
+        "複数日に分散した上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.12
+      },
+      "counterevidence": [
+        "単一イベントだけでは全変動を説明しない",
+        "最大ギャップが最大日次変動より小さく取引時間内需給も寄与"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.45
+      },
+      "downstream_suitability": "会社同一性、上場履歴、企業行動および価格系列の整合性を先に確認する必要がある。確認前の個別分析移行は不適切。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "上場履歴またはデータ欠損が変動の大部分を説明する"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約136.9%、63日で約89.3%上昇。最大日次上昇は約56.0%だが最大1日比率は約38.5%で、直近5日も約24.0%上昇。126日データは欠損。",
+      "primary_hypothesis": "複数日にわたり企業固有期待が形成され、単一イベント後にも追加的再評価が続いた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "2026-07-20前後の公式開示の特定",
+        "特別配当・分割・スピンオフ等の企業行動確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "特別配当・分割・スピンオフ等の未調整企業行動",
+        "大口保有者売却または流動性ショック",
+        "価格系列・銘柄同一性異常"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "catalysts": [
+        "2026-07-20前後の公式開示の特定",
+        "特別配当・分割・スピンオフ等の企業行動確認"
+      ],
+      "causal_chain": [
+        "未確認の重大な負の企業イベント",
+        "資産価値・契約収益・資金調達費用または継続性への懸念",
+        "予想利益・純資産価値・信用評価の低下",
+        "単一日の大幅下方ギャップ"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.15
+      },
+      "counterevidence": [
+        "126日でも大幅下落しており単一イベントだけでは全経路を説明しない",
+        "最大ギャップと最大日次変動が近く企業行動確認が不可欠"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.45
+      },
+      "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "下落が価値毀損ではなく企業行動の機械的調整と確認される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約68.8%下落し、2026-07-20の約67.1%下落と約66.4%ギャップが大きく寄与。63日・126日でも約61.6%・59.6%下落。",
+      "primary_hypothesis": "企業固有の重大な負の情報が収益・資産価値期待を大幅に下方修正させた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "2026-07-24前後の公式開示の特定",
+        "特別配当・買収・資産売却の確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "特別配当・買収提案・資産売却",
+        "災害損失や準備金見通しの再評価",
+        "低流動性銘柄の需給ショック"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "catalysts": [
+        "2026-07-24前後の公式開示の特定",
+        "特別配当・買収・資産売却の確認"
+      ],
+      "causal_chain": [
+        "未確認の好材料または資本イベント",
+        "保険収益・準備金・資本余力・買収価値の期待改善",
+        "予想利益または株主還元価値の上方修正",
+        "高出来高を伴う単一日の上方ギャップ"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.22
+      },
+      "counterevidence": [
+        "上昇の大半が最大1日に集中",
+        "直近価格はほぼ横ばい"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "高出来高が企業価値情報ではなく企業行動または機械的フローだけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約35.6%上昇し、2026-07-24の約41.5%上昇が絶対変動の約71.3%を占める。出来高比率は約3.84、ボラティリティ比率は約7.50。",
+      "primary_hypothesis": "利益・資本還元・取引価値に関する企業固有情報が価格を一段高い水準へ移行させた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "2026-07-29前後の業績・見通し・取引開示の特定",
+        "受注・需要・利益率に関する一次資料の確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "買収・提携・資本配分変更",
+        "複数日のショートカバー",
+        "長期劣後後の平均回帰"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "catalysts": [
+        "2026-07-29前後の業績・見通し・取引開示の特定",
+        "受注・需要・利益率に関する一次資料の確認"
+      ],
+      "causal_chain": [
+        "未確認の業績・見通し・取引情報",
+        "需要・受注・利益率または成長持続性の期待改善",
+        "将来利益予想の上方修正",
+        "複数日に集中した急反転"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.22
+      },
+      "counterevidence": [
+        "126日では依然マイナス",
+        "最大ギャップが最大日次変動より小さく取引時間内需給も寄与"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "downstream_suitability": "企業固有の一次資料と代替的な需給・業界説明を切り分けた後に、個別分析へ進めるかを判断すべき。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "一次資料で業績期待の改善が確認できず、短期需給反転だけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約57.5%、直近5日で約35.1%上昇。2026-07-29に約40.4%上昇後、最終日は約7.3%反落。126日では約9.0%下落。",
+      "primary_hypothesis": "業績または戦略情報により中期的な弱さから期待が急反転した可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "高出来高の発生日と公式開示の照合",
+        "買収・統合・指数採用・機関フローの確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "買収・統合・売却の段階的進展",
+        "指数採用・機関投資家リバランス",
+        "モメンタム取引"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "catalysts": [
+        "高出来高の発生日と公式開示の照合",
+        "買収・統合・指数採用・機関フローの確認"
+      ],
+      "causal_chain": [
+        "未確認の企業固有情報",
+        "成長率・取引価値・統合効果または資本配分期待の改善",
+        "予想利益・評価倍率の持続的上方修正",
+        "高出来高を伴う分散上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "counterevidence": [
+        "ボラティリティ増加は限定的",
+        "単一イベント仮説の説明力は低い"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "downstream_suitability": "企業固有の一次資料と代替的な需給・業界説明を切り分けた後に、個別分析へ進めるかを判断すべき。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "極端な出来高が指数・リバランス等の機械的フローだけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約60.7%、63日で約80.6%上昇。最大1日比率は約26.0%で上昇は分散し、出来高比率は約6.54、ボラティリティ比率は約1.13。",
+      "primary_hypothesis": "企業価値情報が一度に完全反映されず、高出来高を伴い段階的に織り込まれた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "2026-07-30前後の公式開示の特定",
+        "取引量・市場シェア・手数料収益に関する一次資料の確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "買収提案・戦略取引・資本還元",
+        "債券市場構造や取引活動の業界変化",
+        "高出来高のショートカバー"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "catalysts": [
+        "2026-07-30前後の公式開示の特定",
+        "取引量・市場シェア・手数料収益に関する一次資料の確認"
+      ],
+      "causal_chain": [
+        "未確認の業績・取引量・競争・戦略情報",
+        "市場シェア・手数料収益・利益率期待の改善",
+        "将来利益または評価倍率の上方修正",
+        "直近週の大幅上方ギャップ"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.22
+      },
+      "counterevidence": [
+        "63日・126日では弱く改善の持続性未確認",
+        "上昇の半分超が最大1日に集中"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "価格急変が企業価値情報ではなく資本取引調整または一時的需給だけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約41.8%、直近5日で約39.1%上昇。2026-07-30の約29.5%上昇と約29.8%ギャップが中心。出来高比率は約5.71。",
+      "primary_hypothesis": "直近の企業固有情報が、停滞していた収益・競争力期待を急速に改善させた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "売買停止・価格更新停止・上場状態の確認",
+        "名称変更・企業再編・ティッカー履歴の確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "低流動性下の投機上昇",
+        "企業再編・名称変更・上場状態変更",
+        "価格更新停止・売買停止・非同期データ"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "catalysts": [
+        "売買停止・価格更新停止・上場状態の確認",
+        "名称変更・企業再編・ティッカー履歴の確認"
+      ],
+      "causal_chain": [
+        "未確認の継続的事業進展と単発イベント",
+        "開発成功・資金調達・提携価値への期待改善",
+        "将来事業価値または存続価値の上方修正",
+        "中期上昇と単一ギャップ"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.1
+      },
+      "counterevidence": [
+        "直近5日が正確に無変動",
+        "出来高が低下"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.65
+      },
+      "downstream_suitability": "会社同一性、上場履歴、企業行動および価格系列の整合性を先に確認する必要がある。確認前の個別分析移行は不適切。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "unknown",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "売買停止・価格更新停止・企業再編が無変動と上昇の大部分を説明する"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約47.1%、126日で約87.0%上昇。2026-07-16に約33.4%上昇した一方、直近5日と最終日のリターンはともに0%、出来高比率は約0.62。",
+      "primary_hypothesis": "中期的な企業固有期待の改善に、離散的な好材料が追加された可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "会社同一性・上場履歴・企業再編の確認",
+        "直近上昇期間の公式開示の特定",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "テクニカル反発またはショートカバー",
+        "小型Technology銘柄への投機的ローテーション",
+        "企業再編・株式構造変更"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "catalysts": [
+        "会社同一性・上場履歴・企業再編の確認",
+        "直近上昇期間の公式開示の特定"
+      ],
+      "causal_chain": [
+        "未確認の業績・資金・製品・戦略改善",
+        "存続性または成長再開期待の改善",
+        "将来売上・利益・資金調達条件の上方修正",
+        "複数日に分散した反転上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.15
+      },
+      "counterevidence": [
+        "ボラティリティは通常基準と同程度",
+        "明確な単発イベント仮説とは弱く整合"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.35
+      },
+      "downstream_suitability": "会社同一性、上場履歴、企業行動および価格系列の整合性を先に確認する必要がある。確認前の個別分析移行は不適切。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "会社同一性・上場履歴または株式構造変更が反転の大部分を説明する"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約62.0%、直近5日で約38.1%上昇。最大1日比率は約18.2%で上昇は分散。126日では約42.7%下落、ボラティリティ比率は約0.97。",
+      "primary_hypothesis": "長期下落後に企業固有の改善期待が複数日にわたって形成され、回復局面へ移行した可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "業績・見通し・需要指標に関する公式開示の確認",
+        "雇用サービス業界データとの照合",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "景気循環回復による業界再評価",
+        "買収・資産売却・資本還元",
+        "ショートカバーまたは需給偏り"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "catalysts": [
+        "業績・見通し・需要指標に関する公式開示の確認",
+        "雇用サービス業界データとの照合"
+      ],
+      "causal_chain": [
+        "未確認の需要・受注・コスト・見通し情報",
+        "雇用サービス需要と利益率期待の改善",
+        "将来利益・景気感応度評価の上方修正",
+        "単一急騰を含む中期上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "counterevidence": [
+        "上昇経路は一方向ではない",
+        "直近出来高増加がない"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "downstream_suitability": "企業固有の一次資料と代替的な需給・業界説明を切り分けた後に、個別分析へ進めるかを判断すべき。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "企業固有改善が確認できず、業界・マクロ要因のみで超過上昇が説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約41.2%、63日で約73.2%、126日で約57.5%上昇。2026-07-16の約32.4%上昇を含むが、直近出来高比率は約0.82。",
+      "primary_hypothesis": "企業固有または人材需要情報が中期的な利益回復期待を引き上げた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "2026-07-31の公式開示・規制提出書類の特定",
+        "利用動向・収益化・費用・規制リスクの一次資料確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "Communication Servicesまたは成長株レジーム悪化",
+        "規制・訴訟・安全性・プラットフォーム関連リスク",
+        "高出来高のポジション解消"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "catalysts": [
+        "2026-07-31の公式開示・規制提出書類の特定",
+        "利用動向・収益化・費用・規制リスクの一次資料確認"
+      ],
+      "causal_chain": [
+        "継続的な未確認の事業懸念と新たな負の情報",
+        "成長率・利用動向・収益化・費用または規制期待の悪化",
+        "将来売上・利益・評価倍率の下方修正",
+        "中期下落に当日の大幅下落が追加"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "counterevidence": [
+        "セクターも中期的に下落しており一部は市場環境で説明可能",
+        "最大1日寄与は約33.5%で当日イベントだけでは中期下落を説明しない"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.15
+      },
+      "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "当日下落に対応する企業固有情報がなく、セクター・市場要因だけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "21日で約38.6%、63日で約35.6%、126日で約53.0%下落。2026-07-31に約26.9%下落し、出来高比率は約2.76。",
+      "primary_hypothesis": "既存の中期的懸念に、カットオフ当日の追加的な負の企業情報が重なった可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+        "金利・REIT・宿泊業界要因との比較",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "金利低下期待によるREIT評価倍率上昇",
+        "宿泊需要・旅行関連の業界改善",
+        "自社株買いまたは機関投資家流入"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "catalysts": [
+        "稼働率・客室単価・キャッシュフロー・資産取引の一次資料確認",
+        "金利・REIT・宿泊業界要因との比較"
+      ],
+      "causal_chain": [
+        "未確認の運営改善・需要改善・資産価値または資本配分進展",
+        "稼働・料金・キャッシュフロー・資産価値期待の改善",
+        "利益・純資産価値評価の段階的上方修正",
+        "低集中の中期上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "counterevidence": [
+        "直近21日で上昇速度が鈍化",
+        "出来高・ボラティリティが低下"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.1
+      },
+      "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "企業固有KPI改善が確認できず、REIT・宿泊業界の倍率変化だけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63日で約48.7%、126日で約63.3%上昇。最大1日比率はそれぞれ約5.8%・3.6%で、出来高・ボラティリティ比率は1未満。21日上昇は約4.8%へ減速。",
+      "primary_hypothesis": "企業固有の収益・資産価値期待が数カ月かけて継続的に改善した可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "売上・ブランド別動向・利益率の一次資料確認",
+        "為替・原材料・流通環境との比較",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "Consumer Defensiveまたは高品質消費銘柄への資金ローテーション",
+        "為替・原材料・流通環境の業界改善",
+        "自社株買いまたは機関投資家蓄積"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "catalysts": [
+        "売上・ブランド別動向・利益率の一次資料確認",
+        "為替・原材料・流通環境との比較"
+      ],
+      "causal_chain": [
+        "未確認の需要・ブランド・流通改善",
+        "売上成長率と利益率期待の改善",
+        "利益予想または品質評価の段階的上方修正",
+        "低集中の中期上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "counterevidence": [
+        "方向効率が低く滑らかな一方向再評価ではない",
+        "出来高増加がない"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.1
+      },
+      "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "企業固有業績改善が確認できず、セクターローテーションまたは平均回帰だけで説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63日で約36.5%、126日で約30.4%上昇。最大1日比率は約4.6%・2.7%で低く、出来高比率は約0.66、ボラティリティ比率は約0.96。",
+      "primary_hypothesis": "売上成長・ブランド構成・利益率への期待が複数回の情報更新を通じて徐々に改善した可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    },
+    {
+      "additional_research": [
+        "上場・企業分離履歴と価格発見過程の確認",
+        "需要・契約・利益率に関する一次資料確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ],
+      "ai_assessment_status": "partially_assessed",
+      "alternative_hypotheses": [
+        "Healthcareサービス業界への資金流入",
+        "上場後または企業分離後の価格発見",
+        "指数組入れ・株主構成変化・自社株買い"
+      ],
+      "analysis_as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "catalysts": [
+        "上場・企業分離履歴と価格発見過程の確認",
+        "需要・契約・利益率に関する一次資料確認"
+      ],
+      "causal_chain": [
+        "未確認の需要・契約・利益率または企業構造上の改善",
+        "収益安定性と成長持続性期待の改善",
+        "将来利益・評価倍率の段階的上方修正",
+        "低集中の中期上昇"
+      ],
+      "confidence": {
+        "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "counterevidence": [
+        "直近出来高・ボラティリティが低下",
+        "単一イベント仮説とは不整合"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+        "status": "estimated",
+        "value": 0.2
+      },
+      "downstream_suitability": "中期ドリフトを支える企業固有KPI、業界比較および資本配分証拠を取得した後の個別分析に適する可能性がある。",
+      "event_explained_likelihood": {
+        "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+        "上場後価格発見・指数要因・企業分離の機械的影響だけで中期上昇が説明される"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63日で約40.9%、126日で約46.5%上昇。最大1日比率は約4.6%・2.4%で低く、出来高比率は約0.56、ボラティリティ比率は約0.88。21日上昇は約2.9%へ減速。",
+      "primary_hypothesis": "安定した業績進展または独立企業としての評価形成が中期的に価格へ織り込まれた可能性。",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+        "status": "not_evaluable",
+        "value": null
+      },
+      "uncertainties": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ]
+    }
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "locked_at": "2026-08-03T05:18:00+09:00"
+}

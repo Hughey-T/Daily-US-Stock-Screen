@@ -1,0 +1,457 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "ManpowerGroup",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "MAN"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_d8cd2fd820b07e4d9902cfb31142a7dd72fe9902573a2c960fb33d65bc8a17e9",
+      "investment_horizon": "weeks",
+      "security_identity": "ent_8e158a68b6afa64413a042826c0ddcb6cca8b3b68aa64e5c31ecc42ac4443392",
+      "source_refs": [],
+      "ticker": "MAN",
+      "unresolved_factual_questions": [
+        "業績・見通し・需要指標に関する公式開示の確認",
+        "雇用サービス業界データとの照合",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    },
+    {
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Roblox Corporation",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Communication Services",
+        "ticker": "RBLX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_990786b1f2273519fe20580217d285345b6fc0e9fc7098df5717cf7a2dfc2764",
+      "investment_horizon": "days",
+      "security_identity": "ent_537561fb560e4a77537b32896dd22e9cc7f7cc31815690087a5983e0accd9d7a",
+      "source_refs": [],
+      "ticker": "RBLX",
+      "unresolved_factual_questions": [
+        "2026-07-31の公式開示・規制提出書類の特定",
+        "利用動向・収益化・費用・規制リスクの一次資料確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_70d514a52ec9297796a18b9bf6dc56f3ccdaad5f66c9df5a31fa91aaa97b03b4",
+  "candidate_ids": [
+    "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+    "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "decisions": {
+        "ai_independent": "企業固有の一次資料と代替的な需給・業界説明を切り分けた後に、個別分析へ進めるかを判断すべき。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "decisions": {
+        "ai_independent": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 6,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "業績・見通し・需要指標に関する公式開示の確認",
+          "雇用サービス業界データとの照合",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "景気循環回復による業界再評価",
+          "買収・資産売却・資本還元",
+          "ショートカバーまたは需給偏り"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+        "catalysts": [
+          "業績・見通し・需要指標に関する公式開示の確認",
+          "雇用サービス業界データとの照合"
+        ],
+        "causal_chain": [
+          "未確認の需要・受注・コスト・見通し情報",
+          "雇用サービス需要と利益率期待の改善",
+          "将来利益・景気感応度評価の上方修正",
+          "単一急騰を含む中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "上昇経路は一方向ではない",
+          "直近出来高増加がない"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "downstream_suitability": "企業固有の一次資料と代替的な需給・業界説明を切り分けた後に、個別分析へ進めるかを判断すべき。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "企業固有改善が確認できず、業界・マクロ要因のみで超過上昇が説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約41.2%、63日で約73.2%、126日で約57.5%上昇。2026-07-16の約32.4%上昇を含むが、直近出来高比率は約0.82。",
+        "primary_hypothesis": "企業固有または人材需要情報が中期的な利益回復期待を引き上げた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_d8cd2fd820b07e4d9902cfb31142a7dd72fe9902573a2c960fb33d65bc8a17e9",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_d8cd2fd820b07e4d9902cfb31142a7dd72fe9902573a2c960fb33d65bc8a17e9_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 12,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "企業固有または人材需要情報が中期的な利益回復期待を引き上げた可能性。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "2026-07-31の公式開示・規制提出書類の特定",
+          "利用動向・収益化・費用・規制リスクの一次資料確認",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "Communication Servicesまたは成長株レジーム悪化",
+          "規制・訴訟・安全性・プラットフォーム関連リスク",
+          "高出来高のポジション解消"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+        "catalysts": [
+          "2026-07-31の公式開示・規制提出書類の特定",
+          "利用動向・収益化・費用・規制リスクの一次資料確認"
+        ],
+        "causal_chain": [
+          "継続的な未確認の事業懸念と新たな負の情報",
+          "成長率・利用動向・収益化・費用または規制期待の悪化",
+          "将来売上・利益・評価倍率の下方修正",
+          "中期下落に当日の大幅下落が追加"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "セクターも中期的に下落しており一部は市場環境で説明可能",
+          "最大1日寄与は約33.5%で当日イベントだけでは中期下落を説明しない"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.15
+        },
+        "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "days",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "当日下落に対応する企業固有情報がなく、セクター・市場要因だけで説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約38.6%、63日で約35.6%、126日で約53.0%下落。2026-07-31に約26.9%下落し、出来高比率は約2.76。",
+        "primary_hypothesis": "既存の中期的懸念に、カットオフ当日の追加的な負の企業情報が重なった可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_990786b1f2273519fe20580217d285345b6fc0e9fc7098df5717cf7a2dfc2764",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_990786b1f2273519fe20580217d285345b6fc0e9fc7098df5717cf7a2dfc2764_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 16,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "既存の中期的懸念に、カットオフ当日の追加的な負の企業情報が重なった可能性。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "業績・見通し・需要指標に関する公式開示の確認",
+          "雇用サービス業界データとの照合",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "景気循環回復による業界再評価",
+          "買収・資産売却・資本還元",
+          "ショートカバーまたは需給偏り"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+        "catalysts": [
+          "業績・見通し・需要指標に関する公式開示の確認",
+          "雇用サービス業界データとの照合"
+        ],
+        "causal_chain": [
+          "未確認の需要・受注・コスト・見通し情報",
+          "雇用サービス需要と利益率期待の改善",
+          "将来利益・景気感応度評価の上方修正",
+          "単一急騰を含む中期上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "counterevidence": [
+          "上昇経路は一方向ではない",
+          "直近出来高増加がない"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.2
+        },
+        "downstream_suitability": "企業固有の一次資料と代替的な需給・業界説明を切り分けた後に、個別分析へ進めるかを判断すべき。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "企業固有改善が確認できず、業界・マクロ要因のみで超過上昇が説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約41.2%、63日で約73.2%、126日で約57.5%上昇。2026-07-16の約32.4%上昇を含むが、直近出来高比率は約0.82。",
+        "primary_hypothesis": "企業固有または人材需要情報が中期的な利益回復期待を引き上げた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 12,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "2026-07-31の公式開示・規制提出書類の特定",
+          "利用動向・収益化・費用・規制リスクの一次資料確認",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "Communication Servicesまたは成長株レジーム悪化",
+          "規制・訴訟・安全性・プラットフォーム関連リスク",
+          "高出来高のポジション解消"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+        "catalysts": [
+          "2026-07-31の公式開示・規制提出書類の特定",
+          "利用動向・収益化・費用・規制リスクの一次資料確認"
+        ],
+        "causal_chain": [
+          "継続的な未確認の事業懸念と新たな負の情報",
+          "成長率・利用動向・収益化・費用または規制期待の悪化",
+          "将来売上・利益・評価倍率の下方修正",
+          "中期下落に当日の大幅下落が追加"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "counterevidence": [
+          "セクターも中期的に下落しており一部は市場環境で説明可能",
+          "最大1日寄与は約33.5%で当日イベントだけでは中期下落を説明しない"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.15
+        },
+        "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "days",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "当日下落に対応する企業固有情報がなく、セクター・市場要因だけで説明される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約38.6%、63日で約35.6%、126日で約53.0%下落。2026-07-31に約26.9%下落し、出来高比率は約2.76。",
+        "primary_hypothesis": "既存の中期的懸念に、カットオフ当日の追加的な負の企業情報が重なった可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 16,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,457 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "First Tracks Biotherapeutics, I",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "TRAX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b",
+      "investment_horizon": "weeks",
+      "security_identity": "ent_718f8c747a32f3f16d313b24ebcbec559c12a41f31cd5c875600541bc143a76b",
+      "source_refs": [],
+      "ticker": "TRAX",
+      "unresolved_factual_questions": [
+        "会社同一性・上場履歴・ティッカー履歴の確認",
+        "2026-07-09前後を含む公式開示の特定",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Willis Lease Finance Corporatio",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "WLFC"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e",
+      "investment_horizon": "days",
+      "security_identity": "ent_3329b50439931734b581123baf0af7bd7c038a15927d78f7066c478df361d870",
+      "source_refs": [],
+      "ticker": "WLFC",
+      "unresolved_factual_questions": [
+        "2026-07-20前後の公式開示の特定",
+        "特別配当・分割・スピンオフ等の企業行動確認",
+        "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_70d514a52ec9297796a18b9bf6dc56f3ccdaad5f66c9df5a31fa91aaa97b03b4",
+  "candidate_ids": [
+    "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+    "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "decisions": {
+        "ai_independent": "会社同一性、上場履歴、企業行動および価格系列の整合性を先に確認する必要がある。確認前の個別分析移行は不適切。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_87ba22ef5803949319b587ebcafe95a678f582745f65991fb5dc4e0fa5197fa8",
+      "as_of": "2026-08-03T05:18:00+09:00",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "decisions": {
+        "ai_independent": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 2,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "会社同一性・上場履歴・ティッカー履歴の確認",
+          "2026-07-09前後を含む公式開示の特定",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "複数ニュースまたは情報漏出",
+          "低流動性下の投機的モメンタム",
+          "上場履歴・企業再編・価格系列の非連続"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+        "catalysts": [
+          "会社同一性・上場履歴・ティッカー履歴の確認",
+          "2026-07-09前後を含む公式開示の特定"
+        ],
+        "causal_chain": [
+          "未確認の開発・事業・資本関連情報",
+          "成功確率または企業存続価値の期待改善",
+          "資金調達条件または事業価値の再評価",
+          "複数日に分散した上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.12
+        },
+        "counterevidence": [
+          "単一イベントだけでは全変動を説明しない",
+          "最大ギャップが最大日次変動より小さく取引時間内需給も寄与"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.45
+        },
+        "downstream_suitability": "会社同一性、上場履歴、企業行動および価格系列の整合性を先に確認する必要がある。確認前の個別分析移行は不適切。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "上場履歴またはデータ欠損が変動の大部分を説明する"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約136.9%、63日で約89.3%上昇。最大日次上昇は約56.0%だが最大1日比率は約38.5%で、直近5日も約24.0%上昇。126日データは欠損。",
+        "primary_hypothesis": "複数日にわたり企業固有期待が形成され、単一イベント後にも追加的再評価が続いた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_dc39f394f041c7b8ed0384e97a46547ad4c6337d688842d364d3df59168bf74b_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "複数日にわたり企業固有期待が形成され、単一イベント後にも追加的再評価が続いた可能性。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "2026-07-20前後の公式開示の特定",
+          "特別配当・分割・スピンオフ等の企業行動確認",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "特別配当・分割・スピンオフ等の未調整企業行動",
+          "大口保有者売却または流動性ショック",
+          "価格系列・銘柄同一性異常"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+        "catalysts": [
+          "2026-07-20前後の公式開示の特定",
+          "特別配当・分割・スピンオフ等の企業行動確認"
+        ],
+        "causal_chain": [
+          "未確認の重大な負の企業イベント",
+          "資産価値・契約収益・資金調達費用または継続性への懸念",
+          "予想利益・純資産価値・信用評価の低下",
+          "単一日の大幅下方ギャップ"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.15
+        },
+        "counterevidence": [
+          "126日でも大幅下落しており単一イベントだけでは全経路を説明しない",
+          "最大ギャップと最大日次変動が近く企業行動確認が不可欠"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.45
+        },
+        "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "days",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "下落が価値毀損ではなく企業行動の機械的調整と確認される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約68.8%下落し、2026-07-20の約67.1%下落と約66.4%ギャップが大きく寄与。63日・126日でも約61.6%・59.6%下落。",
+        "primary_hypothesis": "企業固有の重大な負の情報が収益・資産価値期待を大幅に下方修正させた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "blind_handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_a5b5053f499b9c0c96f583e207d8f76acee6f4d55267abef858794645118f34e_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "カットオフ適格な証拠参照なし",
+        "企業行動・価格調整・原因イベントは未確認",
+        "将来業績・価格方向は推定していない"
+      ],
+      "upstream_hypotheses": [
+        "企業固有の重大な負の情報が収益・資産価値期待を大幅に下方修正させた可能性。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "会社同一性・上場履歴・ティッカー履歴の確認",
+          "2026-07-09前後を含む公式開示の特定",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "複数ニュースまたは情報漏出",
+          "低流動性下の投機的モメンタム",
+          "上場履歴・企業再編・価格系列の非連続"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+        "catalysts": [
+          "会社同一性・上場履歴・ティッカー履歴の確認",
+          "2026-07-09前後を含む公式開示の特定"
+        ],
+        "causal_chain": [
+          "未確認の開発・事業・資本関連情報",
+          "成功確率または企業存続価値の期待改善",
+          "資金調達条件または事業価値の再評価",
+          "複数日に分散した上昇"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.12
+        },
+        "counterevidence": [
+          "単一イベントだけでは全変動を説明しない",
+          "最大ギャップが最大日次変動より小さく取引時間内需給も寄与"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.45
+        },
+        "downstream_suitability": "会社同一性、上場履歴、企業行動および価格系列の整合性を先に確認する必要がある。確認前の個別分析移行は不適切。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "上場履歴またはデータ欠損が変動の大部分を説明する"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約136.9%、63日で約89.3%上昇。最大日次上昇は約56.0%だが最大1日比率は約38.5%で、直近5日も約24.0%上昇。126日データは欠損。",
+        "primary_hypothesis": "複数日にわたり企業固有期待が形成され、単一イベント後にも追加的再評価が続いた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "2026-07-20前後の公式開示の特定",
+          "特別配当・分割・スピンオフ等の企業行動確認",
+          "一次資料で期待変化→KPI・財務影響→価格反応→残差を検証する"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "特別配当・分割・スピンオフ等の未調整企業行動",
+          "大口保有者売却または流動性ショック",
+          "価格系列・銘柄同一性異常"
+        ],
+        "analysis_as_of": "2026-08-03T05:18:00+09:00",
+        "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+        "catalysts": [
+          "2026-07-20前後の公式開示の特定",
+          "特別配当・分割・スピンオフ等の企業行動確認"
+        ],
+        "causal_chain": [
+          "未確認の重大な負の企業イベント",
+          "資産価値・契約収益・資金調達費用または継続性への懸念",
+          "予想利益・純資産価値・信用評価の低下",
+          "単一日の大幅下方ギャップ"
+        ],
+        "confidence": {
+          "basis": "価格形状は確認できるが、原因・財務影響・残差の証拠がないため低信頼。",
+          "status": "estimated",
+          "value": 0.15
+        },
+        "counterevidence": [
+          "126日でも大幅下落しており単一イベントだけでは全経路を説明しない",
+          "最大ギャップと最大日次変動が近く企業行動確認が不可欠"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "価格経路、ギャップ、欠損、無変動、出来高からの限定的AI推定。公式証拠なし。",
+          "status": "estimated",
+          "value": 0.45
+        },
+        "downstream_suitability": "離散的イベントの公式一次資料と企業行動状態を確認した後にのみ、原因と価格残差の個別分析候補になり得る。",
+        "event_explained_likelihood": {
+          "basis": "証拠参照がなく、公開イベントの説明力は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "days",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "価格・出来高系列の同一性または調整に重大な不整合が確認される",
+          "下落が価値毀損ではなく企業行動の機械的調整と確認される"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21日で約68.8%下落し、2026-07-20の約67.1%下落と約66.4%ギャップが大きく寄与。63日・126日でも約61.6%・59.6%下落。",
+        "primary_hypothesis": "企業固有の重大な負の情報が収益・資産価値期待を大幅に下方修正させた可能性。",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "原因、企業行動、KPI影響が未確認で残差は評価不能。",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": [
+          "カットオフ適格な証拠参照なし",
+          "企業行動・価格調整・原因イベントは未確認",
+          "将来業績・価格方向は推定していない"
+        ]
+      },
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}
