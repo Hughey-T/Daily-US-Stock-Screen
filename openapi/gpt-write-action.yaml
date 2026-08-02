@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Daily US Stock Screen write queue
-  version: 1.0.0
+  version: 1.0.1
   description: Creates and observes tightly scoped prediction write-request Issues. It cannot access repository contents, Actions, refs, workflows, or pull requests.
 servers:
   - url: https://api.github.com
@@ -34,25 +34,49 @@ paths:
           description: Issue created
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/Issue'}
+              schema:
+                type: object
+                properties:
+                  number: {type: integer}
+                  title: {type: string}
+                  state: {type: string}
+                  body: {type: [string, 'null']}
+                  html_url: {type: string, format: uri}
   /repos/Hughey-T/Daily-US-Stock-Screen/issues/{issue_number}:
     get:
       operationId: getAnalysisWriteRequest
       summary: Get the fixed-repository write request Issue
       parameters:
-        - $ref: '#/components/parameters/IssueNumber'
+        - name: issue_number
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
       responses:
         '200':
           description: Issue
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/Issue'}
+              schema:
+                type: object
+                properties:
+                  number: {type: integer}
+                  title: {type: string}
+                  state: {type: string}
+                  body: {type: [string, 'null']}
+                  html_url: {type: string, format: uri}
   /repos/Hughey-T/Daily-US-Stock-Screen/issues/{issue_number}/comments:
     get:
       operationId: listAnalysisWriteRequestReceipts
       summary: List processing receipts for the fixed-repository request
       parameters:
-        - $ref: '#/components/parameters/IssueNumber'
+        - name: issue_number
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
       responses:
         '200':
           description: Comments
@@ -68,21 +92,6 @@ paths:
                     body: {type: string}
                     created_at: {type: string, format: date-time}
 components:
-  parameters:
-    IssueNumber:
-      name: issue_number
-      in: path
-      required: true
-      schema: {type: integer, minimum: 1}
-  schemas:
-    Issue:
-      type: object
-      properties:
-        number: {type: integer}
-        title: {type: string}
-        state: {type: string}
-        body: {type: [string, 'null']}
-        html_url: {type: string, format: uri}
   securitySchemes:
     githubAppUserOAuth:
       type: oauth2
