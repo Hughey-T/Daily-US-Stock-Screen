@@ -87,7 +87,9 @@ Quiet drift CSVの公開URLは `https://raw.githubusercontent.com/hughey-t/Daily
 ChatGPTには、まずJSONを確認させ、`status=success` または検証済みの
 `status=degraded` の場合だけCSVを分析させてください。`degraded` では企業行動を
 照合できなかった銘柄がPhase 2候補から除外されています。`status=failed` は分析せず、
-直前の正常manifestを使用してください。
+直前の結果を現在の結果として自動利用しないでください。Contract 3.0 の immutable
+manifest fallback は、起動時の取得が **正確な HTTP 404** の場合に限ります。timeout、
+通信失敗、取得失敗、完全性検証失敗、または一度世代を固定した後の fallback は禁止です。
 
 ## 自動実行時刻
 
@@ -123,7 +125,7 @@ Before either route is generated, explicit split/reverse-split/stock-distributio
 
 The analysis uses a **next-session tradable-open policy**. Market cutoff, information cutoff, prediction creation, first tradable time and entry-price timestamp are timezone-aware. Information available after the prior close but before the next open may be used only with that next open as entry; future information can never be paired with a historical close.
 
-The former schema 2.0 seven-Phase workflow is retained only as historical context. Contract 3.0 below supersedes it with eight initial Phases and three update Phases. The only controls are exact `更新` and `次`; outcome verification is a deterministic runtime concern rather than a user command.
+The former schema 2.0 seven-Phase workflow is retained only as historical context. Contract 3.0 keeps eight internal processing stages, but combines the first two for a seven-Phase user conversation. Updates use three user Phases. The only controls are exact `更新` and `次`; outcome verification is a deterministic runtime concern rather than a user command.
 
 This system detects abnormal movement, investigates causes, forms a testable hypothesis about price reaction versus fundamental-value change, prioritizes individual analysis, separates special situations/data artifacts/unknowns, and creates future-verifiable predictions. Unless valuation is sufficiently complete, it **does not establish that a security is mispriced**.
 
@@ -146,6 +148,8 @@ The legacy prediction writer uses a fixed-repository GitHub Issue as an audited 
 
 The screening producer remains deterministic and owns immutable `FACTS` and `MECHANICAL_SIGNALS`; Custom GPT may only add a separately validated and locked `AI_JUDGMENTS` artifact. Deterministic runtime then derives a separate research-priority `INTEGRATED_DECISION`. AI never changes a number, rank, missing state, candidate set or hard exclusion. This is not an automated trading system and includes no LLM API, brokerage integration, order placement or position sizing.
 
-Initial analysis now uses eight one-response Phases and updates use three. Blind AI input excludes mechanical rank and prior conclusions; reconciliation exposes them only after the AI artifact is hashed and locked. Exploratory proposals are isolated and are **not formal candidates** until a later mechanical admission. Individual Stock Analysis must receive blind intake before reconciliation handoff. An append-only ledger preserves machine-only, AI-only and integrated decisions so later outcomes can measure whether AI added value without leaking future data.
+Initial analysis uses seven user-facing, one-response Phases over the unchanged eight internal stages; updates use three. User Phase 1 combines snapshot validation and candidate freezing. User Phase 4 completes the independent assessment and remains open until GitHub persistence and complete readback verification succeed; only then may user Phase 5 reconcile the locked AI assessment with mechanical results. Exploratory proposals are isolated and are **not formal candidates** until a later mechanical admission.
+
+Normal responses explain progress, evidence, inclusion and exclusion in Japanese and hide internal IDs, hashes, schemas, paths, Issues and persistence mechanics. Those details appear only after an explicit debugging request, and only after a plain-language explanation. “No selection” is a successful completed screen, insufficient evidence is a successful but undecidable result, persistence pending is an incomplete Phase 4, and a terminal integrity failure is neither completion nor “no selection.” The exact output and error wording is defined only by [`CHATGPT_PROMPT.md`](CHATGPT_PROMPT.md); [`docs/user-output-design.md`](docs/user-output-design.md) is explanatory.
 
 Contract shapes and cross-object validation are in `schemas/v3.0/` and `src/ai_analysis.py`. Architecture, state/update behavior, publication failure policy, migration, security boundary, compliance and test matrix are documented in [`docs/architecture-3.0.md`](docs/architecture-3.0.md). [`CHATGPT_PROMPT.md`](CHATGPT_PROMPT.md) is the sole normative prose instruction for the Custom GPT and can be pasted directly into its setup.

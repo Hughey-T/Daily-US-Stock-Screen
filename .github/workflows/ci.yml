@@ -35,6 +35,9 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
 
+      - name: Validate user output contract
+        run: python -m unittest tests.test_user_output_contract -v
+
       - name: Validate immutable schema 2.0 bundles
         run: python scripts/validate_v2_records.py
 
@@ -45,7 +48,7 @@ jobs:
         run: python scripts/validate_analysis_contracts.py
 
       - name: Ruff lint and formatter check
-        run: ruff check src/ai_analysis.py src/analysis_runtime.py scripts/process_analysis_request.py scripts/validate_analysis_contracts.py tests/test_ai_analysis.py tests/test_analysis_runtime_e2e.py && ruff format --check src/ai_analysis.py src/analysis_runtime.py scripts/process_analysis_request.py scripts/validate_analysis_contracts.py tests/test_ai_analysis.py tests/test_analysis_runtime_e2e.py
+        run: ruff check src/ai_analysis.py src/analysis_runtime.py scripts/process_analysis_request.py scripts/validate_analysis_contracts.py tests/test_ai_analysis.py tests/test_analysis_runtime_e2e.py tests/test_user_output_contract.py && ruff format --check src/ai_analysis.py src/analysis_runtime.py scripts/process_analysis_request.py scripts/validate_analysis_contracts.py tests/test_ai_analysis.py tests/test_analysis_runtime_e2e.py tests/test_user_output_contract.py
 
       - name: Mypy analysis runtime
         run: mypy src/ai_analysis.py src/analysis_runtime.py scripts/process_analysis_request.py scripts/validate_analysis_contracts.py

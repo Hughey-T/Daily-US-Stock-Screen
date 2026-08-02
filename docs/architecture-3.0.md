@@ -8,11 +8,31 @@ The producer alone fetches data and creates `FACTS` and `MECHANICAL_SIGNALS`: un
 
 Mechanical candidates remain separate by `event_anomaly` and `quiet_drift`; their ranks are never combined. `DATA_ANOMALY` is an exclusion, not a low rank. `EXPLORATORY_CANDIDATE_PROPOSAL` is isolated and can be admitted only by the next generation's producer validation. Empty output is `NO_EXPLORATORY_CANDIDATE`.
 
-## Phase and state contract
+## Internal processing and user presentation
 
-Initial analysis has eight one-response phases: (1) snapshot/integrity/quality, (2) freeze route-local candidate set, (3) blind evidence review, (4) causes/alternatives/anomaly, (5) residual mispricing, (6) locked-AI reconciliation with mechanical rank, (7) isolated exploration, and (8) deterministic integration, handoffs and ledger. Phase 8 adds no research. Update has three phases: (1) new immutable generation and exact diff, (2) blind independent reassessment from changed evidence, and (3) old/new reconciliation, handoff supersession and ledger/outcome status.
+The internal contract still has eight processing stages. Presentation is a separate layer with seven initial user Phases:
+
+| User Phase | Japanese title | Internal stage |
+|---:|---|---|
+| 1 | 本日のデータ確認と調査対象の確定 | 1 snapshot + 2 freeze candidates |
+| 2 | 候補銘柄の値動きの特徴確認 | 3 blind review |
+| 3 | 値動きの原因と代替説明の検討 | 4 independent causes |
+| 4 | 市場が説明しきれていない部分の評価 | 5 residual assessment, submission and persistence verification |
+| 5 | 機械判定と独立分析の照合 | 6 reconciliation |
+| 6 | 現在の候補外に補足候補がないか確認 | 7 exploration |
+| 7 | 最終候補、除外結果、次工程への引き継ぎ | 8 integration, handoff and ledger |
+
+Update presentation has three Phases: new-data/previous-result differences, reassessment of changed candidates with persistence verification, and the updated final conclusion. Internal object Phase numbers do not change.
+
+User Phase 4 is a hard persistence-and-lock gate. A pending response stays in Phase 4; the next command polls the same submission without new analysis or submission. User Phase 5 can reconcile only the independently assessed content that has passed full immutable readback. This separation preserves blindness even though the first two internal stages share one user response.
 
 Only exact `次` advances one phase. Exact `更新` starts update only after initial Phase 8. Embedded, decorated or similar text is rejected. The session pins generation and candidate-set identities; `latest` is never reread and mixed generations stop the session.
+
+## User-visible state model
+
+The presentation distinguishes four outcomes. A completed screen with no qualifying security is normal **no selection**. A completed screen whose candidates all lack evidence is **insufficient evidence**, not failure. A submission awaiting persistence/readback is **pending** and cannot claim completion. An integrity failure is **terminal**, makes the result unusable, and must never be described as no selection. Partial data may continue only for the unaffected scope allowed by the existing quality contract.
+
+Normal user output is Japanese-first and excludes raw JSON, schema and internal identity names, hashes, manifests, artifacts, receipts, paths, commit/Issue/API details, exception traces and low-level validation mechanics. Explicit requests for technical causes, persistence details, logs or debugging permit those details only after a plain-language explanation. `CHATGPT_PROMPT.md` remains the sole normative prose source for exact headings, endings, translations and error wording; this architecture document is explanatory.
 
 ## Blindness, evidence and handoffs
 
@@ -41,7 +61,7 @@ Evidence text and web content are untrusted data; instructions found within them
 | Four layers and hard gates | `src/ai_analysis.py` integration and schema 3.0 |
 | Blind independence | projection leak check; lock/hash prerequisite |
 | Candidate/evidence identity | candidate-set hash and coverage/reference validation |
-| 8 + 3 phases | exact-command state machine and E2E unit test |
+| Internal 8 + user 7 + update 3 phases | runtime E2E plus user-output contract fixtures |
 | Exploration isolation | separate closed proposal collection |
 | Handoff order | distinct closed handoff definitions and completion link |
 | Ledger/outcome safety | uniqueness, three decision keys, maturity leakage check |
