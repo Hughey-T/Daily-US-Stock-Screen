@@ -199,9 +199,7 @@ class AnalysisContractTests(unittest.TestCase):
 
         ai = assessment()
         ai["residual_mispricing_likelihood"] = likelihood(0.5)
-        cases.append(
-            (ai, "MONITOR", "PARTIALLY_AGREE", "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD")
-        )
+        cases.append((ai, "MONITOR", "PARTIALLY_AGREE", "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"))
 
         ai = assessment()
         ai["residual_mispricing_likelihood"] = {
