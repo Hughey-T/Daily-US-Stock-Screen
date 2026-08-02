@@ -1,0 +1,337 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "CBIZ, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "CBZ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6870f70047601c32c30cff1af4d11f1bdb0246db16a5bb53f8c8d12a57836ea2",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_d09150e8051b646b80d1b2f47ab4865b16ef63f7943b6916921db023b5d27925",
+      "source_refs": [],
+      "ticker": "CBZ",
+      "unresolved_factual_questions": []
+    },
+    {
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "MarketAxess Holdings, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Financial Services",
+        "ticker": "MKTX"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6641099ce76401508d3ea896ede2975167e6de776ef3b018289a9efb39a79378",
+      "investment_horizon": "unknown",
+      "security_identity": "ent_2c93bd8d88cb64800a856d2842c3599e9775f9b252c900a1b6b528dfdf6d065a",
+      "source_refs": [],
+      "ticker": "MKTX",
+      "unresolved_factual_questions": []
+    }
+  ],
+  "bundle_id": "analysis_55234e3e135e2bfd10f86f5c6d15faa7422cd110df254ab97216895864cf46dc",
+  "candidate_ids": [
+    "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+    "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_677a215794164522275cee312d21d4cee6a3008060cb877ba31473ed00af2dd0",
+      "as_of": "2026-08-03T06:02:00+09:00",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "decisions": {
+        "ai_independent": "保留",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_677a215794164522275cee312d21d4cee6a3008060cb877ba31473ed00af2dd0",
+      "as_of": "2026-08-03T06:02:00+09:00",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "decisions": {
+        "ai_independent": "保留",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "decision": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 4,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-03T06:02:00+09:00",
+        "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "counterevidence": [],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "保留",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "CBZ",
+        "primary_hypothesis": "公表資料なし",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": []
+      },
+      "blind_handoff_id": "hand_6870f70047601c32c30cff1af4d11f1bdb0246db16a5bb53f8c8d12a57836ea2",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6870f70047601c32c30cff1af4d11f1bdb0246db16a5bb53f8c8d12a57836ea2_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 7,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [],
+      "upstream_hypotheses": [
+        "公表資料なし"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-03T06:02:00+09:00",
+        "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "counterevidence": [],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "保留",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "MKTX",
+        "primary_hypothesis": "公表資料なし",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": []
+      },
+      "blind_handoff_id": "hand_6641099ce76401508d3ea896ede2975167e6de776ef3b018289a9efb39a79378",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_6641099ce76401508d3ea896ede2975167e6de776ef3b018289a9efb39a79378_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 8,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [],
+      "upstream_hypotheses": [
+        "公表資料なし"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-03T06:02:00+09:00",
+        "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "counterevidence": [],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "保留",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "CBZ",
+        "primary_hypothesis": "公表資料なし",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": []
+      },
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 7,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "insufficient_evidence",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-03T06:02:00+09:00",
+        "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "counterevidence": [],
+        "data_anomaly_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "downstream_suitability": "保留",
+        "event_explained_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [],
+        "expected_resolution_horizon": "unknown",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "MKTX",
+        "primary_hypothesis": "公表資料なし",
+        "residual_mispricing_direction": "not_evaluable",
+        "residual_mispricing_likelihood": {
+          "basis": "",
+          "status": "not_evaluable",
+          "value": null
+        },
+        "uncertainties": []
+      },
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 8,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}
