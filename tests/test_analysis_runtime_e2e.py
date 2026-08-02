@@ -74,7 +74,7 @@ class ProductionRuntimeE2E(unittest.TestCase):
                         "uncertainties": ["demand"],
                         "additional_research": ["filing review"],
                         "downstream_suitability": "advance",
-                        "mechanical_agreement": "AGREE",
+                        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
                         "confidence": likelihood(0.6),
                         "evidence_refs": [f"ev_{index}"],
                     }
@@ -111,6 +111,20 @@ class ProductionRuntimeE2E(unittest.TestCase):
             self.assertEqual(len(bundle["reconciliation_projection"]), len(candidates))
             self.assertEqual(len(bundle["decision_ledger"]), len(candidates))
             self.assertEqual(len(bundle["blind_handoffs"]), len(candidates))
+            self.assertTrue(all(item["comparison_status"] == "AGREE" for item in bundle["reconciliation_projection"]))
+            self.assertTrue(
+                all(
+                    item["integration_basis"]["reason_code"] == "RESIDUAL_MISPRICING_HIGH"
+                    for item in bundle["integrated_decisions"]
+                )
+            )
+            self.assertTrue(
+                all(item["decision"] == "ADVANCE_TO_INDIVIDUAL_ANALYSIS" for item in bundle["integrated_decisions"])
+            )
+            self.assertNotIn(
+                "INSUFFICIENT_EVIDENCE",
+                {item["comparison_status"] for item in bundle["reconciliation_projection"]},
+            )
 
             subprocess.run(
                 cli + ["persist-assessment", "--snapshot", relative_snapshot, "--request", str(request_path)],
