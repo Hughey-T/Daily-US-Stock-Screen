@@ -1,0 +1,255 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Concentra Group Holdings Parent",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "CON"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed",
+      "investment_horizon": "months",
+      "security_identity": "ent_82df27d8955cfd025b172cf9d1897d39b392c0965502e9765794affe6d2ae38d",
+      "source_refs": [
+        "ev_con_20260507"
+      ],
+      "ticker": "CON",
+      "unresolved_factual_questions": [
+        "history/peer value"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_0248398cfa4b02fb231e6913a279ff1ed8eb90e50dc7f52a1b3ad0c739d4896b",
+  "candidate_ids": [
+    "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_40ea27321f17280850d7b6c4c3f4f927d19aec9ced79a91f2f6a134a53ff890d",
+      "as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "decisions": {
+        "ai_independent": "fundamental analysis",
+        "integrated": "MONITOR",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "comparison_status": "PARTIALLY_AGREE",
+      "decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.01,
+          "event_explained_likelihood": 0.64,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.4
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 8,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "history/peer value"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "post-separation discovery"
+        ],
+        "analysis_as_of": "2026-08-03T20:44:00+09:00",
+        "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+        "catalysts": [
+          "next results"
+        ],
+        "causal_chain": [
+          "growth/raised guide/capital returns"
+        ],
+        "confidence": {
+          "basis": "evidence",
+          "status": "estimated",
+          "value": 0.68
+        },
+        "counterevidence": [
+          "one quarter insufficient"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "estimate",
+          "status": "estimated",
+          "value": 0.01
+        },
+        "downstream_suitability": "fundamental analysis",
+        "event_explained_likelihood": {
+          "basis": "estimate",
+          "status": "estimated",
+          "value": 0.64
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_con_20260507"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "growth/margin reversal"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +41%;126d +47%",
+        "primary_hypothesis": "growth/raised guide/capital returns",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "estimate",
+          "status": "estimated",
+          "value": 0.4
+        },
+        "uncertainties": [
+          "normalized margins"
+        ]
+      },
+      "blind_handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "comparison_status": "PARTIALLY_AGREE",
+      "disagreement": "PARTIALLY_AGREE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_e114f3608b1f73f077f4292d71b850636ceb51c54d771f019799d92d9fb2a1ed_reconciliation",
+      "integrated_decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.01,
+          "event_explained_likelihood": 0.64,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.4
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "normalized margins"
+      ],
+      "upstream_hypotheses": [
+        "growth/raised guide/capital returns"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "history/peer value"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "post-separation discovery"
+        ],
+        "analysis_as_of": "2026-08-03T20:44:00+09:00",
+        "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+        "catalysts": [
+          "next results"
+        ],
+        "causal_chain": [
+          "growth/raised guide/capital returns"
+        ],
+        "confidence": {
+          "basis": "evidence",
+          "status": "estimated",
+          "value": 0.68
+        },
+        "counterevidence": [
+          "one quarter insufficient"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "estimate",
+          "status": "estimated",
+          "value": 0.01
+        },
+        "downstream_suitability": "fundamental analysis",
+        "event_explained_likelihood": {
+          "basis": "estimate",
+          "status": "estimated",
+          "value": 0.64
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_con_20260507"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "growth/margin reversal"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63d +41%;126d +47%",
+        "primary_hypothesis": "growth/raised guide/capital returns",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "estimate",
+          "status": "estimated",
+          "value": 0.4
+        },
+        "uncertainties": [
+          "normalized margins"
+        ]
+      },
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "comparison_status": "PARTIALLY_AGREE",
+      "integrated_decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.01,
+          "event_explained_likelihood": 0.64,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.4
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

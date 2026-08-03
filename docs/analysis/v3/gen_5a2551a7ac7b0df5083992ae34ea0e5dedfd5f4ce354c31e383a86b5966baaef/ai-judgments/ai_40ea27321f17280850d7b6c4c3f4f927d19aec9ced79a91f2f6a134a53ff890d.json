@@ -1,0 +1,865 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_hash": "ai_40ea27321f17280850d7b6c4c3f4f927d19aec9ced79a91f2f6a134a53ff890d",
+  "assessments": [
+    {
+      "additional_research": [
+        "merger terms"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "deal spread"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_d2cffa20fccc2de4624e70c3c82509bd6858c1e01f81f617b0e2b721f94182ca",
+      "catalysts": [
+        "close"
+      ],
+      "causal_chain": [
+        "$85 cash acquisition"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.96
+      },
+      "counterevidence": [
+        "deal terms fit"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "explained M&A",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.99
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_crnx_20260706"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "termination"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +99%;21d +116%",
+      "primary_hypothesis": "$85 cash acquisition",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.04
+      },
+      "uncertainties": [
+        "closing risk"
+      ]
+    },
+    {
+      "additional_research": [
+        "merger terms"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "deal spread"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_5de34ebf665afe1e1026d4e110d798d4abd50286befecb9c34d012b79e81587c",
+      "catalysts": [
+        "close"
+      ],
+      "causal_chain": [
+        "$14.25 cash take-private"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.97
+      },
+      "counterevidence": [
+        "premium fits"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "explained M&A",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.99
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_utz_20260721"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "termination"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +89%;21d +72%",
+      "primary_hypothesis": "$14.25 cash take-private",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "uncertainties": [
+        "closing risk"
+      ]
+    },
+    {
+      "additional_research": [
+        "SEC and pipeline search"
+      ],
+      "ai_assessment_status": "insufficient_evidence",
+      "alternative_hypotheses": [
+        "clinical read-through/low float"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_e7660cfa77a5c2e18b7612e916afbe4e1b022fcfdb4359d10e04707b5d17a782",
+      "catalysts": [
+        "new disclosure"
+      ],
+      "causal_chain": [
+        "no confirmed move-specific catalyst"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.4
+      },
+      "counterevidence": [
+        "source covers spin-off only"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.3
+      },
+      "downstream_suitability": "evidence collection only",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.25
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_trax_20260420"
+      ],
+      "expected_resolution_horizon": "unknown",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "confirmed catalyst found"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +56%;21d +137%;126d missing",
+      "primary_hypothesis": "no confirmed move-specific catalyst",
+      "residual_mispricing_direction": "not_evaluable",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.45
+      },
+      "uncertainties": [
+        "cause/float"
+      ]
+    },
+    {
+      "additional_research": [
+        "verify prices"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "small real move"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_bfc08ba9a0daa3cd5c8ea76c6252420ef2afab27061e27ebbb3b0bf83a906a2d",
+      "catalysts": [
+        "corrected data"
+      ],
+      "causal_chain": [
+        "unadjusted 3-for-1 split"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.99
+      },
+      "counterevidence": [
+        "ratio/date fit"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.99
+      },
+      "downstream_suitability": "exclude data problem",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.06
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_wlfc_20260717"
+      ],
+      "expected_resolution_horizon": "days",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "already adjusted"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "apparent 1d -67%",
+      "primary_hypothesis": "unadjusted 3-for-1 split",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "uncertainties": [
+        "adjustment consistency"
+      ]
+    },
+    {
+      "additional_research": [
+        "approvals"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "deal spread"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "catalysts": [
+        "close"
+      ],
+      "causal_chain": [
+        "$105 cash acquisition"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.96
+      },
+      "counterevidence": [
+        "premium fits"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "explained M&A",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.98
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_saft_20260723"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "termination"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +41%;21d +36%",
+      "primary_hypothesis": "$105 cash acquisition",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.03
+      },
+      "uncertainties": [
+        "regulatory risk"
+      ]
+    },
+    {
+      "additional_research": [
+        "normalize/peer value"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "positioning"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "catalysts": [
+        "next results"
+      ],
+      "causal_chain": [
+        "record results and raised guide"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.76
+      },
+      "counterevidence": [
+        "later decline"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "focused analysis",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.76
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_hurn_20260728"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "nonrecurring beat"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +40%;21d +57%;partial reversal",
+      "primary_hypothesis": "record results and raised guide",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.42
+      },
+      "uncertainties": [
+        "margin durability"
+      ]
+    },
+    {
+      "additional_research": [
+        "unaffected price"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "pre-deal run"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_6e4bc44c3d51670b8442dc18c2759f9603400cbd117898b3ba106a9f5b3c0c2b",
+      "catalysts": [
+        "go-shop/close"
+      ],
+      "causal_chain": [
+        "$55 cash acquisition"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.86
+      },
+      "counterevidence": [
+        "deal misses prior run"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "mostly explained M&A",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.82
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_cbz_20260729"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "termination"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +18%;21d +61%",
+      "primary_hypothesis": "$55 cash acquisition",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.28
+      },
+      "uncertainties": [
+        "pre-deal rise"
+      ]
+    },
+    {
+      "additional_research": [
+        "merger terms"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "deal spread"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_e3a864ee88279db162d7bd6630fba3d5f1ec65b345285d8a382ee5d142498986",
+      "catalysts": [
+        "close"
+      ],
+      "causal_chain": [
+        "$167 cash acquisition"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.96
+      },
+      "counterevidence": [
+        "33% premium fits"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "explained M&A",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.97
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_mktx_20260730"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "regulatory failure"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +29%;21d +42%",
+      "primary_hypothesis": "$167 cash acquisition",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.04
+      },
+      "uncertainties": [
+        "timing"
+      ]
+    },
+    {
+      "additional_research": [
+        "consideration terms"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "pipeline optimism"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "catalysts": [
+        "close/milestones"
+      ],
+      "causal_chain": [
+        "Lilly acquisition"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.88
+      },
+      "counterevidence": [
+        "pre-deal rise"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "mostly deal-driven",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.85
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_atai_20260716"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "termination"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +33%;21d +47%;63d +73%",
+      "primary_hypothesis": "Lilly acquisition",
+      "residual_mispricing_direction": "none_identified",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.22
+      },
+      "uncertainties": [
+        "contingent value"
+      ]
+    },
+    {
+      "additional_research": [
+        "earnings/backlog"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "short covering"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "catalysts": [
+        "execution"
+      ],
+      "causal_chain": [
+        "above-guide rebound"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.7
+      },
+      "counterevidence": [
+        "revenue still down YoY"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.02
+      },
+      "downstream_suitability": "focused research",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.68
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_efor_20260729"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "renewed contraction"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +18%;21d +62%;126d -43%",
+      "primary_hypothesis": "above-guide rebound",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.48
+      },
+      "uncertainties": [
+        "demand durability"
+      ]
+    },
+    {
+      "additional_research": [
+        "cycle comparison"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "currency/short covering"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_78158d2f22f34f59b4a8bd7b5911d876d1e24b1788446563f7ff42c9d97c7adb",
+      "catalysts": [
+        "growth/margins"
+      ],
+      "causal_chain": [
+        "growth and return to profit"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.71
+      },
+      "counterevidence": [
+        "cycle unproven"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "cyclical analysis",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.72
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_man_20260716"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "hiring reversal"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d +32%;21d +41%;63d +73%",
+      "primary_hypothesis": "growth and return to profit",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.4
+      },
+      "uncertainties": [
+        "organic mix"
+      ]
+    },
+    {
+      "additional_research": [
+        "bookings/cohorts"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "temporary transition"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_5f3a2b72629e02bf200355a4d5d32938996c71ded1ab9be1c1aa99728c982be1",
+      "catalysts": [
+        "monetization recovery"
+      ],
+      "causal_chain": [
+        "weak bookings guide/monetization"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.78
+      },
+      "counterevidence": [
+        "user growth positive"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "focused analysis",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.84
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_rblx_20260730"
+      ],
+      "expected_resolution_horizon": "weeks",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "further decline"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "1d -27%;21d -39%;126d -53%",
+      "primary_hypothesis": "weak bookings guide/monetization",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.44
+      },
+      "uncertainties": [
+        "temporary vs structural"
+      ]
+    },
+    {
+      "additional_research": [
+        "NAV/FFO/leverage"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "event demand/multiple"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "catalysts": [
+        "RevPAR/margins"
+      ],
+      "causal_chain": [
+        "better RevPAR/EBITDA/outlook"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.63
+      },
+      "counterevidence": [
+        "one quarter insufficient"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "monitor/value",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.58
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_rlj_20260504"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "demand slowdown"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63d +49%;126d +63%",
+      "primary_hypothesis": "better RevPAR/EBITDA/outlook",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.39
+      },
+      "uncertainties": [
+        "event contribution"
+      ]
+    },
+    {
+      "additional_research": [
+        "margins/peers"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "launches/currency"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "catalysts": [
+        "earnings/guide"
+      ],
+      "causal_chain": [
+        "US growth/portfolio strength"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.59
+      },
+      "counterevidence": [
+        "total sales only +2%"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "additional research",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.46
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_ipar_20260722"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "margin miss"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63d +37%;126d +30%",
+      "primary_hypothesis": "US growth/portfolio strength",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.48
+      },
+      "uncertainties": [
+        "launch profit"
+      ]
+    },
+    {
+      "additional_research": [
+        "history/peer value"
+      ],
+      "ai_assessment_status": "assessed",
+      "alternative_hypotheses": [
+        "post-separation discovery"
+      ],
+      "analysis_as_of": "2026-08-03T20:44:00+09:00",
+      "candidate_id": "route_2d925a06a1e2f06ed4939a2d128f0b37c78250a9a4af4698b26ce0a59ec91010",
+      "catalysts": [
+        "next results"
+      ],
+      "causal_chain": [
+        "growth/raised guide/capital returns"
+      ],
+      "confidence": {
+        "basis": "evidence",
+        "status": "estimated",
+        "value": 0.68
+      },
+      "counterevidence": [
+        "one quarter insufficient"
+      ],
+      "data_anomaly_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.01
+      },
+      "downstream_suitability": "fundamental analysis",
+      "event_explained_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.64
+      },
+      "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+      "evidence_refs": [
+        "ev_con_20260507"
+      ],
+      "expected_resolution_horizon": "months",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "invalidation_conditions": [
+        "growth/margin reversal"
+      ],
+      "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+      "observed_move_summary": "63d +41%;126d +47%",
+      "primary_hypothesis": "growth/raised guide/capital returns",
+      "residual_mispricing_direction": "two_sided",
+      "residual_mispricing_likelihood": {
+        "basis": "estimate",
+        "status": "estimated",
+        "value": 0.4
+      },
+      "uncertainties": [
+        "normalized margins"
+      ]
+    }
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "locked_at": "2026-08-03T20:44:00+09:00"
+}
