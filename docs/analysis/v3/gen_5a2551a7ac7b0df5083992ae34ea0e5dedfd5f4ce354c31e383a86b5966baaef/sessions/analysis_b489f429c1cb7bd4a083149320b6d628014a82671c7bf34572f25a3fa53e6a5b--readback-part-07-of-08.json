@@ -1,0 +1,538 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "RLJ Lodging Trust",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Real Estate",
+        "ticker": "RLJ"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "investment_horizon": "months",
+      "security_identity": "ent_1aae3f4323b9ee178d29a0cd58644d13fbd7ba45e4a4746c46d4c5824bcc9474",
+      "source_refs": [
+        "ev_rlj_1"
+      ],
+      "ticker": "RLJ",
+      "unresolved_factual_questions": [
+        "同業ホテルREITとの相対評価",
+        "NAV・負債満期・金利感応度の確認",
+        "都市別需要の確認"
+      ]
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Interparfums, Inc.",
+        "industry": null,
+        "market_data_date": "2026-07-31",
+        "sector": "Consumer Defensive",
+        "ticker": "IPAR"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "investment_horizon": "months",
+      "security_identity": "ent_4312adf55d7e9d9b9bfe3d435a9f7cac7e5ab1935f8cbee1a0b10d76f4dd6d82",
+      "source_refs": [
+        "ev_ipar_1",
+        "ev_ipar_2"
+      ],
+      "ticker": "IPAR",
+      "unresolved_factual_questions": [
+        "ブランド別売上とライセンス契約確認",
+        "同業比較と予想利益倍率の確認"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_b489f429c1cb7bd4a083149320b6d628014a82671c7bf34572f25a3fa53e6a5b",
+  "candidate_ids": [
+    "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+    "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_6c207b40745c0c9d956f9f012fa3022d7654c481a604feaa39ff917123b1a589",
+      "as_of": "2026-08-03T09:35:00+00:00",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "decisions": {
+        "ai_independent": "RESEARCH_PRIORITY",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_6c207b40745c0c9d956f9f012fa3022d7654c481a604feaa39ff917123b1a589",
+      "as_of": "2026-08-03T09:35:00+00:00",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "decisions": {
+        "ai_independent": "RESEARCH_PRIORITY",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.4,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.35
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      }
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.35,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.35
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 7,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "同業ホテルREITとの相対評価",
+          "NAV・負債満期・金利感応度の確認",
+          "都市別需要の確認"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "金利低下期待によるREIT再評価",
+          "資産売却・買戻し期待",
+          "イベント需要や都市部稼働率改善"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "第2四半期RevPAR",
+          "資産売却・買戻し",
+          "金利と借換え条件"
+        ],
+        "causal_chain": [
+          "第1四半期の上振れ",
+          "会社が通期見通しを引き上げ",
+          "単日ではなく複数日にわたり期待を織り込み"
+        ],
+        "confidence": {
+          "basis": "一次資料はあるが静かな上昇の因果分解が限定的。",
+          "status": "estimated",
+          "value": 0.55
+        },
+        "counterevidence": [
+          "単一発表の変動は小さく、63日上昇を直接説明しない。",
+          "地政学・旅行需要・金利に左右される。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による見かけの価格変更ではない。",
+          "status": "estimated",
+          "value": 0.03
+        },
+        "downstream_suitability": "RESEARCH_PRIORITY",
+        "event_explained_likelihood": {
+          "basis": "業績と見通しは方向を支えるが上昇全体を説明しない。",
+          "status": "estimated",
+          "value": 0.4
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_rlj_1"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "RevPAR鈍化",
+          "見通し引き下げ",
+          "資金調達コスト上昇"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63営業日で約48.7%、126営業日で約63.3%上昇。最大1日変動は小さく、上昇は複数日に分散。",
+        "primary_hypothesis": "第1四半期上振れと通期見通し引き上げに加え、都市部ホテル需要と資本構成改善への継続的な再評価。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "基礎業績対比で再評価余地の可能性はあるが方向の確信は低い。",
+          "status": "estimated",
+          "value": 0.35
+        },
+        "uncertainties": [
+          "金利・REITセクター要因と会社固有要因の分離不足。"
+        ]
+      },
+      "blind_handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037",
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_423cb6c581c86087f40cddee8442bffac773f06f4c53c0b6e3ee38cf37d90037_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.4,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.35
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "金利・REITセクター要因と会社固有要因の分離不足。"
+      ],
+      "upstream_hypotheses": [
+        "第1四半期上振れと通期見通し引き上げに加え、都市部ホテル需要と資本構成改善への継続的な再評価。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "ブランド別売上とライセンス契約確認",
+          "同業比較と予想利益倍率の確認"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "為替変動",
+          "欧州と米国の地域差",
+          "ディフェンシブ消費財への資金移動"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "第2四半期利益",
+          "新製品発売",
+          "通期見通し更新"
+        ],
+        "causal_chain": [
+          "第1四半期売上・利益を確認",
+          "通期見通しを維持",
+          "新製品とブランド展開期待を複数日に織り込み"
+        ],
+        "confidence": {
+          "basis": "静かな上昇に対し一次材料は混合的。",
+          "status": "estimated",
+          "value": 0.54
+        },
+        "counterevidence": [
+          "売上は市場期待を下回ったとの外部評価があり材料は一方向でない。",
+          "第2四半期売上は地域差があり、上昇を単一材料で説明できない。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による見かけの変動ではない。",
+          "status": "estimated",
+          "value": 0.02
+        },
+        "downstream_suitability": "RESEARCH_PRIORITY",
+        "event_explained_likelihood": {
+          "basis": "業績は上昇を支えるが規模全体を説明しない。",
+          "status": "estimated",
+          "value": 0.35
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_ipar_1",
+          "ev_ipar_2"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "ガイダンス引き下げ",
+          "米国または欧州の販売悪化",
+          "粗利率低下"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63営業日で約36.5%、126営業日で約30.4%上昇し、単日の最大変動は約5.4%にとどまる。",
+        "primary_hypothesis": "記録的な第1四半期業績、通期見通し維持、ブランドポートフォリオ期待が継続的な再評価を支えた。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "緩やかな再評価余地の可能性はあるが確証不足。",
+          "status": "estimated",
+          "value": 0.35
+        },
+        "uncertainties": [
+          "ブランド別・地域別成長と為替の寄与。",
+          "上昇がバリュエーション拡大か利益成長か未分解。"
+        ]
+      },
+      "blind_handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9",
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_300ac2fa281b1f2e045471b8ed0fc814ca08dcd7811c8c8ccf6bd973197a40d9_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.35,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.35
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "ブランド別・地域別成長と為替の寄与。",
+        "上昇がバリュエーション拡大か利益成長か未分解。"
+      ],
+      "upstream_hypotheses": [
+        "記録的な第1四半期業績、通期見通し維持、ブランドポートフォリオ期待が継続的な再評価を支えた。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "同業ホテルREITとの相対評価",
+          "NAV・負債満期・金利感応度の確認",
+          "都市別需要の確認"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "金利低下期待によるREIT再評価",
+          "資産売却・買戻し期待",
+          "イベント需要や都市部稼働率改善"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+        "catalysts": [
+          "第2四半期RevPAR",
+          "資産売却・買戻し",
+          "金利と借換え条件"
+        ],
+        "causal_chain": [
+          "第1四半期の上振れ",
+          "会社が通期見通しを引き上げ",
+          "単日ではなく複数日にわたり期待を織り込み"
+        ],
+        "confidence": {
+          "basis": "一次資料はあるが静かな上昇の因果分解が限定的。",
+          "status": "estimated",
+          "value": 0.55
+        },
+        "counterevidence": [
+          "単一発表の変動は小さく、63日上昇を直接説明しない。",
+          "地政学・旅行需要・金利に左右される。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による見かけの価格変更ではない。",
+          "status": "estimated",
+          "value": 0.03
+        },
+        "downstream_suitability": "RESEARCH_PRIORITY",
+        "event_explained_likelihood": {
+          "basis": "業績と見通しは方向を支えるが上昇全体を説明しない。",
+          "status": "estimated",
+          "value": 0.4
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_rlj_1"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "RevPAR鈍化",
+          "見通し引き下げ",
+          "資金調達コスト上昇"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63営業日で約48.7%、126営業日で約63.3%上昇。最大1日変動は小さく、上昇は複数日に分散。",
+        "primary_hypothesis": "第1四半期上振れと通期見通し引き上げに加え、都市部ホテル需要と資本構成改善への継続的な再評価。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "基礎業績対比で再評価余地の可能性はあるが方向の確信は低い。",
+          "status": "estimated",
+          "value": 0.35
+        },
+        "uncertainties": [
+          "金利・REITセクター要因と会社固有要因の分離不足。"
+        ]
+      },
+      "candidate_id": "route_743cfc1011e235c9a189980c58633e83d881fcdaa8e1f43b083b06507314cbd3",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.4,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.35
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "global_tail",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "ブランド別売上とライセンス契約確認",
+          "同業比較と予想利益倍率の確認"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "為替変動",
+          "欧州と米国の地域差",
+          "ディフェンシブ消費財への資金移動"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+        "catalysts": [
+          "第2四半期利益",
+          "新製品発売",
+          "通期見通し更新"
+        ],
+        "causal_chain": [
+          "第1四半期売上・利益を確認",
+          "通期見通しを維持",
+          "新製品とブランド展開期待を複数日に織り込み"
+        ],
+        "confidence": {
+          "basis": "静かな上昇に対し一次材料は混合的。",
+          "status": "estimated",
+          "value": 0.54
+        },
+        "counterevidence": [
+          "売上は市場期待を下回ったとの外部評価があり材料は一方向でない。",
+          "第2四半期売上は地域差があり、上昇を単一材料で説明できない。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による見かけの変動ではない。",
+          "status": "estimated",
+          "value": 0.02
+        },
+        "downstream_suitability": "RESEARCH_PRIORITY",
+        "event_explained_likelihood": {
+          "basis": "業績は上昇を支えるが規模全体を説明しない。",
+          "status": "estimated",
+          "value": 0.35
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_ipar_1",
+          "ev_ipar_2"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "ガイダンス引き下げ",
+          "米国または欧州の販売悪化",
+          "粗利率低下"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "63営業日で約36.5%、126営業日で約30.4%上昇し、単日の最大変動は約5.4%にとどまる。",
+        "primary_hypothesis": "記録的な第1四半期業績、通期見通し維持、ブランドポートフォリオ期待が継続的な再評価を支えた。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "緩やかな再評価余地の可能性はあるが確証不足。",
+          "status": "estimated",
+          "value": 0.35
+        },
+        "uncertainties": [
+          "ブランド別・地域別成長と為替の寄与。",
+          "上昇がバリュエーション拡大か利益成長か未分解。"
+        ]
+      },
+      "candidate_id": "route_daf0364eefed9b9387b07b2cb7a395a86a121f393db8f5b8b48b5f12f50fcdac",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.35,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.35
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "sector_coverage",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,528 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "AtaiBeckley Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Healthcare",
+        "ticker": "ATAI"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_2db99f80f3eab64eea3fcea723ad4625a9d7fd4d33117ceb958fa6d53826ce08",
+      "investment_horizon": "months",
+      "security_identity": "ent_9a1a39f92bfb69072aa687ec06d1332d3fd338624a7e6068b9a65ead8410bb80",
+      "source_refs": [
+        "ev_atai_1"
+      ],
+      "ticker": "ATAI",
+      "unresolved_factual_questions": [
+        "合併契約と条件付対価条項の確認"
+      ]
+    },
+    {
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Everforth, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Technology",
+        "ticker": "EFOR"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_5b8523485acc1ff3d55034a69e2869d621be3d312f00981a228a1de31b5cbe3e",
+      "investment_horizon": "weeks",
+      "security_identity": "ent_038256c7354024d9630f7b9995d6c7143ce9aa1c4989c4b216dadd841db3ba43",
+      "source_refs": [
+        "ev_efor_1",
+        "ev_efor_2"
+      ],
+      "ticker": "EFOR",
+      "unresolved_factual_questions": [
+        "受注残・顧客集中の確認",
+        "コンセンサス修正の確認",
+        "借換え条件と満期構成の精査"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_b489f429c1cb7bd4a083149320b6d628014a82671c7bf34572f25a3fa53e6a5b",
+  "candidate_ids": [
+    "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+    "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_6c207b40745c0c9d956f9f012fa3022d7654c481a604feaa39ff917123b1a589",
+      "as_of": "2026-08-03T09:35:00+00:00",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "decisions": {
+        "ai_independent": "REJECT_EXPLAINED_MOVE",
+        "integrated": "REJECT_EXPLAINED_MOVE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_6c207b40745c0c9d956f9f012fa3022d7654c481a604feaa39ff917123b1a589",
+      "as_of": "2026-08-03T09:35:00+00:00",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "decisions": {
+        "ai_independent": "RESEARCH_PRIORITY",
+        "integrated": "INSUFFICIENT_EVIDENCE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "comparison_status": "DISAGREE",
+      "decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.9,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.08
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      }
+    },
+    {
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.04,
+          "event_explained_likelihood": 0.6,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.25
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 5,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "合併契約と条件付対価条項の確認"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "買収前の臨床期待",
+          "条件付対価の達成確率評価"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+        "catalysts": [
+          "取引完了",
+          "条件付対価に関係する臨床・規制進捗"
+        ],
+        "causal_chain": [
+          "買収合意公表",
+          "現金対価と条件付価値を織り込み",
+          "株価が取引価値へ再評価"
+        ],
+        "confidence": {
+          "basis": "買収との時期対応は明確。",
+          "status": "estimated",
+          "value": 0.91
+        },
+        "counterevidence": [
+          "最大変動日と買収発表日が一致する。",
+          "買収前にも上昇しており、63日全体は買収だけではない。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動補正ではない。",
+          "status": "estimated",
+          "value": 0.02
+        },
+        "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+        "event_explained_likelihood": {
+          "basis": "21日上昇の中心は買収で説明される。",
+          "status": "estimated",
+          "value": 0.9
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_atai_1"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "契約解除",
+          "主要プログラムの失敗",
+          "条件付対価の達成可能性低下"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21営業日で約47.1%、63営業日で約72.6%上昇。2026年7月16日の約33.4%上昇が主要な節目。",
+        "primary_hypothesis": "Eli Lillyによる買収合意が直近上昇を説明する。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "条件付対価の価値評価に差はあり得るが独立誤評価は未確認。",
+          "status": "estimated",
+          "value": 0.08
+        },
+        "uncertainties": [
+          "条件付価値の市場評価と支払条件。"
+        ]
+      },
+      "blind_handoff_id": "hand_2db99f80f3eab64eea3fcea723ad4625a9d7fd4d33117ceb958fa6d53826ce08",
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "comparison_status": "DISAGREE",
+      "disagreement": "DISAGREE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_2db99f80f3eab64eea3fcea723ad4625a9d7fd4d33117ceb958fa6d53826ce08_reconciliation",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.9,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.08
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 9,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "条件付価値の市場評価と支払条件。"
+      ],
+      "upstream_hypotheses": [
+        "Eli Lillyによる買収合意が直近上昇を説明する。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "受注残・顧客集中の確認",
+          "コンセンサス修正の確認",
+          "借換え条件と満期構成の精査"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "ショートカバー",
+          "契約受注への期待",
+          "過度に売られた状態からの反発"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+        "catalysts": [
+          "受注・契約更新",
+          "次四半期の利益率",
+          "負債削減とフリーキャッシュフロー"
+        ],
+        "causal_chain": [
+          "借換えで流動性懸念が緩和",
+          "決算で売上・利益・キャッシュフローを確認",
+          "複数日にわたり回復期待を織り込み"
+        ],
+        "confidence": {
+          "basis": "複数の一次資料はあるが期間全体の因果分解が未完。",
+          "status": "estimated",
+          "value": 0.62
+        },
+        "counterevidence": [
+          "調整後EBITDAは前年同期を下回った。",
+          "長期では依然大幅下落で、構造的回復は未確認。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による見かけの変動ではない。",
+          "status": "estimated",
+          "value": 0.04
+        },
+        "downstream_suitability": "RESEARCH_PRIORITY",
+        "event_explained_likelihood": {
+          "basis": "公表材料は方向を説明するが21日上昇全体には不足。",
+          "status": "estimated",
+          "value": 0.6
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_efor_1",
+          "ev_efor_2"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "利益率悪化継続",
+          "受注減少",
+          "借換え後もレバレッジ改善が進まない"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21営業日で約62.0%上昇し、最大1日上昇は2026年7月30日の約17.8%。上昇は複数日に分散し、126営業日では約42.7%下落。",
+        "primary_hypothesis": "借換えによる財務柔軟性改善と第2四半期業績が、低い基準からの再評価を促した。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "回復の持続性に対する評価差の可能性がある。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "uncertainties": [
+          "決算前の上昇を説明する全材料の寄与分解。"
+        ]
+      },
+      "blind_handoff_id": "hand_5b8523485acc1ff3d55034a69e2869d621be3d312f00981a228a1de31b5cbe3e",
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "disagreement": "INSUFFICIENT_EVIDENCE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_5b8523485acc1ff3d55034a69e2869d621be3d312f00981a228a1de31b5cbe3e_reconciliation",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.04,
+          "event_explained_likelihood": 0.6,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.25
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 11,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "決算前の上昇を説明する全材料の寄与分解。"
+      ],
+      "upstream_hypotheses": [
+        "借換えによる財務柔軟性改善と第2四半期業績が、低い基準からの再評価を促した。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "合併契約と条件付対価条項の確認"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "買収前の臨床期待",
+          "条件付対価の達成確率評価"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+        "catalysts": [
+          "取引完了",
+          "条件付対価に関係する臨床・規制進捗"
+        ],
+        "causal_chain": [
+          "買収合意公表",
+          "現金対価と条件付価値を織り込み",
+          "株価が取引価値へ再評価"
+        ],
+        "confidence": {
+          "basis": "買収との時期対応は明確。",
+          "status": "estimated",
+          "value": 0.91
+        },
+        "counterevidence": [
+          "最大変動日と買収発表日が一致する。",
+          "買収前にも上昇しており、63日全体は買収だけではない。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動補正ではない。",
+          "status": "estimated",
+          "value": 0.02
+        },
+        "downstream_suitability": "REJECT_EXPLAINED_MOVE",
+        "event_explained_likelihood": {
+          "basis": "21日上昇の中心は買収で説明される。",
+          "status": "estimated",
+          "value": 0.9
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_atai_1"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "契約解除",
+          "主要プログラムの失敗",
+          "条件付対価の達成可能性低下"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21営業日で約47.1%、63営業日で約72.6%上昇。2026年7月16日の約33.4%上昇が主要な節目。",
+        "primary_hypothesis": "Eli Lillyによる買収合意が直近上昇を説明する。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "条件付対価の価値評価に差はあり得るが独立誤評価は未確認。",
+          "status": "estimated",
+          "value": 0.08
+        },
+        "uncertainties": [
+          "条件付価値の市場評価と支払条件。"
+        ]
+      },
+      "candidate_id": "route_57abd505c3b6ffef2af80567c8bb62ece675c0260db61d11bc9544efe5b2afca",
+      "comparison_status": "DISAGREE",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.9,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.08
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 9,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "受注残・顧客集中の確認",
+          "コンセンサス修正の確認",
+          "借換え条件と満期構成の精査"
+        ],
+        "ai_assessment_status": "partially_assessed",
+        "alternative_hypotheses": [
+          "ショートカバー",
+          "契約受注への期待",
+          "過度に売られた状態からの反発"
+        ],
+        "analysis_as_of": "2026-08-03T09:35:00+00:00",
+        "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+        "catalysts": [
+          "受注・契約更新",
+          "次四半期の利益率",
+          "負債削減とフリーキャッシュフロー"
+        ],
+        "causal_chain": [
+          "借換えで流動性懸念が緩和",
+          "決算で売上・利益・キャッシュフローを確認",
+          "複数日にわたり回復期待を織り込み"
+        ],
+        "confidence": {
+          "basis": "複数の一次資料はあるが期間全体の因果分解が未完。",
+          "status": "estimated",
+          "value": 0.62
+        },
+        "counterevidence": [
+          "調整後EBITDAは前年同期を下回った。",
+          "長期では依然大幅下落で、構造的回復は未確認。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "企業行動による見かけの変動ではない。",
+          "status": "estimated",
+          "value": 0.04
+        },
+        "downstream_suitability": "RESEARCH_PRIORITY",
+        "event_explained_likelihood": {
+          "basis": "公表材料は方向を説明するが21日上昇全体には不足。",
+          "status": "estimated",
+          "value": 0.6
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_efor_1",
+          "ev_efor_2"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [
+          "利益率悪化継続",
+          "受注減少",
+          "借換え後もレバレッジ改善が進まない"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "21営業日で約62.0%上昇し、最大1日上昇は2026年7月30日の約17.8%。上昇は複数日に分散し、126営業日では約42.7%下落。",
+        "primary_hypothesis": "借換えによる財務柔軟性改善と第2四半期業績が、低い基準からの再評価を促した。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "回復の持続性に対する評価差の可能性がある。",
+          "status": "estimated",
+          "value": 0.25
+        },
+        "uncertainties": [
+          "決算前の上昇を説明する全材料の寄与分解。"
+        ]
+      },
+      "candidate_id": "route_76be2ce9be5065b1e318d3bc3825cc0781d7f7d3b3979194993a6c841f3d11c8",
+      "comparison_status": "INSUFFICIENT_EVIDENCE",
+      "integrated_decision": "INSUFFICIENT_EVIDENCE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "partially_assessed",
+          "data_anomaly_likelihood": 0.04,
+          "event_explained_likelihood": 0.6,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.25
+        },
+        "reason_code": "AI_ASSESSMENT_INCOMPLETE"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 11,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}
