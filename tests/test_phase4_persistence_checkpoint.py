@@ -10,9 +10,9 @@ class Phase4PersistenceCheckpointTest(unittest.TestCase):
         cls.prompt = PROMPT.read_text(encoding="utf-8")
         cls.phase4 = cls.prompt.split("## Phase 4保存の必須手順", 1)[1].split("## 通常回答", 1)[0]
 
-    def test_prompt_has_safe_margin_below_custom_gpt_limit(self) -> None:
-        self.assertLessEqual(len(self.prompt), 7_000)
-        self.assertIn("analysis-contract-3.0-seven-user-phase-v5", self.prompt)
+    def test_prompt_exactly_fits_custom_gpt_limit(self) -> None:
+        self.assertEqual(len(self.prompt), 7_000)
+        self.assertIn("analysis-contract-3.0-seven-user-phase-v6", self.prompt)
 
     def test_pending_status_requires_successful_submission(self) -> None:
         for rule in (
