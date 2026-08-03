@@ -24,15 +24,25 @@ FORBIDDEN = (
 )
 
 
+def section_tickers(text: str, heading: str) -> set[str]:
+    match = re.search(rf"## {heading}\n\n(.*?)(?=\n## |\Z)", text, re.S)
+    if not match:
+        raise AssertionError(f"missing section: {heading}")
+    return set(re.findall(r"\b[A-Z]{2,5}\b", match.group(1)))
+
+
 class UserOutputContractTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.prompt = PROMPT.read_text(encoding="utf-8")
-        cls.fixtures = {path.name: path.read_text(encoding="utf-8") for path in sorted(FIXTURES.glob("*.md"))}
+        cls.fixtures = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(FIXTURES.glob("*.md"))
+        }
 
     def test_canonical_prompt_stays_pasteable_and_defines_phase_map(self) -> None:
-        self.assertLessEqual(len(self.prompt), 8_000)
-        self.assertIn("analysis-contract-3.0-seven-user-phase-v4", self.prompt)
+        self.assertEqual(len(self.prompt), 7_000)
+        self.assertIn("analysis-contract-3.0-seven-user-phase-v6", self.prompt)
         titles = (
             "本日のデータ確認と調査対象の確定",
             "候補銘柄の値動きの特徴確認",
@@ -45,11 +55,14 @@ class UserOutputContractTest(unittest.TestCase):
         for title in titles:
             self.assertIn(title, self.prompt)
         self.assertIn("内部処理は8段階のまま", self.prompt)
-        self.assertIn("更新は3 Phase", self.prompt)
+        self.assertIn("更新3 Phase", self.prompt)
         self.assertIn("完全確認後にだけ次の `次` でPhase 5へ進む", self.prompt)
 
     def test_new_conversation_requires_initial_flow_before_update_flow(self) -> None:
-        boundary = self.prompt.split("## 操作と境界", 1)[1].split("GitHubが `FACTS`", 1)[0]
+        boundary = self.prompt.split("## 操作と境界", 1)[1].split(
+            "GitHubが`FACTS`",
+            1,
+        )[0]
         for rule in (
             "新しい会話で最初に完全一致する `更新` を受けた場合は、常に初回Phase 1 / 全7 Phaseを開始する",
             "更新3 Phaseを開始できるのは、同じ会話内で初回Phase 7が正常完了",
@@ -64,12 +77,14 @@ class UserOutputContractTest(unittest.TestCase):
         phase_three = self.prompt.split(
             "Phase 3では候補内の `evidence_refs` が空でも",
             1,
-        )[1].split("Phase 4は", 1)[0]
+        )[1].split("4. **市場が説明しきれていない部分の評価**", 1)[0]
         for rule in (
             "証拠不存在とみなさず",
             "cutoff以前の公開情報を全候補について能動調査",
             "一次資料を優先",
             "信頼できる報道を補助使用",
+            "銘柄ごとに実際に確認した資料種別と公表日を簡潔に示し",
+            "一次資料を未確認なら確認済みと書かない",
             "`evidence_registry` へ登録",
             "評価はそのregistry IDだけを参照",
             "実際に検索して関連資料が見つからない",
@@ -80,8 +95,27 @@ class UserOutputContractTest(unittest.TestCase):
             self.assertIn(rule, phase_three)
         self.assertIn("公開証拠のWeb検索・閲覧は禁止しない", self.prompt)
 
+    def test_phase_three_fixture_shows_actual_source_types_and_dates(self) -> None:
+        text = self.fixtures["initial_phase_3.md"]
+        for phrase in (
+            "実際に確認した資料種別",
+            "公表日",
+            "会社IRの決算資料",
+            "SEC提出書類、会社プレスリリース",
+            "信頼できる報道（補助資料）",
+            "一次資料では未確認",
+            "一次資料を確認済みとは扱いません",
+        ):
+            self.assertIn(phrase, text)
+        self.assertNotIn("http", text)
+        self.assertNotIn("registry", text)
+        self.assertNotIn("{", text)
+
     def test_phase_five_uses_runtime_owned_reconciliation(self) -> None:
-        phase_five = self.prompt.split("Phase 5は保存後の", 1)[1].split("Phase 6は", 1)[0]
+        phase_five = self.prompt.split("Phase 5は保存後の", 1)[1].split(
+            "6. **現在の候補外に補足候補がないか確認**",
+            1,
+        )[0]
         for rule in (
             "`reconciliation_projection`",
             "`integrated_decisions`",
@@ -95,9 +129,27 @@ class UserOutputContractTest(unittest.TestCase):
         ):
             self.assertIn(rule, phase_five)
 
+    def test_phase_seven_uses_exclusive_runtime_decisions(self) -> None:
+        phase_seven = self.prompt.split(
+            "7. **最終候補、除外結果、次工程への引き継ぎ**",
+            1,
+        )[1].split("最終末尾は正確に：", 1)[0]
+        for rule in (
+            "保存後runtimeの`integrated_decisions[].decision`だけを正本",
+            "正式対象を最終候補、追加調査、監視、判断材料不足、データ問題除外、説明済み除外の排他的な1区分へ分類",
+            "主要区分合計を正式対象数と一致",
+            "補足候補は別集計",
+            "最終分類に`comparison_status`を使わず",
+            "`RESEARCH_PRIORITY`と`MONITOR`",
+            "判断材料不足へ重複掲載しない",
+            "真の`decision=INSUFFICIENT_EVIDENCE`だけ",
+        ):
+            self.assertIn(rule, phase_seven)
+
     def test_all_required_fixtures_exist_and_hide_internal_details(self) -> None:
         expected = {
             "initial_phase_1.md",
+            "initial_phase_3.md",
             "persistence_pending.md",
             "final_with_selection.md",
             "final_no_selection.md",
@@ -133,12 +185,18 @@ class UserOutputContractTest(unittest.TestCase):
                 self.assertIn("以上で本日のDaily US Stock Screenはすべて完了です。", text)
                 self.assertNotIn("「次」と送信してください", text)
 
-    def test_no_selection_is_successfully_persisted_and_has_no_handoff(self) -> None:
+    def test_no_selection_is_normal_completion_and_has_no_handoff(self) -> None:
         text = self.fixtures["final_no_selection.md"]
         for phrase in (
             "本日の条件を満たす最終候補はありませんでした",
             "これは処理失敗ではありません",
-            "保存状態：分析結果の保存と確認が完了",
+            "市場データ確認",
+            "値動きの原因調査",
+            "独立評価",
+            "分析結果の保存確認",
+            "機械判定との照合",
+            "個別株分析条件を満たす銘柄がなかった",
+            "保存完了状態：分析結果の保存と完全性確認が完了",
             "## 個別株分析へ引き継ぐ対象\n\n該当なし",
         ):
             self.assertIn(phrase, text)
@@ -148,14 +206,29 @@ class UserOutputContractTest(unittest.TestCase):
         for phrase in (
             "本日の最終候補はありません",
             "スクリーニング自体は正常に完了",
-            "投資判断へ進むための証拠が不足",
+            "個別株分析へ進むための証拠が不足",
         ):
             self.assertIn(phrase, text)
         self.assertNotIn("異常終了", text)
 
+    def test_final_analysis_basis_has_four_required_items(self) -> None:
+        for name in INITIAL_FINALS:
+            text = self.fixtures[name]
+            with self.subTest(fixture=name):
+                for label in (
+                    "市場データ日：",
+                    "公開情報の期限：",
+                    "分析基準日時：",
+                    "保存完了状態：",
+                ):
+                    self.assertIn(label, text)
+
     def test_pending_stays_in_phase_four_and_only_rechecks(self) -> None:
         text = self.fixtures["persistence_pending.md"]
-        self.assertIn("# Phase 4 / 全7 Phase\n## 市場が説明しきれていない部分の評価", text)
+        self.assertIn(
+            "# Phase 4 / 全7 Phase\n## 市場が説明しきれていない部分の評価",
+            text,
+        )
         self.assertNotIn("## 分析結果の保存確認", text)
         for phrase in (
             "分析は完了",
@@ -188,8 +261,14 @@ class UserOutputContractTest(unittest.TestCase):
             "artifact",
             "evidence_registry",
         )
-        self.assertRegex(contract, rf"`artifact` は正確に .*{'.*'.join(artifact_fields)}.*だけ")
-        self.assertRegex(contract, rf"Issue本文は厳密なJSONで、正確に .*{'.*'.join(issue_fields)}")
+        self.assertRegex(
+            contract,
+            rf"`artifact` は正確に .*{'.*'.join(artifact_fields)}.*だけ",
+        )
+        self.assertRegex(
+            contract,
+            rf"Issue本文は厳密なJSONで、正確に .*{'.*'.join(issue_fields)}",
+        )
         for rule in (
             "`operation`: `persist_ai_assessment_v3`",
             "`repository`: `Hughey-T/Daily-US-Stock-Screen`",
@@ -220,19 +299,40 @@ class UserOutputContractTest(unittest.TestCase):
         ):
             self.assertIn(phrase, text)
 
-    def test_final_classifications_do_not_overlap(self) -> None:
+    def test_final_classifications_are_exclusive_and_counted(self) -> None:
         text = self.fixtures["final_with_selection.md"]
-        sections = {}
-        headings = ("最終候補", "監視候補", "判断材料不足", "除外した銘柄", "補足候補", "個別株分析へ引き継ぐ対象")
-        for heading in headings:
-            match = re.search(rf"## {heading}\n\n(.*?)(?=\n## |\Z)", text, re.S)
-            sections[heading] = set(re.findall(r"\b[A-Z]{2,5}\b", match.group(1)))
-        classification_sets = [sections[heading] for heading in headings[:5]]
+        headings = (
+            "最終候補",
+            "追加調査を優先する候補",
+            "監視候補",
+            "判断材料不足",
+            "除外した銘柄",
+        )
+        classification_sets = [section_tickers(text, heading) for heading in headings]
         for index, left in enumerate(classification_sets):
             for right in classification_sets[index + 1 :]:
                 self.assertFalse(left & right)
-        self.assertEqual(sections["最終候補"], sections["個別株分析へ引き継ぐ対象"])
-        self.assertFalse(sections["補足候補"] & sections["個別株分析へ引き継ぐ対象"])
+
+        formal = set().union(*classification_sets)
+        supplemental = section_tickers(text, "補足候補")
+        handoff = section_tickers(text, "個別株分析へ引き継ぐ対象")
+        declared = int(re.search(r"正式対象(\d+)銘柄", text).group(1))
+
+        self.assertEqual(declared, len(formal))
+        self.assertEqual({"AAA", "BBB", "CCC", "DDD", "EEE", "FFF"}, formal)
+        self.assertEqual({"GGG"}, supplemental)
+        self.assertFalse(formal & supplemental)
+        self.assertEqual(section_tickers(text, "最終候補"), handoff)
+
+    def test_only_true_insufficient_decision_appears_in_that_section(self) -> None:
+        text = self.fixtures["final_with_selection.md"]
+        insufficient = section_tickers(text, "判断材料不足")
+        research = section_tickers(text, "追加調査を優先する候補")
+        monitor = section_tickers(text, "監視候補")
+        self.assertEqual({"DDD"}, insufficient)
+        self.assertEqual({"BBB"}, research)
+        self.assertEqual({"CCC"}, monitor)
+        self.assertFalse(insufficient & (research | monitor))
 
 
 if __name__ == "__main__":
