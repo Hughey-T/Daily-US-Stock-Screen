@@ -35,10 +35,7 @@ class UserOutputContractTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.prompt = PROMPT.read_text(encoding="utf-8")
-        cls.fixtures = {
-            path.name: path.read_text(encoding="utf-8")
-            for path in sorted(FIXTURES.glob("*.md"))
-        }
+        cls.fixtures = {path.name: path.read_text(encoding="utf-8") for path in sorted(FIXTURES.glob("*.md"))}
 
     def test_canonical_prompt_stays_pasteable_and_defines_phase_map(self) -> None:
         self.assertEqual(len(self.prompt), 7_000)
