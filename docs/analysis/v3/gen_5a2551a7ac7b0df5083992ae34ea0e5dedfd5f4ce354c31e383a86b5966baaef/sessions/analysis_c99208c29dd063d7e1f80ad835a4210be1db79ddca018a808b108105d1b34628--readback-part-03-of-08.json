@@ -1,0 +1,427 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Safety Insurance Group, Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Financial Services",
+        "ticker": "SAFT"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_b5a9743cdd51b4155f9081144d4f4714f2bb32f05f68472517ad5cf5f576ea2a",
+      "investment_horizon": "months",
+      "security_identity": "ent_1868d9a8cd7bcfd017ef184f44c9af846221da42f0f292e7afd705ae337e8333",
+      "source_refs": [
+        "e5"
+      ],
+      "ticker": "SAFT",
+      "unresolved_factual_questions": []
+    },
+    {
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Huron Consulting Group Inc.",
+        "industry": "",
+        "market_data_date": "2026-07-31",
+        "sector": "Industrials",
+        "ticker": "HURN"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_f6606e1be55a35350beacec0820900364401e0e70ee63d7a27f819532546d1e3",
+      "investment_horizon": "weeks",
+      "security_identity": "ent_9bf3f8dc81666f3278728d73eba3c355a0fcd333a270dd008e5c5d80cbb8dfb2",
+      "source_refs": [
+        "e6"
+      ],
+      "ticker": "HURN",
+      "unresolved_factual_questions": []
+    }
+  ],
+  "bundle_id": "analysis_c99208c29dd063d7e1f80ad835a4210be1db79ddca018a808b108105d1b34628",
+  "candidate_ids": [
+    "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+    "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa"
+  ],
+  "candidate_set_id": "cset_1150e41044b1eadd975f4e653ed1f33c9ea56ca1dce4ea1640909f47457145f3",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_f752cc3a0c5a21ff5aff3f5e5856ce9853b82db96190c478b2e8bd126f1d8cb1",
+      "as_of": "2026-08-05T08:23:00+09:00",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "decisions": {
+        "ai_independent": "Explained M&A; exclude.",
+        "integrated": "REJECT_EXPLAINED_MOVE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_f752cc3a0c5a21ff5aff3f5e5856ce9853b82db96190c478b2e8bd126f1d8cb1",
+      "as_of": "2026-08-05T08:23:00+09:00",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "decisions": {
+        "ai_independent": "Research magnitude.",
+        "integrated": "REJECT_EXPLAINED_MOVE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "source_cutoff": "2026-07-31T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "comparison_status": "DISAGREE",
+      "decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.98,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.04
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      }
+    },
+    {
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "comparison_status": "DISAGREE",
+      "decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.9,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.3
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 3,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-05T08:23:00+09:00",
+        "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "Independent confidence.",
+          "status": "estimated",
+          "value": 0.8
+        },
+        "counterevidence": [],
+        "data_anomaly_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.02
+        },
+        "downstream_suitability": "Explained M&A; exclude.",
+        "event_explained_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.98
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "e5"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "+36%/21d; +41% 7/24.",
+        "primary_hypothesis": "MAPFRE cash deal explains move.",
+        "residual_mispricing_direction": "none_identified",
+        "residual_mispricing_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.04
+        },
+        "uncertainties": []
+      },
+      "blind_handoff_id": "hand_b5a9743cdd51b4155f9081144d4f4714f2bb32f05f68472517ad5cf5f576ea2a",
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "comparison_status": "DISAGREE",
+      "disagreement": "DISAGREE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_b5a9743cdd51b4155f9081144d4f4714f2bb32f05f68472517ad5cf5f576ea2a_reconciliation",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.98,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.04
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 5,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [],
+      "upstream_hypotheses": [
+        "MAPFRE cash deal explains move."
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-05T08:23:00+09:00",
+        "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "Independent confidence.",
+          "status": "estimated",
+          "value": 0.8
+        },
+        "counterevidence": [
+          "126d relative trend was weak."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.03
+        },
+        "downstream_suitability": "Research magnitude.",
+        "event_explained_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.9
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "e6"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "+57%/21d; +40% 7/29.",
+        "primary_hypothesis": "Q2 beat and raised guidance explain most.",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.3
+        },
+        "uncertainties": []
+      },
+      "blind_handoff_id": "hand_f6606e1be55a35350beacec0820900364401e0e70ee63d7a27f819532546d1e3",
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "comparison_status": "DISAGREE",
+      "disagreement": "DISAGREE",
+      "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+      "handoff_id": "hand_f6606e1be55a35350beacec0820900364401e0e70ee63d7a27f819532546d1e3_reconciliation",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.9,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.3
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 6,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [],
+      "upstream_hypotheses": [
+        "Q2 beat and raised guidance explain most."
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-05T08:23:00+09:00",
+        "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "Independent confidence.",
+          "status": "estimated",
+          "value": 0.8
+        },
+        "counterevidence": [],
+        "data_anomaly_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.02
+        },
+        "downstream_suitability": "Explained M&A; exclude.",
+        "event_explained_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.98
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "e5"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "+36%/21d; +41% 7/24.",
+        "primary_hypothesis": "MAPFRE cash deal explains move.",
+        "residual_mispricing_direction": "none_identified",
+        "residual_mispricing_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.04
+        },
+        "uncertainties": []
+      },
+      "candidate_id": "route_05b53dd954fd77312cbdc924fdd9ab9ca194afa2e95a526098080021166af78f",
+      "comparison_status": "DISAGREE",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.02,
+          "event_explained_likelihood": 0.98,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.04
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 5,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [],
+        "analysis_as_of": "2026-08-05T08:23:00+09:00",
+        "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+        "catalysts": [],
+        "causal_chain": [],
+        "confidence": {
+          "basis": "Independent confidence.",
+          "status": "estimated",
+          "value": 0.8
+        },
+        "counterevidence": [
+          "126d relative trend was weak."
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.03
+        },
+        "downstream_suitability": "Research magnitude.",
+        "event_explained_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.9
+        },
+        "evidence_cutoff": "2026-07-31T20:00:00+00:00",
+        "evidence_refs": [
+          "e6"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_5a2551a7ac7b0df5083992ae34ea0e5dedfd5f4ce354c31e383a86b5966baaef",
+        "invalidation_conditions": [],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "+57%/21d; +40% 7/29.",
+        "primary_hypothesis": "Q2 beat and raised guidance explain most.",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "Independent estimate.",
+          "status": "estimated",
+          "value": 0.3
+        },
+        "uncertainties": []
+      },
+      "candidate_id": "route_5c4c1a7363c9581ce1d7c80aff818ddc56de0b7b9a6eb7833a2e63d4ca4500fa",
+      "comparison_status": "DISAGREE",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.9,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.3
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 6,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}
