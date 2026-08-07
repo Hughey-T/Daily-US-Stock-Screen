@@ -16,6 +16,14 @@
       "source_snapshot_id": "snap_fb8f0a76fb04eb7fbb47d3b3ad13808caf86f8c7cdcf2060d8926ad24a6bf48d",
       "record_count": 22,
       "created_at": "2026-08-07T01:41:27.649225+00:00"
+    },
+    "gen_ba28ea0729a5a466e2b347d63a249f348045cc2fc2ddfcab908352704950717c": {
+      "path": "docs/entry-resolutions/gen_ba28ea0729a5a466e2b347d63a249f348045cc2fc2ddfcab908352704950717c/entry_983989e9506114f17a1970e462f3cae04df7c71c170ed1159e324738775555aa.json",
+      "sha256": "47b279385fd3653e52c2fe52dda4105b7b326ef8be136821730316168425d9a4",
+      "entry_resolution_id": "entry_983989e9506114f17a1970e462f3cae04df7c71c170ed1159e324738775555aa",
+      "source_snapshot_id": "snap_c76c0aa7265f01393d3dbd900489094f4313a3c3b68811d71ca1669be2ec4462",
+      "record_count": 22,
+      "created_at": "2026-08-07T18:01:34.797472+00:00"
     }
   }
 }
