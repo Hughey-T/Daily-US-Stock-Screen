@@ -1,8 +1,8 @@
 {
   "manifest_schema_version": "2.0",
-  "snapshot_id": "snap_2656afc6ae6d0259d52898f270309be00505176deb7e5f411c4306f1385dc100",
-  "generation_id": "gen_4c64ca2d31fc12da6179897250040ce5afd86985b60b7d5698d126c908e34e9b",
-  "snapshot_path": "generations/2026-08-07/gen_4c64ca2d31fc12da6179897250040ce5afd86985b60b7d5698d126c908e34e9b/snapshot.json",
-  "snapshot_sha256": "9a43ea2715f1ef814bf1510d47021708b3dc235c7b1bc7b88291aed833413f40",
-  "updated_at": "2026-08-08T00:08:01+00:00"
+  "snapshot_id": "snap_fa660221043cd34a1f42bbb7fa2df336310f455b0364fba67fd7a1b11bcd5e96",
+  "generation_id": "gen_63811def8d9330a334c8ffabd0751e444acfb1de77220c08cd14cb1b1d3648f6",
+  "snapshot_path": "generations/2026-08-10/gen_63811def8d9330a334c8ffabd0751e444acfb1de77220c08cd14cb1b1d3648f6/snapshot.json",
+  "snapshot_sha256": "72ba808291e0a044ffecef39f97cf56618e263e71d97b5d9268bb4004ff01785",
+  "updated_at": "2026-08-11T00:09:05+00:00"
 }
