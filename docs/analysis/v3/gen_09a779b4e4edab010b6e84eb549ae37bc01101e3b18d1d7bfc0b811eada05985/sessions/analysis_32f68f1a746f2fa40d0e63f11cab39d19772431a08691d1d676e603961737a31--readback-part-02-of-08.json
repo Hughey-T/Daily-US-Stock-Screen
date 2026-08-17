@@ -1,0 +1,487 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Replimune Group, Inc.",
+        "industry": "",
+        "market_data_date": "2026-08-14",
+        "sector": "Healthcare",
+        "ticker": "REPL"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_9936e0c573c1b54d452cbda83e1932957170403569dcdbbc34bf4a92914deb12",
+      "investment_horizon": "weeks",
+      "security_identity": "ent_36a28086016bbc0bc1b6d162fe79c32b60054c9917eae335cb7eda23de22e4ee",
+      "source_refs": [
+        "ev_repl_20260730"
+      ],
+      "ticker": "REPL",
+      "unresolved_factual_questions": [
+        "公表材料と価格反応の追加分解"
+      ]
+    },
+    {
+      "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "AbCellera Biologics Inc.",
+        "industry": "",
+        "market_data_date": "2026-08-14",
+        "sector": "Healthcare",
+        "ticker": "ABCL"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_01a42ba27ff4dfeb7cf4f482a6855fc12b2a56f04ffc2c6ff54e4c30a99d9d20",
+      "investment_horizon": "months",
+      "security_identity": "ent_978549cf885680d8f291480e2673869432119d563162deff79c82c24ea513dac",
+      "source_refs": [
+        "ev_abcl_20260810"
+      ],
+      "ticker": "ABCL",
+      "unresolved_factual_questions": [
+        "公表材料と価格反応の追加分解"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_32f68f1a746f2fa40d0e63f11cab39d19772431a08691d1d676e603961737a31",
+  "candidate_ids": [
+    "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+    "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525"
+  ],
+  "candidate_set_id": "cset_5e602d18cedb72c287208e3b13d7fa5dfc2045b9bff98a6e7601cae834439fab",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_7760d96efd6e2604e129a3ef674b9888fc086634d41570cc820e263474018f84",
+      "as_of": "2026-08-18T05:19:00+09:00",
+      "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+      "decisions": {
+        "ai_independent": "追加調査余地あり。",
+        "integrated": "REJECT_EXPLAINED_MOVE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "source_cutoff": "2026-08-14T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_7760d96efd6e2604e129a3ef674b9888fc086634d41570cc820e263474018f84",
+      "as_of": "2026-08-18T05:19:00+09:00",
+      "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+      "decisions": {
+        "ai_independent": "追加調査余地あり。",
+        "integrated": "MONITOR",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "source_cutoff": "2026-08-14T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+      "comparison_status": "DISAGREE",
+      "decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.05,
+          "event_explained_likelihood": 0.84,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.33
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      }
+    },
+    {
+      "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+      "comparison_status": "PARTIALLY_AGREE",
+      "decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.05,
+          "event_explained_likelihood": 0.76,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.41
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 2,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "最終規制判断期待も寄与。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+        "catalysts": [
+          "次回の主要公表"
+        ],
+        "causal_chain": [
+          "FDA諮問委員会の肯定的結果が主因。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.78
+        },
+        "counterevidence": [
+          "最終承認前で規制リスクが残る。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "追加調査余地あり。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.84
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_repl_20260730"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "主要仮説を弱める新情報"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "7/31急騰後も変動。",
+        "primary_hypothesis": "FDA諮問委員会の肯定的結果が主因。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.33
+        },
+        "uncertainties": [
+          "残余の定量分解"
+        ]
+      },
+      "blind_handoff_id": "hand_9936e0c573c1b54d452cbda83e1932957170403569dcdbbc34bf4a92914deb12",
+      "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+      "comparison_status": "DISAGREE",
+      "disagreement": "DISAGREE",
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_9936e0c573c1b54d452cbda83e1932957170403569dcdbbc34bf4a92914deb12_reconciliation",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.05,
+          "event_explained_likelihood": 0.84,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.33
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "残余の定量分解"
+      ],
+      "upstream_hypotheses": [
+        "FDA諮問委員会の肯定的結果が主因。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "プラットフォーム再評価も寄与。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+        "catalysts": [
+          "次回の主要公表"
+        ],
+        "causal_chain": [
+          "第2相トップライン結果が主因。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.72
+        },
+        "counterevidence": [
+          "後期開発・商業化リスクが残る。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "追加調査余地あり。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.76
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_abcl_20260810"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "主要仮説を弱める新情報"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "8/10臨床結果日に急騰。",
+        "primary_hypothesis": "第2相トップライン結果が主因。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.41
+        },
+        "uncertainties": [
+          "残余の定量分解"
+        ]
+      },
+      "blind_handoff_id": "hand_01a42ba27ff4dfeb7cf4f482a6855fc12b2a56f04ffc2c6ff54e4c30a99d9d20",
+      "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+      "comparison_status": "PARTIALLY_AGREE",
+      "disagreement": "PARTIALLY_AGREE",
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_01a42ba27ff4dfeb7cf4f482a6855fc12b2a56f04ffc2c6ff54e4c30a99d9d20_reconciliation",
+      "integrated_decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.05,
+          "event_explained_likelihood": 0.76,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.41
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "残余の定量分解"
+      ],
+      "upstream_hypotheses": [
+        "第2相トップライン結果が主因。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "最終規制判断期待も寄与。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+        "catalysts": [
+          "次回の主要公表"
+        ],
+        "causal_chain": [
+          "FDA諮問委員会の肯定的結果が主因。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.78
+        },
+        "counterevidence": [
+          "最終承認前で規制リスクが残る。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "追加調査余地あり。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.84
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_repl_20260730"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "主要仮説を弱める新情報"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "7/31急騰後も変動。",
+        "primary_hypothesis": "FDA諮問委員会の肯定的結果が主因。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.33
+        },
+        "uncertainties": [
+          "残余の定量分解"
+        ]
+      },
+      "candidate_id": "route_bd2dc7c63eb57ef9c4a861ece2dd02ef3d34902b739995744769e4aa2e02e20c",
+      "comparison_status": "DISAGREE",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.05,
+          "event_explained_likelihood": 0.84,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.33
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 3,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "プラットフォーム再評価も寄与。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+        "catalysts": [
+          "次回の主要公表"
+        ],
+        "causal_chain": [
+          "第2相トップライン結果が主因。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.72
+        },
+        "counterevidence": [
+          "後期開発・商業化リスクが残る。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "downstream_suitability": "追加調査余地あり。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.76
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_abcl_20260810"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "主要仮説を弱める新情報"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "8/10臨床結果日に急騰。",
+        "primary_hypothesis": "第2相トップライン結果が主因。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.41
+        },
+        "uncertainties": [
+          "残余の定量分解"
+        ]
+      },
+      "candidate_id": "route_ccdfd1e9d6edaf0d260a0316cdd45e2471bca23f940283e01802fc2fcdb69525",
+      "comparison_status": "PARTIALLY_AGREE",
+      "integrated_decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.05,
+          "event_explained_likelihood": 0.76,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.41
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 4,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}

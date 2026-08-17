@@ -1,0 +1,487 @@
+{
+  "analysis_contract_version": "3.0",
+  "artifact_type": "ANALYSIS_BUNDLE_READBACK_PART",
+  "blind_handoffs": [
+    {
+      "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Quantum Corporation",
+        "industry": "",
+        "market_data_date": "2026-08-14",
+        "sector": "Technology",
+        "ticker": "QMCO"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_abea391d0f57bf3483510a9af23d52ab202a18ba7b2db23b7524219a0428d19a",
+      "investment_horizon": "weeks",
+      "security_identity": "ent_83405bb7dcd071c4bc59d176a06cad305728c158f42cd07465dc2a65acbb8626",
+      "source_refs": [
+        "ev_qmco_20260810"
+      ],
+      "ticker": "QMCO",
+      "unresolved_factual_questions": [
+        "公表材料と価格反応の追加分解"
+      ]
+    },
+    {
+      "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+      "data_quality": {
+        "quality_gate": "passed"
+      },
+      "facts": {
+        "company_name": "Utz Brands Inc",
+        "industry": "",
+        "market_data_date": "2026-08-14",
+        "sector": "Consumer Defensive",
+        "ticker": "UTZ"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_60a952bdd04ccf08bd223061aa899f5d499d67963edce07556c16fd611d2452b",
+      "investment_horizon": "months",
+      "security_identity": "ent_faf06124a4ca0393690fcd8abdc522a5a18d11b7ae42b9f4944598cabea9cc1a",
+      "source_refs": [
+        "ev_utz_20260721"
+      ],
+      "ticker": "UTZ",
+      "unresolved_factual_questions": [
+        "公表材料と価格反応の追加分解"
+      ]
+    }
+  ],
+  "bundle_id": "analysis_32f68f1a746f2fa40d0e63f11cab39d19772431a08691d1d676e603961737a31",
+  "candidate_ids": [
+    "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+    "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41"
+  ],
+  "candidate_set_id": "cset_5e602d18cedb72c287208e3b13d7fa5dfc2045b9bff98a6e7601cae834439fab",
+  "decision_ledger": [
+    {
+      "ai_artifact_hash": "ai_7760d96efd6e2604e129a3ef674b9888fc086634d41570cc820e263474018f84",
+      "as_of": "2026-08-18T05:19:00+09:00",
+      "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+      "decisions": {
+        "ai_independent": "追加調査余地あり。",
+        "integrated": "MONITOR",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "source_cutoff": "2026-08-14T20:00:00+00:00"
+    },
+    {
+      "ai_artifact_hash": "ai_7760d96efd6e2604e129a3ef674b9888fc086634d41570cc820e263474018f84",
+      "as_of": "2026-08-18T05:19:00+09:00",
+      "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+      "decisions": {
+        "ai_independent": "公表材料で大部分を説明。",
+        "integrated": "REJECT_EXPLAINED_MOVE",
+        "mechanical": "web_research"
+      },
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "source_cutoff": "2026-08-14T20:00:00+00:00"
+    }
+  ],
+  "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+  "integrated_decisions": [
+    {
+      "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+      "comparison_status": "PARTIALLY_AGREE",
+      "decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.08,
+          "event_explained_likelihood": 0.78,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.42
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      }
+    },
+    {
+      "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+      "comparison_status": "DISAGREE",
+      "decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.98,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.05
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+      "status": "not_matured"
+    },
+    {
+      "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+      "status": "not_matured"
+    }
+  ],
+  "part_count": 8,
+  "part_number": 1,
+  "reconciliation_handoffs": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "需給と財務構造期待も寄与し得る。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+        "catalysts": [
+          "次回の主要公表"
+        ],
+        "causal_chain": [
+          "8/10決算が主因だが21日全体には残余。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.68
+        },
+        "counterevidence": [
+          "一時的会計・資本構造要因を含む。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.08
+        },
+        "downstream_suitability": "追加調査余地あり。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.78
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_qmco_20260810"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "主要仮説を弱める新情報"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "決算後に急騰し複数日上昇。",
+        "primary_hypothesis": "8/10決算が主因だが21日全体には残余。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.42
+        },
+        "uncertainties": [
+          "残余の定量分解"
+        ]
+      },
+      "blind_handoff_id": "hand_abea391d0f57bf3483510a9af23d52ab202a18ba7b2db23b7524219a0428d19a",
+      "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+      "comparison_status": "PARTIALLY_AGREE",
+      "disagreement": "PARTIALLY_AGREE",
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_abea391d0f57bf3483510a9af23d52ab202a18ba7b2db23b7524219a0428d19a_reconciliation",
+      "integrated_decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.08,
+          "event_explained_likelihood": 0.78,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.42
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "残余の定量分解"
+      ],
+      "upstream_hypotheses": [
+        "8/10決算が主因だが21日全体には残余。"
+      ]
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "成立確率と時間価値が残余を左右。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+        "catalysts": [
+          "取引手続き"
+        ],
+        "causal_chain": [
+          "現金買収条件への収れん。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.95
+        },
+        "counterevidence": [
+          "提示条件と値動きが概ね対応。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.03
+        },
+        "downstream_suitability": "公表材料で大部分を説明。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.98
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_utz_20260721"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "取引条件変更・破談"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "7/21単日上昇が大半。",
+        "primary_hypothesis": "現金買収条件への収れん。",
+        "residual_mispricing_direction": "none_identified",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "uncertainties": [
+          "成立時期・条件"
+        ]
+      },
+      "blind_handoff_id": "hand_60a952bdd04ccf08bd223061aa899f5d499d67963edce07556c16fd611d2452b",
+      "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+      "comparison_status": "DISAGREE",
+      "disagreement": "DISAGREE",
+      "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+      "handoff_id": "hand_60a952bdd04ccf08bd223061aa899f5d499d67963edce07556c16fd611d2452b_reconciliation",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.98,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.05
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      },
+      "status": "active",
+      "unresolved_issues": [
+        "成立時期・条件"
+      ],
+      "upstream_hypotheses": [
+        "現金買収条件への収れん。"
+      ]
+    }
+  ],
+  "reconciliation_projection": [
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "需給と財務構造期待も寄与し得る。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+        "catalysts": [
+          "次回の主要公表"
+        ],
+        "causal_chain": [
+          "8/10決算が主因だが21日全体には残余。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.68
+        },
+        "counterevidence": [
+          "一時的会計・資本構造要因を含む。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.08
+        },
+        "downstream_suitability": "追加調査余地あり。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.78
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_qmco_20260810"
+        ],
+        "expected_resolution_horizon": "weeks",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "主要仮説を弱める新情報"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "決算後に急騰し複数日上昇。",
+        "primary_hypothesis": "8/10決算が主因だが21日全体には残余。",
+        "residual_mispricing_direction": "two_sided",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.42
+        },
+        "uncertainties": [
+          "残余の定量分解"
+        ]
+      },
+      "candidate_id": "route_ff688157d76be1650082195b52e35fa88144f3687ec4f41b95259f950a9883f3",
+      "comparison_status": "PARTIALLY_AGREE",
+      "integrated_decision": "MONITOR",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.08,
+          "event_explained_likelihood": 0.78,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.42
+        },
+        "reason_code": "RESIDUAL_MISPRICING_BELOW_ADVANCE_THRESHOLD"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 1,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    },
+    {
+      "ai_judgment": {
+        "additional_research": [
+          "公表材料と価格反応の追加分解"
+        ],
+        "ai_assessment_status": "assessed",
+        "alternative_hypotheses": [
+          "成立確率と時間価値が残余を左右。"
+        ],
+        "analysis_as_of": "2026-08-18T05:19:00+09:00",
+        "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+        "catalysts": [
+          "取引手続き"
+        ],
+        "causal_chain": [
+          "現金買収条件への収れん。"
+        ],
+        "confidence": {
+          "basis": "証拠対応と不確実性を総合。",
+          "status": "estimated",
+          "value": 0.95
+        },
+        "counterevidence": [
+          "提示条件と値動きが概ね対応。"
+        ],
+        "data_anomaly_likelihood": {
+          "basis": "固定市場データ上の異常兆候。",
+          "status": "estimated",
+          "value": 0.03
+        },
+        "downstream_suitability": "公表材料で大部分を説明。",
+        "event_explained_likelihood": {
+          "basis": "期限前公表材料との時期対応。",
+          "status": "estimated",
+          "value": 0.98
+        },
+        "evidence_cutoff": "2026-08-14T20:00:00+00:00",
+        "evidence_refs": [
+          "ev_utz_20260721"
+        ],
+        "expected_resolution_horizon": "months",
+        "generation_id": "gen_09a779b4e4edab010b6e84eb549ae37bc01101e3b18d1d7bfc0b811eada05985",
+        "invalidation_conditions": [
+          "取引条件変更・破談"
+        ],
+        "mechanical_agreement": "INSUFFICIENT_EVIDENCE",
+        "observed_move_summary": "7/21単日上昇が大半。",
+        "primary_hypothesis": "現金買収条件への収れん。",
+        "residual_mispricing_direction": "none_identified",
+        "residual_mispricing_likelihood": {
+          "basis": "説明後残余と代替説明。",
+          "status": "estimated",
+          "value": 0.05
+        },
+        "uncertainties": [
+          "成立時期・条件"
+        ]
+      },
+      "candidate_id": "route_60ca951c0c141e950a1dce4d312c55d2cfe683ec95a34e59eda18ee670ca8d41",
+      "comparison_status": "DISAGREE",
+      "integrated_decision": "REJECT_EXPLAINED_MOVE",
+      "integration_basis": {
+        "decision_inputs": {
+          "ai_assessment_status": "assessed",
+          "data_anomaly_likelihood": 0.03,
+          "event_explained_likelihood": 0.98,
+          "hard_exclusions": [],
+          "quality_gate": "passed",
+          "residual_mispricing_likelihood": 0.05
+        },
+        "reason_code": "MOVE_LARGELY_EXPLAINED"
+      },
+      "mechanical_signals": {
+        "hard_exclusions": [],
+        "mechanical_priority": "web_research",
+        "mechanical_rank": 2,
+        "quality_gate": "passed",
+        "selection_bucket": "not_available",
+        "threshold_failures": [],
+        "threshold_passes": []
+      }
+    }
+  ]
+}
