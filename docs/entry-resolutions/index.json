@@ -136,6 +136,14 @@
       "source_snapshot_id": "snap_522a2a45aa045f4e5953c9f329da95d3ad0d623cb740883157c7b832f7c165ec",
       "record_count": 21,
       "created_at": "2026-08-28T00:23:57.619574+00:00"
+    },
+    "gen_d82a08029b7a43073b87dbc0ba2ecf2639e21cf7fe9550e0a29d4eed0fd17718": {
+      "path": "docs/entry-resolutions/gen_d82a08029b7a43073b87dbc0ba2ecf2639e21cf7fe9550e0a29d4eed0fd17718/entry_ecc1295a35123887d597656822f93798455c0137d3e7c539619a0e6bb712a7e4.json",
+      "sha256": "ddbafeadd1b8038818dc0f95c4e04a5a846d139f27edb43e0e2d570b1cbdc812",
+      "entry_resolution_id": "entry_ecc1295a35123887d597656822f93798455c0137d3e7c539619a0e6bb712a7e4",
+      "source_snapshot_id": "snap_879935071e6303e965dd9d712e71d30f227feec9395b2f53db9d3154e9f5fa39",
+      "record_count": 21,
+      "created_at": "2026-08-29T00:00:26.349019+00:00"
     }
   }
 }
