@@ -1,247 +1,15 @@
 {
-  "status": "degraded",
-  "generated_at": "2026-09-02T00:36:05+00:00",
+  "snapshot_schema_version": "2.0",
+  "snapshot_id": "snap_03803dbb9acc459b15a61402f820b1bad56d46dcfaa3a031dac08a73fbb0e8aa",
+  "generation_id": "gen_0efac2ed188f22fa326e3c48fd95d7796557d36d3baee565dac62725218b503c",
   "market_data_date": "2026-09-01",
-  "expected_market_data_date": "2026-09-01",
-  "is_market_data_complete": true,
-  "last_successful_market_date": "2026-09-01",
-  "row_count": 150,
-  "universe_count": 2650,
-  "usable_ticker_count": 2628,
-  "liquid_ticker_count": 2034,
-  "failed_ticker_count": 0,
-  "failed_tickers_sample": [],
-  "quality_excluded_count": 0,
-  "quality_excluded_tickers": [],
-  "quiet_drift_enabled": true,
-  "quiet_drift_status": "success",
-  "quiet_drift_csv_file": "quiet_drift.csv",
-  "quiet_drift_archive_file": "archive/quiet_drift_2026-09-01.csv",
-  "quiet_drift_row_count": 9,
-  "quiet_drift_required_column_check": "success",
-  "quiet_drift_selection_definition": {
-    "population": "liquid pre-selection universe after quality exclusions",
-    "global_tail": "top or bottom configured quantile of sector-relative 63d or 126d return",
-    "sector_coverage": "non-overlapping top then bottom per sector after quietness filters and the minimum tail-distance guard",
-    "anchor_rules": "63d uses 63d relative quietness; 126d additionally requires 126d stock and relative quietness plus same-direction 63d/126d sector-relative returns",
-    "rank_order": [
-      "tail_distance desc",
-      "anchor relative directional efficiency desc",
-      "absolute anchor sector-relative return desc",
-      "ticker asc"
-    ]
-  },
-  "quiet_drift_thresholds": {
-    "quiet_drift_tail_quantile": 0.05,
-    "quiet_drift_max_candidates": 100,
-    "quiet_drift_max_daily_move_63d": 0.07,
-    "quiet_drift_max_gap_63d": 0.07,
-    "quiet_drift_max_volume_ratio": 1.8,
-    "quiet_drift_max_volatility_ratio": 1.5,
-    "quiet_drift_max_single_day_share_63d": 0.2,
-    "quiet_drift_min_directional_efficiency_63d": 0.25,
-    "quiet_drift_max_daily_move_126d": 0.07,
-    "quiet_drift_max_gap_126d": 0.07,
-    "quiet_drift_max_single_day_share_126d": 0.2,
-    "quiet_drift_min_directional_efficiency_126d": 0.25,
-    "quiet_drift_min_relative_directional_efficiency_63d": 0.25,
-    "quiet_drift_min_relative_directional_efficiency_126d": 0.25,
-    "quiet_drift_max_relative_single_day_share_63d": 0.2,
-    "quiet_drift_max_relative_single_day_share_126d": 0.2,
-    "quiet_drift_sector_top_n": 1,
-    "quiet_drift_sector_bottom_n": 1,
-    "quiet_drift_sector_coverage_min_tail_distance": 0.5,
-    "population_tail_boundaries": {
-      "sector_relative_63d": {
-        "lower": -0.3485438247066179,
-        "upper": 0.40001463239337104,
-        "valid_count": 2024
-      },
-      "sector_relative_126d": {
-        "lower": -0.3904674079296967,
-        "upper": 0.667005708193219,
-        "valid_count": 2012
-      }
-    }
-  },
-  "quiet_drift_distribution": {
-    "global_tail_count": 0,
-    "sector_coverage_only_count": 9,
-    "up_count": 8,
-    "down_count": 1,
-    "sector_counts": {
-      "Consumer Cyclical": 2,
-      "Consumer Defensive": 2,
-      "Real Estate": 2,
-      "Industrials": 1,
-      "Healthcare": 1,
-      "Financial Services": 1
-    },
-    "anchor_63d_count": 8,
-    "anchor_126d_count": 1,
-    "eligible_63d_count": 2017,
-    "quietness_pass_count": 10
-  },
-  "universe_distribution": {
-    "return_21d": {
-      "p10": -0.13817243289717368,
-      "median": -0.01398838802723612,
-      "p90": 0.15725072468227255
-    },
-    "spy_relative_21d": {
-      "p10": -0.1435970194314487,
-      "median": -0.019412974561511143,
-      "p90": 0.15182613814799753
-    },
-    "sector_relative_21d": {
-      "p10": -0.13531661778007822,
-      "median": -0.014059787646466038,
-      "p90": 0.1301400066903085
-    },
-    "return_63d": {
-      "p10": -0.23657328208578515,
-      "median": 0.03487201165153064,
-      "p90": 0.30371624935252084
-    },
-    "return_21d_gt_20pct_count": 138,
-    "return_21d_lt_minus_20pct_count": 82,
-    "abs_spy_relative_21d_gt_8pct_count": 899
-  },
-  "sector_distribution": {
-    "Basic Materials": {
-      "count": 123,
-      "sector_relative_21d": {
-        "p10": -0.10680770199289273,
-        "median": 0.0861981425732874,
-        "p90": 0.2979369482642285
-      },
-      "return_63d": {
-        "median": -0.019721972335366766
-      }
-    },
-    "Communication Services": {
-      "count": 82,
-      "sector_relative_21d": {
-        "p10": -0.11588413060371898,
-        "median": -0.005753552925229,
-        "p90": 0.12256723133836821
-      },
-      "return_63d": {
-        "median": -0.01757032146044263
-      }
-    },
-    "Consumer Cyclical": {
-      "count": 226,
-      "sector_relative_21d": {
-        "p10": -0.1557129992934455,
-        "median": -0.023643762429301274,
-        "p90": 0.08974674465550492
-      },
-      "return_63d": {
-        "median": -0.00781623531418374
-      }
-    },
-    "Consumer Defensive": {
-      "count": 92,
-      "sector_relative_21d": {
-        "p10": -0.08790311292128763,
-        "median": -0.008217833830710453,
-        "p90": 0.11337933337817352
-      },
-      "return_63d": {
-        "median": 0.05474419554089349
-      }
-    },
-    "Energy": {
-      "count": 120,
-      "sector_relative_21d": {
-        "p10": -0.10756344723050641,
-        "median": -0.019444105205470907,
-        "p90": 0.10090649001787982
-      },
-      "return_63d": {
-        "median": 0.07793597411387876
-      }
-    },
-    "Financial Services": {
-      "count": 278,
-      "sector_relative_21d": {
-        "p10": -0.08895742595465327,
-        "median": -0.02958558066869238,
-        "p90": 0.07558326044873465
-      },
-      "return_63d": {
-        "median": 0.07711886076110608
-      }
-    },
-    "Healthcare": {
-      "count": 297,
-      "sector_relative_21d": {
-        "p10": -0.13594804925276366,
-        "median": -0.022109291156567012,
-        "p90": 0.1705714967511884
-      },
-      "return_63d": {
-        "median": 0.2157467374396893
-      }
-    },
-    "Industrials": {
-      "count": 295,
-      "sector_relative_21d": {
-        "p10": -0.12876276810956205,
-        "median": -0.007776050345326024,
-        "p90": 0.11264287878954933
-      },
-      "return_63d": {
-        "median": -0.03699285313263434
-      }
-    },
-    "Real Estate": {
-      "count": 103,
-      "sector_relative_21d": {
-        "p10": -0.05984615780216438,
-        "median": -0.012660388055214078,
-        "p90": 0.04072745103113337
-      },
-      "return_63d": {
-        "median": 0.017292356414692733
-      }
-    },
-    "Technology": {
-      "count": 351,
-      "sector_relative_21d": {
-        "p10": -0.19019377664221915,
-        "median": -0.03019329401574078,
-        "p90": 0.1441484216468718
-      },
-      "return_63d": {
-        "median": -0.04532795237897902
-      }
-    },
-    "Utilities": {
-      "count": 67,
-      "sector_relative_21d": {
-        "p10": -0.0948976292386568,
-        "median": 0.009276793661373017,
-        "p90": 0.06901196998882372
-      },
-      "return_63d": {
-        "median": -0.025427035920073893
-      }
-    }
-  },
-  "data_coverage": 0.991698,
-  "sector_data_coverage": 1.0,
-  "industry_data_coverage": 0.0,
-  "universe_source": "yahoo_screener",
-  "csv_file": "latest.csv",
-  "archive_file": "archive/screening_2026-09-01.csv",
-  "last_successful_archive_file": "archive/screening_2026-09-01.csv",
-  "latest_csv_updated": true,
-  "required_column_check": "success",
-  "numeric_validation_status": "success",
-  "price_adjustment_validation_status": "degraded",
-  "corporate_action_reconciliation_status": "degraded",
+  "generated_at": "2026-09-02T00:36:05+00:00",
+  "market_data_cutoff_at": "2026-09-01T20:00:00+00:00",
+  "config_version": "2026-07-schema-2.0",
+  "config_hash": "ea3f00434f192ce01e61be1dac7dca7e60985abdd04492bfd48674f8f8efcfda",
+  "schema_version": "2.0",
+  "code_version": "a8a0fc10a7c6e95c050118379d946ee4e34432f6",
+  "corporate_action_validation_version": "ca-reconciliation-2.0",
   "corporate_action_reconciliation": {
     "version": "ca-reconciliation-2.0",
     "status": "degraded",
@@ -3192,18 +2960,32 @@
     ],
     "adjusted_price_continuity_check": "degraded"
   },
-  "schema_version": "2.0",
-  "config_version": "2026-07-schema-2.0",
-  "config_hash": "ea3f00434f192ce01e61be1dac7dca7e60985abdd04492bfd48674f8f8efcfda",
-  "snapshot_manifest": "manifest.json",
-  "market_data_cutoff_at": "2026-09-01T20:00:00+00:00",
-  "timezone": "America/New_York",
-  "first_tradable_at": "2026-09-02T13:30:00+00:00",
-  "entry_price_status": "pending",
-  "entry_price_type": "next_session_open",
-  "entry_policy": "next_session_open_after_information_cutoff",
-  "price_return_definition": "price-only split-adjusted return excluding dividends",
-  "return_21d_definition": "close(t) / close(t-21 trading intervals) - 1",
-  "volume_ratio_definition": "mean adjusted volume, latest 5 sessions / preceding 20 sessions",
-  "repository": "Hughey-T/Daily-US-Stock-Screen"
+  "price_definition": "price-only split-adjusted OHLC; dividends excluded",
+  "benchmark_definition": "SPY market and route-preserving sector ETF",
+  "files": {
+    "latest_json": {
+      "path": "latest.json",
+      "sha256": "676d8dd6b72d538fdda427892583c5eaf765b127f020f822716c80b69d654cfb"
+    },
+    "latest_csv": {
+      "path": "latest.csv",
+      "sha256": "cc26b8939a209f9f707aa202a9d5a2960e171fb3f830c9146c6f67b84629cf31",
+      "row_count": 150
+    },
+    "quiet_drift_csv": {
+      "path": "quiet_drift.csv",
+      "sha256": "3be7eb161b2bd88d515bb574c4f036525ff0469768ccde832f95817f1fb78e92",
+      "row_count": 9
+    },
+    "phase2_artifact": {
+      "path": "phase2.json",
+      "sha256": "0161168c9542935c69c1db0ac29072b2eb6090e4ed95500402fc9a8febbba4eb",
+      "record_count": 160
+    },
+    "phase3_artifact": {
+      "path": "phase3.json",
+      "sha256": "258dcea370e0a594b6314443eb9cad3a8bd9124b0e5a66b3dceba0a53ace1981",
+      "record_count": 15
+    }
+  }
 }
