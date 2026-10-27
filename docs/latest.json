@@ -1,25 +1,23 @@
 {
-  "status": "success",
-  "generated_at": "2026-10-13T03:14:12+00:00",
-  "market_data_date": "2026-10-12",
-  "expected_market_data_date": "2026-10-12",
+  "status": "degraded",
+  "generated_at": "2026-10-27T01:40:37+00:00",
+  "market_data_date": "2026-10-26",
+  "expected_market_data_date": "2026-10-26",
   "is_market_data_complete": true,
-  "last_successful_market_date": "2026-10-12",
+  "last_successful_market_date": "2026-10-26",
   "row_count": 150,
-  "universe_count": 2554,
-  "usable_ticker_count": 2532,
-  "liquid_ticker_count": 2048,
+  "universe_count": 2534,
+  "usable_ticker_count": 2516,
+  "liquid_ticker_count": 1986,
   "failed_ticker_count": 0,
   "failed_tickers_sample": [],
-  "quality_excluded_count": 1,
-  "quality_excluded_tickers": [
-    "KOD"
-  ],
+  "quality_excluded_count": 0,
+  "quality_excluded_tickers": [],
   "quiet_drift_enabled": true,
   "quiet_drift_status": "success",
   "quiet_drift_csv_file": "quiet_drift.csv",
-  "quiet_drift_archive_file": "archive/quiet_drift_2026-10-12.csv",
-  "quiet_drift_row_count": 14,
+  "quiet_drift_archive_file": "archive/quiet_drift_2026-10-26.csv",
+  "quiet_drift_row_count": 17,
   "quiet_drift_required_column_check": "success",
   "quiet_drift_selection_definition": {
     "population": "liquid pre-selection universe after quality exclusions",
@@ -55,218 +53,224 @@
     "quiet_drift_sector_coverage_min_tail_distance": 0.5,
     "population_tail_boundaries": {
       "sector_relative_63d": {
-        "lower": -0.3193096560858415,
-        "upper": 0.3428166027466063,
-        "valid_count": 2045
+        "lower": -0.33457060110414794,
+        "upper": 0.3142805316478426,
+        "valid_count": 1985
       },
       "sector_relative_126d": {
-        "lower": -0.45280076446687345,
-        "upper": 0.7252877712489838,
-        "valid_count": 2020
+        "lower": -0.4880448590796697,
+        "upper": 0.6868099502309862,
+        "valid_count": 1966
       }
     }
   },
   "quiet_drift_distribution": {
     "global_tail_count": 4,
-    "sector_coverage_only_count": 10,
-    "up_count": 3,
-    "down_count": 11,
+    "sector_coverage_only_count": 13,
+    "up_count": 5,
+    "down_count": 12,
     "sector_counts": {
-      "Healthcare": 2,
       "Industrials": 2,
       "Energy": 2,
-      "Consumer Defensive": 2,
+      "Consumer Cyclical": 2,
       "Basic Materials": 2,
-      "Financial Services": 1,
+      "Financial Services": 2,
+      "Healthcare": 2,
+      "Technology": 1,
       "Utilities": 1,
-      "Real Estate": 1,
-      "Communication Services": 1
+      "Consumer Defensive": 1,
+      "Communication Services": 1,
+      "Real Estate": 1
     },
-    "anchor_63d_count": 11,
-    "anchor_126d_count": 3,
-    "eligible_63d_count": 2039,
-    "quietness_pass_count": 39
+    "anchor_63d_count": 15,
+    "anchor_126d_count": 2,
+    "eligible_63d_count": 1982,
+    "quietness_pass_count": 38
   },
   "universe_distribution": {
     "return_21d": {
-      "p10": -0.14194916236684413,
-      "median": -0.029122871511997828,
-      "p90": 0.09516754135496054
+      "p10": -0.17000223564619915,
+      "median": 0.008121397015345755,
+      "p90": 0.15268681040261378
     },
     "spy_relative_21d": {
-      "p10": -0.16001821724865445,
-      "median": -0.04719192639380815,
-      "p90": 0.07709848647315022
+      "p10": -0.16224961924894382,
+      "median": 0.015874013412601085,
+      "p90": 0.1604394267998691
     },
     "sector_relative_21d": {
-      "p10": -0.15028626799976688,
-      "median": -0.022933915207704325,
-      "p90": 0.08599399845490416
+      "p10": -0.18848121345718782,
+      "median": -0.015724319995998992,
+      "p90": 0.15125993813451277
     },
     "return_63d": {
-      "p10": -0.2363858403775392,
-      "median": -0.043469516196722235,
-      "p90": 0.23688471079324522
+      "p10": -0.2423041633184426,
+      "median": -0.044137888941271575,
+      "p90": 0.2411106854964481
     },
-    "return_21d_gt_20pct_count": 69,
-    "return_21d_lt_minus_20pct_count": 76,
-    "abs_spy_relative_21d_gt_8pct_count": 892
+    "return_21d_gt_20pct_count": 121,
+    "return_21d_lt_minus_20pct_count": 165,
+    "abs_spy_relative_21d_gt_8pct_count": 1016
   },
   "sector_distribution": {
     "Basic Materials": {
-      "count": 115,
+      "count": 111,
       "sector_relative_21d": {
-        "p10": -0.12908198445992092,
-        "median": -0.031187216062295353,
-        "p90": 0.07317339030810167
+        "p10": -0.2505591278055995,
+        "median": -0.09824447799307978,
+        "p90": 0.048440715069338225
       },
       "return_63d": {
-        "median": 0.02809724705933636
+        "median": -0.017851970632212777
       }
     },
     "Communication Services": {
       "count": 80,
       "sector_relative_21d": {
-        "p10": -0.1641528256899184,
-        "median": -0.011388752909106792,
-        "p90": 0.07986929088682901
+        "p10": -0.0821997171662872,
+        "median": 0.07857135909343527,
+        "p90": 0.20300327440523397
       },
       "return_63d": {
-        "median": -0.03711035831614734
+        "median": -0.07012972710547194
       }
     },
     "Consumer Cyclical": {
-      "count": 231,
+      "count": 224,
       "sector_relative_21d": {
-        "p10": -0.15411264410885184,
-        "median": -0.03320064275801593,
-        "p90": 0.08290659021164826
+        "p10": -0.13553926506022457,
+        "median": -0.013286597515860143,
+        "p90": 0.13136143406446865
       },
       "return_63d": {
-        "median": -0.09853476942668643
+        "median": -0.11432964051194983
       }
     },
     "Consumer Defensive": {
       "count": 86,
       "sector_relative_21d": {
-        "p10": -0.09998127854060285,
-        "median": -0.004054151652900462,
-        "p90": 0.052792122790529916
+        "p10": -0.10760765417133494,
+        "median": -0.01568008888109662,
+        "p90": 0.06259342997359618
       },
       "return_63d": {
-        "median": -0.02356540138051222
+        "median": -0.018999816038848205
       }
     },
     "Energy": {
-      "count": 118,
+      "count": 117,
       "sector_relative_21d": {
-        "p10": -0.1426215044168122,
-        "median": -0.042989255327503306,
-        "p90": 0.12618739325697764
+        "p10": -0.23224411958970373,
+        "median": -0.0457314164221474,
+        "p90": 0.07217647329828068
       },
       "return_63d": {
-        "median": 0.06604607775237958
+        "median": 0.1312089316110454
       }
     },
     "Financial Services": {
-      "count": 301,
+      "count": 281,
       "sector_relative_21d": {
-        "p10": -0.09532879206600586,
-        "median": -0.015626093129347485,
-        "p90": 0.06166254871135857
+        "p10": -0.14839708689527642,
+        "median": -0.02063079213531993,
+        "p90": 0.08075809614386031
       },
       "return_63d": {
-        "median": -0.05283985059927038
+        "median": -0.05465719695626148
       }
     },
     "Healthcare": {
-      "count": 303,
+      "count": 293,
       "sector_relative_21d": {
-        "p10": -0.22643079166434388,
-        "median": -0.04149087164291354,
-        "p90": 0.11709725800459501
+        "p10": -0.19793150369678716,
+        "median": -0.03372263723991864,
+        "p90": 0.09587704900269865
       },
       "return_63d": {
-        "median": 0.0
+        "median": 0.02389543638640168
       }
     },
     "Industrials": {
-      "count": 291,
+      "count": 278,
       "sector_relative_21d": {
-        "p10": -0.11698131241620147,
-        "median": -0.013362975336180472,
-        "p90": 0.06606759468211276
+        "p10": -0.1630519777905481,
+        "median": -0.0012890010119126494,
+        "p90": 0.13760293445385702
       },
       "return_63d": {
-        "median": -0.08007163387653171
+        "median": -0.09885400168451469
       }
     },
     "Real Estate": {
-      "count": 110,
+      "count": 109,
       "sector_relative_21d": {
-        "p10": -0.10636005532540474,
-        "median": -0.017538907358223832,
-        "p90": 0.053364260255148274
+        "p10": -0.1451807179432096,
+        "median": -0.02217866791753642,
+        "p90": 0.0654810688456076
       },
       "return_63d": {
-        "median": -0.10454283178105839
+        "median": -0.10946702421723964
       }
     },
     "Technology": {
-      "count": 346,
+      "count": 343,
       "sector_relative_21d": {
-        "p10": -0.1743095904244782,
-        "median": -0.033133718686025326,
-        "p90": 0.1400105939168177
+        "p10": -0.23698029750145788,
+        "median": 0.054739602295217904,
+        "p90": 0.2852590134818825
       },
       "return_63d": {
-        "median": 0.029304601421984433
+        "median": 0.052759955453738794
       }
     },
     "Utilities": {
-      "count": 67,
+      "count": 64,
       "sector_relative_21d": {
-        "p10": -0.04516311050253623,
-        "median": 0.0034420673519311995,
-        "p90": 0.04535139740162476
+        "p10": -0.14234734577250652,
+        "median": 0.0024101341053450742,
+        "p90": 0.03954048871994782
       },
       "return_63d": {
-        "median": -0.09005319327682948
+        "median": -0.05742606527180488
       }
     }
   },
-  "data_coverage": 0.990995,
+  "data_coverage": 0.992897,
   "sector_data_coverage": 1.0,
   "industry_data_coverage": 0.0,
   "universe_source": "yahoo_screener",
   "csv_file": "latest.csv",
-  "archive_file": "archive/screening_2026-10-12.csv",
-  "last_successful_archive_file": "archive/screening_2026-10-12.csv",
+  "archive_file": "archive/screening_2026-10-26.csv",
+  "last_successful_archive_file": "archive/screening_2026-10-26.csv",
   "latest_csv_updated": true,
   "required_column_check": "success",
   "numeric_validation_status": "success",
-  "price_adjustment_validation_status": "success",
-  "corporate_action_reconciliation_status": "reconciled",
+  "price_adjustment_validation_status": "degraded",
+  "corporate_action_reconciliation_status": "degraded",
   "corporate_action_reconciliation": {
     "version": "ca-reconciliation-2.0",
-    "status": "reconciled",
+    "status": "degraded",
     "detected_corporate_action_count": 66,
-    "reconciled_corporate_action_count": 66,
-    "unreconciled_corporate_action_count": 0,
-    "unreconciled_ticker_count": 0,
+    "reconciled_corporate_action_count": 65,
+    "unreconciled_corporate_action_count": 1,
+    "unreconciled_ticker_count": 1,
     "unavailable_ticker_count": 0,
-    "total_ticker_count": 2566,
-    "reconciled_ticker_count": 2566,
+    "total_ticker_count": 2546,
+    "reconciled_ticker_count": 2545,
     "unavailable_ratio": 0.0,
-    "unreconciled_ratio": 0.0,
+    "unreconciled_ratio": 0.00039277297721916735,
     "configured_thresholds": {
       "max_unavailable_ratio": 0.05,
       "max_unreconciled_ratio": 0.02,
       "max_unreconciled_tickers": 20
     },
     "unavailable_tickers": [],
-    "unreconciled_tickers": [],
-    "reason_counts": {},
+    "unreconciled_tickers": [
+      "BUUU"
+    ],
+    "reason_counts": {
+      "missing_pre_action_price": 1
+    },
     "ticker_details": [
       {
         "ticker": "AD",
@@ -695,6 +699,31 @@
         ],
         "source_price_basis": [
           "split_adjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
+        "ticker": "BUUU",
+        "status": "unreconciled",
+        "reasons": [
+          "2026-10-26 00:00:00:missing_pre_action_price"
+        ],
+        "detected_count": 1,
+        "reconciled_count": 0,
+        "unreconciled_count": 1,
+        "action_details": [
+          {
+            "date": "2026-10-26 00:00:00",
+            "action_type": "split",
+            "status": "unreconciled",
+            "source_price_basis": "unknown",
+            "reconciliation_method": "adjacent_trading_date_selection",
+            "classification_reason": "missing_price_around_action_date",
+            "selected_trading_dates": []
+          }
+        ],
+        "source_price_basis": [
+          "unknown"
         ],
         "auto_adjust_requested": false
       },
@@ -1753,46 +1782,6 @@
         "auto_adjust_requested": false
       },
       {
-        "ticker": "NVA",
-        "status": "reconciled",
-        "reasons": [],
-        "detected_count": 1,
-        "reconciled_count": 1,
-        "unreconciled_count": 0,
-        "action_details": [
-          {
-            "date": "2025-10-29 00:00:00",
-            "action_type": "split",
-            "close_before": 6.105999946594238,
-            "close_after": 6.639999866485596,
-            "observed_factor": 1.087454949977392,
-            "raw_close_before": 6.105999946594238,
-            "raw_close_after": 6.639999866485596,
-            "reconstructed_close_before": 6.105999946594238,
-            "reconstructed_close_after": 6.639999866485596,
-            "selected_trading_dates": [
-              "2025-10-28 00:00:00",
-              "2025-10-29 00:00:00"
-            ],
-            "auto_adjust_requested": false,
-            "auto_adjust_observed": false,
-            "adj_close_available": true,
-            "declared_split_ratio": 5.0,
-            "distribution_amount": null,
-            "source_price_basis": "split_adjusted",
-            "expected_factor": 0.2,
-            "expected_raw_factor": 0.2,
-            "reconciliation_method": "observed_factor_basis_classification",
-            "classification_reason": "close_continuous_across_declared_split",
-            "status": "reconciled"
-          }
-        ],
-        "source_price_basis": [
-          "split_adjusted"
-        ],
-        "auto_adjust_requested": false
-      },
-      {
         "ticker": "PIPR",
         "status": "reconciled",
         "reasons": [],
@@ -2815,16 +2804,34 @@
     "fallback_failed_count": 0,
     "fallback_elapsed_seconds": 0.0,
     "provider_error_reason_counts": {},
-    "unreconciled_details": [],
-    "adjusted_price_continuity_check": "passed"
+    "unreconciled_details": [
+      {
+        "ticker": "BUUU",
+        "reasons": [
+          "2026-10-26 00:00:00:missing_pre_action_price"
+        ],
+        "actions": [
+          {
+            "date": "2026-10-26 00:00:00",
+            "action_type": "split",
+            "status": "unreconciled",
+            "source_price_basis": "unknown",
+            "reconciliation_method": "adjacent_trading_date_selection",
+            "classification_reason": "missing_price_around_action_date",
+            "selected_trading_dates": []
+          }
+        ]
+      }
+    ],
+    "adjusted_price_continuity_check": "degraded"
   },
   "schema_version": "2.0",
   "config_version": "2026-07-schema-2.0",
   "config_hash": "ea3f00434f192ce01e61be1dac7dca7e60985abdd04492bfd48674f8f8efcfda",
   "snapshot_manifest": "manifest.json",
-  "market_data_cutoff_at": "2026-10-12T20:00:00+00:00",
+  "market_data_cutoff_at": "2026-10-26T20:00:00+00:00",
   "timezone": "America/New_York",
-  "first_tradable_at": "2026-10-13T13:30:00+00:00",
+  "first_tradable_at": "2026-10-27T13:30:00+00:00",
   "entry_price_status": "pending",
   "entry_price_type": "next_session_open",
   "entry_policy": "next_session_open_after_information_cutoff",
