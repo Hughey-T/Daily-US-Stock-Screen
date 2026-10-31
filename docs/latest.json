@@ -1,14 +1,14 @@
 {
   "status": "degraded",
-  "generated_at": "2026-10-30T02:12:30+00:00",
-  "market_data_date": "2026-10-29",
-  "expected_market_data_date": "2026-10-29",
+  "generated_at": "2026-10-31T01:52:13+00:00",
+  "market_data_date": "2026-10-30",
+  "expected_market_data_date": "2026-10-30",
   "is_market_data_complete": true,
-  "last_successful_market_date": "2026-10-29",
+  "last_successful_market_date": "2026-10-30",
   "row_count": 150,
-  "universe_count": 2581,
-  "usable_ticker_count": 2562,
-  "liquid_ticker_count": 1996,
+  "universe_count": 2536,
+  "usable_ticker_count": 2518,
+  "liquid_ticker_count": 1992,
   "failed_ticker_count": 0,
   "failed_tickers_sample": [],
   "quality_excluded_count": 0,
@@ -16,8 +16,8 @@
   "quiet_drift_enabled": true,
   "quiet_drift_status": "success",
   "quiet_drift_csv_file": "quiet_drift.csv",
-  "quiet_drift_archive_file": "archive/quiet_drift_2026-10-29.csv",
-  "quiet_drift_row_count": 14,
+  "quiet_drift_archive_file": "archive/quiet_drift_2026-10-30.csv",
+  "quiet_drift_row_count": 9,
   "quiet_drift_required_column_check": "success",
   "quiet_drift_selection_definition": {
     "population": "liquid pre-selection universe after quality exclusions",
@@ -53,193 +53,191 @@
     "quiet_drift_sector_coverage_min_tail_distance": 0.5,
     "population_tail_boundaries": {
       "sector_relative_63d": {
-        "lower": -0.31906028493938976,
-        "upper": 0.28425113940925395,
-        "valid_count": 1996
+        "lower": -0.3402363993843647,
+        "upper": 0.2716025492525239,
+        "valid_count": 1992
       },
       "sector_relative_126d": {
-        "lower": -0.47149686124246176,
-        "upper": 0.6237361019222788,
-        "valid_count": 1976
+        "lower": -0.47988857672630786,
+        "upper": 0.5820364669569693,
+        "valid_count": 1971
       }
     }
   },
   "quiet_drift_distribution": {
-    "global_tail_count": 6,
-    "sector_coverage_only_count": 8,
+    "global_tail_count": 4,
+    "sector_coverage_only_count": 5,
     "up_count": 2,
-    "down_count": 12,
+    "down_count": 7,
     "sector_counts": {
-      "Financial Services": 3,
-      "Industrials": 2,
+      "Financial Services": 2,
       "Consumer Cyclical": 2,
-      "Communication Services": 2,
+      "Industrials": 1,
       "Consumer Defensive": 1,
       "Utilities": 1,
-      "Technology": 1,
-      "Basic Materials": 1,
+      "Communication Services": 1,
       "Real Estate": 1
     },
-    "anchor_63d_count": 13,
+    "anchor_63d_count": 8,
     "anchor_126d_count": 1,
-    "eligible_63d_count": 1992,
+    "eligible_63d_count": 1988,
     "quietness_pass_count": 28
   },
   "universe_distribution": {
     "return_21d": {
-      "p10": -0.13803903975291126,
-      "median": 0.043608886856914,
-      "p90": 0.17353743361095497
+      "p10": -0.17718234782363923,
+      "median": 0.03194962879512342,
+      "p90": 0.1694180805636386
     },
     "spy_relative_21d": {
-      "p10": -0.14686373905094646,
-      "median": 0.0347841875588788,
-      "p90": 0.16471273431291977
+      "p10": -0.16635757310543525,
+      "median": 0.0427744035133274,
+      "p90": 0.18024285528184258
     },
     "sector_relative_21d": {
-      "p10": -0.1747176667457171,
-      "median": -0.010080903189447432,
-      "p90": 0.15019131312067902
+      "p10": -0.2027808858810393,
+      "median": -0.0170759587827235,
+      "p90": 0.1691046627166201
     },
     "return_63d": {
-      "p10": -0.20697815178998247,
-      "median": -0.013337635907615997,
-      "p90": 0.2340965816313284
+      "p10": -0.24992337626980288,
+      "median": -0.03724885641083303,
+      "p90": 0.2139009575574311
     },
-    "return_21d_gt_20pct_count": 136,
-    "return_21d_lt_minus_20pct_count": 104,
-    "abs_spy_relative_21d_gt_8pct_count": 1015
+    "return_21d_gt_20pct_count": 129,
+    "return_21d_lt_minus_20pct_count": 171,
+    "abs_spy_relative_21d_gt_8pct_count": 1147
   },
   "sector_distribution": {
     "Basic Materials": {
       "count": 114,
       "sector_relative_21d": {
-        "p10": -0.2300558068842638,
-        "median": -0.10491270365292782,
-        "p90": 0.06406861105736841
+        "p10": -0.2775181956950704,
+        "median": -0.14905891094204854,
+        "p90": 0.0510563433270284
       },
       "return_63d": {
-        "median": 0.026472306934251733
+        "median": -0.025016419600533413
       }
     },
     "Communication Services": {
-      "count": 82,
+      "count": 81,
       "sector_relative_21d": {
-        "p10": -0.05692244250077072,
-        "median": 0.09786643443101284,
-        "p90": 0.20461460545832638
+        "p10": -0.06150211155318053,
+        "median": 0.09812156753198731,
+        "p90": 0.1979891955790376
       },
       "return_63d": {
-        "median": -0.04461110598334095
+        "median": -0.05553211643203382
       }
     },
     "Consumer Cyclical": {
       "count": 223,
       "sector_relative_21d": {
-        "p10": -0.12536347564199513,
-        "median": 0.00627183223431671,
-        "p90": 0.1351605435688951
+        "p10": -0.14350709033210396,
+        "median": 0.0098584537894284,
+        "p90": 0.14082072779771987
       },
       "return_63d": {
-        "median": -0.05958956826276107
+        "median": -0.07036856660143886
       }
     },
     "Consumer Defensive": {
-      "count": 87,
+      "count": 86,
       "sector_relative_21d": {
-        "p10": -0.1520433086670056,
-        "median": -0.024996198014345383,
-        "p90": 0.06089385450655936
+        "p10": -0.1691195547216438,
+        "median": -0.018134647577190743,
+        "p90": 0.05650388505849391
       },
       "return_63d": {
-        "median": -0.028986632911905508
+        "median": -0.015566363566731023
       }
     },
     "Energy": {
       "count": 118,
       "sector_relative_21d": {
-        "p10": -0.16574696720896664,
-        "median": -0.02266982600084344,
-        "p90": 0.0642513480261657
+        "p10": -0.20774493741762218,
+        "median": -0.0428068784278588,
+        "p90": 0.06233374656711017
       },
       "return_63d": {
-        "median": 0.07707045163638171
+        "median": 0.11025373435950414
       }
     },
     "Financial Services": {
-      "count": 285,
+      "count": 284,
       "sector_relative_21d": {
-        "p10": -0.17830509444572853,
-        "median": -0.019676526324469812,
-        "p90": 0.07733964226681853
+        "p10": -0.18306221234476658,
+        "median": -0.029730759043737898,
+        "p90": 0.07598906179416623
       },
       "return_63d": {
-        "median": -0.03342023709038444
+        "median": -0.05991351928478589
       }
     },
     "Healthcare": {
-      "count": 294,
+      "count": 295,
       "sector_relative_21d": {
-        "p10": -0.20197100934201506,
-        "median": -0.037578366303366195,
-        "p90": 0.094303145410011
+        "p10": -0.2230634910098471,
+        "median": -0.06341638219653545,
+        "p90": 0.08108776876037463
       },
       "return_63d": {
-        "median": 0.06422855533022853
+        "median": 0.03968988462936052
       }
     },
     "Industrials": {
-      "count": 285,
+      "count": 282,
       "sector_relative_21d": {
-        "p10": -0.13924967548705722,
-        "median": 0.0009357247882657571,
-        "p90": 0.16014712082623106
+        "p10": -0.15803274260418482,
+        "median": 0.007946457520711547,
+        "p90": 0.18290020839075805
       },
       "return_63d": {
-        "median": -0.051734128985568395
+        "median": -0.09825974222011968
       }
     },
     "Real Estate": {
-      "count": 106,
+      "count": 107,
       "sector_relative_21d": {
-        "p10": -0.11457946017920273,
-        "median": -0.02075727537401395,
-        "p90": 0.08514478005384829
+        "p10": -0.1296611437822167,
+        "median": -0.027455955782451413,
+        "p90": 0.0734534466820879
       },
       "return_63d": {
-        "median": -0.07867786014335398
+        "median": -0.07985779315066599
       }
     },
     "Technology": {
       "count": 340,
       "sector_relative_21d": {
-        "p10": -0.1820833222087774,
-        "median": 0.05369394676509276,
-        "p90": 0.2502808623847209
+        "p10": -0.2106367162766132,
+        "median": 0.06023216007715104,
+        "p90": 0.28833566089466545
       },
       "return_63d": {
-        "median": 0.04850142796231671
+        "median": -0.007792793921803931
       }
     },
     "Utilities": {
       "count": 62,
       "sector_relative_21d": {
-        "p10": -0.08792288406074178,
-        "median": -0.005901483543918062,
-        "p90": 0.04566214351396331
+        "p10": -0.1033481856367844,
+        "median": -0.0028202525508904674,
+        "p90": 0.0432421682582436
       },
       "return_63d": {
-        "median": -0.005654868190174078
+        "median": -0.00337659319337541
       }
     }
   },
-  "data_coverage": 0.992639,
+  "data_coverage": 0.992902,
   "sector_data_coverage": 1.0,
   "industry_data_coverage": 0.0,
   "universe_source": "yahoo_screener",
   "csv_file": "latest.csv",
-  "archive_file": "archive/screening_2026-10-29.csv",
-  "last_successful_archive_file": "archive/screening_2026-10-29.csv",
+  "archive_file": "archive/screening_2026-10-30.csv",
+  "last_successful_archive_file": "archive/screening_2026-10-30.csv",
   "latest_csv_updated": true,
   "required_column_check": "success",
   "numeric_validation_status": "success",
@@ -253,10 +251,10 @@
     "unreconciled_corporate_action_count": 1,
     "unreconciled_ticker_count": 1,
     "unavailable_ticker_count": 0,
-    "total_ticker_count": 2593,
-    "reconciled_ticker_count": 2592,
+    "total_ticker_count": 2548,
+    "reconciled_ticker_count": 2547,
     "unavailable_ratio": 0.0,
-    "unreconciled_ratio": 0.0003856536829926726,
+    "unreconciled_ratio": 0.0003924646781789639,
     "configured_thresholds": {
       "max_unavailable_ratio": 0.05,
       "max_unreconciled_ratio": 0.02,
@@ -1661,6 +1659,46 @@
         "auto_adjust_requested": false
       },
       {
+        "ticker": "MOD",
+        "status": "reconciled",
+        "reasons": [],
+        "detected_count": 1,
+        "reconciled_count": 1,
+        "unreconciled_count": 0,
+        "action_details": [
+          {
+            "date": "2026-10-02 00:00:00",
+            "action_type": "split",
+            "close_before": 189.2100067138672,
+            "close_after": 178.1999969482422,
+            "observed_factor": 0.941810636990913,
+            "raw_close_before": 189.2100067138672,
+            "raw_close_after": 178.1999969482422,
+            "reconstructed_close_before": 174.2265255192147,
+            "reconstructed_close_after": 178.1999969482422,
+            "selected_trading_dates": [
+              "2026-10-01 00:00:00",
+              "2026-10-02 00:00:00"
+            ],
+            "auto_adjust_requested": false,
+            "auto_adjust_observed": false,
+            "adj_close_available": true,
+            "declared_split_ratio": 1.086,
+            "distribution_amount": null,
+            "source_price_basis": "raw_unadjusted",
+            "expected_factor": 0.9208103130755064,
+            "expected_raw_factor": 0.9208103130755064,
+            "reconciliation_method": "observed_factor_basis_classification",
+            "classification_reason": "observed_jump_matches_inverse_split_ratio",
+            "status": "reconciled"
+          }
+        ],
+        "source_price_basis": [
+          "raw_unadjusted"
+        ],
+        "auto_adjust_requested": false
+      },
+      {
         "ticker": "MQ",
         "status": "reconciled",
         "reasons": [],
@@ -2678,46 +2716,6 @@
         "auto_adjust_requested": false
       },
       {
-        "ticker": "WLFC",
-        "status": "reconciled",
-        "reasons": [],
-        "detected_count": 1,
-        "reconciled_count": 1,
-        "unreconciled_count": 0,
-        "action_details": [
-          {
-            "date": "2026-07-21 00:00:00",
-            "action_type": "split",
-            "close_before": 63.119998931884766,
-            "close_after": 65.3499984741211,
-            "observed_factor": 1.0353295243975338,
-            "raw_close_before": 63.119998931884766,
-            "raw_close_after": 65.3499984741211,
-            "reconstructed_close_before": 63.119998931884766,
-            "reconstructed_close_after": 65.3499984741211,
-            "selected_trading_dates": [
-              "2026-07-20 00:00:00",
-              "2026-07-21 00:00:00"
-            ],
-            "auto_adjust_requested": false,
-            "auto_adjust_observed": false,
-            "adj_close_available": true,
-            "declared_split_ratio": 3.0,
-            "distribution_amount": null,
-            "source_price_basis": "split_adjusted",
-            "expected_factor": 0.3333333333333333,
-            "expected_raw_factor": 0.3333333333333333,
-            "reconciliation_method": "observed_factor_basis_classification",
-            "classification_reason": "close_continuous_across_declared_split",
-            "status": "reconciled"
-          }
-        ],
-        "source_price_basis": [
-          "split_adjusted"
-        ],
-        "auto_adjust_requested": false
-      },
-      {
         "ticker": "XLB",
         "status": "reconciled",
         "reasons": [],
@@ -2974,9 +2972,9 @@
   "config_version": "2026-07-schema-2.0",
   "config_hash": "ea3f00434f192ce01e61be1dac7dca7e60985abdd04492bfd48674f8f8efcfda",
   "snapshot_manifest": "manifest.json",
-  "market_data_cutoff_at": "2026-10-29T20:00:00+00:00",
+  "market_data_cutoff_at": "2026-10-30T20:00:00+00:00",
   "timezone": "America/New_York",
-  "first_tradable_at": "2026-10-30T13:30:00+00:00",
+  "first_tradable_at": "2026-11-02T14:30:00+00:00",
   "entry_price_status": "pending",
   "entry_price_type": "next_session_open",
   "entry_policy": "next_session_open_after_information_cutoff",
