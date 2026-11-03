@@ -1,8 +1,8 @@
 {
   "manifest_schema_version": "2.0",
-  "snapshot_id": "snap_e85a7516dae48e789d0c95d663573b1b32e0b4373c2d4437e2f6286eabf19f24",
-  "generation_id": "gen_07cb0fcf0bb881d4d0cc0b03f52671f92c105a8c20547d4aedac06d56943c640",
-  "snapshot_path": "generations/2026-10-30/gen_07cb0fcf0bb881d4d0cc0b03f52671f92c105a8c20547d4aedac06d56943c640/snapshot.json",
-  "snapshot_sha256": "2fe64d216762b5abb62e636de7938748a1adbb61ca6c8271237bec23b0a00692",
-  "updated_at": "2026-10-31T01:52:13+00:00"
+  "snapshot_id": "snap_3087594874a30f4b389f3cda3c60eb7f4d8d11b27349135b61e0c28539e753c8",
+  "generation_id": "gen_75e48f595cde4e9f1f297dad0bc8c5d27a43ccc05430bf40c92fd21f06f25dd7",
+  "snapshot_path": "generations/2026-11-02/gen_75e48f595cde4e9f1f297dad0bc8c5d27a43ccc05430bf40c92fd21f06f25dd7/snapshot.json",
+  "snapshot_sha256": "66e119935351fb8ba3edc865127d1bcf76ab911f8881fe04d62f628550486ada",
+  "updated_at": "2026-11-03T03:46:24+00:00"
 }
