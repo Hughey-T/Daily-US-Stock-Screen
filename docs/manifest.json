@@ -1,8 +1,8 @@
 {
   "manifest_schema_version": "2.0",
-  "snapshot_id": "snap_c2fcd2c617b9526306885d2967ee1dd2f41a5d72ee48d25766a295bddec0429a",
-  "generation_id": "gen_f3928412be0fe6f0cbfddb5d61ba1aa2ef2e973e01c198cc9aed1c643873a7ee",
-  "snapshot_path": "generations/2026-11-09/gen_f3928412be0fe6f0cbfddb5d61ba1aa2ef2e973e01c198cc9aed1c643873a7ee/snapshot.json",
-  "snapshot_sha256": "c16c26bbd42aa1f3d3f484575d98684f9899ee4d57e3fe0401f208e2074e6b5c",
-  "updated_at": "2026-11-10T04:22:07+00:00"
+  "snapshot_id": "snap_7d3b1f4cd6ffd4e8a9e8c7e7ce0a4c0169ce9748c0b0a1914543d4cf05c66757",
+  "generation_id": "gen_27ce6b0a61c74d0bc2ed061e4b78d88e95ee2871833619e7f84cee2a4cbdd300",
+  "snapshot_path": "generations/2026-11-11/gen_27ce6b0a61c74d0bc2ed061e4b78d88e95ee2871833619e7f84cee2a4cbdd300/snapshot.json",
+  "snapshot_sha256": "9c5d1555e60e7d34f6e021a18ea4d233e71f7fe446deea1c896a9cda10131350",
+  "updated_at": "2026-11-12T03:24:06+00:00"
 }
