@@ -336,6 +336,14 @@
       "source_snapshot_id": "snap_7d3b1f4cd6ffd4e8a9e8c7e7ce0a4c0169ce9748c0b0a1914543d4cf05c66757",
       "record_count": 21,
       "created_at": "2026-11-12T21:49:38.651046+00:00"
+    },
+    "gen_edd9282d586f8cbaf7f4586c370fa349a7dfb441aabc2d411d9afb541dd32fb4": {
+      "path": "docs/entry-resolutions/gen_edd9282d586f8cbaf7f4586c370fa349a7dfb441aabc2d411d9afb541dd32fb4/entry_46889aac3363eded4588dfeb4d129768d9f847cd23f2f9826396a7b03798cb4f.json",
+      "sha256": "efad559f4f86bfb883c3ba313aed24040be92ee32bb0932073e157ab0414d6c0",
+      "entry_resolution_id": "entry_46889aac3363eded4588dfeb4d129768d9f847cd23f2f9826396a7b03798cb4f",
+      "source_snapshot_id": "snap_f07f5b68ab78ed2d3129146e33d2d083aa8547ceb8e03388185f4c1ae338fdd0",
+      "record_count": 21,
+      "created_at": "2026-11-13T21:24:36.905252+00:00"
     }
   }
 }
