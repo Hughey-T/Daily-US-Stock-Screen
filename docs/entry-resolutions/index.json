@@ -360,6 +360,14 @@
       "source_snapshot_id": "snap_6fb5186aff1b14f07d4819be86075d8126331457dc008dc39439a9f0cf7f36ea",
       "record_count": 21,
       "created_at": "2026-11-17T22:51:50.730907+00:00"
+    },
+    "gen_33e9251d87921cc5d83470d61e23ab9135cdc0fa5ff5670649fe9038a2232678": {
+      "path": "docs/entry-resolutions/gen_33e9251d87921cc5d83470d61e23ab9135cdc0fa5ff5670649fe9038a2232678/entry_28981df8d2dfed67db236731f6b1bf418c4bdf63f2ef00beca9020b658b7e368.json",
+      "sha256": "8cfce26237384e98dad66c0588d35cc10aa3445eae3bdd264c394a31b72f9a14",
+      "entry_resolution_id": "entry_28981df8d2dfed67db236731f6b1bf418c4bdf63f2ef00beca9020b658b7e368",
+      "source_snapshot_id": "snap_5fe1427cfda3b01ee5f3b731e903910ca2f275357062ae3103880737449d15eb",
+      "record_count": 23,
+      "created_at": "2026-11-18T22:34:22.410107+00:00"
     }
   }
 }
