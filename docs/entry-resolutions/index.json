@@ -400,6 +400,14 @@
       "source_snapshot_id": "snap_2cf87b3dfd361c7c0a89a36138edf4a1c2a3802e8ba64ad052e865d7e92809ed",
       "record_count": 22,
       "created_at": "2026-11-25T23:35:50.427646+00:00"
+    },
+    "gen_d80f59e0580eb8d368d842298c854092ec80b79950fb76cb9ee1c4d7a44dbc0e": {
+      "path": "docs/entry-resolutions/gen_d80f59e0580eb8d368d842298c854092ec80b79950fb76cb9ee1c4d7a44dbc0e/entry_83694bf50871836e487900d63f1f52d75e4e439994087158d13e6a8120fac875.json",
+      "sha256": "09fd96de29d2839fb72cb6e02931f36b07f37f83e9fb757c3f3c97de42eb15f4",
+      "entry_resolution_id": "entry_83694bf50871836e487900d63f1f52d75e4e439994087158d13e6a8120fac875",
+      "source_snapshot_id": "snap_45fa5b808656e8d4e770ce0aea0036d2928432f6d4b2dc667a3a08417a252a16",
+      "record_count": 22,
+      "created_at": "2026-11-26T23:48:04.935355+00:00"
     }
   }
 }
